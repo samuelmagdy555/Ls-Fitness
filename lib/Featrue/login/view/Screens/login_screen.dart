@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
 import '../../../onboarding/View/Widget/colors.dart';
 
 class LoginView extends StatefulWidget {
@@ -103,7 +104,7 @@ class _LoginViewState extends State<LoginView> {
             text: "Login",
             backgroundColor: kFirstColor,
             onPressed: () {
-              // Get.to(() => LoginPage());
+              Get.to(() => MainGoalPage());
             },
           ),
           const SizedBox(height: 10),
