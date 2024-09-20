@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/login/view/Screens/login_screen.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Screens/Onboarding_Screen.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Widget/Text.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Widget/components.dart';
+
+import '../Widget/Text.dart';
+import '../Widget/components.dart';
+import 'Onboarding_Screen.dart';
 
 
 class welcomePage extends StatefulWidget {

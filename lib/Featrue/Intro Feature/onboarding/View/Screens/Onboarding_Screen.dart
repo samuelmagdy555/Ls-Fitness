@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/Register/view/Screens/Register_Screen.dart';
-import '../../../login/view/Screens/login_screen.dart';
+import '../../../../Auth Feature/Register/view/Screens/Register_Screen.dart';
+import '../../../../Auth Feature/login/view/Screens/login_screen.dart';
 import '../Widget/colors.dart';
 
 class WelcomeView extends StatelessWidget {

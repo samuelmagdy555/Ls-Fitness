@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View/Screens/OTPScreen/OTPScreen.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
-import '../../../../onboarding/View/Widget/colors.dart';
+
+import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
+import '../OTPScreen/OTPScreen.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});

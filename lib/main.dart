@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
-import 'package:lsfitness/Featrue/Register/view_model/regester_cubit.dart';
-import 'package:lsfitness/Featrue/login/view_mode/login_cubit.dart';
 
-import 'Featrue/Splash/View/Splash_Screen.dart';
+import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
+import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
+import 'Featrue/Auth Feature/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
+import 'Featrue/Auth Feature/Register/view_model/regester_cubit.dart';
+import 'Featrue/Auth Feature/login/view_mode/login_cubit.dart';
+import 'Featrue/Intro Feature/Splash/View/Splash_Screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

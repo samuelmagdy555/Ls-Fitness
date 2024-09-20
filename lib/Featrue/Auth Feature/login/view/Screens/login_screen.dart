@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View/Screens/ForgetPasswordScreen/ForgetPassword_Screen.dart';
 import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
-import 'package:lsfitness/Featrue/login/view_mode/login_cubit.dart';
-import '../../../onboarding/View/Widget/colors.dart';
+import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../ForgetPassword/View/Screens/ForgetPasswordScreen/ForgetPassword_Screen.dart';
+import '../../view_mode/login_cubit.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -17,7 +17,6 @@ class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isPasswordVisible = false;
 
-  // Controllers for form inputs
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 

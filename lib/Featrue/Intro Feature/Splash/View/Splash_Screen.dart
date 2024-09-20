@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Screens/Onboarding1_screen.dart';
+import '../../onboarding/View/Screens/Onboarding1_screen.dart';
 import '../../onboarding/View/Screens/Onboarding_Screen.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Widget/colors.dart';
+
+import '../../Intro Feature/onboarding/View/Widget/colors.dart';
 
 class AgeSelectionPage extends StatefulWidget {
   @override

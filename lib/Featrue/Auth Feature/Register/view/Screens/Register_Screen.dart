@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/Register/view_model/regester_cubit.dart';
 import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
-import 'package:lsfitness/Featrue/login/view/Screens/login_screen.dart';
-import 'package:lsfitness/Featrue/onboarding/View/Widget/colors.dart';
+
+import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../login/view/Screens/login_screen.dart';
+import '../../view_model/regester_cubit.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});

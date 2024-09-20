@@ -1,11 +1,11 @@
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
-import 'package:lsfitness/Featrue/Register/model/Register_model.dart';
 import 'package:meta/meta.dart';
+
+import '../model/Register_model.dart';
 
 part 'regester_state.dart';
 

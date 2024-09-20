@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
-import 'package:lsfitness/Featrue/login/model/LoginModel.dart';
 import 'package:meta/meta.dart';
+
+import '../model/LoginModel.dart';
 
 part 'login_state.dart';
 

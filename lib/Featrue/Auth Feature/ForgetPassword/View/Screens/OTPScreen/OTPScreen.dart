@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View/Screens/NewPasswordScreen/Newpassword_Screen.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
-import 'package:lsfitness/Featrue/login/view/Screens/login_screen.dart';
-import '../../../../onboarding/View/Widget/colors.dart';
+
+import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
+import '../../../View_model/OTPScree_Cubit/otp_cubit.dart';
+import '../NewPasswordScreen/Newpassword_Screen.dart';
 
 class SenOTPScreen extends StatefulWidget {
   final String email;

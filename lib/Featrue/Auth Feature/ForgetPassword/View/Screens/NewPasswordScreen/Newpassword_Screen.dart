@@ -2,9 +2,10 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
-import 'package:lsfitness/Featrue/login/view/Screens/login_screen.dart';
-import '../../../../onboarding/View/Widget/colors.dart';
+
+import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../../login/view/Screens/login_screen.dart';
+import '../../../View_model/NewPassword_cubit/new_password_cubit.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   final String email;
