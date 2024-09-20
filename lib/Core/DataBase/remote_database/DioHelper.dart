@@ -1,0 +1,110 @@
+
+import 'package:dio/dio.dart';
+import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
+import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+class DioHelper{
+  static late Dio dio;
+
+
+  static init(){
+    dio = Dio(
+        BaseOptions(
+            baseUrl: EndPoints.baseUrL,
+        )
+    );
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+        filter: (options, args){
+          // don't print requests with uris containing '/posts'
+          if(options.path.contains('/posts')){
+            return false;
+          }
+          // don't print responses with unit8 list data
+          return !args.isResponse || !args.hasUint8ListData;
+        }
+    ));
+  }
+
+
+  static Future<Response> PostData ({
+    required String end_point,
+    Map<String, dynamic>? query,
+    Map<String, dynamic>? data,
+    String? token,
+
+  }) async
+  {
+    dio.options.headers= {
+      "Content-Type":"application/json",
+      "Accept":"application/json",
+      'Authorization':'Bear $token',
+    };
+
+    return await dio.post(
+        end_point,
+        data: data,
+        queryParameters: query
+    );
+
+  }
+  static Future<Response> postRegister({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'multipart/form-data',
+    };
+
+    return await dio.post(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> postForgetPassword({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async{
+    dio.options.headers={
+      'Accept': '*/*',
+      'Connection': 'keep-alive',
+    };
+    return await dio.post(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> post({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.post(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+
+}

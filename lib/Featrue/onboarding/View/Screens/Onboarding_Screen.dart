@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/Register/view/Screens/Register_Screen.dart';
 import '../../../login/view/Screens/login_screen.dart';
 import '../Widget/colors.dart';
 
@@ -59,7 +60,7 @@ class WelcomeView extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   TextButton(
-                    onPressed: () => Get.to(const LoginView()),
+                    onPressed: () => Get.to(const RegisterView()),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),

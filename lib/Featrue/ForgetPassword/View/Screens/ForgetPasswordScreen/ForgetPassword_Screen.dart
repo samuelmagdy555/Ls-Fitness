@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/ForgetPassword/View/Screens/ForgetPasswordScreen/ForgetPassword_Screen.dart';
+import 'package:lsfitness/Featrue/ForgetPassword/View/Screens/OTPScreen/OTPScreen.dart';
+import 'package:lsfitness/Featrue/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
-import 'package:lsfitness/Featrue/login/view_mode/login_cubit.dart';
-import '../../../onboarding/View/Widget/colors.dart';
+import '../../../../onboarding/View/Widget/colors.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isPasswordVisible = false;
 
   // Controllers for form inputs
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -45,60 +43,7 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   _buildLoginForm(),
                   const SizedBox(height: 15),
-                  _buildForgetButton(),
-                  const SizedBox(height: 15),
-                  BlocConsumer<LoginCubit,LoginState>(
-                      listener: (context, state) {
-                        if (state is LoginSuccessState){
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>  MainGoalPage()),
-                                  (Route<dynamic> route) => false);
-                          ScaffoldMessenger.of(context).
-                          showSnackBar(
-                            SnackBar(content: Text('Successfully logged in')),
-                          );
-                        }  if (state is LoginErrorState){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Incorrect email or password'))
-                          );
-                        }
-                      },
-                    builder:(context,state) {
-                        var cubit = LoginCubit.get(context);
-                       return Center(
-                          child: GestureDetector(
-                            onTap: () async {
-                              await cubit.userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text);
-                            },
-                            child: Container(
-                              height: 50,
-                              width: screenWidth * 0.7,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: kFirstColor,
-                              ),
-                              child:  Center(
-                                child : state is LoginLoadingState
-                                    ? const CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
-                                : Text(
-                                  "Login",
-                                  style: TextStyle(color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                    },
-
-
-                      ),
-
+                  _buildActionButtons(screenWidth),
                 ],
               ),
             ),
@@ -107,21 +52,6 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-
-  Widget _buildForgetButton() {
-    return Center(
-      child: GestureDetector(
-        onTap: () {
-          Get.to(() => ForgetPasswordScreen());
-        },
-        child: const Text(
-          "Forget Password?",
-          style: TextStyle(color: Colors.white, fontSize: 20),
-        ),
-      ),
-    );
-  }
-
   Widget _buildLoginForm() {
     return Form(
       key: _formKey,
@@ -130,9 +60,7 @@ class _LoginViewState extends State<LoginView> {
         children: [
           _buildInputLabel("Email"),
           _buildEmailField(),
-          const SizedBox(height: 20),
-          _buildInputLabel("Password"),
-          _buildPasswordField(),
+
         ],
       ),
     );
@@ -171,40 +99,87 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget _buildPasswordField() {
-    return TextFormField(
-      controller: passwordController,
-      obscureText: !_isPasswordVisible,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        hintText: "*******",
-        hintStyle: const TextStyle(color: Colors.white),
-        suffixIcon: IconButton(
-          icon: Icon(
-            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-            color: Colors.white,
+  Widget _buildActionButtons(double screenWidth) {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          BlocConsumer<ForgetPasswordCubit,ForgetPasswordState>
+            (
+              listener: (context,state) {
+                if (state is ForgetPasswordSuccess){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context)=> SenOTPScreen(email : emailController.text)));
+                }
+              },
+            builder: (context, state) {
+             return GestureDetector(
+               onTap: () async {
+                 if ( emailController.text.isNotEmpty){
+                   await ForgetPasswordCubit.get(context)
+                       .forgetPassword(email: emailController.text);
+                 } else {
+                   ScaffoldMessenger(
+                     child: Text('Email is Required'),
+                   );
+                 }
+               },
+               child: Container(
+                 height: 50,
+                 width: screenWidth * 0.7,
+                 decoration: BoxDecoration(
+                   color: kFirstColor,
+                 ),
+                 child: Center(
+                   child: state is ForgetPasswordLoading
+                   ? const CircularProgressIndicator(
+                   color: Colors.white,
+                 )
+                   : Text('Next',
+                     style: TextStyle(
+                       color: Colors.white
+                     ),
+                   )
+                 ),
+
+               ),
+                // text: "Next",
+                // backgroundColor: kFirstColor,
+                //
+                // screenWidth: screenWidth,
+              );
+            },
+
           ),
-          onPressed: () {
-            setState(() {
-              _isPasswordVisible = !_isPasswordVisible;
-            });
-          },
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required String text,
+    required VoidCallback onPressed,
+    Color? backgroundColor,
+    double? screenWidth,
+  }) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Container(
+        height: 50,
+        width: screenWidth! * 0.7,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: backgroundColor,
         ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 20),
+          ),
         ),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your password';
-        } else if (value.length < 6) {
-          return 'Password must be at least 6 characters';
-        }
-        return null;
-      },
     );
   }
 
@@ -247,7 +222,7 @@ class _LoginViewState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Sign In",
+                    "Forget Password",
                     style: TextStyle(
                       fontSize: 40,
                       color: Colors.white,
@@ -256,7 +231,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Train and live the new experience of exercising at home",
+                    "Enter Your Email To send An OTP To You",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
@@ -273,7 +248,7 @@ class _LoginViewState extends State<LoginView> {
       height: screenHeight * 0.55,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/17.jpg"),
+          image: AssetImage("assets/images/12.jpg"),
           fit: BoxFit.cover,
         ),
       ),

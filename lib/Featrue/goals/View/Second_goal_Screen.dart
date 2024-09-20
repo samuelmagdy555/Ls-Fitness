@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/goals/View/third_goal_Screen.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
+import 'package:lsfitness/Featrue/onboarding/View/Widget/colors.dart';
 
 class MotivationSelectionScreen extends StatefulWidget {
   @override
@@ -7,7 +9,6 @@ class MotivationSelectionScreen extends StatefulWidget {
 }
 
 class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
-  // قائمة الخيارات المتاحة
   final List<Map<String, dynamic>> motivations = [
     {'text': 'Improving Health', 'icon': Icons.favorite},
     {'text': 'Boosting Immune System', 'icon': Icons.shield},
@@ -16,7 +17,6 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
     {'text': 'Boosting Libido', 'icon': Icons.heart_broken},
   ];
 
-  // قائمة تحتوي على الخيارات التي تم اختيارها
   List<String> selectedMotivations = [];
 
   @override
@@ -25,13 +25,15 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: kThirdColor,
+
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
               child: ProgressIndicatorWidget(
                 currentStep: 2,
                 totalSteps: 6,
@@ -40,7 +42,7 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
             SizedBox(height: screenHeight * 0.03),
             Text(
               "What motivates you to exercise?",
-              style: TextStyle(fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold,color: Colors.white),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: screenHeight * 0.03),
@@ -65,7 +67,7 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
                       child: Container(
                         padding: EdgeInsets.all(screenWidth * 0.04),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
+                          border: Border.all(color: Colors.white),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -74,18 +76,20 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
 
                             Row(
                               children: [
-                                Icon(motivations[index]['icon'], color: Colors.black),
+                                Icon(motivations[index]['icon'], color: Colors.white),
                                 SizedBox(width: screenWidth * 0.03),
                                 Text(
                                   motivations[index]['text'],
-                                  style: TextStyle(fontSize: screenWidth * 0.043),
+                                  style: TextStyle(fontSize: screenWidth * 0.043,
+                                      color: Colors.white
+                                  ),
                                 ),
                               ],
                             ),
 
                             selectedMotivations.contains(motivations[index]['text'])
-                                ? Icon(Icons.check_circle, color: Colors.black)
-                                : Icon(Icons.circle_outlined, color: Colors.black),
+                                ? Icon(Icons.check_circle, color: Colors.white)
+                                : Icon(Icons.circle_outlined, color: Colors.white),
                           ],
                         ),
                       ),
@@ -103,20 +107,17 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NextScreen(
-                      selectedGoals: selectedMotivations,
-                      currentStep: 3,
-                    ),
+                    builder: (context) => BodySelectionScreen(),
                   ),
                 );
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02, horizontal: screenWidth * 0.3),
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
               ),
               child: Text(
                 'CONTINUE',
-                style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.white),
+                style: TextStyle(fontSize: screenWidth * 0.05, color: Colors.grey),
               ),
             ),
             SizedBox(height: screenHeight * 0.02),
@@ -138,7 +139,9 @@ class NextScreen extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Selected Goals"),
+        title: Text("Selected Goals",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Column(
         children: [

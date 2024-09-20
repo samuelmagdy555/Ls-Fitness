@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/goals/View/Second_goal_Screen.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
+import 'package:lsfitness/Featrue/onboarding/View/Widget/colors.dart';
 
 
 class MainGoalPage extends StatefulWidget {
@@ -17,7 +18,8 @@ class _MainGoalPageState extends State<MainGoalPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xFFF6F6F6),
+      backgroundColor: kThirdColor,
+
       body: SafeArea(
         child: Column(
           children: [
