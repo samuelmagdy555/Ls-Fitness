@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/goals/View/HeightSelection.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
 
 import '../../Intro Feature/onboarding/View/Widget/colors.dart';
@@ -31,7 +33,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                   padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
                   child: ProgressIndicatorWidget(
                     currentStep: 5,
-                    totalSteps: 6,
+                    totalSteps: 10,
                   ),
                 ),
               ],
@@ -103,8 +105,12 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                // Perform action on continue
-              },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HeightSelectionPage(),
+                  ),
+                );              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(

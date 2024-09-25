@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/goals/View/Second_goal_Screen.dart';
+import 'package:lsfitness/Featrue/goals/View/injuries.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
 import '../../Intro Feature/onboarding/View/Widget/colors.dart';
 
-
-class MainGoalPage extends StatefulWidget {
+class DietsPage extends StatefulWidget {
   @override
-  _MainGoalPageState createState() => _MainGoalPageState();
+  _DietsPageState createState() => _DietsPageState();
 }
 
-class _MainGoalPageState extends State<MainGoalPage> {
+class _DietsPageState extends State<DietsPage> {
   String selectedGoal = '';
 
   @override
@@ -19,81 +19,68 @@ class _MainGoalPageState extends State<MainGoalPage> {
 
     return Scaffold(
       backgroundColor: kThirdColor,
-
       body: SafeArea(
         child: Column(
           children: [
-
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
               child: ProgressIndicatorWidget(
-                currentStep: 1,
+                currentStep: 9,
                 totalSteps: 10,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
-
-
-            Text(
-              "What’s your main goal?",
-              style: TextStyle(
-                fontSize: screenWidth * 0.06,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Text(
+                "Do you follow any of \n  these diets?",
+                style: TextStyle(
+                  fontSize: screenWidth * 0.06,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
-
-
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-              padding: EdgeInsets.all(screenWidth * 0.04),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(screenWidth * 0.03),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
-                  SizedBox(width: screenWidth * 0.03),
-                  Expanded(
-                    child: Text(
-                      "We’ll tailor the best blend of strength and cardio training to align with your goal.",
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: screenWidth * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight * 0.05),
-
-
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 children: [
                   buildGoalOption(
                     context,
-                    'assets/images/goal1.png',
-                    'Lose Weight',
+                    'No Dietary Restrictions',
+                    'assets/images/problem_9000296-removebg-preview.png',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/goal2.png',
-                    'Build Muscle',
+                    'Vegetation',
+                    'assets/images/carrot_2524601.png',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/gaol3.png',
-                    'Keep Fit',
+                    'Vegan',
+                    'assets/images/vegan_5579100.png',
+                    screenWidth,
+                    screenHeight,
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+                  buildGoalOption(
+                    context,
+                    'Keto',
+                    'assets/images/avocado_4376702.png',
+                    screenWidth,
+                    screenHeight,
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+                  buildGoalOption(
+                    context,
+                    'Other',
+                    'assets/images/other_6874038.png',
                     screenWidth,
                     screenHeight,
                   ),
@@ -106,8 +93,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
     );
   }
 
-
-  Widget buildGoalOption(BuildContext context, String imagePath, String title, double screenWidth, double screenHeight) {
+  Widget buildGoalOption(BuildContext context, String title, String imagePath, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -117,7 +103,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MotivationSelectionScreen(),
+            builder: (context) => InjuriesRecently(),
           ),
         );
       },
@@ -132,6 +118,15 @@ class _MainGoalPageState extends State<MainGoalPage> {
         ),
         child: Row(
           children: [
+            Padding(
+              padding: EdgeInsets.all(screenWidth * 0.04),
+              child: Image.asset(
+                imagePath,
+                color: selectedGoal == title ? Colors.blue : Colors.grey,
+                width: screenWidth * 0.07,
+                height: screenWidth * 0.06,
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(screenWidth * 0.04),
@@ -144,23 +139,9 @@ class _MainGoalPageState extends State<MainGoalPage> {
                 ),
               ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(screenWidth * 0.03),
-                bottomRight: Radius.circular(screenWidth * 0.03),
-              ),
-              child: Image.asset(
-                imagePath,
-                width: screenWidth * 0.25,
-                height: screenWidth * 0.25,
-                fit: BoxFit.cover,
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 }
-
-

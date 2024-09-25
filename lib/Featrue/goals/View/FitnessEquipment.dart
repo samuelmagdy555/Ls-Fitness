@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/goals/View/End.dart';
 import 'package:lsfitness/Featrue/goals/View/Second_goal_Screen.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
 import '../../Intro Feature/onboarding/View/Widget/colors.dart';
 
 
-class MainGoalPage extends StatefulWidget {
+class FitnessEquipmentPage extends StatefulWidget {
   @override
-  _MainGoalPageState createState() => _MainGoalPageState();
+  _FitnessEquipmentPageState createState() => _FitnessEquipmentPageState();
 }
 
-class _MainGoalPageState extends State<MainGoalPage> {
+class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
   String selectedGoal = '';
 
   @override
@@ -35,38 +36,17 @@ class _MainGoalPageState extends State<MainGoalPage> {
 
 
             Text(
-              "What’s your main goal?",
+              "What fitness equipment \n         can you use?",
               style: TextStyle(
-                fontSize: screenWidth * 0.06,
-                fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.06,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
               ),
             ),
-            SizedBox(height: screenHeight * 0.03),
 
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-              padding: EdgeInsets.all(screenWidth * 0.04),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(screenWidth * 0.03),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
-                  SizedBox(width: screenWidth * 0.03),
-                  Expanded(
-                    child: Text(
-                      "We’ll tailor the best blend of strength and cardio training to align with your goal.",
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: screenWidth * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
+
             SizedBox(height: screenHeight * 0.05),
 
 
@@ -76,24 +56,24 @@ class _MainGoalPageState extends State<MainGoalPage> {
                 children: [
                   buildGoalOption(
                     context,
-                    'assets/images/goal1.png',
-                    'Lose Weight',
+                    'assets/images/beginner.jpg',
+                    'No equipment',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/goal2.png',
-                    'Build Muscle',
+                    'assets/images/equimpent.png',
+                    'Portable equipment',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/gaol3.png',
-                    'Keep Fit',
+                    'assets/images/GymEquipment.png',
+                    'Gym equipment',
                     screenWidth,
                     screenHeight,
                   ),
@@ -117,7 +97,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MotivationSelectionScreen(),
+            builder: (context) => ThankYouPage(),
           ),
         );
       },
@@ -151,7 +131,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
               ),
               child: Image.asset(
                 imagePath,
-                width: screenWidth * 0.25,
+                width: screenWidth * 0.30,
                 height: screenWidth * 0.25,
                 fit: BoxFit.cover,
               ),

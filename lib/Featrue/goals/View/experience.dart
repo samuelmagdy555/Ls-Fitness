@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/goals/View/Diets.dart';
 import 'package:lsfitness/Featrue/goals/View/Second_goal_Screen.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
 import '../../Intro Feature/onboarding/View/Widget/colors.dart';
 
 
-class MainGoalPage extends StatefulWidget {
+class ExperiencePage extends StatefulWidget {
   @override
-  _MainGoalPageState createState() => _MainGoalPageState();
+  _ExperiencePageState createState() => _ExperiencePageState();
 }
 
-class _MainGoalPageState extends State<MainGoalPage> {
+class _ExperiencePageState extends State<ExperiencePage> {
   String selectedGoal = '';
 
   @override
@@ -27,76 +28,61 @@ class _MainGoalPageState extends State<MainGoalPage> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
               child: ProgressIndicatorWidget(
-                currentStep: 1,
+                currentStep: 8,
                 totalSteps: 10,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
 
 
-            Text(
-              "What’s your main goal?",
-              style: TextStyle(
-                fontSize: screenWidth * 0.06,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Text(
+                "Do you experience any of \n    the following issues?",
+                style: TextStyle(
+                  fontSize: screenWidth * 0.06,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
 
-
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-              padding: EdgeInsets.all(screenWidth * 0.04),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(screenWidth * 0.03),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
-                  SizedBox(width: screenWidth * 0.03),
-                  Expanded(
-                    child: Text(
-                      "We’ll tailor the best blend of strength and cardio training to align with your goal.",
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: screenWidth * 0.045,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: screenHeight * 0.05),
-
-
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
                 children: [
                   buildGoalOption(
                     context,
-                    'assets/images/goal1.png',
-                    'Lose Weight',
+                    'assets/images/Prolonged.png',
+                    'Prolonged sitting',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/goal2.png',
-                    'Build Muscle',
+                    'assets/images/Sleep.png',
+                    'Poor sleep quality',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/gaol3.png',
-                    'Keep Fit',
+                    'assets/images/Diet.png',
+                    'Dietary issues',
                     screenWidth,
                     screenHeight,
                   ),
+                  SizedBox(height: screenHeight * 0.04),
+                  buildGoalOption(
+                    context,
+                    'assets/images/healthy.png',
+                    'None, Iam healthy! ',
+                    screenWidth,
+                    screenHeight,
+                  ),
+
                 ],
               ),
             ),
@@ -117,7 +103,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MotivationSelectionScreen(),
+            builder: (context) => DietsPage(),
           ),
         );
       },

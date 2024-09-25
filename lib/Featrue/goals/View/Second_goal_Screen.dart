@@ -36,7 +36,7 @@ class _MotivationSelectionScreenState extends State<MotivationSelectionScreen> {
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
               child: ProgressIndicatorWidget(
                 currentStep: 2,
-                totalSteps: 6,
+                totalSteps: 10,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),

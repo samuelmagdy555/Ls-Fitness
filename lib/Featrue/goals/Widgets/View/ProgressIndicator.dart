@@ -16,7 +16,7 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget> with 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 400));
   }
 
   @override
@@ -33,33 +33,26 @@ class _ProgressIndicatorWidgetState extends State<ProgressIndicatorWidget> with 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(widget.totalSteps, (index) {
+        bool isActive = index < widget.currentStep;
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
           child: AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            width: screenWidth * 0.12,
+            duration: Duration(milliseconds: 400),
+            curve: Curves.easeInOut,
+            width: screenWidth * 0.07,
             height: screenHeight * 0.015,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: index < widget.currentStep
-                  ? LinearGradient(
-                colors: [Colors.yellow, Colors.orange],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )
-                  : LinearGradient(
-                colors: [Colors.grey.shade300, Colors.grey.shade400],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              boxShadow: [
-                if (index < widget.currentStep)
-                  BoxShadow(
-                    color: Colors.yellow.withOpacity(0.5),
-                    blurRadius: 8,
-                    offset: Offset(0, 3),
-                  ),
-              ],
+              borderRadius: BorderRadius.circular(8),
+              color: isActive ? Colors.orangeAccent : Colors.grey.shade300,
+              boxShadow: isActive
+                  ? [
+                BoxShadow(
+                  color: Colors.orangeAccent.withOpacity(0.4),
+                  blurRadius: 6,
+                  offset: Offset(0, 2),
+                ),
+              ]
+                  : [],
             ),
           ),
         );

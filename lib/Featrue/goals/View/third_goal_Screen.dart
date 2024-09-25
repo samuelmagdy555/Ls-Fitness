@@ -28,7 +28,7 @@ class _BodySelectionScreenState extends State<BodySelectionScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenHeight * 0.02),
             child: SingleChildScrollView( // Added SingleChildScrollView to prevent overflow
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +38,7 @@ class _BodySelectionScreenState extends State<BodySelectionScreen> {
                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
                     child: ProgressIndicatorWidget(
                       currentStep: 3,
-                      totalSteps: 6,
+                      totalSteps: 10,
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.03),

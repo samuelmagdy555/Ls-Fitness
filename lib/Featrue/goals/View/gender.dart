@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/goals/View/AgeSelection.dart';
 import 'package:lsfitness/Featrue/goals/Widgets/View/ProgressIndicator.dart';
-import '../../Intro Feature/onboarding/View/Widget/colors.dart';
 
 class Gender extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _GenderState extends State<Gender> {
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
               child: ProgressIndicatorWidget(
                 currentStep: 4,
-                totalSteps: 6,
+                totalSteps: 10,
               ),
             ),
             Text(
