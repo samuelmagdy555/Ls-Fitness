@@ -106,5 +106,22 @@ class DioHelper{
     );
   }
 
+  static Future<Response> get({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.get(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
 
 }

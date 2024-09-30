@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
+import 'package:lsfitness/Featrue/Profile/view_model/profile_cubit.dart';
 
 
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ForgetPasswordCubit()),
         BlocProvider(create: (context) => OtpCubit()),
-        BlocProvider(create: (context)=> NewPasswordCubit())
+        BlocProvider(create: (context)=> NewPasswordCubit()),
+        BlocProvider(create: (context)=> ProfileCubit())
+
       ],
 
       child: GetMaterialApp(

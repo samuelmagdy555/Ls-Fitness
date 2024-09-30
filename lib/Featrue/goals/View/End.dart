@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Home/TryHome.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 
 class ThankYouPage extends StatefulWidget {
   @override
@@ -76,7 +77,7 @@ class _ThankYouPageState extends State<ThankYouPage>
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeView(),
+                      builder: (context) => MainLayout(),
                     ),
                   );
                 },

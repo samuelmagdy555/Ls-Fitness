@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
   static bool isVerified = false;
 
   static LoginCubit get(context)=> BlocProvider.of(context);
-  LoginModel? loginModel;
+  static LoginModel? loginModel;
    Future<void>  userLogin({
     required String email,
     required String password,

@@ -63,22 +63,6 @@ class _GenderState extends State<Gender> {
               ],
             ),
             SizedBox(height: screenHeight * 0.10),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedGender = "Prefer not to say";
-                });
-              },
-              child: Text(
-                "Prefer not to say",
-                style: TextStyle(
-                  fontSize: screenWidth * 0.05,
-                  color: selectedGender == "Prefer not to say"
-                      ? Colors.white
-                      : Colors.white,
-                ),
-              ),
-            ),
             Spacer(),
             ElevatedButton(
               onPressed: selectedGender != null
