@@ -53,9 +53,8 @@ class _MainLayoutState extends State<MainLayout> {
 
           }
           if(i==4){
-            if(LoginCubit.loginModel != null ||LoginCubit.token != ''){
               ProfileCubit.get(context).myProfile();
-            }
+
 
           }
           setState(() {

@@ -105,6 +105,22 @@ class DioHelper{
       queryParameters: query,
     );
   }
+  static Future<Response> put({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.post(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
 
   static Future<Response> get({
     required String end_ponit,
@@ -122,6 +138,60 @@ class DioHelper{
       queryParameters: query,
     );
   }
+
+
+  static Future<Response> putChangePassword({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.put(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+  static Future<Response> putEditProfile({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.put(
+      end_ponit,
+      data: data,
+      queryParameters: query,
+    );
+  }
+
+  static Future<Response> putImage({
+    required String end_ponit,
+    FormData? formData,
+    Map<String, dynamic>? query,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'multipart/form-data',
+      'Accept': 'application/json',
+      'Connection': 'keep-alive',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.post(
+      end_ponit,
+      data: formData,
+      queryParameters: query,
+    );
+  }
+
 
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:meta/meta.dart';
 
 import '../model/Register_model.dart';
@@ -55,7 +56,7 @@ class RegisterCubit extends Cubit<RegisterState> {
        RegisterCubit.name= await CashHelper.getFromCash(key: 'name');
        RegisterCubit.email = await CashHelper.getFromCash(key: 'email');
        RegisterCubit.id = await CashHelper.getFromCash(key: 'id');
-       RegisterCubit.token = await CashHelper.getFromCash(key: 'token');
+       LoginCubit.token = await CashHelper.getFromCash(key: 'token');
        RegisterCubit.isverified = await CashHelper.getBoolFromCash(key: 'isVerified');
 
        emit(RegisterSuccessState());

@@ -6,4 +6,6 @@ class EndPoints{
   static String SendOTP ="/api/v1/auth/verifyResetCode";
   static String NewPassword ="/api/v1/auth/resetPassword";
   static String Profile ="/api/v1/users/getMe";
+  static String ChangePassword ="/api/v1/users/changeMyPassword";
+  static String EditProfile ="/api/v1/users/changeMyData";
 }

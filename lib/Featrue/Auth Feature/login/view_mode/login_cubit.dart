@@ -37,6 +37,7 @@ class LoginCubit extends Cubit<LoginState> {
         }
       );
      loginModel = LoginModel.fromJson(response.data);
+     print('token from model${loginModel!.token}');
      await CashHelper.insertToCash(key: 'token', value: response.data['token']);
      await CashHelper.insertToCash(key: 'email', value: response.data['data']['email'] );
      await CashHelper.insertToCash(key: 'id', value: response.data['data']['_id'] );
@@ -48,7 +49,7 @@ class LoginCubit extends Cubit<LoginState> {
      LoginCubit.name = await CashHelper.getFromCash(key: 'name');
      LoginCubit.token = await CashHelper.getFromCash(key: 'token');
      LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
-
+print(token);
      emit(LoginSuccessState());
     }catch(error){
       print(error.toString());

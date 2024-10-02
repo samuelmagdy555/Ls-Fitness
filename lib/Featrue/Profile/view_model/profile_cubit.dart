@@ -4,15 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/model/LoginModel.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Profile/model/ProfileModel.dart';
 import 'package:meta/meta.dart';
-
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
   static String name = '';
-  String token = '';
 
   static ProfileCubit get(context) =>BlocProvider.of(context);
   LoginModel? loginModel;
@@ -26,7 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try{
       final response = await DioHelper.get(
           end_ponit:EndPoints.Profile,
-        token: loginModel?.token ?? token
+        token: loginModel?.token ?? LoginCubit.token
       );
       print(response.data);
       profileModel = ProfileModel.fromJson(response.data);
