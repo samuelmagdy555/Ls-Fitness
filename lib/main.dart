@@ -4,7 +4,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/ChangePassword/view_model/change_password_cubit.dart';
+import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
 import 'package:lsfitness/Featrue/EditProfile/View_Model/edit_profile_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/Profile/view_model/profile_cubit.dart';
 
 

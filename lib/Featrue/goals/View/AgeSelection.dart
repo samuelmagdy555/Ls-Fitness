@@ -79,7 +79,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
               },
               childDelegate: ListWheelChildBuilderDelegate(
                 builder: (context, index) {
-                  final age = index + 20; // Starting age from 20
+                  final age = index + 14; // Starting age from 20
                   return Center(
                     child: Text(
                       '$age years old',
@@ -96,7 +96,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                     ),
                   );
                 },
-                childCount: 100, // Set maximum age range (100 years)
+                childCount: 86,
               ),
             ),
           ),

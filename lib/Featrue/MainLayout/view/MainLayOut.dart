@@ -22,7 +22,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   List<Widget> pages = [
     HomeView(),
-    ExerciseListPage(),
+    WorkoutScreen(),
     ThankYouPage(),
     AgeSelectionPage(),
     ProfilePage()

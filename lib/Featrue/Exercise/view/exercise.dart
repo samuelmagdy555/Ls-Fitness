@@ -1,77 +1,160 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
 
-class ExerciseListPage extends StatelessWidget {
-  final List<Map<String, String>> exercises = [
-    {'title': 'Bench Press (Barbell)', 'subtitle': 'Chest', 'image': 'assets/images/Barbell-Bench-Press.png'},
-    {'title': 'Bench Press (Dumbbell)', 'subtitle': 'Chest', 'image': 'assets/images/dumbbell-bench-press-1000x1000.jpg'},
-    {'title': 'Bent Over Row (Barbell)', 'subtitle': 'Upper Back', 'image': 'assets/images/f1108b035c822541061c9ccf51eb3094.jpg'},
-    {'title': 'Bicep Curl (Dumbbell)', 'subtitle': 'Biceps', 'image': 'assets/images/curl-de-biceps-com-halteres-e-banda-1280x720.jpg'},
-    {'title': 'Cable Fly Crossovers', 'subtitle': 'Chest', 'image': 'assets/images/Cable+Crossovers.jpeg'},
-    {'title': 'Deadlift (Barbell)', 'subtitle': 'Back', 'image': 'assets/images/01e4ba76cf4508a8e39a406fdd30cd3c.jpg'},
-  ];
 
+class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final screenHeight = mediaQuery.size.height;
-    final screenWidth = mediaQuery.size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: screenHeight * 0.04,
-          horizontal: screenWidth * 0.05,
-        ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
         child: Column(
           children: [
-            Text(
-              "Exercise",
-              style: TextStyle(
-                fontSize: screenHeight * 0.04,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: screenHeight * 0.02),
-            Expanded(
-              child: ListView.builder(
-                itemCount: exercises.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: screenWidth * 0.07,
-                        backgroundImage: AssetImage(exercises[index]['image']!),
-                      ),
-                      title: Text(
-                        exercises[index]['title']!,
-                        style: TextStyle(fontSize: screenHeight * 0.025),
-                      ),
-                      subtitle: Text(
-                        exercises[index]['subtitle']!,
-                        style: TextStyle(fontSize: screenHeight * 0.02),
-                      ),
-                      trailing: Icon(Icons.arrow_forward_ios, size: screenHeight * 0.025),
-                      onTap: () {
-                        // Navigate to details page
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ExerciseDetailPage(
-                              title: exercises[index]['title']!,
-                              image: exercises[index]['image']!,
-                              subtitle: exercises[index]['subtitle']!,
-                            ),
-                          ),
-                        );
-                      },
+            Stack(
+              children: [
+                // Responsive Background Image
+                Container(
+                  height: screenHeight * 0.4, // 40% of screen height
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                          'assets/images/dl.beatsnoop.com-high-a99939166bb3d697f8.jpg'),
+                      fit: BoxFit.cover,
                     ),
-                  );
-                },
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  left: 10,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {},
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  right: 10,
+                  child: IconButton(
+                    icon: Icon(Icons.more_horiz, color: Colors.white),
+                    onPressed: () {},
+                  ),
+                ),
+                Positioned(
+                  bottom: 20,
+                  left: 0,
+                  right: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Full Body Workout",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        "Exercise 1 of 24",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            // List of Exercises
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ListView(
+                    children: [
+                      ExerciseTile(
+                        imagePath: 'assets/images/Barbell-Bench-Press.png',
+                        title: "Bench Press",
+                        sets: "Set 1 • 12 Reps",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutDetailsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: screenHeight*.02,),
+                      ExerciseTile(
+                        imagePath: 'assets/images/squats.png',
+                        title: "Back Squat",
+                        sets: "Set 2 • 12 Reps",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutDetailsPage(),
+                            ),
+                          );
+                        },
+                      ),  SizedBox(height: screenHeight*.02,),
+
+                      ExerciseTile(
+                        imagePath: 'assets/images/th.jpeg',
+                        title: "Overhead Press",
+                        sets: "Set 3 • 12 Reps",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutDetailsPage(),
+                            ),
+                          );
+                        },
+                      ),SizedBox(height: screenHeight*.02,),
+                      ExerciseTile(
+                        imagePath: 'assets/images/th.jpeg',
+                        title: "Overhead Press",
+                        sets: "Set 3 • 12 Reps",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutDetailsPage(),
+                            ),
+                          );
+                        },
+                      ),SizedBox(height: screenHeight*.02,),
+                      ExerciseTile(
+                        imagePath: 'assets/images/th.jpeg',
+                        title: "Overhead Press",
+                        sets: "Set 3 • 12 Reps",
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutDetailsPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
@@ -81,31 +164,82 @@ class ExerciseListPage extends StatelessWidget {
   }
 }
 
-class ExerciseDetailPage extends StatelessWidget {
+class ExerciseTile extends StatefulWidget {
+  final String imagePath;
   final String title;
-  final String subtitle;
-  final String image;
+  final String sets;
+  final VoidCallback onPressed;
 
-  const ExerciseDetailPage({required this.title, required this.subtitle, required this.image});
+  const ExerciseTile({
+    required this.imagePath,
+    required this.title,
+    required this.sets,
+    required this.onPressed,
+  });
+
+  @override
+  _ExerciseTileState createState() => _ExerciseTileState();
+}
+
+class _ExerciseTileState extends State<ExerciseTile> {
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.asset(image),
-            SizedBox(height: 20),
-            Text(
-              subtitle,
-              style: TextStyle(fontSize: 18),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Checkbox(
+            value: isChecked,
+            onChanged: (bool? newValue) {
+              setState(() {
+                isChecked = newValue!;
+              });
+            },
+          ),
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(widget.imagePath),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8),
             ),
-          ],
-        ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: GestureDetector(
+              onTap: widget.onPressed,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    widget.sets,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Icon(Icons.play_circle_outline, color: Colors.white),
+        ],
       ),
     );
   }
 }
+
+

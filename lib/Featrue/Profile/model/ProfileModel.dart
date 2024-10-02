@@ -4,7 +4,7 @@ class ProfileModel {
   });
   late final Data data;
 
-  ProfileModel.fromJson(Map<String, dynamic> json) {
+  ProfileModel.fromJson(Map<String, dynamic> json){
     data = Data.fromJson(json['data']);
   }
 
@@ -20,34 +20,33 @@ class Data {
     required this.id,
     required this.username,
     required this.email,
-    required this.password,
-    required this.isOAuthUser,
     required this.phone,
+    required this.isOAuthUser,
     required this.role,
     required this.active,
-    required this.v,
+    required this.createdAt,
+    required this.updatedAt,
   });
-
   late final String id;
   late final String username;
   late final String email;
-  late final String password;
-  late final bool isOAuthUser;
   late final String phone;
+  late final bool isOAuthUser;
   late final String role;
   late final bool active;
-  late final int v;
+  late final String createdAt;
+  late final String updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     username = json['username'];
     email = json['email'];
-    password = json['password'];
-    isOAuthUser = json['isOAuthUser'];
     phone = json['phone'];
+    isOAuthUser = json['isOAuthUser'];
     role = json['role'];
     active = json['active'];
-    v = json['__v'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,12 +54,12 @@ class Data {
     _data['_id'] = id;
     _data['username'] = username;
     _data['email'] = email;
-    _data['password'] = password;
-    _data['isOAuthUser'] = isOAuthUser;
     _data['phone'] = phone;
+    _data['isOAuthUser'] = isOAuthUser;
     _data['role'] = role;
     _data['active'] = active;
-    _data['__v'] = v;
+    _data['createdAt'] = createdAt;
+    _data['updatedAt'] = updatedAt;
     return _data;
   }
 }
