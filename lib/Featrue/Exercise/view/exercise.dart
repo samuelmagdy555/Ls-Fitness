@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
-
+import 'package:lsfitness/Featrue/Filter/view/FiltterPage.dart';
+import 'package:lsfitness/Featrue/Filter/viewmodel/category_cubit.dart';
 
 class WorkoutScreen extends StatelessWidget {
   @override
@@ -39,8 +40,34 @@ class WorkoutScreen extends StatelessWidget {
                   top: 20,
                   right: 10,
                   child: IconButton(
-                    icon: Icon(Icons.more_horiz, color: Colors.white),
+                    icon: Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                      size: screenWidth * 0.080,
+                    ),
                     onPressed: () {},
+                  ),
+                ),
+                Positioned(
+                  top: 20,
+                  right: 40,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.filter_alt_outlined,
+                      color: Colors.white,
+                      size: screenWidth * 0.080,
+                    ),
+                    onPressed: () {
+                      CategoryCubit.get(context).getCategory();
+                      CategoryCubit.get(context).getBodyParts();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              FilterPage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Positioned(
@@ -98,7 +125,9 @@ class WorkoutScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      SizedBox(height: screenHeight*.02,),
+                      SizedBox(
+                        height: screenHeight * .02,
+                      ),
                       ExerciseTile(
                         imagePath: 'assets/images/squats.png',
                         title: "Back Squat",
@@ -111,8 +140,10 @@ class WorkoutScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ),  SizedBox(height: screenHeight*.02,),
-
+                      ),
+                      SizedBox(
+                        height: screenHeight * .02,
+                      ),
                       ExerciseTile(
                         imagePath: 'assets/images/th.jpeg',
                         title: "Overhead Press",
@@ -125,7 +156,10 @@ class WorkoutScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ),SizedBox(height: screenHeight*.02,),
+                      ),
+                      SizedBox(
+                        height: screenHeight * .02,
+                      ),
                       ExerciseTile(
                         imagePath: 'assets/images/th.jpeg',
                         title: "Overhead Press",
@@ -138,7 +172,10 @@ class WorkoutScreen extends StatelessWidget {
                             ),
                           );
                         },
-                      ),SizedBox(height: screenHeight*.02,),
+                      ),
+                      SizedBox(
+                        height: screenHeight * .02,
+                      ),
                       ExerciseTile(
                         imagePath: 'assets/images/th.jpeg',
                         title: "Overhead Press",
@@ -241,5 +278,3 @@ class _ExerciseTileState extends State<ExerciseTile> {
     );
   }
 }
-
-

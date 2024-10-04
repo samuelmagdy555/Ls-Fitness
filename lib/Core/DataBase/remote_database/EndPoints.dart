@@ -8,4 +8,6 @@ class EndPoints{
   static String Profile ="/api/v1/users/getMe";
   static String ChangePassword ="/api/v1/users/changeMyPassword";
   static String EditProfile ="/api/v1/users/changeMyData";
+  static String Categories ="/api/v1/categories";
+  static String BodyPart ="/api/v1/bodyParts";
 }

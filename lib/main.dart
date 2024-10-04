@@ -6,6 +6,8 @@ import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/ChangePassword/view_model/change_password_cubit.dart';
 import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
 import 'package:lsfitness/Featrue/EditProfile/View_Model/edit_profile_cubit.dart';
+import 'package:lsfitness/Featrue/Filter/view/FiltterPage.dart';
+import 'package:lsfitness/Featrue/Filter/viewmodel/category_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/Profile/view_model/profile_cubit.dart';
 
@@ -40,7 +42,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context)=> NewPasswordCubit()),
         BlocProvider(create: (context)=> ProfileCubit()),
         BlocProvider(create: (context)=> ChangePasswordCubit()),
-        BlocProvider(create: (context)=> EditProfileCubit())
+        BlocProvider(create: (context)=> EditProfileCubit()),
+        BlocProvider(create: (context)=> CategoryCubit()..getCategory()..getBodyParts(),child:FilterPage (),),
+
 
       ],
 
