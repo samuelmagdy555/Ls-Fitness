@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
-import 'package:lsfitness/Featrue/Filter/view/FiltterPage.dart';
-import 'package:lsfitness/Featrue/Filter/viewmodel/category_cubit.dart';
+import 'package:lsfitness/Featrue/Exercise/viewmodel/exercise_cubit.dart';
 
 class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
+    ExerciseCubit.get(context).getExercise();
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -16,9 +18,8 @@ class WorkoutScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                // Responsive Background Image
                 Container(
-                  height: screenHeight * 0.4, // 40% of screen height
+                  height: screenHeight * 0.4,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -57,17 +58,7 @@ class WorkoutScreen extends StatelessWidget {
                       color: Colors.white,
                       size: screenWidth * 0.080,
                     ),
-                    onPressed: () {
-                      CategoryCubit.get(context).getCategory();
-                      CategoryCubit.get(context).getBodyParts();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              FilterPage(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                   ),
                 ),
                 Positioned(
@@ -98,100 +89,60 @@ class WorkoutScreen extends StatelessWidget {
                 ),
               ],
             ),
-            // List of Exercises
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ListView(
-                    children: [
-                      ExerciseTile(
-                        imagePath: 'assets/images/Barbell-Bench-Press.png',
-                        title: "Bench Press",
-                        sets: "Set 1 • 12 Reps",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailsPage(),
-                            ),
-                          );
-                        },
+              child: BlocBuilder<ExerciseCubit, ExerciseState>(
+                builder: (context, state) {
+                  if (state is GetExerciseLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state is GetExerciseError) {
+                    return Center(
+                        child: Text('Error loading exercises',
+                            style: TextStyle(color: Colors.red)));
+                  } else if (state is GetExerciseSuccess &&
+                      ExerciseCubit.get(context).exerciseModel != null) {
+                    final exercises =
+                        ExerciseCubit.get(context).exerciseModel!.data;
+
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
                       ),
-                      SizedBox(
-                        height: screenHeight * .02,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ListView.builder(
+                          itemCount: exercises.length,
+                          itemBuilder: (context, index) {
+                            final exercise = exercises[index];
+                            return Column(
+                              children: [
+                                ExerciseTile(
+                                  imagePath: exercise.videoUrl ,
+                                  title: exercise.title ?? 'Exercise',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => WorkoutDetailsPage(
+                                          videoUrl: exercise.videoUrl,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: screenHeight * .02),
+                              ],
+                            );
+                          },
+                        ),
                       ),
-                      ExerciseTile(
-                        imagePath: 'assets/images/squats.png',
-                        title: "Back Squat",
-                        sets: "Set 2 • 12 Reps",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailsPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: screenHeight * .02,
-                      ),
-                      ExerciseTile(
-                        imagePath: 'assets/images/th.jpeg',
-                        title: "Overhead Press",
-                        sets: "Set 3 • 12 Reps",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailsPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: screenHeight * .02,
-                      ),
-                      ExerciseTile(
-                        imagePath: 'assets/images/th.jpeg',
-                        title: "Overhead Press",
-                        sets: "Set 3 • 12 Reps",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailsPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: screenHeight * .02,
-                      ),
-                      ExerciseTile(
-                        imagePath: 'assets/images/th.jpeg',
-                        title: "Overhead Press",
-                        sets: "Set 3 • 12 Reps",
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailsPage(),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                    );
+                  }
+                  return Container();
+                },
               ),
             ),
           ],
@@ -204,13 +155,11 @@ class WorkoutScreen extends StatelessWidget {
 class ExerciseTile extends StatefulWidget {
   final String imagePath;
   final String title;
-  final String sets;
   final VoidCallback onPressed;
 
   const ExerciseTile({
     required this.imagePath,
     required this.title,
-    required this.sets,
     required this.onPressed,
   });
 
@@ -259,13 +208,6 @@ class _ExerciseTileState extends State<ExerciseTile> {
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    widget.sets,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
                     ),
                   ),
                 ],

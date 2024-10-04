@@ -15,11 +15,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var Cubit = ProfileCubit.get(context);
-        var userData = ProfileCubit.get(context).profileModel?.data;
+        var cubit = ProfileCubit.get(context);
+        var userData = cubit.profileModel?.data;
+
         return Scaffold(
           backgroundColor: kThirdColor,
           body: SingleChildScrollView(
@@ -80,11 +82,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        profileDetail(Icons.email, "Email", ProfileCubit.get(context).profileModel?.data.email ?? '', screenWidth),
+                        profileDetail(Icons.email, "Email", userData?.email ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.phone, "Phone", ProfileCubit.get(context).profileModel?.data.phone ?? '', screenWidth),
+                        profileDetail(Icons.phone, "Phone", userData?.phone ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.calendar_today, "Birth of Date", "Friday, 17 March 2017", screenWidth),
+                        profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
                       ],
                     ),
                   ),

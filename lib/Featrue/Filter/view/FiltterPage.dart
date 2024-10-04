@@ -40,9 +40,7 @@ class FilterPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is getBodyPartsLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is getBodyPartsSuccess) {
+
 
                     return Wrap(
                       spacing: 10.0,
@@ -51,15 +49,10 @@ class FilterPage extends StatelessWidget {
                           .map((bodyparts) => _buildChip(bodyparts.title))
                           .toList(),
                     );
-                  } else if (state is getBodyPartsError) {
-                    return Center(child: Text('Error loading Body Parts', style: TextStyle(color: Colors.red)));
-                  } else {
-                    return SizedBox.shrink();
                   }
-                },
+
               ),
 
-              // فاصل
               SizedBox(height: 20),
 
               Text(
@@ -76,9 +69,7 @@ class FilterPage extends StatelessWidget {
                   }
                 },
                 builder: (context, state) {
-                  if (state is getCategoryLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is getCategorySuccess) {
+
                     return Wrap(
                       spacing: 10.0,
                       runSpacing: 10.0,
@@ -86,11 +77,7 @@ class FilterPage extends StatelessWidget {
                           .map((category) => _buildChip(category.title))
                           .toList(),
                     );
-                  } else if (state is getCategoryError) {
-                    return Center(child: Text('Error loading Categories', style: TextStyle(color: Colors.red)));
-                  } else {
-                    return SizedBox.shrink();
-                  }
+
                 },
               ),
             ],

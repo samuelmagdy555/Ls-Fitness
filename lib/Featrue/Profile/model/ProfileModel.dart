@@ -26,6 +26,10 @@ class Data {
     required this.active,
     required this.createdAt,
     required this.updatedAt,
+    required this.age,
+    required this.length,
+    required this.targetWeight,
+    required this.weight,
   });
   late final String id;
   late final String username;
@@ -36,6 +40,10 @@ class Data {
   late final bool active;
   late final String createdAt;
   late final String updatedAt;
+  late final int age;
+  late final String length;
+  late final String targetWeight;
+  late final String weight;
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
@@ -47,6 +55,10 @@ class Data {
     active = json['active'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    age = json['age'];
+    length = json['length'];
+    targetWeight = json['targetWeight'];
+    weight = json['weight'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +72,10 @@ class Data {
     _data['active'] = active;
     _data['createdAt'] = createdAt;
     _data['updatedAt'] = updatedAt;
+    _data['age'] = age;
+    _data['length'] = length;
+    _data['targetWeight'] = targetWeight;
+    _data['weight'] = weight;
     return _data;
   }
 }
