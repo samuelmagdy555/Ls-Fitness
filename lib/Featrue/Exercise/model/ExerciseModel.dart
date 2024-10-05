@@ -59,18 +59,18 @@ class Data {
     required this.category,
     required this.bodyPart,
     required this.targetGender,
-    required this.videoUrl,
     required this.createdAt,
     required this.updatedAt,
+    required this.video,
   });
   late final String id;
   late final String title;
   late final Category category;
   late final BodyPart bodyPart;
   late final String targetGender;
-  late final String videoUrl;
   late final String createdAt;
   late final String updatedAt;
+  late final Video video;
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
@@ -78,9 +78,9 @@ class Data {
     category = Category.fromJson(json['category']);
     bodyPart = BodyPart.fromJson(json['bodyPart']);
     targetGender = json['targetGender'];
-    videoUrl = json['videoUrl'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    video = Video.fromJson(json['video']);
   }
 
   Map<String, dynamic> toJson() {
@@ -90,9 +90,9 @@ class Data {
     _data['category'] = category.toJson();
     _data['bodyPart'] = bodyPart.toJson();
     _data['targetGender'] = targetGender;
-    _data['videoUrl'] = videoUrl;
     _data['createdAt'] = createdAt;
     _data['updatedAt'] = updatedAt;
+    _data['video'] = video.toJson();
     return _data;
   }
 }
@@ -135,6 +135,27 @@ class BodyPart {
     final _data = <String, dynamic>{};
     _data['_id'] = id;
     _data['title'] = title;
+    return _data;
+  }
+}
+
+class Video {
+  Video({
+    required this.url,
+    required this.publicId,
+  });
+  late final String url;
+  late final String publicId;
+
+  Video.fromJson(Map<String, dynamic> json){
+    url = json['url'];
+    publicId = json['public_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['url'] = url;
+    _data['public_id'] = publicId;
     return _data;
   }
 }

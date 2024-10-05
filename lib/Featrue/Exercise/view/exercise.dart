@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/DetailsExercise/view/DetailsExercise.dart';
 import 'package:lsfitness/Featrue/Exercise/viewmodel/exercise_cubit.dart';
+import 'package:lsfitness/Featrue/Filter/view/FiltterPage.dart';
 
 class WorkoutScreen extends StatelessWidget {
   @override
@@ -51,14 +52,18 @@ class WorkoutScreen extends StatelessWidget {
                 ),
                 Positioned(
                   top: 20,
-                  right: 40,
+                  right: 50,
                   child: IconButton(
                     icon: Icon(
                       Icons.filter_alt_outlined,
                       color: Colors.white,
                       size: screenWidth * 0.080,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=> FilterPage())
+                      );
+                    },
                   ),
                 ),
                 Positioned(
@@ -132,7 +137,7 @@ class WorkoutScreen extends StatelessWidget {
                             return Column(
                               children: [
                                 ExerciseTile(
-                                  imagePath: exercise.videoUrl,
+                                  imagePath: exercise.video.publicId,
                                   title: exercise.title ?? 'Exercise',
                                   category: exercise.category.title ?? 'Unknown Category',  // عرض الـ category
                                   bodyPart: exercise.bodyPart.title?? 'Unknown Body Part',
@@ -141,7 +146,7 @@ class WorkoutScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => WorkoutDetailsPage(
-                                          videoUrl: exercise.videoUrl,
+                                          videoUrl: exercise.video.publicId,
                                         ),
                                       ),
                                     );

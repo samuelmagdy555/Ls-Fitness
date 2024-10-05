@@ -4,8 +4,9 @@ import 'package:video_player/video_player.dart';
 
 class WorkoutDetailsPage extends StatefulWidget {
   final String videoUrl;
+  final String id;
 
-  WorkoutDetailsPage({required this.videoUrl});
+  WorkoutDetailsPage({required this.videoUrl, required this.id, });
 
   @override
   _WorkoutDetailsPageState createState() => _WorkoutDetailsPageState();
@@ -81,7 +82,7 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      VideoWidget( controller: _controller, id: '1015755723',),
+                      VideoWidget( controller: _controller, id: widget.id,),
                       if (!_isPlaying)
                         Icon(
                           Icons.play_arrow,
