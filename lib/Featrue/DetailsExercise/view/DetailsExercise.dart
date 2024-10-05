@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/DetailsExercise/widget/videowidget.dart';
 import 'package:video_player/video_player.dart';
 
 class WorkoutDetailsPage extends StatefulWidget {
@@ -80,7 +81,7 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      VideoPlayer(_controller),
+                      VideoWidget( controller: _controller, id: '1015755723',),
                       if (!_isPlaying)
                         Icon(
                           Icons.play_arrow,
@@ -91,7 +92,7 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
                   ),
                 ),
               )
-                  : Center(child: CircularProgressIndicator()),
+                  : Center(child: CircularProgressIndicator(color: Colors.white,)),
               SizedBox(height: height * 0.02),
               Text(
                 'NEXT EXERCISE',
