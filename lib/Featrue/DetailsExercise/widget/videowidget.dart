@@ -40,7 +40,7 @@ class _VideoWidgetState extends State<VideoWidget> {
                 height: double.infinity,
                 color: Colors.black,
                 child:  VimeoPlayer(
-/////
+                  /////
                   videoId: widget.id,
 
                   // 987689729
