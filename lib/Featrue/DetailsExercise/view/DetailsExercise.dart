@@ -14,34 +14,33 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
   late VideoPlayerController _controller;
   bool _isPlaying = false;
 
+
   @override
   void initState() {
     super.initState();
-    _initializeVideoPlayer().catchError((error) {
-      print("Error initializing video player: $error");
-    });
-  }
-
-  Future<void> _initializeVideoPlayer() async {
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
-    try {
-      await _controller.initialize();
-      setState(() {});
-      _controller.addListener(() {
-        if (_controller.value.isPlaying != _isPlaying) {
-          setState(() {
-            _isPlaying = _controller.value.isPlaying;
-          });
-        }
-      });
-    } catch (error) {
-      print("Error initializing video player: $error");
-    }
   }
+  //
+  // Future<void> _initializeVideoPlayer() async {
+  //   _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
+  //   try {
+  //     await _controller.initialize();
+  //     setState(() {});
+  //     _controller.addListener(() {
+  //       if (_controller.value.isPlaying != _isPlaying) {
+  //         setState(() {
+  //           _isPlaying = _controller.value.isPlaying;
+  //         });
+  //       }
+  //     });
+  //   } catch (error) {
+  //     print("Error initializing video player: $error");
+  //   }
+  // }
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose of the controller to free up resources
+    _controller.dispose();
     super.dispose();
   }
 
@@ -63,38 +62,6 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Profile Section
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: width * 0.08,
-                    backgroundImage: AssetImage('assets/images/download (1).png'),
-                  ),
-                  SizedBox(width: width * 0.04),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Welcome youlakou',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * 0.05,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Way to go! you’re on a hot 3-week workout streak',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: width * 0.030,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: height * 0.02),
-              // Video Section
               _controller.value.isInitialized
                   ? AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,

@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
+
+class VideoWidget extends StatefulWidget {
+  late VideoPlayerController controller;
+  final String id ;
+
+  VideoWidget({super.key, required this.controller, required this.id});
+
+  @override
+  State<VideoWidget> createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
+  late Future<void> initVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      initVideoPlayerFuture = widget.controller.initialize().then((value) {
+        widget.controller.play();
+        widget.controller.setLooping(true);
+      });
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: initVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done)
+        {
+          return  Scaffold(
+              backgroundColor: Colors.black,
+              body: Container(
+                height: double.infinity,
+                color: Colors.black,
+                child:  VimeoPlayer(
+
+                  videoId: widget.id,
+
+                  // 987689729
+
+                ),
+              ));
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black45,
+            ),
+          );
+        }
+      },
+    );
+  }
+}

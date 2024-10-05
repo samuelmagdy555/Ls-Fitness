@@ -72,7 +72,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.05),
-                  // Email, Phone, and Birth Date
                   Container(
                     padding: EdgeInsets.all(screenWidth * 0.05),
                     decoration: BoxDecoration(
@@ -86,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: screenHeight * 0.02),
                         profileDetail(Icons.phone, "Phone", userData?.phone ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
+                        // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
                       ],
                     ),
                   ),

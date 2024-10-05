@@ -90,18 +90,30 @@ class WorkoutScreen extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: BlocBuilder<ExerciseCubit, ExerciseState>(
+              child: BlocConsumer<ExerciseCubit, ExerciseState>(
+                listener: (context, state) {
+                  if (state is GetExerciseError) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error loading exercises'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
                 builder: (context, state) {
                   if (state is GetExerciseLoading) {
                     return Center(child: CircularProgressIndicator());
                   } else if (state is GetExerciseError) {
                     return Center(
-                        child: Text('Error loading exercises',
-                            style: TextStyle(color: Colors.red)));
+                      child: Text(
+                        'Error loading exercises',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
                   } else if (state is GetExerciseSuccess &&
                       ExerciseCubit.get(context).exerciseModel != null) {
-                    final exercises =
-                        ExerciseCubit.get(context).exerciseModel!.data;
+                    final exercises = ExerciseCubit.get(context).exerciseModel!.data;
 
                     return Container(
                       decoration: BoxDecoration(
@@ -120,8 +132,10 @@ class WorkoutScreen extends StatelessWidget {
                             return Column(
                               children: [
                                 ExerciseTile(
-                                  imagePath: exercise.videoUrl ,
+                                  imagePath: exercise.videoUrl,
                                   title: exercise.title ?? 'Exercise',
+                                  category: exercise.category.title ?? 'Unknown Category',  // عرض الـ category
+                                  bodyPart: exercise.bodyPart.title?? 'Unknown Body Part',
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -144,7 +158,8 @@ class WorkoutScreen extends StatelessWidget {
                   return Container();
                 },
               ),
-            ),
+            )
+
           ],
         ),
       ),
@@ -155,11 +170,15 @@ class WorkoutScreen extends StatelessWidget {
 class ExerciseTile extends StatefulWidget {
   final String imagePath;
   final String title;
+  final String category; // إضافة الـ category
+  final String bodyPart; // إضافة الـ body part
   final VoidCallback onPressed;
 
   const ExerciseTile({
     required this.imagePath,
     required this.title,
+    required this.category,  // تمرير الـ category
+    required this.bodyPart,  // تمرير الـ body part
     required this.onPressed,
   });
 
@@ -184,17 +203,6 @@ class _ExerciseTileState extends State<ExerciseTile> {
               });
             },
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(widget.imagePath),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
           SizedBox(width: 10),
           Expanded(
             child: GestureDetector(
@@ -210,6 +218,20 @@ class _ExerciseTileState extends State<ExerciseTile> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  Text(
+                    widget.category,  // عرض الـ category
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                  Text(
+                    widget.bodyPart,  // عرض الـ body part
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -220,3 +242,4 @@ class _ExerciseTileState extends State<ExerciseTile> {
     );
   }
 }
+
