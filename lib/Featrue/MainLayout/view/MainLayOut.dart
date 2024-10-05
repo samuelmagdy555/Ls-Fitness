@@ -53,7 +53,7 @@ class _MainLayoutState extends State<MainLayout> {
 
           }
           if(i == 1){
-            ExerciseCubit.get(context).getExercise();
+            // ExerciseCubit.get(context).getExercise();
 
 
           }
