@@ -146,7 +146,7 @@ class WorkoutScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => WorkoutDetailsPage(
-                                          videoUrl: exercise.video.publicId,
+                                           id: exercise.video.publicId, videoUrl: exercise.video.url,
                                         ),
                                       ),
                                     );
