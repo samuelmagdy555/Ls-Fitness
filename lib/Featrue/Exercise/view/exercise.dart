@@ -249,8 +249,7 @@
 // }
 //
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Filter/view/FiltterPage.dart';
-import 'package:video_player/video_player.dart';  // إضافة مكتبة تشغيل الفيديو
+import 'package:video_player/video_player.dart';
 
 class WorkoutScreen extends StatefulWidget {
   @override
@@ -289,40 +288,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       category: 'chest',
       bodyPart: 'machine',
     ),
-    Exercise(
-      videoPath: 'assets/videos/CableUpperChestCrossovers2.mp4',
-      title: 'Cable Upper Chest Crossovers  ',
-      category: 'chest',
-      bodyPart: 'machine',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/DumbbellReverseGripRow.mp4',
-      title: 'Dumbbell Reverse Grip Row  ',
-      category: 'Back',
-      bodyPart: 'dumbbell',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/DumbbellBentOverRow.mp4',
-      title: 'Dumbbell Bent Over Row   ',
-      category: 'Back',
-      bodyPart: 'dumbbell',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/CableCurl.mp4',
-      title: 'Cable Curl  ',
-      category: 'Arms',
-      bodyPart: 'machine',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/LeverBicepCurl.mp4',
-      title: 'Lever Bicep Curl   ',
-      category: 'Arms',
-      bodyPart: 'machine',
-    ),
   ];
 
-  // إضافة قائمة لتتبع حالة كل CheckBox
   List<bool> checkedStatus = [];
+  String? selectedValue;
 
   @override
   void initState() {
@@ -335,88 +304,120 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
+    final buttons = [
+      {
+        'title': 'Body Parts',
+        'choices': [
+          'Core',
+          'Arms',
+          'Back',
+          'chest',
+          'Legs',
+          'Shoulders',
+          'Full Body'
+        ]
+      },
+      {
+        'title': 'Machine',
+        'choices': ['Assisted', 'Ball', 'Band', 'Barbell', 'Cable', 'Dumbbell']
+      },
+      {
+        'title': 'Cardio',
+        'choices': ['Assault Bike Run', 'Assault Run', 'Bicycle Recline']
+      },
+      {
+        'title': 'Warm up',
+        'choices': ['Option 4A', 'Option 4B', 'Option 4C']
+      },
+      {
+        'title': 'Recovery and  stretching',
+        'choices': ['Option 5A', 'Option 5B', 'Option 5C']
+      },
+      {
+        'title': '  Deep Anatomy',
+        'choices': ['Biceps', 'Band', 'Sternal Head']
+      },
+    ];
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  height: screenHeight * 0.4,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/dl.beatsnoop.com-high-a99939166bb3d697f8.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            Container(
+              height: screenHeight * 0.2,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/images/dl.beatsnoop.com-high-a99939166bb3d697f8.jpg'),
+                  fit: BoxFit.cover,
                 ),
-                Positioned(
-                  top: 20,
-                  left: 10,
-                  child: IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {},
-                  ),
-                ),
-                Positioned(
-                  top: 20,
-                  right: 10,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                      size: screenWidth * 0.080,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                Positioned(
-                  top: 20,
-                  right: 50,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.filter_alt_outlined,
-                      color: Colors.white,
-                      size: screenWidth * 0.080,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FilterPage()));
-                    },
-                  ),
-                ),
-                Positioned(
-                  bottom: 20,
-                  left: 0,
-                  right: 0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Full Body Workout",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
+              ),
+            ),
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 2,
+              ),
+              itemCount: buttons.length,
+              itemBuilder: (context, index) {
+                final List<String> choices =
+                    buttons[index]['choices']! as List<String>;
+
+                return Padding(
+                  padding: EdgeInsets.all(7.0),
+                  child: PopupMenuButton<String>(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(22),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 1.0, horizontal: 2.0),
+                        textStyle: TextStyle(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Exercise 1 of 24",
+                      onPressed:
+                          null,
+                      child: Text(
+                        buttons[index]['title']! as String,
                         style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 16,
+                          color: Colors.white,
                         ),
                       ),
-                    ],
+                    ),
+                    onSelected: (String value) {
+                      setState(() {
+                        selectedValue = value;
+                      });
+                    },
+                    itemBuilder: (BuildContext context) {
+                      return choices.map((String choice) {
+                        return PopupMenuItem<String>(
+                          value: choice,
+                          child: Text(
+                            choice,
+                            style: TextStyle(
+                              color:
+                                  Colors.black,
+                            ),
+                          ),
+                        );
+                      }).toList();
+                    },
                   ),
-                ),
-              ],
+                );
+              },
+            ),
+
+            SizedBox(
+              height: screenHeight * 0.10,
             ),
             Expanded(
               child: ListView.builder(
@@ -574,15 +575,27 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       body: Center(
         child: _isError
             ? Text(
-          "Error loading video",
-          style: TextStyle(color: Colors.white),
-        )
+                "Error loading video",
+                style: TextStyle(color: Colors.white),
+              )
             : _controller.value.isInitialized
-            ? AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: VideoPlayer(_controller),
-        )
-            : CircularProgressIndicator(),
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  )
+                : CircularProgressIndicator(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+          });
+        },
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        ),
       ),
     );
   }
