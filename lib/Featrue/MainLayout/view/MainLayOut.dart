@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../Auth Feature/goals/View/AgeSelection.dart';
@@ -23,7 +25,7 @@ class _MainLayoutState extends State<MainLayout> {
   List<Widget> pages = [
     HomeView(),
     WorkoutScreen(),
-    ThankYouPage(),
+    FoodListPage(),
     AgeSelectionPage(),
     ProfilePage()
   ];

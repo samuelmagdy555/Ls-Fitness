@@ -1,15 +1,122 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MealsDetails/view/MealsDetalis.dart';
 
-class MealsPage extends StatefulWidget {
-  const MealsPage({super.key});
+class FoodListPage extends StatelessWidget {
+  final List<Map<String, String>> foods = [
+    {
+      'name': 'Oatmeal with Fruit and Nuts',
+      'image': 'assets/images/595aacf1e27bb4a00ab6c7bb6ab36dd22cace6d3.jpg',
+      'description': '1/2 cup oatmeal \n1 cup low-fat milk \n1 banana, sliced \n1/4 cup berries \n2 tablespoons almonds \nCalories: 350 calories.'
+    },
+    {
+      'name': 'Brown Toast with Avocado and Hard-Boiled Eggs',
+      'image': 'assets/images/9276c38e69a2e8c9f44ac3d61f89de0f9f407d08.jpg',
+      'description': '2 slices brown bread \n1/2 mashed avocado \n2 hard-boiled eggs \nCalories: 400 calories.'
+    },
+    {
+      'name': 'Spinach, Banana and Protein Smoothie',
+      'image': 'assets/images/tbl_articles_article_24515_6639a570cb2-142c-4691-9c83-f5f7859e56a9.jpg',
+      'description': '1 cup fresh spinach \n1 banana \n1 scoop protein powder \n1 cup unsweetened almond milk \nCalories: 300 calories.'
+    },
+    {
+      'name': 'Peanut Butter on Whole Wheat Bread with Apple Slices',
+      'image': 'assets/images/تفاح-مع-زبدة-الفول-السوداني.jpg',
+      'description': '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.'
+    },
+  ];
 
-  @override
-  State<MealsPage> createState() => _MealsPageState();
-}
-
-class _MealsPageState extends State<MealsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    // استخدم MediaQuery للحصول على حجم الشاشة
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      backgroundColor: kThirdColor,
+      appBar: AppBar(
+        title: Text(
+          'Meals List',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: screenWidth * 0.05, // تغيير حجم الخط بناءً على العرض
+          ),
+        ),
+        backgroundColor: kThirdColor,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(screenWidth * 0.02), // تغيير الحواف بناءً على العرض
+        child: ListView.builder(
+          itemCount: foods.length,
+          itemBuilder: (context, index) {
+            final food = foods[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FoodDetailPage(
+                      name: food['name']!,
+                      image: food['image']!,
+                      description: food['description']!,
+                    ),
+                  ),
+                );
+              },
+              child: Card(
+                elevation: 4,
+                margin: EdgeInsets.symmetric(vertical: screenHeight * 0.015), // تغيير المسافة العمودية
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(screenWidth * 0.03), // تغيير نصف القطر بناءً على العرض
+                ),
+                child: Row(
+                  children: [
+                    // صورة الطعام
+                    ClipRRect(
+                      borderRadius: BorderRadius.horizontal(left: Radius.circular(screenWidth * 0.03)),
+                      child: Image.asset(
+                        food['image']!,
+                        fit: BoxFit.cover,
+                        width: screenWidth * 0.3, // تغيير العرض بناءً على حجم الشاشة
+                        height: screenWidth * 0.3, // تغيير الارتفاع بناءً على حجم الشاشة
+                      ),
+                    ),
+                    // اسم الطعام والوصف
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(screenWidth * 0.03), // تغيير الحواف بناءً على العرض
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              food['name']!,
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.045, // حجم الخط بناءً على العرض
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: screenHeight * 0.01), // تغيير المسافة العمودية
+                            Text(
+                              food['description']!,
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.035, // حجم الخط بناءً على العرض
+                                color: Colors.grey,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }
