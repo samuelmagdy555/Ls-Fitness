@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
 
 import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../View_model/ForgetPassword_Cubit/forget_password_cubit.dart';

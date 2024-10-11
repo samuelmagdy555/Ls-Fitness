@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lsfitness/Featrue/goals/View/First_Goal_Screen.dart';
 
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../goals/View/First_Goal_Screen.dart';
 import '../../../login/view/Screens/login_screen.dart';
 import '../../view_model/regester_cubit.dart';
 
