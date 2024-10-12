@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,17 +69,72 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
-      print('Alarm is ringing');
-      final now = DateTime.now();
+      if (_.id == 7) {
+        await CreatineCubit.get(context).getWakeUpTime();
+        await CreatineCubit.get(context).getSleepTime();
+        if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
+            now.isAfter(CreatineCubit.get(context).wakeUpTime!))
+        {
+          if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 && now.hour <= CreatineCubit.get(context).sleepTime!.hour) ) {
+            await Alarm.set(
+                alarmSettings: AlarmSettings(
+                    id: 7,
+                    dateTime: DateTime(
+                        now.year,
+                        now.month,
+                        now.day + 1,
+                        CreatineCubit.get(context).wakeUpTime!.hour + 1,
+                        CreatineCubit.get(context).wakeUpTime!.minute),
+                    assetAudioPath: _.assetAudioPath,
+                    notificationSettings: _.notificationSettings));
+          }
+          else {
+            final alarmSettings = AlarmSettings(
+              id: 7,
+              dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
+              assetAudioPath: 'assets/alarm.mp3',
+              loopAudio: true,
+              vibrate: true,
+              volume: 0.8,
+              fadeDuration: 3.0,
+              warningNotificationOnKill: Platform.isIOS,
+              notificationSettings: NotificationSettings(
+                body: "Time for Water",
+                title: "Alarm",
+                stopButton: 'stop',
+              ),
+            );
+            Alarm.set(
+              alarmSettings: alarmSettings,
+            );
+          }
+        }
+        else {
+          await Alarm.set(
+              alarmSettings: AlarmSettings(
+                  id: 7,
+                  dateTime: DateTime(
+                      now.year,
+                      now.month,
+                      now.day+1,
+                      CreatineCubit.get(context).wakeUpTime!.hour + 1,
+                      CreatineCubit.get(context).wakeUpTime!.minute),
+                  assetAudioPath: _.assetAudioPath,
+                  notificationSettings: _.notificationSettings));
+        }
+      }
+      else {
 
-      await Alarm.set(
-          alarmSettings: AlarmSettings(
-              id: _.id,
-              dateTime: DateTime(now.year, now.month, now.day + 1,
-                  _.dateTime.hour, _.dateTime.minute),
-              assetAudioPath: _.assetAudioPath,
-              notificationSettings: _.notificationSettings));
+        await Alarm.set(
+            alarmSettings: AlarmSettings(
+                id: _.id,
+                dateTime: DateTime(now.year, now.month, now.day + 1,
+                    _.dateTime.hour, _.dateTime.minute),
+                assetAudioPath: _.assetAudioPath,
+                notificationSettings: _.notificationSettings));
+      }
     });
   }
 
@@ -101,7 +158,6 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context) => CreatineCubit()),
-
       ],
       child: GetMaterialApp(
         theme: ThemeData(
@@ -109,7 +165,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: TimerScreen(),
+        home: MainLayout(),
       ),
     );
   }
