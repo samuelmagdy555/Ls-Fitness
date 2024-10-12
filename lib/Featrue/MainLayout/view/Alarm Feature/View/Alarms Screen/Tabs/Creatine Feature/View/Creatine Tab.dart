@@ -269,7 +269,7 @@ class _CreatineTabState extends State<CreatineTab> {
           ),
           RollingSwitch.widget(
             onChanged: (bool state) {
-              if (state == false) {
+              if (state == true) {
                 if (CreatineCubit.get(context).wakeUpTime == null ||
                     CreatineCubit.get(context).sleepTime == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -283,7 +283,8 @@ class _CreatineTabState extends State<CreatineTab> {
                   CreatineCubit.get(context).getWakeUpTime();
                   CreatineCubit.get(context).getWakeUpTime();
 
-                  if (dateTime.hour ==
+                  if (
+                  dateTime.hour ==
                       CreatineCubit.get(context).sleepTime!.hour - 1) {
                     final alarmSettings = AlarmSettings(
                       id: 7,
@@ -291,7 +292,7 @@ class _CreatineTabState extends State<CreatineTab> {
                           dateTime.year,
                           dateTime.month,
                           dateTime.day+1,
-                          CreatineCubit.get(context).wakeUpTime!.hour + 2),
+                          CreatineCubit.get(context).wakeUpTime!.hour + 2 , ),
                       assetAudioPath: 'assets/alarm.mp3',
                       loopAudio: true,
                       vibrate: true,
@@ -311,7 +312,7 @@ class _CreatineTabState extends State<CreatineTab> {
                     final alarmSettings = AlarmSettings(
                       id: 7,
                       dateTime: DateTime(dateTime.year, dateTime.month,
-                          dateTime.day, dateTime.hour + 2),
+                          dateTime.day, dateTime.hour + 2 , dateTime.minute),
                       assetAudioPath: 'assets/alarm.mp3',
                       loopAudio: true,
                       vibrate: true,

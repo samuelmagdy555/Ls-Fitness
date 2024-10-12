@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:im_stepper/main.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
@@ -49,13 +50,7 @@ void main() async {
           AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => alarmprovider()..initializeMeals(),
-    child: const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    ),
-  ));
+  runApp(const  MyApp(),);
 }
 
 class MyApp extends StatefulWidget {
@@ -140,7 +135,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => LoginCubit()),
@@ -158,6 +153,8 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context) => CreatineCubit()),
+       BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals())
+
       ],
       child: GetMaterialApp(
         theme: ThemeData(
