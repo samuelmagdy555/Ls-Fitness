@@ -11,6 +11,9 @@ import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import '../../View Model/Alarm Provider/Alarm Provider.dart';
 import 'Add Alarm Screen/Add Alarm Screen.dart';
+import 'package:provider/provider.dart';
+
+import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 
 class TimerScreen extends StatefulWidget {
   TimerScreen({super.key});
@@ -38,58 +41,64 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Text(
-          'Alarms',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => context.read<alarmprovider>(
+
       ),
-      floatingActionButton: tabController!.index==0?GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddAlarm()));
-        },
-        child: Container(
-            margin: EdgeInsets.all(8),
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Icon(Icons.add),
-            )),
-      ) : null,
-      body: Column(
-        children: [
-          SizedBox(
-
-            height: height*.075,
-            width: width,
-            child: TabBar(
-              labelColor: Colors.white,
-              indicatorColor: Colors.white,
-
-              controller: tabController,
-                tabs: [
-                  Tab(
-                    text: "All Alarms",
-                  ),
-                  Tab(
-                    text: "Creatine Alarms",
-                  ),
-                ]
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            title: const Text(
+              'Alarms',
+              style: TextStyle(color: Colors.white),
             ),
+            centerTitle: true,
           ),
-          Expanded(
-              child: TabBarView(controller: tabController,
-                  children: [
-            AlarmsTab(),
-            AlarmsTab(),
-          ]))
-        ],
-      )
+          floatingActionButton: tabController!.index==0?GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AddAlarm()));
+            },
+            child: Container(
+                margin: EdgeInsets.all(8),
+                decoration:
+                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Icon(Icons.add),
+                )),
+          ) : null,
+          body: Column(
+            children: [
+              SizedBox(
+
+                height: height*.075,
+                width: width,
+                child: TabBar(
+                    labelColor: Colors.white,
+                    indicatorColor: Colors.white,
+
+                    controller: tabController,
+                    tabs: [
+                      Tab(
+                        text: "All Alarms",
+                      ),
+                      Tab(
+                        text: "Creatine Alarms",
+                      ),
+                    ]
+                ),
+              ),
+              Expanded(
+                  child: TabBarView(controller: tabController,
+                      children: [
+                        AlarmsTab(),
+                        CreatineTab(),
+                      ]))
+            ],
+          )
+      ),
+
     );
   }
 }

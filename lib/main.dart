@@ -10,7 +10,6 @@ import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 
-
 import 'package:lsfitness/try.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
@@ -22,6 +21,7 @@ import 'Featrue/Intro Feature/Splash/View/Splash_Screen.dart';
 import 'Featrue/Intro Feature/onboarding/View/Widget/colors.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View Model/Alarm Provider/Alarm Provider.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
+import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/view/FiltterPage.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/viewmodel/category_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
@@ -71,9 +71,16 @@ class _MyAppState extends State<MyApp> {
       print('Alarm is ringing');
       final now = DateTime.now();
 
-      await Alarm.set( alarmSettings: AlarmSettings(id: _.id, dateTime: DateTime(now.year , now.month, now.day+1, _.dateTime.hour, _.dateTime.minute) , assetAudioPath: _.assetAudioPath, notificationSettings: _.notificationSettings));
+      await Alarm.set(
+          alarmSettings: AlarmSettings(
+              id: _.id,
+              dateTime: DateTime(now.year, now.month, now.day + 1,
+                  _.dateTime.hour, _.dateTime.minute),
+              assetAudioPath: _.assetAudioPath,
+              notificationSettings: _.notificationSettings));
+    });
+  }
 
-    });  }
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -92,7 +99,9 @@ class _MyAppState extends State<MyApp> {
             ..getBodyParts(),
           child: FilterPage(),
         ),
-        BlocProvider(create: (context) => ExerciseCubit())
+        BlocProvider(create: (context) => ExerciseCubit()),
+        BlocProvider(create: (context) => CreatineCubit()),
+
       ],
       child: GetMaterialApp(
         theme: ThemeData(
