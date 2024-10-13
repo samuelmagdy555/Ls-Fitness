@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
@@ -75,6 +76,8 @@ class _ThankYouPageState extends State<ThankYouPage>
               SizedBox(height: 50), // مسافة بين علامة الصح والزر
               ElevatedButton(
                 onPressed: () {
+                  // GoalsCubit.get(context).MyGoals(
+                  //     weight: weight, Targetweight: Targetweight, age: age, length: length, gender: gender)
                   Navigator.push(
                     context,
                     MaterialPageRoute(

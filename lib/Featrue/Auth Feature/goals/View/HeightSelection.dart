@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'WeightSelection.dart';
@@ -182,6 +183,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
+                GoalsCubit.get(context).selectedLength;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

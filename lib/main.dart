@@ -6,6 +6,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:im_stepper/main.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
@@ -92,7 +93,8 @@ class _MyAppState extends State<MyApp> {
             ..getBodyParts(),
           child: FilterPage(),
         ),
-        BlocProvider(create: (context) => ExerciseCubit())
+        BlocProvider(create: (context) => ExerciseCubit()),
+        BlocProvider(create: (context)=> GoalsCubit())
       ],
       child: GetMaterialApp(
         theme: ThemeData(
@@ -100,7 +102,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: TimerScreen(),
+        home: SplashScreen(),
       ),
     );
   }

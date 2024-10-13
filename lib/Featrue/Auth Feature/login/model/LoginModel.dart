@@ -27,8 +27,6 @@ class Data {
     required this.isOAuthUser,
     required this.role,
     required this.active,
-    required this.updatedAt,
-    required this.createdAt,
   });
   late final String id;
   late final String username;
@@ -36,8 +34,7 @@ class Data {
   late final bool isOAuthUser;
   late final String role;
   late final bool active;
-  late final String updatedAt;
-  late final String createdAt;
+
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
@@ -46,8 +43,7 @@ class Data {
     isOAuthUser = json['isOAuthUser'];
     role = json['role'];
     active = json['active'];
-    updatedAt = json['updatedAt'];
-    createdAt = json['createdAt'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -58,8 +54,6 @@ class Data {
     _data['isOAuthUser'] = isOAuthUser;
     _data['role'] = role;
     _data['active'] = active;
-    _data['updatedAt'] = updatedAt;
-    _data['createdAt'] = createdAt;
     return _data;
   }
 }

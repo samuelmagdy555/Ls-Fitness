@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -67,8 +69,9 @@ class _GenderState extends State<Gender> {
             ElevatedButton(
               onPressed: selectedGender != null
                   ? () {
+                GoalsCubit.get(context).setGender(selectedGender!);
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context)=>AgeSelectionPage())
+                    MaterialPageRoute(builder: (context)=>AgeSelectionPage())
                 );
               }
                   : null,

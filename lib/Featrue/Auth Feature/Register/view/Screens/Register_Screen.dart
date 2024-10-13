@@ -213,10 +213,10 @@ class _RegisterViewState extends State<RegisterView> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Account successfully created')),
                 );
-              }  if (state is RegisterErrorState) {
+              }  else if (state is RegisterErrorState) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Incorrect email or password')),
-                );
+                  SnackBar(content: Text(state.message),
+                  ));
               }
             }
           },

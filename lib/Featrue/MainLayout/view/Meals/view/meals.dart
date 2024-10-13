@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
-import 'package:lsfitness/Featrue/MealsDetails/view/MealsDetalis.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/DetailsMeals/View/DeatilsMeals.dart';
 
 class FoodListPage extends StatelessWidget {
   final List<Map<String, String>> foods = [

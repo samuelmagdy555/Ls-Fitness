@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -105,6 +106,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
+                GoalsCubit.get(context).setAge(selectedAge! as int);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

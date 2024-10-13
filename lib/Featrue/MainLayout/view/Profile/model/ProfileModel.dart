@@ -24,8 +24,12 @@ class Data {
     required this.isOAuthUser,
     required this.role,
     required this.active,
-    required this.createdAt,
-    required this.updatedAt,
+    this.age,
+    this.gender,
+    this.length,
+    this.weight,
+    this.targetWeight,
+    this.profileImg,
   });
   late final String id;
   late final String username;
@@ -34,8 +38,12 @@ class Data {
   late final bool isOAuthUser;
   late final String role;
   late final bool active;
-  late final String createdAt;
-  late final String updatedAt;
+  late final Null age;
+  late final Null gender;
+  late final Null length;
+  late final Null weight;
+  late final Null targetWeight;
+  late final Null profileImg;
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
@@ -45,8 +53,12 @@ class Data {
     isOAuthUser = json['isOAuthUser'];
     role = json['role'];
     active = json['active'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    age = null;
+    gender = null;
+    length = null;
+    weight = null;
+    targetWeight = null;
+    profileImg = null;
   }
 
   Map<String, dynamic> toJson() {
@@ -58,8 +70,12 @@ class Data {
     _data['isOAuthUser'] = isOAuthUser;
     _data['role'] = role;
     _data['active'] = active;
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
+    _data['age'] = age;
+    _data['gender'] = gender;
+    _data['length'] = length;
+    _data['weight'] = weight;
+    _data['targetWeight'] = targetWeight;
+    _data['profileImg'] = profileImg;
     return _data;
   }
 }

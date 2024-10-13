@@ -1,4 +1,5 @@
 
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
@@ -46,6 +47,32 @@ class RegisterCubit extends Cubit<RegisterState> {
 
        registerModel = RegisterModel.fromJson(response.data);
        print(response.data);
+       if (response.data['status'] == 'false') {
+         print('There is an error in the response');
+
+         // التحقق من وجود البيانات الخاصة بالأخطاء
+         if (response.data['data'] != null) {
+           final errorData = response.data['data'];
+
+           // تحقق من وجود خطأ في البريد الإلكتروني
+           if (errorData.containsKey('email')) {
+             String emailError = errorData['email'][0]; // الحصول على الرسالة الأولى من قائمة الأخطاء
+             print('Email error: $emailError');
+             // يمكنك عرض الرسالة هنا
+           }
+
+           // تحقق من وجود خطأ في رقم الهاتف
+           if (errorData.containsKey('phone')) {
+             String phoneError = errorData['phone'][0]; // الحصول على الرسالة الأولى من قائمة الأخطاء
+             print('Phone error: $phoneError');
+             // يمكنك عرض الرسالة هنا
+           }
+         }
+       }
+
+       else if (response.data['status'] == null) {
+         print('There is an error in the response');
+       }
        await CashHelper.insertToCash(key: 'token', value: response.data['token']);
        await CashHelper.insertToCash(key: 'email', value: response.data['data']['email']);
        await CashHelper.insertToCash(key: 'id', value: response.data['data']['_id']);
@@ -62,9 +89,29 @@ class RegisterCubit extends Cubit<RegisterState> {
        emit(RegisterSuccessState());
 
      }
-         catch(error){
-          print(error.toString());
-          emit(RegisterErrorState());
+         catch(e){
+           if (e is DioException) {
+             if (e.response != null && e.response!.statusCode == 422) {
+               final errorData = e.response!.data['data'];
+
+               if (errorData.containsKey('email')) {
+                 String emailError = errorData['email'][0];
+                 print('Email error: $emailError');
+                 emit(RegisterErrorState(message: emailError));
+               }
+
+               if (errorData.containsKey('phone')) {
+                 String phoneError = errorData['phone'][0];
+                 print('Phone error: $phoneError');
+                 emit(RegisterErrorState(message: phoneError));
+
+               }
+             }
+           } else {
+             print('Error: $e');
+           }
+
+          print(e.toString());
 
          }
 }
