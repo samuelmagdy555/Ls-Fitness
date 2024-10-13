@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
@@ -12,8 +13,8 @@ class GoalsCubit extends Cubit<GoalsState> {
 
   static GoalsCubit get(context) => BlocProvider.of(context);
   LoginModel? loginModel;
-  String? selectedGender;
-  int? selectedAge;
+  String selectedGender = 'male';
+  String selectedAge = '0';
   String? selectedLength;
   String? selectedWeight;
   String? selectedTargetweight;
@@ -22,13 +23,13 @@ class GoalsCubit extends Cubit<GoalsState> {
   Future<void> MyGoals({
     required String weight,
     required String Targetweight,
-    required String age,
+    required int age,
     required String length,
     required String gender,}) async {
     emit(MyGoalsLoading());
     try {
       final response = await DioHelper.post(
-        end_ponit: EndPoints.MyGoals,
+          end_ponit: EndPoints.MyGoals,
           // end_point: EndPoints.MyGoals,
           token: loginModel?.token ?? LoginCubit.token,
           data: {
@@ -48,7 +49,7 @@ class GoalsCubit extends Cubit<GoalsState> {
     selectedGender = gender;
   }
   void setAge(int Age) {
-    selectedAge = Age;
+    selectedAge = Age.toString();
   }
   void setLength(String length) {
     selectedLength = length;
@@ -69,6 +70,3 @@ class GoalsCubit extends Cubit<GoalsState> {
 
 
 }
-
-
-

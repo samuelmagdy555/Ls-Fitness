@@ -25,7 +25,9 @@ class _ThankYouPageState extends State<ThankYouPage>
     );
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(_controller);
-    _slideAnimation = Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(_controller);
+    _slideAnimation =
+        Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(
+            _controller);
 
     _controller.forward();
   }
@@ -42,11 +44,11 @@ class _ThankYouPageState extends State<ThankYouPage>
       backgroundColor: kThirdColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center( // استخدام Center لوضع كل العناصر في الوسط
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50), // تقليل المسافة من الأعلى
+              SizedBox(height: 50),
               SlideTransition(
                 position: _slideAnimation,
                 child: FadeTransition(
@@ -73,18 +75,37 @@ class _ThankYouPageState extends State<ThankYouPage>
                   ),
                 ),
               ),
-              SizedBox(height: 50), // مسافة بين علامة الصح والزر
+              SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () {
-                  // GoalsCubit.get(context).MyGoals(
-                  //     weight: weight, Targetweight: Targetweight, age: age, length: length, gender: gender)
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MainLayout(),
-                    ),
-                  );
+                  if (GoalsCubit.get(context).selectedWeight != null &&
+                      GoalsCubit.get(context).selectedTargetweight != null &&
+                      GoalsCubit.get(context).selectedAge != null &&
+                      GoalsCubit.get(context).selectedLength != null &&
+                      GoalsCubit.get(context).selectedGender != null) {
+
+                    GoalsCubit.get(context).MyGoals(
+                      weight: GoalsCubit.get(context).selectedWeight!,
+                      Targetweight: GoalsCubit.get(context).selectedTargetweight!,
+                      age: int.tryParse(GoalsCubit.get(context).selectedAge!) ?? 0,  // Handle null/invalid age
+                      length: GoalsCubit.get(context).selectedLength!,
+                      gender: GoalsCubit.get(context).selectedGender!,
+                    );
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MainLayout(),
+                      ),
+                    );
+                  } else {
+                    // Show an error message or handle the missing data case
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please complete all fields')),
+                    );
+                  }
                 },
+
                 child: Text('Continue'),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),

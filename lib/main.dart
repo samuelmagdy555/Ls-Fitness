@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-    });  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -155,7 +155,7 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context) => CreatineCubit()),
-       BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals())
+       BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals()),
 
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit())

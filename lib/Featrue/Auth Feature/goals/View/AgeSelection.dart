@@ -12,7 +12,6 @@ class AgeSelectionPage extends StatefulWidget {
 }
 
 class _AgeSelectionPageState extends State<AgeSelectionPage> {
-  int selectedAge = 30;
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +73,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
               perspective: 0.002,
               physics: FixedExtentScrollPhysics(),
               onSelectedItemChanged: (index) {
-                setState(() {
-                  selectedAge = index + 20; // Starting age from 20
-                });
+                GoalsCubit.get(context).selectedAge! ;
               },
               childDelegate: ListWheelChildBuilderDelegate(
                 builder: (context, index) {
@@ -85,12 +82,12 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                     child: Text(
                       '$age years old',
                       style: TextStyle(
-                        fontSize: age == selectedAge
+                        fontSize: age == GoalsCubit.get(context).selectedAge
                             ? screenWidth * 0.07
                             : screenWidth * 0.05,
                         fontWeight:
-                        age == selectedAge ? FontWeight.bold : FontWeight.normal,
-                        color: age == selectedAge
+                        age == GoalsCubit.get(context).selectedAge ? FontWeight.bold : FontWeight.normal,
+                        color: age == GoalsCubit.get(context).selectedAge
                             ? Colors.white
                             : Colors.grey.shade400,
                       ),
@@ -106,7 +103,11 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                GoalsCubit.get(context).setAge(selectedAge! as int);
+                int selectedAgeAsInt = GoalsCubit.get(context).selectedAge is String
+                    ? int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0
+                    : GoalsCubit.get(context).selectedAge as int;
+
+                GoalsCubit.get(context).setAge(selectedAgeAsInt);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
