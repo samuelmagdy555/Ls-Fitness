@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,11 +8,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:im_stepper/main.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
-
 
 import 'package:lsfitness/try.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +25,7 @@ import 'Featrue/Intro Feature/Splash/View/Splash_Screen.dart';
 import 'Featrue/Intro Feature/onboarding/View/Widget/colors.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View Model/Alarm Provider/Alarm Provider.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
+import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/view/FiltterPage.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/viewmodel/category_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
@@ -48,13 +51,7 @@ void main() async {
           AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => alarmprovider()..initializeMeals(),
-    child: const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    ),
-  ));
+  runApp(const  MyApp(),);
 }
 
 class MyApp extends StatefulWidget {
@@ -68,16 +65,79 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
-      print('Alarm is ringing');
-      final now = DateTime.now();
+      if (_.id == 7) {
+        await CreatineCubit.get(context).getWakeUpTime();
+        await CreatineCubit.get(context).getSleepTime();
+        if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
+            now.isAfter(CreatineCubit.get(context).wakeUpTime!))
+        {
+          if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 && now.hour <= CreatineCubit.get(context).sleepTime!.hour) ) {
+            await Alarm.set(
+                alarmSettings: AlarmSettings(
+                    id: 7,
+                    dateTime: DateTime(
+                        now.year,
+                        now.month,
+                        now.day + 1,
+                        CreatineCubit.get(context).wakeUpTime!.hour + 1,
+                        CreatineCubit.get(context).wakeUpTime!.minute),
+                    assetAudioPath: _.assetAudioPath,
+                    notificationSettings: _.notificationSettings));
+          }
+          else {
+            final alarmSettings = AlarmSettings(
+              id: 7,
+              dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
+              assetAudioPath: 'assets/alarm.mp3',
+              loopAudio: true,
+              vibrate: true,
+              volume: 0.8,
+              fadeDuration: 3.0,
+              warningNotificationOnKill: Platform.isIOS,
+              notificationSettings: NotificationSettings(
+                body: "Time for Water",
+                title: "Alarm",
+                stopButton: 'stop',
+              ),
+            );
+            Alarm.set(
+              alarmSettings: alarmSettings,
+            );
+          }
+        }
+        else {
+          await Alarm.set(
+              alarmSettings: AlarmSettings(
+                  id: 7,
+                  dateTime: DateTime(
+                      now.year,
+                      now.month,
+                      now.day+1,
+                      CreatineCubit.get(context).wakeUpTime!.hour + 1,
+                      CreatineCubit.get(context).wakeUpTime!.minute),
+                  assetAudioPath: _.assetAudioPath,
+                  notificationSettings: _.notificationSettings));
+        }
+      }
+      else {
 
-      await Alarm.set( alarmSettings: AlarmSettings(id: _.id, dateTime: DateTime(now.year , now.month, now.day+1, _.dateTime.hour, _.dateTime.minute) , assetAudioPath: _.assetAudioPath, notificationSettings: _.notificationSettings));
+        await Alarm.set(
+            alarmSettings: AlarmSettings(
+                id: _.id,
+                dateTime: DateTime(now.year, now.month, now.day + 1,
+                    _.dateTime.hour, _.dateTime.minute),
+                assetAudioPath: _.assetAudioPath,
+                notificationSettings: _.notificationSettings));
+      }
+    });
+  }
 
     });  }
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => LoginCubit()),
@@ -93,6 +153,10 @@ class _MyAppState extends State<MyApp> {
             ..getBodyParts(),
           child: FilterPage(),
         ),
+        BlocProvider(create: (context) => ExerciseCubit()),
+        BlocProvider(create: (context) => CreatineCubit()),
+       BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals())
+
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit())
       ],

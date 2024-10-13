@@ -7,6 +7,7 @@ import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../View Model/Alarm Provider/Alarm Provider.dart';
@@ -123,7 +124,7 @@ class _AddAlaramState extends State<AddAlarm> {
               onPressed: () async {
 
 
-                int id = context.read<alarmprovider>().generateUniqueId(alarmprovider().meals);
+                int id = AlarmCubit.get(context).generateUniqueId(AlarmCubit.get(context).meals);
 
                 final alarmSettings = AlarmSettings(
                   id: id,
@@ -144,7 +145,7 @@ class _AddAlaramState extends State<AddAlarm> {
                   alarmSettings: alarmSettings,
                 );
 
-                context.read<alarmprovider>().SetAlaram(
+                AlarmCubit.get(context).SetAlaram(
                     controller.text, dateTime!, true, '',id , Milliseconds!);
 
                 Navigator.pop(context);
