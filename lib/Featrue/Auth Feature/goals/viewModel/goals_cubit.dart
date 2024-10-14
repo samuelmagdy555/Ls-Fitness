@@ -28,9 +28,9 @@ class GoalsCubit extends Cubit<GoalsState> {
     required String gender,}) async {
     emit(MyGoalsLoading());
     try {
-      final response = await DioHelper.post(
-          end_ponit: EndPoints.MyGoals,
-          // end_point: EndPoints.MyGoals,
+      final response = await DioHelper.PostData(
+          // end_ponit: EndPoints.MyGoals,
+          end_point: EndPoints.MyGoals,
           token: loginModel?.token ?? LoginCubit.token,
           data: {
             'gender': selectedGender,

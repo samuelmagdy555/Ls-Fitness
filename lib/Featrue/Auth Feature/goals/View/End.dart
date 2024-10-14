@@ -78,18 +78,14 @@ class _ThankYouPageState extends State<ThankYouPage>
               SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () {
-                  if (GoalsCubit.get(context).selectedWeight != null &&
-                      GoalsCubit.get(context).selectedTargetweight != null &&
-                      GoalsCubit.get(context).selectedAge != null &&
-                      GoalsCubit.get(context).selectedLength != null &&
-                      GoalsCubit.get(context).selectedGender != null) {
+
 
                     GoalsCubit.get(context).MyGoals(
                       weight: GoalsCubit.get(context).selectedWeight!,
                       Targetweight: GoalsCubit.get(context).selectedTargetweight!,
-                      age: int.tryParse(GoalsCubit.get(context).selectedAge!) ?? 0,  // Handle null/invalid age
+                      age: int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0,  // Handle null/invalid age
                       length: GoalsCubit.get(context).selectedLength!,
-                      gender: GoalsCubit.get(context).selectedGender!,
+                      gender: GoalsCubit.get(context).selectedGender,
                     );
 
                     Navigator.push(
@@ -98,12 +94,7 @@ class _ThankYouPageState extends State<ThankYouPage>
                         builder: (context) => MainLayout(),
                       ),
                     );
-                  } else {
-                    // Show an error message or handle the missing data case
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Please complete all fields')),
-                    );
-                  }
+
                 },
 
                 child: Text('Continue'),
