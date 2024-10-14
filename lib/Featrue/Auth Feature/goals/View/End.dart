@@ -77,15 +77,25 @@ class _ThankYouPageState extends State<ThankYouPage>
               ),
               SizedBox(height: 50),
               ElevatedButton(
-                onPressed: () {
+                onPressed: ()async {
+
+                  print(GoalsCubit.get(context).selectedAge);
+
+                  print(GoalsCubit.get(context).selectedWeight);
+
+                  print(GoalsCubit.get(context).selectedTargetweight);
+
+                  print(GoalsCubit.get(context).selectedLength);
+
+                  print(GoalsCubit.get(context).selectedGender);
 
 
-                    GoalsCubit.get(context).MyGoals(
-                      weight: GoalsCubit.get(context).selectedWeight!,
+                  await   GoalsCubit.get(context).MyGoals(
+                      weight:        GoalsCubit.get(context).selectedWeight!,
                       Targetweight: GoalsCubit.get(context).selectedTargetweight!,
-                      age: int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0,  // Handle null/invalid age
-                      length: GoalsCubit.get(context).selectedLength!,
-                      gender: GoalsCubit.get(context).selectedGender,
+                      age:           int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0,  // Handle null/invalid age
+                      length:         GoalsCubit.get(context).selectedLength!,
+                      gender:        GoalsCubit.get(context).selectedGender,
                     );
 
                     Navigator.push(

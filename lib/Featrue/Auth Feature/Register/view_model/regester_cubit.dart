@@ -108,6 +108,8 @@ class RegisterCubit extends Cubit<RegisterState> {
                }
              }
            } else {
+             emit(RegisterErrorState(message: ''));
+
              print('Error: $e');
            }
 

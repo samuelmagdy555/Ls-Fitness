@@ -27,7 +27,14 @@ class GoalsCubit extends Cubit<GoalsState> {
     required String length,
     required String gender,}) async {
     emit(MyGoalsLoading());
+
+    print(selectedLength);
+    print(selectedWeight);
+    print(selectedTargetweight);
+    print(selectedGender);
     try {
+
+
       final response = await DioHelper.PostData(
           // end_ponit: EndPoints.MyGoals,
           end_point: EndPoints.MyGoals,
@@ -38,6 +45,7 @@ class GoalsCubit extends Cubit<GoalsState> {
             'length': selectedLength,
             'weight': selectedWeight,
             'targetWeight': selectedTargetweight,});
+
       emit(MyGoalsSuccess());
     }
     catch (e) {
