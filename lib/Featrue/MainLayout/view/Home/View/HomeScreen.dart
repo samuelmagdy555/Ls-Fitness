@@ -1,30 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 
-import 'mode.dart';
+import '../Model/mode.dart';
+import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<WorkOutCategory> catego = [
-    WorkOutCategory(
-      imagUrl: "assets/images/emily.png",
-      name: "Yoga exercises",
-    ),
-    WorkOutCategory(
-      imagUrl: "assets/images/sule.png",
-      name: "Example exercises",
-    ),
-    WorkOutCategory(
-      imagUrl: "assets/images/alexsandra.png",
-      name: "Example exercises",
-    ),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -36,11 +28,12 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 60.0, left: 20),
+          padding: const EdgeInsets.only(top: 60.0,),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 20 , left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -111,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20.0, top: 50),
+                padding: const EdgeInsets.only(right: 20.0, top: 50 , left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -208,11 +201,11 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 25 , left: 20),
                 child: Row(
                   children: [
                     Text(
-                      "Popular Workout",
+                      "Your Progress",
                       style: GoogleFonts.lato(
                         fontSize: 30,
                         color: Colors.white,
@@ -222,45 +215,14 @@ class _HomeViewState extends State<HomeView> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Container(
-                  width: double.infinity,
-                  height: 200,
-                  child: ListView.builder(
-                      itemCount: catego.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 172,
-                                width: 141,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(catego[index].imagUrl),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                catego[index].name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
-                ),
-              )
+              SizedBox(
+                height: height*.025,
+              ),
+              GestureDetector(onTap: (){
+                ExerciseCubit.get(context).getExercise();
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProgressScreen()));
+              },
+                  child: Image(image: AssetImage('assets/images/Progress.jpg') , width: width*.9,)),
             ],
           ),
         ),

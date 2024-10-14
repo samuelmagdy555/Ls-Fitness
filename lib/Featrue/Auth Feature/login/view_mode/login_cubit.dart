@@ -1,10 +1,13 @@
 
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/exercise.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:meta/meta.dart';
 
 import '../model/LoginModel.dart';
@@ -25,6 +28,7 @@ class LoginCubit extends Cubit<LoginState> {
    Future<void>  userLogin({
     required String email,
     required String password,
+     required BuildContext context
 
 }) async {
     emit(LoginLoadingState());
@@ -50,7 +54,9 @@ class LoginCubit extends Cubit<LoginState> {
      LoginCubit.token = await CashHelper.getFromCash(key: 'token');
      LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
 print(token);
+
      emit(LoginSuccessState());
+     ExerciseCubit.get(context).getExercise();
     }catch(error){
       print(error.toString());
       emit(LoginErrorState(message: error.toString()));

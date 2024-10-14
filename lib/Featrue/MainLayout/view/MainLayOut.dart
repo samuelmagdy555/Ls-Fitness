@@ -8,7 +8,7 @@ import '../../Auth Feature/goals/View/AgeSelection.dart';
 import '../../Auth Feature/goals/View/End.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import 'Exercise/view/exercise.dart';
-import 'Home/TryHome.dart';
+import 'Home/View/HomeScreen.dart';
 import 'Profile/view/Profile.dart';
 import 'Profile/view_model/profile_cubit.dart';
 

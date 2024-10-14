@@ -25,7 +25,8 @@ class TimerScreen extends StatefulWidget {
 
 class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   bool value = false;
-  TabController ? tabController;
+  TabController? tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -34,7 +35,6 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     });
     AlarmCubit.get(context).GetData();
     super.initState();
-
   }
 
   @override
@@ -50,30 +50,31 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
           ),
           centerTitle: true,
         ),
-        floatingActionButton: tabController!.index==0?GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddAlarm()));
-          },
-          child: Container(
-              margin: EdgeInsets.all(8),
-              decoration:
-              BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.add),
-              )),
-        ) : null,
+        floatingActionButton: tabController!.index == 0
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddAlarm()));
+                },
+                child: Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white, shape: BoxShape.circle),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Icon(Icons.add),
+                    )),
+              )
+            : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
           children: [
             SizedBox(
-
-              height: height*.075,
+              height: height * .075,
               width: width,
               child: TabBar(
                   labelColor: Colors.white,
                   indicatorColor: Colors.white,
-
                   controller: tabController,
                   tabs: [
                     Tab(
@@ -82,17 +83,14 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                     Tab(
                       text: "Creatine Alarms",
                     ),
-                  ]
-              ),
+                  ]),
             ),
             Expanded(
-                child: TabBarView(controller: tabController,
-                    children: [
-                      AlarmsTab(),
-                      CreatineTab(),
-                    ]))
+                child: TabBarView(controller: tabController, children: [
+              AlarmsTab(),
+              CreatineTab(),
+            ]))
           ],
-        )
-    );
+        ));
   }
 }

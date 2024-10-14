@@ -32,6 +32,7 @@ class _CreatineTabState extends State<CreatineTab> {
 
     return Scaffold(
       body: Column(
+
         children: [
           SizedBox(
             height: height * .025,
@@ -42,7 +43,7 @@ class _CreatineTabState extends State<CreatineTab> {
             style: TextStyle(fontSize: width * .04, color: Colors.white30),
           ),
           SizedBox(
-            height: height * .025,
+            height: height * .05,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -53,7 +54,7 @@ class _CreatineTabState extends State<CreatineTab> {
                   'Wake up time',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: width * .055,
+                      fontSize: width * .0575,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -165,7 +166,7 @@ class _CreatineTabState extends State<CreatineTab> {
                   'Sleep time',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: width * .055,
+                      fontSize: width * .0575,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -265,7 +266,7 @@ class _CreatineTabState extends State<CreatineTab> {
             ),
           ),
           SizedBox(
-            height: height * .025,
+            height: height * .05,
           ),
           RollingSwitch.widget(
             onChanged: (bool state) {
@@ -331,7 +332,7 @@ class _CreatineTabState extends State<CreatineTab> {
                   }
                 }
               }
-              if (state == true) {
+              if (state == false) {
                Alarm.stop(7);
               }
             },

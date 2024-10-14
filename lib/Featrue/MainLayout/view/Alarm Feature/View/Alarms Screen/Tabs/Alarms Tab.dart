@@ -31,6 +31,7 @@ class _AlarmsTabState extends State<AlarmsTab> {
       },
       builder: (context, state) {
         return ListView.builder(
+          padding: EdgeInsets.only(top: height * 0.01),
             itemCount: AlarmCubit.get(context).meals.length,
             itemBuilder: (BuildContext, index) {
               return Padding(
@@ -63,7 +64,7 @@ class _AlarmsTabState extends State<AlarmsTab> {
                               selectedDateTime = DateTime(
                                 now.year,
                                 now.month,
-                                now.day+1,
+                                now.day + 1,
                                 pickedTime.hour,
                                 pickedTime.minute,
                               );
@@ -71,7 +72,7 @@ class _AlarmsTabState extends State<AlarmsTab> {
                               selectedDateTime = DateTime(
                                 now.year,
                                 now.month,
-                                now.day ,
+                                now.day,
                                 pickedTime.hour,
                                 pickedTime.minute,
                               );
@@ -129,7 +130,7 @@ class _AlarmsTabState extends State<AlarmsTab> {
                       ),
                     ),
                     SizedBox(
-                      height: height * .005,
+                      height: height * .01,
                     ),
                     Divider(
                       color: Colors.grey,

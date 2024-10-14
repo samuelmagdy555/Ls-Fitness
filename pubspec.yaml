@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications: ^17.2.3
   alarm: ^4.0.3
   rolling_switch: ^0.0.2
+  fl_chart: ^0.69.0
 
 
 

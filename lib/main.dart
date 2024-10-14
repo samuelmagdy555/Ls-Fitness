@@ -29,6 +29,7 @@ import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine F
 import 'Featrue/MainLayout/view/Exercise/view/Filter/view/FiltterPage.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/viewmodel/category_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+import 'Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/ChangePassword/view_model/change_password_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/EditProfile/View_Model/edit_profile_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
@@ -158,7 +159,8 @@ class _MyAppState extends State<MyApp> {
        BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals()),
 
         BlocProvider(create: (context) => ExerciseCubit()),
-        BlocProvider(create: (context)=> GoalsCubit())
+        BlocProvider(create: (context)=> GoalsCubit()),
+        BlocProvider(create: (context)=> ProgressCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(
