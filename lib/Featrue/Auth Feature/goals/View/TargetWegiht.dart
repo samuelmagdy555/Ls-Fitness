@@ -187,7 +187,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                GoalsCubit.get(context).selectedTargetweight;
+                GoalsCubit.get(context).setTargetWeigth(selectedWeightKg);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

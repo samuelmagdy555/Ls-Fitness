@@ -15,9 +15,9 @@ class GoalsCubit extends Cubit<GoalsState> {
   LoginModel? loginModel;
   String selectedGender = 'male';
   String selectedAge = '0';
-  String? selectedLength;
-  String? selectedWeight;
-  String? selectedTargetweight;
+  int? selectedLength;
+  double? selectedWeight;
+  double? selectedTargetweight;
 
 
   Future<void> MyGoals({
@@ -56,17 +56,17 @@ class GoalsCubit extends Cubit<GoalsState> {
   void setGender(String gender) {
     selectedGender = gender;
   }
-  void setAge(int Age) {
-    selectedAge = Age.toString();
+  void setAge(String Age) {
+    selectedAge = Age;
   }
-  void setLength(String length) {
+  void setLength(int length) {
     selectedLength = length;
   }
 
-  void setWeigth(String weigth){
+  void setWeigth(double weigth){
     selectedWeight = weigth;
   }
-  void setTargetWeigth(String Targetweigth){
+  void setTargetWeigth( double Targetweigth){
     selectedTargetweight = Targetweigth;
   }
 

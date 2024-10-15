@@ -103,11 +103,9 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                int selectedAgeAsInt = GoalsCubit.get(context).selectedAge is String
-                    ? int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0
-                    : GoalsCubit.get(context).selectedAge as int;
 
-                GoalsCubit.get(context).setAge(selectedAgeAsInt);
+
+                // GoalsCubit.get(context).setAge(selectedAge!);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

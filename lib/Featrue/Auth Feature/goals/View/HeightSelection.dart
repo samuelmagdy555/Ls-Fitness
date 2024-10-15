@@ -183,7 +183,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                GoalsCubit.get(context).selectedLength;
+                GoalsCubit.get(context).setLength(selectedHeightCm! as int);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

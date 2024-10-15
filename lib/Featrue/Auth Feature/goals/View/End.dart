@@ -91,10 +91,10 @@ class _ThankYouPageState extends State<ThankYouPage>
 
 
                   await   GoalsCubit.get(context).MyGoals(
-                      weight:        GoalsCubit.get(context).selectedWeight!,
-                      Targetweight: GoalsCubit.get(context).selectedTargetweight!,
+                      weight:        GoalsCubit.get(context).selectedWeight.toString(),
+                      Targetweight: GoalsCubit.get(context).selectedTargetweight.toString(),
                       age:           int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0,  // Handle null/invalid age
-                      length:         GoalsCubit.get(context).selectedLength!,
+                      length:         GoalsCubit.get(context).selectedLength.toString(),
                       gender:        GoalsCubit.get(context).selectedGender,
                     );
 
