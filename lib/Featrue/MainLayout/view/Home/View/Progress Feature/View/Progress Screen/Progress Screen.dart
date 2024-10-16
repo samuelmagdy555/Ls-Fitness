@@ -10,12 +10,32 @@ class ProgressScreen extends StatefulWidget {
   State<ProgressScreen> createState() => _ProgressScreenState();
 }
 
+class Data {
+   String? name;
+   int? volume ;
+   int ? id;
+
+  Data(this.name, this.volume , this.id);
+}
 class _ProgressScreenState extends State<ProgressScreen> {
+
+
+  List<Data> exercises = [
+    Data('Push Ups', 50 , 1),
+    Data('Squats', 80,2),
+    Data('Pull Ups', 30,3),
+    Data('Deadlifts', 120,4),
+    Data('Bench Press', 90,5),
+    Data('Lunges', 60,6),
+    Data('Bicep Curls', 40,7),
+    Data('Tricep Dips', 45,8),
+    Data('Leg Press', 100,9),
+    Data('Shoulder Press', 70,10),
+  ];
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var exercises = ExerciseCubit.get(context).exerciseModel!.data;
     return Scaffold(
       body: Column(
         children: [
@@ -41,15 +61,16 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   ),
                   items: exercises.map<DropdownMenuItem<String>>((exercise) {
                     return DropdownMenuItem<String>(
-                      value: exercise.id,
+                      value: exercise.id.toString(),
                       child: Text(
-                        exercise.title,
+                        exercise.name!,
                         style: TextStyle(color: Colors.white),
                       ),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
+
                       ProgressCubit.get(context).selectedValue = newValue;
                     });
                   },
@@ -82,15 +103,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             ),
                           ),
                           dotData: FlDotData(show: false),
-                          spots: [
-                            FlSpot(0, 5),
-                            FlSpot(10, 7),
-                            FlSpot(20, 10),
-                            FlSpot(30, 20),
-                            FlSpot(40, 15),
-                            FlSpot(50, 20),
-                            FlSpot(55, 18),
-                          ],
+                          spots: [],
                           isCurved: true,
                           barWidth: 2,
                         )
