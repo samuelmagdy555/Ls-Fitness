@@ -38,11 +38,11 @@ class Data {
   late final bool isOAuthUser;
   late final String role;
   late final bool active;
-  late final int age;
-  late final String gender;
-  late final String length;
-  late final String targetWeight;
-  late final String weight;
+   int? age;
+   String? gender;
+   String? length;
+   String? targetWeight;
+   String? weight;
     String? profileImg;
 
   Data.fromJson(Map<String, dynamic> json){

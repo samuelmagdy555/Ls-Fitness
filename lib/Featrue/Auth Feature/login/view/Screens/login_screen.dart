@@ -71,11 +71,11 @@ class _LoginViewState extends State<LoginView> {
                        return Center(
                           child: GestureDetector(
                             onTap: () async {
-                              ProfileCubit.get(context).myProfile();
 
                               await cubit.userLogin(
                                   email: emailController.text,
                                   password: passwordController.text, context: context);
+                             await ProfileCubit.get(context).myProfile();
                             },
                             child: Container(
                               height: 50,

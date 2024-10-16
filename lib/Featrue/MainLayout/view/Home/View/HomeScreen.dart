@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                         Text(
-                          ProfileCubit.get(context).profileModel!.data.username,
+                          ProfileCubit.get(context).profileModel!.data.username ??'',
                           style: GoogleFonts.bebasNeue(
                             fontSize: width * 0.08,
                             color: Color(0xFF40D876),
@@ -177,13 +177,13 @@ class _HomeViewState extends State<HomeView> {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      "Hard workout",
+                    TextButton(onPressed: (){}, child: Text(
+                      "Food Calculator",
                       style: GoogleFonts.lato(
                         fontSize: width * 0.04,
                         color: Colors.white,
                       ),
-                    ),
+                    ),),
                     Text(
                       "Full body",
                       style: GoogleFonts.lato(

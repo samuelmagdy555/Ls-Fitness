@@ -27,7 +27,6 @@ class ProfileCubit extends Cubit<ProfileState> {
           end_ponit:EndPoints.Profile,
         token:LoginCubit.loginModel?.token ?? LoginCubit.token
       );
-      print(response.data);
       profileModel = ProfileModel.fromJson(response.data);
       emit(getProfileSuccess());
     }
