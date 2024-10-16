@@ -19,6 +19,7 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
         final response = await DioHelper.get(
             end_ponit: EndPoints.FoodCalculator);
         foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
+        emit(FoodCalculatorSuccess(foodCalculatorModel!));
       } catch(e){
         print(e.toString());
         emit(FoodCalculatorError());

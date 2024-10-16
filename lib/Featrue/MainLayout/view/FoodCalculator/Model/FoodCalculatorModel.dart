@@ -38,13 +38,14 @@ class Data {
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     title = json['title'];
-    quantities = json['quantities'];
-    calories = json['calories'];
-    proteins = json['proteins'];
-    carbohydrates = json['carbohydrates'];
-    fats = json['fats'];
-    fibers = json['fibers'];
+    quantities = (json['quantities'] as num).toInt();  // Safely convert to int
+    calories = (json['calories'] as num).toInt();      // Safely convert to int
+    proteins = (json['proteins'] != null) ? (json['proteins'] as num).toInt() : null;  // Convert if not null
+    carbohydrates = (json['carbohydrates'] != null) ? (json['carbohydrates'] as num).toInt() : null;
+    fats = (json['fats'] != null) ? (json['fats'] as num).toInt() : null;
+    fibers = (json['fibers'] != null) ? (json['fibers'] as num).toInt() : null;
   }
+
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
