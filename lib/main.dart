@@ -10,6 +10,7 @@ import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view_Model/food_calculator_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:lsfitness/try.dart';
@@ -162,6 +163,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit()),
         BlocProvider(create: (context)=> ProgressCubit()),
+        BlocProvider(create: (context)=> FoodCalculatorCubit())
       ],
       child: GetMaterialApp(
         theme: ThemeData(

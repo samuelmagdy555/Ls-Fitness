@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view/FoodCalculator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
 import '../Model/mode.dart';
@@ -191,7 +192,11 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=> FoodCalculator())
+                        );
+                      },
                       child: Text(
                         "Food Calculator",
                         style: GoogleFonts.lato(
