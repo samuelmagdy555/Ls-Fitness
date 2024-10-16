@@ -12,7 +12,7 @@ class ProgressScreen extends StatefulWidget {
 
 class Data {
    String? name;
-   int? volume ;
+   List<int>? volume ;
    int ? id;
 
   Data(this.name, this.volume , this.id);
@@ -21,17 +21,24 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
 
   List<Data> exercises = [
-    Data('Push Ups', 50 , 1),
-    Data('Squats', 80,2),
-    Data('Pull Ups', 30,3),
-    Data('Deadlifts', 120,4),
-    Data('Bench Press', 90,5),
-    Data('Lunges', 60,6),
-    Data('Bicep Curls', 40,7),
-    Data('Tricep Dips', 45,8),
-    Data('Leg Press', 100,9),
-    Data('Shoulder Press', 70,10),
+    Data('Push Ups', [100,230, 300 , 400, 470,500] , 1),
+    Data('Squats', [150,230, 330 , 450, 420,510] ,2),
+    Data('Pull Ups', [70,100, 150 , 120, 125,200] ,3),
+    Data('Deadlifts', [130,250, 320 , 300, 350,400] ,4),
+    Data('Bench Press', [100,230, 300 , 400, 470,500] ,5),
+    Data('Lunges', [150,230, 330 , 450, 420,510] ,6),
+    Data('Bicep Curls', [130,250, 320 , 300, 350,400]  ,7),
+    Data('Tricep Dips',[150,230, 330 , 450, 420,510],8),
+    Data('Leg Press', [120,150, 200 , 220, 300,450] ,9),
   ];
+
+  Data? selectedExercise;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedExercise = exercises[0];
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -48,33 +55,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
               SizedBox(
                 height: height * .2,
                 width: width * .4,
-                child: DropdownButton<String>(
-                  dropdownColor: Color(0xFF131429),
-                  value: ProgressCubit.get(context).selectedValue,
-                  icon:
-                      Icon(Icons.arrow_drop_down_outlined, color: Colors.white),
-                  underline: SizedBox(),
-                  isExpanded: true,
-                  hint: Text(
-                    "Choose Exercise",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  items: exercises.map<DropdownMenuItem<String>>((exercise) {
-                    return DropdownMenuItem<String>(
-                      value: exercise.id.toString(),
-                      child: Text(
-                        exercise.name!,
-                        style: TextStyle(color: Colors.white),
-                      ),
+                child: DropdownButton<Data>(
+                  value: selectedExercise,
+                  items: exercises.map((Data exercise) {
+                    return DropdownMenuItem<Data>(
+                      value: exercise,
+                      child: Text(exercise.name! , style: TextStyle(color: Colors.white),),
                     );
                   }).toList(),
-                  onChanged: (String? newValue) {
+                  onChanged: (Data? newExercise) {
                     setState(() {
-
-                      ProgressCubit.get(context).selectedValue = newValue;
+                      selectedExercise = newExercise;
                     });
                   },
                 ),
+
               ),
             ],
           ),
@@ -103,7 +98,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             ),
                           ),
                           dotData: FlDotData(show: false),
-                          spots: [],
+                          spots: generateSpots(selectedExercise!.volume!),
                           isCurved: true,
                           barWidth: 2,
                         )
@@ -115,8 +110,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         leftTitles: AxisTitles(
 
                           sideTitles: SideTitles(
-                            interval: 5,
-                            reservedSize: width*.05,
+                            interval: 50,
+                            reservedSize: width*.1,
 
                             showTitles: true,
 
@@ -169,4 +164,49 @@ class _ProgressScreenState extends State<ProgressScreen> {
       ),
     );
   }
+  List<FlSpot> generateSpots(List<int> volumes) {
+    List<FlSpot> spots = [];
+    for (int i = 0; i < volumes.length; i++) {
+      spots.add(FlSpot(i * 10.0, volumes[i].toDouble())); // X يزيد بمقدار 10 لكل نقطة
+    }
+    return spots;
+  }
 }
+
+
+
+//DropdownButton<Data>(
+//             value: selectedExercise,
+//             items: exercises.map((Data exercise) {
+//               return DropdownMenuItem<Data>(
+//                 value: exercise,
+//                 child: Text(exercise.name!),
+//               );
+//             }).toList(),
+//             onChanged: (Data? newExercise) {
+//               setState(() {
+//                 selectedExercise = newExercise;
+//               });
+//             },
+//           ),
+//
+//           // الرسم البياني LineChart
+//           Expanded(
+//             child: Padding(
+//               padding: const EdgeInsets.all(16.0),
+//               child: LineChart(
+//                 LineChartData(
+//                   borderData: FlBorderData(show: true),
+//                   lineBarsData: [
+//                     LineChartBarData(
+//                       spots: generateSpots(selectedExercise!.volume!),
+//                       isCurved: true,
+//                       barWidth: 4,
+//
+//                       dotData: FlDotData(show: true),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
