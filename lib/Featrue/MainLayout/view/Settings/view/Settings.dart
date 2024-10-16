@@ -3,6 +3,7 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/ChangePassword/view/ChangePassword.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/EditProfile/View/EditProfile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/StepsCounter.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -55,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
               context,
               icon: Icons.plus_one,
               label: 'Steps Counter',
-              onTap: () => _navigateToPage(context, ProfilePage()),
+              onTap: () => _navigateToPage(context, StepCounterPage()),
             ),
             _buildSettingsItemWithButton(
               context,

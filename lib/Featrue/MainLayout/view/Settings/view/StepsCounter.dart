@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class StepCounterPage extends StatefulWidget {
   @override
@@ -13,22 +14,36 @@ class _StepCounterPageState extends State<StepCounterPage> {
   @override
   void initState() {
     super.initState();
-    _startStepCounting();
+    _totalSteps = 0;
+    _requestPermissions();
+  }
+
+  Future<void> _requestPermissions() async {
+    if (await Permission.activityRecognition.request().isGranted) {
+      _startStepCounting();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Permission to access step count is denied')),
+      );
+    }
   }
 
   void _startStepCounting() {
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen((StepCount event) {
-      setState(() {
-        _totalSteps = event.steps;
-      });
+      if (mounted) {
+        setState(() {
+          _totalSteps = event.steps;
+        });
+      }
+    }, onError: (error) {
+      // Handle error
+      print("Error: $error");
     });
   }
 
   @override
   void dispose() {
-    // Reset total steps when leaving the page
-    _totalSteps = 0;
     super.dispose();
   }
 
