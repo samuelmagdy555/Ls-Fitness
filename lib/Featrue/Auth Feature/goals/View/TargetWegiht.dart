@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
-
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
-import 'CurnnetBody.dart';
-
 
 class TargetWeightSelectionPage extends StatefulWidget {
   @override
@@ -19,8 +17,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
   @override
   void initState() {
     super.initState();
-
-    scrollController = FixedExtentScrollController(initialItem: selectedWeightKg.toInt() - 40);
+    scrollController = FixedExtentScrollController(initialItem: (selectedWeightKg - 40).toInt());
   }
 
   @override
@@ -38,18 +35,14 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-                  child: ProgressIndicatorWidget(
-                    currentStep: 7,
-                    totalSteps: 10,
-                  ),
+                ProgressIndicatorWidget(
+                  currentStep: 7,
+                  totalSteps: 10,
                 ),
               ],
             ),
           ),
           SizedBox(height: screenHeight * 0.01),
-          // Title
           Text(
             'Body Data',
             style: TextStyle(
@@ -73,22 +66,18 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
                 onTap: () {
                   setState(() {
                     isKg = false;
-                    scrollController.jumpToItem((selectedWeightKg / 0.453592).round() - 88);
+                    scrollController.jumpToItem(((selectedWeightKg / 0.453592).round()) - 88);
                   });
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.01,
-                      horizontal: screenWidth * 0.05),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01, horizontal: screenWidth * 0.05),
                   decoration: BoxDecoration(
                     color: !isKg ? Colors.white : Colors.grey,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     'LB',
-                    style: TextStyle(
-                        color: !isKg ? Colors.black : Colors.white,
-                        fontSize: screenWidth * 0.04),
+                    style: TextStyle(color: !isKg ? Colors.black : Colors.white, fontSize: screenWidth * 0.04),
                   ),
                 ),
               ),
@@ -101,43 +90,29 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
                   });
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.01,
-                      horizontal: screenWidth * 0.05),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01, horizontal: screenWidth * 0.05),
                   decoration: BoxDecoration(
                     color: isKg ? Colors.white : Colors.grey,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
                     'KG',
-                    style: TextStyle(
-                        color: isKg ? Colors.black : Colors.white,
-                        fontSize: screenWidth * 0.04),
+                    style: TextStyle(color: isKg ? Colors.black : Colors.white, fontSize: screenWidth * 0.04),
                   ),
                 ),
               ),
             ],
           ),
-
           SizedBox(height: screenHeight * 0.05),
-
           Text(
-            isKg
-                ? '${selectedWeightKg.toStringAsFixed(1)} kg'
-                : '${(selectedWeightKg / 0.453592).toStringAsFixed(1)} lb',
-            style: TextStyle(
-              fontSize: screenWidth * 0.08,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+            isKg ? '${selectedWeightKg.toStringAsFixed(1)} kg' : '${(selectedWeightKg / 0.453592).toStringAsFixed(1)} lb',
+            style: TextStyle(fontSize: screenWidth * 0.08, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           SizedBox(height: screenHeight * 0.02),
-
           Expanded(
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // التمرير العمودي للأرقام
                 ListWheelScrollView.useDelegate(
                   controller: scrollController,
                   itemExtent: 60,
@@ -154,25 +129,15 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
                   childDelegate: ListWheelChildBuilderDelegate(
                     builder: (context, index) {
                       final weight = isKg ? index + 40 : (index + 88);
-                      final displayWeight = isKg
-                          ? '$weight kg'
-                          : '${(weight / 0.453592).round()} lb';
-                      final isSelected = isKg
-                          ? weight == selectedWeightKg.toInt()
-                          : (weight == (selectedWeightKg / 0.453592).round());
+                      final displayWeight = isKg ? '$weight kg' : '${(weight / 0.453592).round()} lb';
+                      final isSelected = isKg ? weight == selectedWeightKg.toInt() : (weight == (selectedWeightKg / 0.453592).round());
 
                       return Text(
                         displayWeight,
                         style: TextStyle(
-                          fontSize: isSelected
-                              ? screenWidth * 0.07
-                              : screenWidth * 0.05,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          color: isSelected
-                              ? Colors.white
-                              : Colors.grey.shade400,
+                          fontSize: isSelected ? screenWidth * 0.07 : screenWidth * 0.05,
+                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected ? Colors.white : Colors.grey.shade400,
                         ),
                       );
                     },
@@ -181,13 +146,14 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
               ],
             ),
           ),
-
-          // Continue button
           Padding(
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                GoalsCubit.get(context).setTargetWeigth(selectedWeightKg);
+                GoalsCubit.get(context).setTargetWeigth(
+                  selectedWeightKg.toInt(),
+                  isKg: isKg,
+                );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -197,10 +163,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
-                padding: EdgeInsets.symmetric(
-                  vertical: screenHeight * 0.02,
-                  horizontal: screenWidth * 0.3,
-                ),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02, horizontal: screenWidth * 0.3),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

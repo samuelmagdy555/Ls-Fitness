@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../ForgetPassword/View/Screens/ForgetPasswordScreen/ForgetPassword_Screen.dart';
@@ -70,6 +71,8 @@ class _LoginViewState extends State<LoginView> {
                        return Center(
                           child: GestureDetector(
                             onTap: () async {
+                              ProfileCubit.get(context).myProfile();
+
                               await cubit.userLogin(
                                   email: emailController.text,
                                   password: passwordController.text, context: context);

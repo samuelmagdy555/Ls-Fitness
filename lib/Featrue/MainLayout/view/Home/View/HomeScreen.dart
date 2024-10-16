@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
 import '../Model/mode.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
@@ -48,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                         Text(
-                          "Zezo",
+                          ProfileCubit.get(context).profileModel!.data.username,
                           style: GoogleFonts.bebasNeue(
                             fontSize: 32,
                             color: Color(0xFF40D876),

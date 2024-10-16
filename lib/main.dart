@@ -11,6 +11,7 @@ import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 

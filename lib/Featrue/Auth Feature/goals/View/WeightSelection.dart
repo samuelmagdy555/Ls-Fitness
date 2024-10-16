@@ -182,16 +182,16 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
 
           // Continue button
           // Continue button
+          // Continue button
           Padding(
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                // Check the current unit and pass the appropriate value
-                if (isKg) {
-                  GoalsCubit.get(context).setWeigth(selectedWeightKg); // kg
-                } else {
-                  GoalsCubit.get(context).setWeigth(selectedWeightKg / 0.453592); // lb to kg conversion before sending
-                }
+                // إرسال الوزن بناءً على الوحدة المختارة
+                GoalsCubit.get(context).setWeigth(
+                  selectedWeightKg.toInt(), // تحويل القيمة إلى int
+                  isKg: isKg, // تمرير ما إذا كان الوزن بالكيلوغرام أو بالباوند
+                );
 
                 Navigator.push(
                   context,
@@ -219,6 +219,8 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
               ),
             ),
           ),
+
+
 
         ],
       ),

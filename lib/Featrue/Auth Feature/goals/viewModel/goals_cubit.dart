@@ -14,67 +14,83 @@ class GoalsCubit extends Cubit<GoalsState> {
   static GoalsCubit get(context) => BlocProvider.of(context);
   LoginModel? loginModel;
   String selectedGender = 'male';
-  String selectedAge = '0';
+  int selectedAge = 20;
   int? selectedLength;
-  double? selectedWeight;
-  double? selectedTargetweight;
+  String? selectedLengthUnit;
+  int? selectedWeight;
+  String? selectedWeightUnit = 'kg';
+  String? selectedTargetWeightUnit ='Kg';
 
+  int? selectedTargetweight;
 
   Future<void> MyGoals({
     required String weight,
     required String Targetweight,
     required int age,
     required String length,
-    required String gender,}) async {
+    required String gender,
+  }) async {
     emit(MyGoalsLoading());
 
     print(selectedLength);
+    print(selectedLengthUnit);
     print(selectedWeight);
+    print(selectedWeightUnit);
     print(selectedTargetweight);
     print(selectedGender);
+
+    print("Token being used: ${loginModel?.token ?? LoginCubit.token}");
+
     try {
-
-
       final response = await DioHelper.PostData(
-          // end_ponit: EndPoints.MyGoals,
-          end_point: EndPoints.MyGoals,
-          token: loginModel?.token ?? LoginCubit.token,
-          data: {
-            'gender': selectedGender,
-            'age': selectedAge,
-            'length': selectedLength,
-            'weight': selectedWeight,
-            'targetWeight': selectedTargetweight,});
+        // end_ponit: EndPoints.MyGoals,
+        end_point: EndPoints.MyGoals,
+        token: loginModel?.token ?? LoginCubit.token,
+        data: {
+          'gender': selectedGender,
+          'age': selectedAge.toString(),
+          'length': '$selectedLength $selectedLengthUnit',
+          'weight': '$selectedWeight $selectedWeightUnit',
+          'targetWeight': '$selectedTargetweight $selectedTargetWeightUnit',
+        },
+      );
 
       emit(MyGoalsSuccess());
-    }
-    catch (e) {
+    } catch (e) {
       emit(MyGoalsError());
       print(e.toString());
     }
   }
+
+  void setLength(int length, String unit) {
+    selectedLength = length;
+    selectedLengthUnit = unit;
+  }
+
   void setGender(String gender) {
     selectedGender = gender;
   }
-  void setAge(String Age) {
+
+  void setAge(int Age) {
     selectedAge = Age;
   }
-  void setLength(int length) {
-    selectedLength = length;
+
+  void setWeigth(int weight, {bool? isKg}) {
+    if (isKg != null && isKg) {
+      selectedWeight = weight;
+    } else {
+      selectedWeight = weight;
+    }
   }
 
-  void setWeigth(double weigth){
-    selectedWeight = weigth;
+
+  void setTargetWeigth(int Targetweigth,{bool? isKg}) {
+    // selectedTargetweight = Targetweigth;
+    if (isKg != null && isKg){
+      selectedTargetweight = Targetweigth;
+    } else {
+      selectedTargetweight = Targetweigth;
+    }
+
   }
-  void setTargetWeigth( double Targetweigth){
-    selectedTargetweight = Targetweigth;
-  }
-
-
-
-
-
-
-
-
 }

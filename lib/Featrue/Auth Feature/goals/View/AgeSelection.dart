@@ -12,6 +12,7 @@ class AgeSelectionPage extends StatefulWidget {
 }
 
 class _AgeSelectionPageState extends State<AgeSelectionPage> {
+  int selectedAge = 20; // Default starting age
 
   @override
   Widget build(BuildContext context) {
@@ -73,28 +74,30 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
               perspective: 0.002,
               physics: FixedExtentScrollPhysics(),
               onSelectedItemChanged: (index) {
-                GoalsCubit.get(context).selectedAge! ;
+                setState(() {
+                  selectedAge = index + 14; // Assuming age starts from 14
+                  GoalsCubit.get(context).setAge(selectedAge); // Store age in cubit
+                });
               },
               childDelegate: ListWheelChildBuilderDelegate(
                 builder: (context, index) {
-                  final age = index + 14; // Starting age from 20
+                  final age = index + 14; // Starting age from 14
                   return Center(
                     child: Text(
                       '$age years old',
                       style: TextStyle(
-                        fontSize: age == GoalsCubit.get(context).selectedAge
+                        fontSize: age == selectedAge
                             ? screenWidth * 0.07
                             : screenWidth * 0.05,
-                        fontWeight:
-                        age == GoalsCubit.get(context).selectedAge ? FontWeight.bold : FontWeight.normal,
-                        color: age == GoalsCubit.get(context).selectedAge
+                        fontWeight: age == selectedAge ? FontWeight.bold : FontWeight.normal,
+                        color: age == selectedAge
                             ? Colors.white
                             : Colors.grey.shade400,
                       ),
                     ),
                   );
                 },
-                childCount: 86,
+                childCount: 86, // Adjust this based on your age range
               ),
             ),
           ),
@@ -103,15 +106,13 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-
-
-                // GoalsCubit.get(context).setAge(selectedAge!);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => HeightSelectionPage(),
                   ),
-                );              },
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(

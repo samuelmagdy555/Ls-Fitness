@@ -77,36 +77,31 @@ class _ThankYouPageState extends State<ThankYouPage>
               ),
               SizedBox(height: 50),
               ElevatedButton(
-                onPressed: ()async {
-
+                onPressed: () async {
+                  // Print current selections for debugging
                   print(GoalsCubit.get(context).selectedAge);
-
                   print(GoalsCubit.get(context).selectedWeight);
-
                   print(GoalsCubit.get(context).selectedTargetweight);
-
                   print(GoalsCubit.get(context).selectedLength);
-
                   print(GoalsCubit.get(context).selectedGender);
 
+                  // Call MyGoals with the correct age type
+                  await GoalsCubit.get(context).MyGoals(
+                    weight: GoalsCubit.get(context).selectedWeight.toString(),
+                    Targetweight: GoalsCubit.get(context).selectedTargetweight.toString(),
+                    age: GoalsCubit.get(context).selectedAge, // Directly use selectedAge
+                    length: GoalsCubit.get(context).selectedLength.toString(),
+                    gender: GoalsCubit.get(context).selectedGender,
+                  );
 
-                  await   GoalsCubit.get(context).MyGoals(
-                      weight:        GoalsCubit.get(context).selectedWeight.toString(),
-                      Targetweight: GoalsCubit.get(context).selectedTargetweight.toString(),
-                      age:           int.tryParse(GoalsCubit.get(context).selectedAge) ?? 0,  // Handle null/invalid age
-                      length:         GoalsCubit.get(context).selectedLength.toString(),
-                      gender:        GoalsCubit.get(context).selectedGender,
-                    );
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MainLayout(),
-                      ),
-                    );
-
+                  // Navigate to the MainLayout after successfully setting goals
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MainLayout(),
+                    ),
+                  );
                 },
-
                 child: Text('Continue'),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
@@ -116,6 +111,7 @@ class _ThankYouPageState extends State<ThankYouPage>
                   ),
                 ),
               ),
+
             ],
           ),
         ),

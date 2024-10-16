@@ -15,7 +15,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   static String name = '';
 
   static ProfileCubit get(context) =>BlocProvider.of(context);
-  LoginModel? loginModel;
   ProfileModel? profileModel;
 
 
@@ -26,7 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try{
       final response = await DioHelper.get(
           end_ponit:EndPoints.Profile,
-        token: loginModel?.token ?? LoginCubit.token
+        token:LoginCubit.loginModel?.token ?? LoginCubit.token
       );
       print(response.data);
       profileModel = ProfileModel.fromJson(response.data);

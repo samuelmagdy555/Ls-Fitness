@@ -86,31 +86,30 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: screenHeight * 0.02),
                         profileDetail(Icons.phone, "Phone", userData?.phone ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
+                        profileDetail(Icons.plus_one, "age", userData?.age.toString() ?? '', screenWidth),
+                        SizedBox(height: screenHeight * 0.02),
+                        profileDetail(Icons.plus_one, "Length", userData?.length ?? '', screenWidth),
+                        SizedBox(height: screenHeight * 0.02),
+                        profileDetail(Icons.merge_type, "Gender", userData?.gender ?? '', screenWidth),
+                        SizedBox(height: screenHeight * 0.02),
+                        profileDetail(Icons.monitor_weight_outlined, "weight", userData?.weight ?? '', screenWidth),
+                        SizedBox(height: screenHeight * 0.02),
+                        profileDetail(Icons.monitor_weight_outlined, "Target weight", userData?.targetWeight ?? '', screenWidth),
+
+
+
+
+
+
+
+
+
                         // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
                       ],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.08),
-                  optionRow(Icons.card_giftcard, "About App", screenWidth),
-                  SizedBox(height: screenHeight * 0.03),
-                  optionRow(Icons.privacy_tip_outlined, "Privacy and Policy", screenWidth),
-                  SizedBox(height: screenHeight * 0.03),
-                  optionRow(Icons.privacy_tip_outlined, "Terms and Condition", screenWidth),
-                  SizedBox(height: screenHeight * 0.03),
-                  optionRow(Icons.article, "User Agreement", screenWidth),
-                  SizedBox(height: screenHeight * 0.03),
-                  optionRowWithNavigation(
-                    Icons.settings,
-                    "Change Password",
-                    screenWidth,
-                        () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ChangePasswordScreen()),
-                      );
-                    },
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
+
+                  SizedBox(height: screenHeight * 0.07),
                   // Sign Out Button
                   ElevatedButton.icon(
                     onPressed: () {},

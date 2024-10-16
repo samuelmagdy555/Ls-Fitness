@@ -183,7 +183,8 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
               onPressed: () {
-                GoalsCubit.get(context).setLength(selectedHeightCm! as int);
+                String heightUnit = isCm ? 'cm' : 'ft';
+                GoalsCubit.get(context).setLength(selectedHeightCm, heightUnit); // تمرير الطول والوحدة
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -191,6 +192,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
                   ),
                 );
               },
+
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(

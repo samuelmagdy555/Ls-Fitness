@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../Auth Feature/goals/View/AgeSelection.dart';
@@ -28,7 +29,7 @@ class _MainLayoutState extends State<MainLayout> {
     WorkoutScreen(),
     FoodListPage(),
     TimerScreen(),
-    ProfilePage()
+    SettingsPage()
   ];
 
   @override
@@ -60,7 +61,6 @@ class _MainLayoutState extends State<MainLayout> {
 
           }
           if(i==4){
-              ProfileCubit.get(context).myProfile();
 
 
           }
@@ -101,7 +101,7 @@ class _MainLayoutState extends State<MainLayout> {
             icon: SizedBox(
                 height: height * .033,
                 width: width * .11,
-                child: const Image(image: AssetImage('assets/images/membership-10968097-unscreen.gif'))),
+                child: const Image(image: AssetImage('assets/images/settings_3524636.png'))),
             title: const Text('Profile'),
           ),
         ],
