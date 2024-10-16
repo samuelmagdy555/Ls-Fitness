@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
@@ -48,13 +49,24 @@ class _HomeViewState extends State<HomeView> {
                             letterSpacing: 1.8,
                           ),
                         ),
-                        Text(
-                          ProfileCubit.get(context).profileModel!.data.username ??'',
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: width * 0.08,
-                            color: Color(0xFF40D876),
-                            letterSpacing: 1.8,
-                          ),
+                        BlocConsumer<ProfileCubit, ProfileState>(
+                          listener: (context, state) {
+                            // TODO: implement listener
+                          },
+                          builder: (context, state) {
+                            return Text(
+                              ProfileCubit.get(context)
+                                      .profileModel
+                                      ?.data
+                                      .username ??
+                                  '',
+                              style: GoogleFonts.bebasNeue(
+                                fontSize: width * 0.08,
+                                color: Color(0xFF40D876),
+                                letterSpacing: 1.8,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -105,7 +117,8 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.05),
+                padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.05, vertical: height * 0.05),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -177,13 +190,16 @@ class _HomeViewState extends State<HomeView> {
                         color: Colors.white,
                       ),
                     ),
-                    TextButton(onPressed: (){}, child: Text(
-                      "Food Calculator",
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.04,
-                        color: Colors.white,
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Food Calculator",
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.04,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),),
+                    ),
                     Text(
                       "Full body",
                       style: GoogleFonts.lato(
