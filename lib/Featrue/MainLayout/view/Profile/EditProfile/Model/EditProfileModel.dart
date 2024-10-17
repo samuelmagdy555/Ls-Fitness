@@ -24,8 +24,6 @@ class Data {
     required this.isOAuthUser,
     required this.role,
     required this.active,
-    required this.createdAt,
-    required this.updatedAt,
     required this.age,
     required this.length,
     required this.targetWeight,
@@ -38,8 +36,6 @@ class Data {
   late final bool isOAuthUser;
   late final String role;
   late final bool active;
-  late final String createdAt;
-  late final String updatedAt;
   late final int age;
   late final String length;
   late final String targetWeight;
@@ -53,8 +49,6 @@ class Data {
     isOAuthUser = json['isOAuthUser'];
     role = json['role'];
     active = json['active'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
     age = json['age'];
     length = json['length'];
     targetWeight = json['targetWeight'];
@@ -70,8 +64,6 @@ class Data {
     _data['isOAuthUser'] = isOAuthUser;
     _data['role'] = role;
     _data['active'] = active;
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
     _data['age'] = age;
     _data['length'] = length;
     _data['targetWeight'] = targetWeight;

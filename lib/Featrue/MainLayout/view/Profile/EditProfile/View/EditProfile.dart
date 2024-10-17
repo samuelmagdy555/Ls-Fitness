@@ -20,9 +20,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
+  TextEditingController TargetweightController = TextEditingController();
+  TextEditingController LengthController = TextEditingController();
 
   String selectedCountryCode = "ID";
   String selectedCountryFlag = '🇮🇩';
+  String selectedGender = 'Male';
   File? profileImage;
 
   @override
@@ -138,7 +142,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ],
                   ),
                   SizedBox(height: screenHeight * 0.02),
-                  buildTextField("Date of Birth", birthDateController, screenWidth),
+                  buildTextField("Age", birthDateController, screenWidth),
+                  SizedBox(height: screenHeight * 0.02),
+                  buildTextField("Weight", weightController, screenWidth),
+                  SizedBox(height: screenHeight * 0.02),
+                  buildTextField("Target Weight", TargetweightController, screenWidth),
+                  SizedBox(height: screenHeight * 0.02),
+                  buildTextField("Length", LengthController, screenWidth),
+
+
+
+
+
                   SizedBox(height: screenHeight * 0.02),
                   DropdownButtonFormField<String>(
                     decoration: InputDecoration(
@@ -152,15 +167,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                     dropdownColor: Color(0xFF1F1F3F),
-                    value: 'Male',
+                    value: selectedGender, // Bind the selected gender
                     items: ['Male', 'Female']
                         .map((label) => DropdownMenuItem(
                       child: Text(label, style: TextStyle(color: Colors.white)),
                       value: label,
                     ))
                         .toList(),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value!; // Update the selected gender
+                      });
+                    },
                   ),
+
                   SizedBox(height: screenHeight * 0.04),
                   ElevatedButton(
                     onPressed: () async {
@@ -206,7 +226,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
           image: profileImage!,
           username: usernameController.text,
           phone: phoneController.text,
-          email: emailController.text);
+          email: emailController.text,
+          age: birthDateController.text,
+          weight: weightController.text,
+          TargetWeight: TargetweightController.text,
+          length: LengthController.text,
+          gender: selectedGender
+      );
     }
   }
 

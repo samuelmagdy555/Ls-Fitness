@@ -45,7 +45,13 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required File image,
     required String username,
     required String phone,
-    required String email}) async {
+    required String email,
+    required String weight,
+    required String TargetWeight,
+    required String length,
+    required String gender,
+    required String age
+  }) async {
     emit(ChangeImageLoading());
     try{
       FormData formData = FormData.fromMap({
@@ -53,6 +59,11 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         'username': username,
         'phone' : phone,
         'email' : email,
+        'gender': gender,
+        'weight':weight,
+        'targetWeight':TargetWeight,
+        'length':length,
+        'age':age,
         'profileImg' : await MultipartFile.fromFile(image.path),
       });
       final response = await DioHelper.putImage(
