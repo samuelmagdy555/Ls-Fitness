@@ -50,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
               context,
               icon: Icons.volume_up,
               label: 'Sounds',
-              onTap: () => _navigateToPage(context, ProfilePage()),
+              // onTap: () => _navigateToPage(context, ProfilePage()),
             ),
             _buildSettingsItem(
               context,
@@ -84,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _buildSettingsItem(BuildContext context,
-      {required IconData icon, required String label, required VoidCallback onTap}) {
+      {required IconData icon, required String label,  VoidCallback? onTap}) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
