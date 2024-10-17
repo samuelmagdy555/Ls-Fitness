@@ -32,7 +32,6 @@ class _CreatineTabState extends State<CreatineTab> {
 
     return Scaffold(
       body: Column(
-
         children: [
           SizedBox(
             height: height * .025,
@@ -284,56 +283,59 @@ class _CreatineTabState extends State<CreatineTab> {
                   CreatineCubit.get(context).getWakeUpTime();
                   CreatineCubit.get(context).getWakeUpTime();
 
-                  if (
-                  dateTime.hour ==
+                  if (dateTime.hour <=
                       CreatineCubit.get(context).sleepTime!.hour - 1) {
-                    final alarmSettings = AlarmSettings(
-                      id: 7,
-                      dateTime: DateTime(
-                          dateTime.year,
-                          dateTime.month,
-                          dateTime.day+1,
-                          CreatineCubit.get(context).wakeUpTime!.hour + 2 , ),
-                      assetAudioPath: 'assets/alarm.mp3',
-                      loopAudio: true,
-                      vibrate: true,
-                      volume: 0.8,
-                      fadeDuration: 3.0,
-                      warningNotificationOnKill: Platform.isIOS,
-                      notificationSettings: NotificationSettings(
-                        body: "Time for Water",
-                        title: "Alarm",
-                        stopButton: 'stop',
-                      ),
-                    );
-                    Alarm.set(
-                      alarmSettings: alarmSettings,
-                    );
-                  } else {
-                    final alarmSettings = AlarmSettings(
-                      id: 7,
-                      dateTime: DateTime(dateTime.year, dateTime.month,
-                          dateTime.day, dateTime.hour + 2 , dateTime.minute),
-                      assetAudioPath: 'assets/alarm.mp3',
-                      loopAudio: true,
-                      vibrate: true,
-                      volume: 0.8,
-                      fadeDuration: 3.0,
-                      warningNotificationOnKill: Platform.isIOS,
-                      notificationSettings: NotificationSettings(
-                        body: "Time for Water",
-                        title: "Alarm",
-                        stopButton: 'stop',
-                      ),
-                    );
-                    Alarm.set(
-                      alarmSettings: alarmSettings,
-                    );
+                    if (dateTime.hour <=
+                        CreatineCubit.get(context).wakeUpTime!.hour) {
+                      final alarmSettings = AlarmSettings(
+                          id: 7,
+                          dateTime: DateTime(dateTime.year, dateTime.month,
+                              dateTime.day, CreatineCubit.get(context).wakeUpTime!.hour + 2, CreatineCubit.get(context).wakeUpTime!.minute),
+                          assetAudioPath: 'assets/alarm.mp3',
+                          loopAudio: true,
+                          vibrate: true,
+                          volume: 0.8,
+                          fadeDuration: 3.0,
+                          warningNotificationOnKill: Platform.isIOS,
+                          notificationSettings: NotificationSettings(
+                            body: "Time for Water",
+                            title: "Alarm",
+                            stopButton: 'stop',
+                          ));
+                      Alarm.set(
+                        alarmSettings: alarmSettings,
+                      );
+                    }
+                    else {
+                      final alarmSettings = AlarmSettings(
+                          id: 7,
+                          dateTime: DateTime(
+                              dateTime.year,
+                              dateTime.month,
+                              dateTime.day ,
+                              dateTime.hour + 2,
+                              dateTime.minute),
+                          assetAudioPath: 'assets/alarm.mp3',
+                          loopAudio: true,
+                          vibrate: true,
+                          volume: 0.8,
+                          fadeDuration: 3.0,
+                          warningNotificationOnKill: Platform.isIOS,
+                          notificationSettings: NotificationSettings(
+                            body: "Time for Water",
+                            title: "Alarm",
+                            stopButton: 'stop',
+                          ));
+                      Alarm.set(
+                        alarmSettings: alarmSettings,
+                      );
+                    }
                   }
+
                 }
               }
               if (state == false) {
-               Alarm.stop(7);
+                Alarm.stop(7);
               }
             },
             rollingInfoRight: RollingWidgetInfo(
