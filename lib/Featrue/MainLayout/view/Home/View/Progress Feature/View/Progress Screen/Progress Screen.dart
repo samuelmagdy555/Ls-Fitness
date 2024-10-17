@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
 
+import '../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
 
@@ -57,10 +59,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 width: width * .4,
                 child: DropdownButton<Data>(
                   value: selectedExercise,
+                  dropdownColor: kThirdColor,
                   items: exercises.map((Data exercise) {
                     return DropdownMenuItem<Data>(
                       value: exercise,
-                      child: Text(exercise.name! , style: TextStyle(color: Colors.white),),
+                      child: Text(exercise.name! , style: TextStyle(color: Colors.white),
+                      ),
                     );
                   }).toList(),
                   onChanged: (Data? newExercise) {
