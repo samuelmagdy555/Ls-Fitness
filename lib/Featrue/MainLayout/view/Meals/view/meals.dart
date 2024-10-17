@@ -24,12 +24,19 @@ class FoodListPage extends StatelessWidget {
       'name': 'Peanut Butter on Whole Wheat Bread with Apple Slices',
       'image': 'assets/images/تفاح-مع-زبدة-الفول-السوداني.jpg',
       'description': '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.'
+    },{
+      'name': 'Peanut Butter on Whole Wheat Bread with Apple Slices',
+      'image': 'assets/images/تفاح-مع-زبدة-الفول-السوداني.jpg',
+      'description': '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.'
+    },{
+      'name': 'Peanut Butter on Whole Wheat Bread with Apple Slices',
+      'image': 'assets/images/تفاح-مع-زبدة-الفول-السوداني.jpg',
+      'description': '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.'
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    // استخدم MediaQuery للحصول على حجم الشاشة
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -117,6 +124,22 @@ class FoodListPage extends StatelessWidget {
           },
         ),
       ),
+      floatingActionButton: Padding(
+        padding:  EdgeInsets.only(bottom: screenHeight* 0.03),
+        child: FloatingActionButton(
+          onPressed: () {
+            // Action for the camera button
+          },
+          backgroundColor: Colors.orangeAccent,
+          child: Icon(
+            Icons.camera_alt,
+            color: Colors.white,
+            size: screenWidth * 0.07,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+
   }
 }

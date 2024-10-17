@@ -65,12 +65,12 @@ class _SettingsPageState extends State<SettingsPage> {
               buttonLabel: 'Edit',
               onTap: () => _navigateToPage(context, EditProfilePage()),
             ),
-            _buildSettingsItemWithButton(
-              context,
-              icon: Icons.watch,
-              label: 'Apple Watch',
-              buttonLabel: 'Connect',
-            ),
+            // _buildSettingsItemWithButton(
+            //   context,
+            //   icon: Icons.watch,
+            //   label: 'Apple Watch',
+            //   buttonLabel: 'Connect',
+            // ),
             _buildSettingsItemWithButton(
               context,
               icon: Icons.language,

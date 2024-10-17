@@ -61,7 +61,7 @@ class _MainLayoutState extends State<MainLayout> {
 
           }
           if(i==4){
-
+          ProfileCubit.get(context).myProfile();
 
           }
           setState(() {
