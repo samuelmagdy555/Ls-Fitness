@@ -20,7 +20,13 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future<void> EditProfile({
     required String username,
     required String phone,
-    required String email})async{
+    required String email,
+    required String weight,
+    required String TargetWeight,
+    required String length,
+    required String gender,
+    required String age
+  })async{
     emit(EditProfileLoading());
     try{
       final response = await DioHelper.putEditProfile(
@@ -29,7 +35,13 @@ class EditProfileCubit extends Cubit<EditProfileState> {
           data: {
             'username': username,
             'phone' : phone,
-            'email' : email}
+            'email' : email,
+            'gender': gender,
+            'weight':weight,
+            'targetWeight':TargetWeight,
+            'length':length,
+            'age':age,
+          }
 
       );
       emit(EditProfileSuccess());
@@ -46,11 +58,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     required String username,
     required String phone,
     required String email,
-    required String weight,
-    required String TargetWeight,
-    required String length,
-    required String gender,
-    required String age
+
   }) async {
     emit(ChangeImageLoading());
     try{
@@ -59,11 +67,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         'username': username,
         'phone' : phone,
         'email' : email,
-        'gender': gender,
-        'weight':weight,
-        'targetWeight':TargetWeight,
-        'length':length,
-        'age':age,
+
         'profileImg' : await MultipartFile.fromFile(image.path),
       });
       final response = await DioHelper.putImage(

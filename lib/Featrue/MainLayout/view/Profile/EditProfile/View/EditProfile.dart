@@ -187,7 +187,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       await cubit.EditProfile(
                           username: usernameController.text,
                           phone: phoneController.text,
-                          email: emailController.text);
+                          email: emailController.text,
+                          age: birthDateController.text,
+                          weight: weightController.text,
+                          TargetWeight: TargetweightController.text,
+                          length: LengthController.text,
+                          gender: selectedGender
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
@@ -227,11 +233,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           username: usernameController.text,
           phone: phoneController.text,
           email: emailController.text,
-          age: birthDateController.text,
-          weight: weightController.text,
-          TargetWeight: TargetweightController.text,
-          length: LengthController.text,
-          gender: selectedGender
+
       );
     }
   }
