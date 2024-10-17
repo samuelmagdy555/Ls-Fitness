@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view_Model/food_calculator_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/view/FoodCalulatorDetails.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 
 class FoodCalculator extends StatefulWidget {
   const FoodCalculator({super.key});
@@ -27,7 +29,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
         ),
         backgroundColor: kThirdColor,
         elevation: 4.0,
-         iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
         listener: (context, state) {
@@ -54,39 +56,53 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               itemCount: foodCalculatorModel.data.length,
               itemBuilder: (context, index) {
                 final foodItem = foodCalculatorModel.data[index];
+                final foodId = foodItem.id;
                 final calories = foodItem.calories ?? 0;
                 final quantities = foodItem.quantities ?? 0;
                 final proteins = foodItem.proteins ?? 0;
                 final carbohydrates = foodItem.carbohydrates ?? 0;
                 final fats = foodItem.fats ?? 0;
                 final fibers = foodItem.fibers ?? 0;
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 6.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          foodItem.title,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.teal[800],
+
+                return GestureDetector(
+                  onTap: () {
+                    FoodCalculatorDetailsCubit.get(context).fetchFoodCalculatorDetails(
+                        mealId: foodId, quantities: 100.toString());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FoodCalculatorDetails(id: foodId),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 6.0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            foodItem.title,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal[800],
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        _buildNutrientRow('Calories', calories),
-                        _buildNutrientRow('Quantities', quantities),
-                        _buildNutrientRow('Proteins', proteins),
-                        _buildNutrientRow('Carbohydrates', carbohydrates),
-                        _buildNutrientRow('Fats', fats),
-                        _buildNutrientRow('Fibers', fibers),
-                      ],
+                          const SizedBox(height: 10),
+                          _buildNutrientRow('Calories', calories),
+                          _buildNutrientRow('Quantities', quantities),
+                          _buildNutrientRow('Proteins', proteins),
+                          _buildNutrientRow('Carbohydrates', carbohydrates),
+                          _buildNutrientRow('Fats', fats),
+                          _buildNutrientRow('Fibers', fibers),
+                        ],
+                      ),
                     ),
                   ),
                 );

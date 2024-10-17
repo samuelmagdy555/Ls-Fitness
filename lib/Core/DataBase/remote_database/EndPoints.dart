@@ -13,5 +13,6 @@ class EndPoints{
   static String GetExercise ="/api/v1/Exercises";
   static String MyGoals ="/api/v1/users/MyGoals";
   static String FoodCalculator ="/api/v1/mealsCalculation";
+  static String FoodCalculatorDetails ="/api/v1/mealsCalculation/calc";
 
 }
