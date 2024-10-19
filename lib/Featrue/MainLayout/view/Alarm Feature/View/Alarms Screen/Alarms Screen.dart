@@ -13,7 +13,7 @@ import '../../View Model/Alarm Provider/Alarm Provider.dart';
 import 'Add Alarm Screen/Add Alarm Screen.dart';
 import 'package:provider/provider.dart';
 
-import 'Tabs/Alarm Feture/View Model/alarm_cubit.dart';
+import 'Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
 import 'Tabs/Alarms Schedule/View/Alarm Schedule Screen.dart';
 import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 

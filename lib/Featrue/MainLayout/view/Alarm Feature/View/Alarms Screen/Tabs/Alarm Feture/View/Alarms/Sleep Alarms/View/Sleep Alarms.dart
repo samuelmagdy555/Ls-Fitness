@@ -1,28 +1,27 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:alarm/alarm.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_utils/get_utils.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
+import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View%20Model/sleep_cubit.dart';
 
-import '../../../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
-import '../../../../../Add Alarm Screen/Add Alarm Screen.dart';
+import '../../../../../../Add Alarm Screen/Add Alarm Screen.dart';
 
-class MealsAlarms extends StatefulWidget {
-  const MealsAlarms({super.key});
+class SleepAlarms extends StatefulWidget {
+  const SleepAlarms({super.key});
 
   @override
-  State<MealsAlarms> createState() => _MealsAlarmsState();
+  State<SleepAlarms> createState() => _SleepAlarmsState();
 }
 
-class _MealsAlarmsState extends State<MealsAlarms> {
+class _SleepAlarmsState extends State<SleepAlarms> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton:
         GestureDetector(
           onTap: () {
@@ -38,27 +37,27 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                 child: Icon(Icons.add , color: Colors.white,),
               )),
         ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text('Meals Alarms' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
+        appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Text('Meals Alarms' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
 
-          }
-          ,
-          icon: Icon(Icons.arrow_back , color: Colors.white,),
-        )
-      ),
-        body: BlocConsumer<AlarmCubit, AlarmState>(
+              }
+              ,
+              icon: Icon(Icons.arrow_back , color: Colors.white,),
+            )
+        ),
+        body: BlocConsumer<SleepCubit, SleepState>(
           listener: (context, state) {
             // TODO: implement listener
           },
           builder: (context, state) {
             return ListView.builder(
-                itemCount: AlarmCubit.get(context).meals.length,
+                itemCount: SleepCubit.get(context).sleep.length,
                 itemBuilder: (BuildContext, index) {
                   return GestureDetector(
                     onTap: () async {
@@ -103,14 +102,14 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                         String formattedTime =
                             '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
 
-                        AlarmCubit.get(context)
+                        SleepCubit.get(context)
                             .updateMealTime(index, formattedTime);
                         await Alarm.stop(
-                            AlarmCubit.get(context).meals[index].id);
+                            SleepCubit.get(context).sleep[index].id);
 
                         await Alarm.set(
                             alarmSettings: AlarmSettings(
-                              id: AlarmCubit.get(context).meals[index].id,
+                              id: SleepCubit.get(context).sleep[index].id,
                               dateTime: selectedDateTime,
                               assetAudioPath: 'assets/alarm.mp3',
                               loopAudio: true,
@@ -120,7 +119,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                               warningNotificationOnKill: Platform.isIOS,
                               notificationSettings: NotificationSettings(
                                 body:
-                                "Time for ${AlarmCubit.get(context).meals[index].name}",
+                                "Time for ${SleepCubit.get(context).sleep[index].name}",
                                 title: "Alarm",
                                 stopButton: 'stop',
                               ),
@@ -139,8 +138,8 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AlarmCubit.get(context)
-                                .meals[index]
+                            SleepCubit.get(context)
+                                .sleep[index]
                                 .name
                                 .toString(),
                             style: TextStyle(
@@ -149,7 +148,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                                 color: Colors.white),
                           ),
                           Text(
-                            AlarmCubit.get(context).meals[index].time,
+                            SleepCubit.get(context).sleep[index].time,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .055,

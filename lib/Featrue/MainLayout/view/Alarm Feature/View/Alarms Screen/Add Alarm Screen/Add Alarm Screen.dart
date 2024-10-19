@@ -7,10 +7,10 @@ import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../View Model/Alarm Provider/Alarm Provider.dart';
+import '../Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
 
 class AddAlarm extends StatefulWidget {
   const AddAlarm({super.key});

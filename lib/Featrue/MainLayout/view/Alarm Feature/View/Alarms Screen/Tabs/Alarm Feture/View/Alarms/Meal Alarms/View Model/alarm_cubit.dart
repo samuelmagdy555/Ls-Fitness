@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Meal%20Alarms/Model/Meals%20Model.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 import 'dart:math';
@@ -9,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../../../../../Model/Alarm Model/Alarm Model.dart';
-import '../../../../../Model/Meals Model/Meals Model.dart';
+
+
 part 'alarm_state.dart';
 
 class AlarmCubit extends Cubit<AlarmState> {
@@ -45,6 +46,16 @@ class AlarmCubit extends Cubit<AlarmState> {
     Meal(name: 'Training', time: '00:00',id: 4),
     Meal(name: 'Snack 1', time: '00:00',id: 5),
     Meal(name: 'Snack 2', time: '00:00',id: 6),
+  ];
+  List<Meal> Supplement = [
+    Meal(name: 'Protein', time: '00:00' , id: 8),
+    Meal(name: 'Carbs', time: '00:00',id: 9),
+    Meal(name: 'PreWorkout', time: '00:00',id: 10),
+    Meal(name: 'BCAAs ', time: '00:00',id: 11),
+    Meal(name: 'Omega', time: '00:00',id: 12),
+    Meal(name: 'Vitamins', time: '00:00',id: 13),
+    Meal(name: 'Glutamine ', time: '00:00',id: 14),
+
   ];
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
