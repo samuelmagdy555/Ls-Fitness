@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarms%20Tab.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms%20Tab.dart';
 
 import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 
@@ -14,6 +14,7 @@ import 'Add Alarm Screen/Add Alarm Screen.dart';
 import 'package:provider/provider.dart';
 
 import 'Tabs/Alarm Feture/View Model/alarm_cubit.dart';
+import 'Tabs/Alarms Schedule/View/Alarm Schedule Screen.dart';
 import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 
 class TimerScreen extends StatefulWidget {
@@ -50,22 +51,8 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
           ),
           centerTitle: true,
         ),
-        floatingActionButton: tabController!.index == 0
-            ? GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddAlarm()));
-                },
-                child: Container(
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Icon(Icons.add),
-                    )),
-              )
-            : null,
+
+
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
           children: [
@@ -87,7 +74,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             ),
             Expanded(
                 child: TabBarView(controller: tabController, children: [
-              AlarmsTab(),
+              AlarmSchedule(),
               CreatineTab(),
             ]))
           ],

@@ -174,7 +174,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: ExercisePage(),
+        home: TimerScreen(),
       ),
     );
   }

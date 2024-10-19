@@ -8,7 +8,7 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View%20Model/alarm_cubit.dart';
 import 'package:provider/provider.dart';
 
-import '../../../View Model/Alarm Provider/Alarm Provider.dart';
+import '../../../../../View Model/Alarm Provider/Alarm Provider.dart';
 import 'dart:math';
 import 'package:intl/intl.dart';
 
