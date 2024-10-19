@@ -10,3 +10,9 @@ final class GetWakeupTime extends CreatineState {}
 
 final class SetSleepTime extends CreatineState {}
 final class GetSleepTime extends CreatineState {}
+
+final class ChangeAlarmState extends CreatineState {}
+final class GetAlarmState extends CreatineState {
+final bool state;
+GetAlarmState(this.state);
+}

@@ -28,7 +28,6 @@ import 'Featrue/Auth Feature/Register/view_model/regester_cubit.dart';
 import 'Featrue/Auth Feature/login/view_mode/login_cubit.dart';
 import 'Featrue/Intro Feature/Splash/View/Splash_Screen.dart';
 import 'Featrue/Intro Feature/onboarding/View/Widget/colors.dart';
-import 'Featrue/MainLayout/view/Alarm Feature/View Model/Alarm Provider/Alarm Provider.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
@@ -163,7 +162,7 @@ class _MyAppState extends State<MyApp> {
           child: FilterPage(),
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
-        BlocProvider(create: (context) => CreatineCubit()),
+        BlocProvider(create: (context) => CreatineCubit()..getAlarmState),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit()),
         BlocProvider(create: (context)=> ProgressCubit()),

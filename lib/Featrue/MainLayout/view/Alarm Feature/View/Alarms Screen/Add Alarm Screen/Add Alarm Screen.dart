@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/Model/Supplement.dart';
 
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
-import '../../../View Model/Alarm Provider/Alarm Provider.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Supplement Meals/View Model/supplements_cubit.dart';

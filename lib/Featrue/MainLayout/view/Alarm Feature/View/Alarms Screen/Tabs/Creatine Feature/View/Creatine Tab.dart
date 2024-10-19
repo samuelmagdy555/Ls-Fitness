@@ -8,7 +8,6 @@ import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20
 import 'package:rolling_switch/rolling_switch.dart';
 
 import '../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
-import '../../../../../View Model/Alarm Provider/Alarm Provider.dart';
 
 class CreatineTab extends StatefulWidget {
   const CreatineTab({super.key});
@@ -18,12 +17,7 @@ class CreatineTab extends StatefulWidget {
 }
 
 class _CreatineTabState extends State<CreatineTab> {
-  @override
-  void initState() {
-    CreatineCubit.get(context).getWakeUpTime();
-    CreatineCubit.get(context).getSleepTime();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +38,11 @@ class _CreatineTabState extends State<CreatineTab> {
           SizedBox(
             height: height * .05,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Colors.white24, borderRadius: BorderRadius.circular(18)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -66,7 +63,7 @@ class _CreatineTabState extends State<CreatineTab> {
                           return Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+                              color: Color(0xff40D876),
                             ),
                             child: TextButton(
                                 onPressed: () async {
@@ -92,7 +89,7 @@ class _CreatineTabState extends State<CreatineTab> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: width * .055,
-                                      color: kThirdColor,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 )),
                           );
@@ -106,7 +103,7 @@ class _CreatineTabState extends State<CreatineTab> {
                           return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
+                                color: Color(0xff40D876),
                               ),
                               child: TextButton(
                                 onPressed: () async {
@@ -144,7 +141,7 @@ class _CreatineTabState extends State<CreatineTab> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: width * .055,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ));
@@ -154,10 +151,13 @@ class _CreatineTabState extends State<CreatineTab> {
             ),
           ),
           SizedBox(
-            height: height * .025,
+            height: height * .005,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: Colors.white24, borderRadius: BorderRadius.circular(18)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -178,7 +178,7 @@ class _CreatineTabState extends State<CreatineTab> {
                           return Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
+                              color: Color(0xff40D876),
                             ),
                             child: TextButton(
                                 onPressed: () async {
@@ -204,7 +204,7 @@ class _CreatineTabState extends State<CreatineTab> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: width * .055,
-                                      color: kThirdColor,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 )),
                           );
@@ -218,7 +218,7 @@ class _CreatineTabState extends State<CreatineTab> {
                           return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
+                                color: Color(0xff40D876),
                               ),
                               child: TextButton(
                                 onPressed: () async {
@@ -255,7 +255,7 @@ class _CreatineTabState extends State<CreatineTab> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: width * .055,
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ));
@@ -267,84 +267,111 @@ class _CreatineTabState extends State<CreatineTab> {
           SizedBox(
             height: height * .05,
           ),
-          RollingSwitch.widget(
-            onChanged: (bool state) {
-              if (state == true) {
-                if (CreatineCubit.get(context).wakeUpTime == null ||
-                    CreatineCubit.get(context).sleepTime == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          'Please make sure that the time to go to sleep and wake up have been set'),
-                    ),
-                  );
-                } else {
-                  DateTime dateTime = DateTime.now();
-                  CreatineCubit.get(context).getWakeUpTime();
-                  CreatineCubit.get(context).getWakeUpTime();
+          BlocConsumer<CreatineCubit, CreatineState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              return RollingSwitch.widget(
+                initialState: CreatineCubit.get(context).alarmState,
+                onChanged: (bool Main) {
+                  if (state == true) {
+                    if (CreatineCubit.get(context).wakeUpTime == null ||
+                        CreatineCubit.get(context).sleepTime == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Please make sure that the time to go to sleep and wake up have been set'),
+                        ),
+                      );
+                    } else {
+                      DateTime dateTime = DateTime.now();
+                      CreatineCubit.get(context).getWakeUpTime();
+                      CreatineCubit.get(context).getWakeUpTime();
 
-                  if (dateTime.hour <=
-                      CreatineCubit.get(context).sleepTime!.hour - 1) {
-                    if (dateTime.hour <=
-                        CreatineCubit.get(context).wakeUpTime!.hour) {
-                      final alarmSettings = AlarmSettings(
-                          id: 7,
-                          dateTime: DateTime(dateTime.year, dateTime.month,
-                              dateTime.day, CreatineCubit.get(context).wakeUpTime!.hour + 2, CreatineCubit.get(context).wakeUpTime!.minute),
-                          assetAudioPath: 'assets/alarm.mp3',
-                          loopAudio: true,
-                          vibrate: true,
-                          volume: 0.8,
-                          fadeDuration: 3.0,
-                          warningNotificationOnKill: Platform.isIOS,
-                          notificationSettings: NotificationSettings(
-                            body: "Time for Water",
-                            title: "Alarm",
-                            stopButton: 'stop',
-                          ));
-                      Alarm.set(
-                        alarmSettings: alarmSettings,
-                      );
-                    }
-                    else {
-                      final alarmSettings = AlarmSettings(
-                          id: 7,
-                          dateTime: DateTime(
-                              dateTime.year,
-                              dateTime.month,
-                              dateTime.day ,
-                              dateTime.hour + 2,
-                              dateTime.minute),
-                          assetAudioPath: 'assets/alarm.mp3',
-                          loopAudio: true,
-                          vibrate: true,
-                          volume: 0.8,
-                          fadeDuration: 3.0,
-                          warningNotificationOnKill: Platform.isIOS,
-                          notificationSettings: NotificationSettings(
-                            body: "Time for Water",
-                            title: "Alarm",
-                            stopButton: 'stop',
-                          ));
-                      Alarm.set(
-                        alarmSettings: alarmSettings,
-                      );
+                      if (dateTime.hour <=
+                          CreatineCubit.get(context).sleepTime!.hour - 1) {
+                        if (dateTime.hour <=
+                            CreatineCubit.get(context).wakeUpTime!.hour) {
+                          final alarmSettings = AlarmSettings(
+                              id: 7,
+                              dateTime: DateTime(
+                                  dateTime.year,
+                                  dateTime.month,
+                                  dateTime.day,
+                                  CreatineCubit.get(context).wakeUpTime!.hour +
+                                      2,
+                                  CreatineCubit.get(context)
+                                      .wakeUpTime!
+                                      .minute),
+                              assetAudioPath: 'assets/alarm.mp3',
+                              loopAudio: true,
+                              vibrate: true,
+                              volume: 0.8,
+                              fadeDuration: 3.0,
+                              warningNotificationOnKill: Platform.isIOS,
+                              notificationSettings: NotificationSettings(
+                                body: "Time for Water",
+                                title: "Alarm",
+                                stopButton: 'stop',
+                              ));
+                          Alarm.set(
+                            alarmSettings: alarmSettings,
+                          );
+                          CreatineCubit.get(context).changeAlarmState(true);
+                        } else {
+                          final alarmSettings = AlarmSettings(
+                              id: 7,
+                              dateTime: DateTime(
+                                  dateTime.year,
+                                  dateTime.month,
+                                  dateTime.day,
+                                  dateTime.hour + 2,
+                                  dateTime.minute),
+                              assetAudioPath: 'assets/alarm.mp3',
+                              loopAudio: true,
+                              vibrate: true,
+                              volume: 0.8,
+                              fadeDuration: 3.0,
+                              warningNotificationOnKill: Platform.isIOS,
+                              notificationSettings: NotificationSettings(
+                                body: "Time for Water",
+                                title: "Alarm",
+                                stopButton: 'stop',
+                              ));
+                          Alarm.set(
+                            alarmSettings: alarmSettings,
+                          );
+                          CreatineCubit.get(context).changeAlarmState(true);
+                        }
+                      }
                     }
                   }
+                  if (state == false) {
+                    Alarm.stop(7);
+                    CreatineCubit.get(context).changeAlarmState(false);
+                  }
+                },
+                rollingInfoRight: RollingWidgetInfo(
 
-                }
-              }
-              if (state == false) {
-                Alarm.stop(7);
-              }
+                  text: Text(
+                    'On',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: width * .04),
+                  ),
+                  backgroundColor: Color(0xff40D876),
+                ),
+                rollingInfoLeft: RollingWidgetInfo(
+                  backgroundColor: Colors.grey,
+                  text: Text('Off',style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: width * .04),),
+                ),
+              );
             },
-            rollingInfoRight: RollingWidgetInfo(
-              text: Text('On'),
-            ),
-            rollingInfoLeft: RollingWidgetInfo(
-              backgroundColor: Colors.grey,
-              text: Text('Off'),
-            ),
           ),
         ],
       ),

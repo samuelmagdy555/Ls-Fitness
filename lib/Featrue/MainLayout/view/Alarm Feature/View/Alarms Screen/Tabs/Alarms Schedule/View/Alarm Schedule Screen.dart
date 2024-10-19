@@ -37,8 +37,6 @@ class _AlarmScheduleState extends State<AlarmSchedule> {
     Icons.fitness_center
   ];
 
-  late List<String> scheduleNumbers;
-
   List<Widget> scheduleScreen = [
     MealsAlarms(),
     SupplementsAlarms(),
@@ -47,82 +45,81 @@ class _AlarmScheduleState extends State<AlarmSchedule> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    scheduleNumbers = [
-    AlarmCubit.get(context).meals.length.toString(),
-    SupplementsCubit.get(context).supplements.length.toString(),
-    SleepCubit.get(context).sleep.length.toString(),
-    WorkoutCubit.get(context).workout.length.toString(),
-  ];
-  }
-  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: ListView.builder(
         itemCount: schedules.length,
-        itemBuilder: (context, index) => GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => scheduleScreen[index]));
-          },
-          child: Container(
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Color(0xff40D876),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              //scheduleDescriptions
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      scheduleIcons[index],
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: width * .045,
-                    ),
-                    //scheduleNumbers
-                    Text(schedules[index],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * 0.0625,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Spacer(),
-                    Icon(
-                      Icons.alarm,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
-                SizedBox(height: 10),
-                Text(scheduleDescriptions[index],
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: width * 0.045,
-                      fontWeight: FontWeight.w500,
-                    )),
-                SizedBox(height: 10),
+        itemBuilder: (context, index) {
+          List<String> scheduleNumbers = [
+            AlarmCubit.get(context).meals.length.toString(),
+            SupplementsCubit.get(context).supplements.length.toString(),
+            SleepCubit.get(context).sleep.length.toString(),
+            WorkoutCubit.get(context).workout.length.toString(),
+          ];
+          return GestureDetector(
+            onTap: () {
 
-                //scheduleNumbers
-                Text('${scheduleNumbers[index]} Alarms',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: width * 0.035,
-                      fontWeight: FontWeight.w500,
-                    )),
-              ],
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => scheduleScreen[index]));
+            },
+            child: Container(
+              padding: EdgeInsets.all(20),
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Color(0xff40D876),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                //scheduleDescriptions
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        scheduleIcons[index],
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: width * .045,
+                      ),
+                      //scheduleNumbers
+                      Text(schedules[index],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: width * 0.0625,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Spacer(),
+                      Icon(
+                        Icons.alarm,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Text(scheduleDescriptions[index],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: width * 0.045,
+                        fontWeight: FontWeight.w500,
+                      )),
+                  SizedBox(height: 10),
+
+                  //scheduleNumbers
+                  Text('${scheduleNumbers[index]} Alarms',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: width * 0.035,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }

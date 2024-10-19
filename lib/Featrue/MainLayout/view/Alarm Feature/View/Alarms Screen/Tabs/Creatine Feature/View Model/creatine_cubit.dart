@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'creatine_state.dart';
 
@@ -44,5 +45,24 @@ class CreatineCubit extends Cubit<CreatineState> {
       sleepTime = DateTime.parse(theSleepTime);
     }
     emit(GetSleepTime());
+  }
+
+  bool alarmState = true;
+  late SharedPreferences preferences;
+
+  Future<void> changeAlarmState(bool state) async {
+    preferences = await SharedPreferences.getInstance();
+
+    preferences.setBool('alarmState', state);
+
+    emit(ChangeAlarmState());
+  }
+
+  Future<void> getAlarmState() async {
+    preferences = await SharedPreferences.getInstance();
+    final alarmState = preferences.getBool('alarmState');
+    print(state);
+
+    emit(GetAlarmState(alarmState!));
   }
 }
