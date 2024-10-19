@@ -9,6 +9,8 @@ import 'package:im_stepper/main.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/Model/Sleep%20Model.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/Model/Supplement.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view_Model/food_calculator_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
@@ -29,6 +31,9 @@ import 'Featrue/Intro Feature/onboarding/View/Widget/colors.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View Model/Alarm Provider/Alarm Provider.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
+import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
+import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Supplement Meals/View Model/supplements_cubit.dart';
+import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View Model/workout_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/view/FiltterPage.dart';
 import 'Featrue/MainLayout/view/Exercise/view/Filter/viewmodel/category_cubit.dart';
@@ -160,13 +165,17 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context) => CreatineCubit()),
-       BlocProvider(create:  (context)=> AlarmCubit()..initializeMeals()),
-
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit()),
         BlocProvider(create: (context)=> ProgressCubit()),
         BlocProvider(create: (context)=> FoodCalculatorCubit()),
-        BlocProvider(create: (context)=> FoodCalculatorDetailsCubit())
+        BlocProvider(create: (context)=> FoodCalculatorDetailsCubit()),
+        BlocProvider(create: (context) => AlarmCubit()..initializeMeals()),
+        BlocProvider(create: (context) => SupplementsCubit()..initializeSupplements()),
+        BlocProvider(create: (context) => WorkoutCubit()..initializeWorkout()),
+        BlocProvider(create: (context) => SleepCubit()..initializeSleep()),
+
+
       ],
       child: GetMaterialApp(
         theme: ThemeData(

@@ -21,6 +21,15 @@ class AlarmCubit extends Cubit<AlarmState> {
   late SharedPreferences preferences;
 
 
+  List<Meal> meals = [
+    Meal(name: 'Breakfast', time: '00:00' , id: 1),
+    Meal(name: 'Lunch', time: '00:00',id: 2),
+    Meal(name: 'Dinner', time: '00:00',id: 3),
+    Meal(name: 'Training', time: '00:00',id: 4),
+    Meal(name: 'Snack 1', time: '00:00',id: 5),
+    Meal(name: 'Snack 2', time: '00:00',id: 6),
+  ];
+
   List<String> listofstring = [];
 
   Future<void> initializeMeals() async {
@@ -39,24 +48,6 @@ class AlarmCubit extends Cubit<AlarmState> {
 
 
 
-  List<Meal> meals = [
-    Meal(name: 'Breakfast', time: '00:00' , id: 1),
-    Meal(name: 'Lunch', time: '00:00',id: 2),
-    Meal(name: 'Dinner', time: '00:00',id: 3),
-    Meal(name: 'Training', time: '00:00',id: 4),
-    Meal(name: 'Snack 1', time: '00:00',id: 5),
-    Meal(name: 'Snack 2', time: '00:00',id: 6),
-  ];
-  List<Meal> Supplement = [
-    Meal(name: 'Protein', time: '00:00' , id: 8),
-    Meal(name: 'Carbs', time: '00:00',id: 9),
-    Meal(name: 'PreWorkout', time: '00:00',id: 10),
-    Meal(name: 'BCAAs ', time: '00:00',id: 11),
-    Meal(name: 'Omega', time: '00:00',id: 12),
-    Meal(name: 'Vitamins', time: '00:00',id: 13),
-    Meal(name: 'Glutamine ', time: '00:00',id: 14),
-
-  ];
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 

@@ -40,7 +40,7 @@ class _SleepAlarmsState extends State<SleepAlarms> {
         appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: Text('Meals Alarms' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
+            title: Text('Sleep Alarm' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
             centerTitle: true,
             leading: IconButton(
               onPressed: () {

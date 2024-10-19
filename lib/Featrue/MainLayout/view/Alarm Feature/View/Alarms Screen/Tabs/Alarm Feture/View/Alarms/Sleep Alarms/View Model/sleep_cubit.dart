@@ -24,17 +24,30 @@ class SleepCubit extends Cubit<SleepState> {
   List<String> listofstring = [];
 
   List<Sleep> sleep = [
-    Sleep(name: 'Wake Up', time: '00:00' , id: 8),
-    Sleep(name: 'Sleep', time: '00:00',id: 9),
+    Sleep(name: 'Wake Up', time: '00:00' , id: 15),
+    Sleep(name: 'Sleep', time: '00:00',id: 16),
 
 
   ];
+
+  Future<void> initializeSleep() async {
+    preferences = await SharedPreferences.getInstance();
+    List<String>? storedMeals = preferences.getStringList('sleep');
+
+    if (storedMeals == null) {
+      setMeals();
+    } else {
+      sleep = storedMeals.map((e) => Sleep.fromJson(json.decode(e))).toList();
+      emit(InitializeSleep());
+    }
+  }
+
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   void setMeals() {
     List<String> mealStrings =
-    sleep.map((Sleep) => json.encode(Sleep.toJson())).toList();
+    sleep.map((s) => json.encode(s.toJson())).toList();
     preferences.setStringList('sleep', mealStrings);
     emit(SetSleep());
   }
