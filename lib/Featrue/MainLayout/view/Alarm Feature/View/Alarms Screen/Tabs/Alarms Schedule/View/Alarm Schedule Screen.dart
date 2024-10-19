@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Meal%20Alarms/View%20Model/alarm_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Meal%20Alarms/View/Meal%20Alarms.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View%20Model/sleep_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View/Sleep%20Alarms.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/View%20Model/supplements_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/View/Supplement%20Meals.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Workout%20Alarms/View%20Model/workout_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Workout%20Alarms/View/Workout%20Alarms.dart';
 
 class AlarmSchedule extends StatefulWidget {
@@ -33,34 +37,36 @@ class _AlarmScheduleState extends State<AlarmSchedule> {
     Icons.fitness_center
   ];
 
-  List<String> scheduleNumbers = [
-    '5',
-    '6',
-    '2',
-    '1',
-
-  ];
+  late List<String> scheduleNumbers;
 
   List<Widget> scheduleScreen = [
     MealsAlarms(),
     SupplementsAlarms(),
     SleepAlarms(),
     WorkoutAlarms(),
-
-
-
   ];
 
   @override
+  void initState() {
+    super.initState();
+    scheduleNumbers = [
+    AlarmCubit.get(context).meals.length.toString(),
+    SupplementsCubit.get(context).supplements.length.toString(),
+    SleepCubit.get(context).sleep.length.toString(),
+    WorkoutCubit.get(context).workout.length.toString(),
+  ];
+  }
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-
       body: ListView.builder(
         itemCount: schedules.length,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>scheduleScreen[index]));
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => scheduleScreen[index]));
           },
           child: Container(
             padding: EdgeInsets.all(20),

@@ -27,7 +27,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddAlarm()));
+                MaterialPageRoute(builder: (context) => AddAlarm(index: 0,)));
           },
           child: Container(
               margin: EdgeInsets.all(8),
@@ -78,8 +78,6 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                             pickedTime.hour,
                             pickedTime.minute,
                           );
-                          print(pickedTime.hour);
-                          print(now.hour);
                         } else {
                           if (pickedTime.hour.isEqual(now.hour) &&
                               pickedTime.minute.isLowerThan(now.minute)) {

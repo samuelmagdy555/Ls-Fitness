@@ -157,8 +157,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProfileCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => EditProfileCubit()),
-        BlocProvider(
-          create: (context) => CategoryCubit()
+        BlocProvider(create: (context) => CategoryCubit()
             ..getCategory()
             ..getBodyParts(),
           child: FilterPage(),
@@ -170,10 +169,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context)=> ProgressCubit()),
         BlocProvider(create: (context)=> FoodCalculatorCubit()),
         BlocProvider(create: (context)=> FoodCalculatorDetailsCubit()),
-        BlocProvider(create: (context) => AlarmCubit()..initializeMeals()),
-        BlocProvider(create: (context) => SupplementsCubit()..initializeSupplements()),
-        BlocProvider(create: (context) => WorkoutCubit()..initializeWorkout()),
-        BlocProvider(create: (context) => SleepCubit()..initializeSleep()),
+        BlocProvider(create: (context) => AlarmCubit()..initializeMeals()..GetData()),
+        BlocProvider(create: (context) => SupplementsCubit()..initializeSupplements()..GetData()),
+        BlocProvider(create: (context) => WorkoutCubit()..initializeWorkout()..GetData()),
+        BlocProvider(create: (context) => SleepCubit()..initializeSleep()..GetData()),
 
 
       ],

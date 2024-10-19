@@ -87,7 +87,7 @@ class WorkoutCubit extends Cubit<WorkoutState> {
     int id;
 
     do {
-      id = random.nextInt(50);
+      id = random.nextInt(100);
     } while (meals.any((meal) => meal.id == id));
 
     return id;

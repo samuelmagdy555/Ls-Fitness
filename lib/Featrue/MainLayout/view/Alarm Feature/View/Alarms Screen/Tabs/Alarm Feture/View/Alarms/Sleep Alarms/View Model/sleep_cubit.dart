@@ -90,7 +90,7 @@ class SleepCubit extends Cubit<SleepState> {
     int id;
 
     do {
-      id = random.nextInt(50);
+      id = random.nextInt(100);
     } while (meals.any((meal) => meal.id == id));
 
     return id;

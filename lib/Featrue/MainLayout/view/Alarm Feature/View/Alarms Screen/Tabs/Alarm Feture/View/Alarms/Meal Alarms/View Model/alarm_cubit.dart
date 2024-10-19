@@ -71,7 +71,7 @@ class AlarmCubit extends Cubit<AlarmState> {
     List<String>? cominglist = await preferences.getStringList("meals");
 
     if (cominglist == null) {} else {
-      meals = cominglist.map((e) => Meal.fromJson(json.decode(e))).toList();
+      meals = cominglist.map((e) => Meal.fromJson(json.decode(e[0]))).toList();
       emit(GetDataState());
     }
   }
@@ -85,7 +85,8 @@ class AlarmCubit extends Cubit<AlarmState> {
 
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
-    meals.add(Meal(name: label , time: dateTime, id: id));
+
+    meals.add(Meal(name: label , time: dateTime.padLeft(2, '0'), id: id));
     emit(SetAlarm());
     SetData();
   }
@@ -96,7 +97,7 @@ class AlarmCubit extends Cubit<AlarmState> {
     int id;
 
     do {
-      id = random.nextInt(50);
+      id = random.nextInt(100);
     } while (meals.any((meal) => meal.id == id));
 
     return id;

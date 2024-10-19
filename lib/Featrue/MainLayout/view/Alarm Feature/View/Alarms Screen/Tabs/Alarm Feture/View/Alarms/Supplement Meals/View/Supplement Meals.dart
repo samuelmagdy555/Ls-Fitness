@@ -27,7 +27,7 @@ class _SupplementsAlarmsState extends State<SupplementsAlarms> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddAlarm()));
+                MaterialPageRoute(builder: (context) => AddAlarm(index: 1,)));
           },
           child: Container(
               margin: EdgeInsets.all(8),

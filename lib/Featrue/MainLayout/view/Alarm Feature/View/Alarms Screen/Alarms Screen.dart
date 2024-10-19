@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms%20Tab.dart';
 
 import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 
@@ -34,7 +33,6 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {});
     });
-    AlarmCubit.get(context).GetData();
     super.initState();
   }
 

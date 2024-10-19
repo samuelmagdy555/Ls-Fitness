@@ -26,7 +26,7 @@ class _SleepAlarmsState extends State<SleepAlarms> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddAlarm()));
+                MaterialPageRoute(builder: (context) => AddAlarm(index: 2,)));
           },
           child: Container(
               margin: EdgeInsets.all(8),
@@ -40,7 +40,7 @@ class _SleepAlarmsState extends State<SleepAlarms> {
         appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: Text('Sleep Alarm' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
+            title: Text('Sleep Alarm ' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
             centerTitle: true,
             leading: IconButton(
               onPressed: () {

@@ -7,13 +7,19 @@ import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/Model/Supplement.dart';
 
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../View Model/Alarm Provider/Alarm Provider.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
+import '../Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
+import '../Tabs/Alarm Feture/View/Alarms/Supplement Meals/View Model/supplements_cubit.dart';
+import '../Tabs/Alarm Feture/View/Alarms/Workout Alarms/View Model/workout_cubit.dart';
 
 class AddAlarm extends StatefulWidget {
-  const AddAlarm({super.key});
+  final int index;
+
+  const AddAlarm({super.key, required this.index});
 
   @override
   State<AddAlarm> createState() => _AddAlaramState();
@@ -50,6 +56,8 @@ class _AddAlaramState extends State<AddAlarm> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kThirdColor,
@@ -66,93 +74,138 @@ class _AddAlaramState extends State<AddAlarm> {
           },
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.width,
-            child: CupertinoDatePicker(
-              backgroundColor: Colors.white,
-              showDayOfWeek: false,
-              minimumDate: DateTime.now(),
-              dateOrder: DatePickerDateOrder.dmy,
-              onDateTimeChanged: (va) {
-                dateTime = DateFormat().add_jms().format(va);
-
-                Milliseconds = va.microsecondsSinceEpoch;
-
-                notificationtime = va;
-
-                print(dateTime);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                height: MediaQuery.of(context).size.height * 0.3,
                 width: MediaQuery.of(context).size.width,
-                child: CupertinoTextField(
-                  placeholder: "Add Label",
-                  controller: controller,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(
+                    textTheme: CupertinoTextThemeData(
+                      dateTimePickerTextStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                      ),
+                    ),
+                  ),
+                  child: CupertinoDatePicker(
+                    backgroundColor: Colors.transparent,
+                    mode: CupertinoDatePickerMode.time,
+                    showDayOfWeek: false,
+                    dateOrder: DatePickerDateOrder.dmy,
+                    onDateTimeChanged: (va) {
+                      dateTime = DateFormat('HH:mm').format(va);
+                      Milliseconds = va.microsecondsSinceEpoch;
+                      notificationtime = va;
+                    },
+                  ),
                 )),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(" Repeat daily"),
-              ),
-              CupertinoSwitch(
-                value: repeat,
-                onChanged: (bool value) {
-                  repeat = value;
+            SizedBox(
+              height: height * .05,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: CupertinoTextField(
+                    cursorColor: Color(0xFF40D876),
+                    padding: EdgeInsets.all(15),
+                    placeholder: "Add Label",
+                    style: TextStyle(color: Colors.white),
+                    placeholderStyle: TextStyle(color: Colors.white),
+                    controller: controller,
+                    decoration: BoxDecoration(
+                      color: kThirdColor,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white30, width: .25),
+                    ),
+                    strutStyle: StrutStyle(height: 1.5),
+                    autocorrect: true,
+                  )),
+            ),
+            SizedBox(height: height * .035),
+            InkWell(
+              onTap:()
+              async {
+                if (
+                dateTime == null
+                ){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Enter Date and Time'),
+                    ),
+                  );
+                }
+                if (controller.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Enter Label'),
+                    ),
+                  );
+                } else {
+                  int id = AlarmCubit.get(context)
+                      .generateUniqueId(AlarmCubit.get(context).meals);
 
-                  if (repeat == false) {
-                    name = "none";
-                  } else {
-                    name = "Everyday";
+                  final alarmSettings = AlarmSettings(
+                    id: id,
+                    dateTime: notificationtime!,
+                    assetAudioPath: 'assets/alarm.mp3',
+                    loopAudio: true,
+                    vibrate: true,
+                    volume: 0.8,
+                    fadeDuration: 3.0,
+                    warningNotificationOnKill: Platform.isIOS,
+                    notificationSettings: NotificationSettings(
+                      body: "Time for ${controller.text}",
+                      title: "Alarm",
+                      stopButton: 'stop',
+                    ),
+                  );
+                  await Alarm.set(
+                    alarmSettings: alarmSettings,
+                  );
+
+                  if (widget.index == 0) {
+
+
+                    AlarmCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, true, '', id, Milliseconds!);
+                  }
+                  if (widget.index == 1) {
+                    SupplementsCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, false, '', id, Milliseconds!);
+                  }
+                  if (widget.index == 2) {
+                    SleepCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, false, '', id, Milliseconds!);
+                  }
+                  if (widget.index == 3) {
+                    WorkoutCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, false, '', id, Milliseconds!);
                   }
 
-                  setState(() {});
-                },
-              ),
-            ],
-          ),
-          ElevatedButton(
-              onPressed: () async {
-
-
-                int id = AlarmCubit.get(context).generateUniqueId(AlarmCubit.get(context).meals);
-
-                final alarmSettings = AlarmSettings(
-                  id: id,
-                  dateTime: notificationtime!,
-                  assetAudioPath: 'assets/alarm.mp3',
-                  loopAudio: true,
-                  vibrate: true,
-                  volume: 0.8,
-                  fadeDuration: 3.0,
-                  warningNotificationOnKill: Platform.isIOS,
-                  notificationSettings: NotificationSettings(
-                    body: "Time for ${controller.text}",
-                    title: "Alarm",
-                    stopButton: 'stop',
-                  ),
-                );
-                await Alarm.set(
-                  alarmSettings: alarmSettings,
-                );
-
-                AlarmCubit.get(context).SetAlaram(
-                    controller.text, dateTime!, true, '',id , Milliseconds!);
-
-                Navigator.pop(context);
+                  Navigator.pop(context);
+                }
               },
-              child: Text("Set Alaram")),
-        ],
+              child: Container(
+                height: height * .055,
+                width: width*.35,
+                decoration: BoxDecoration(
+                  color: Color(0xFF40D876),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Center(
+                  child: Text('Set Alarm', style: TextStyle(color: Colors.white , fontSize: width*.05 , fontWeight: FontWeight.w500),),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
+
