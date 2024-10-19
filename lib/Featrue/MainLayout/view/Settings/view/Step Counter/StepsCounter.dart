@@ -39,6 +39,7 @@ class _StepCounterPageState extends State<StepCounterPage> {
   void _startStepCounting() {
     _stepCountStream = Pedometer.stepCountStream;
     _stepCountStream.listen((StepCount event) {
+
       if (mounted) {
         setState(() {
           _totalSteps = event.steps;
