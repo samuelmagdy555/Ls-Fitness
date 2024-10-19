@@ -86,7 +86,7 @@ class AlarmCubit extends Cubit<AlarmState> {
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
 
-    meals.add(Meal(name: label , time: dateTime.padLeft(2, '0'), id: id));
+    meals.add(Meal(name: label , time: dateTime, id: id));
     emit(SetAlarm());
     SetData();
   }
