@@ -162,7 +162,7 @@ class _MyAppState extends State<MyApp> {
           child: FilterPage(),
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
-        BlocProvider(create: (context) => CreatineCubit()..getAlarmState),
+        BlocProvider(create: (context) => CreatineCubit()..getAlarmState()..getSleepTime()..getWakeUpTime()),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context)=> GoalsCubit()),
         BlocProvider(create: (context)=> ProgressCubit()),
