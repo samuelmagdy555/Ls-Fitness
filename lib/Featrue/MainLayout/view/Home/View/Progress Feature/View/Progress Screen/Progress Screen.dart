@@ -46,17 +46,30 @@ class _ProgressScreenState extends State<ProgressScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kThirdColor,
+        title: const Text(
+          'Progress',
+          style: TextStyle(color: Colors.white , fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        leading:  IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+
+      ),
       body: Column(
         children: [
           SizedBox(
-            height: 70,
+            height: height*.025,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: height * .2,
-                width: width * .4,
                 child: DropdownButton<Data>(
                   value: selectedExercise,
                   dropdownColor: kThirdColor,
@@ -77,6 +90,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
               ),
             ],
           ),
+          SizedBox(
+            height: height*.15,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -96,7 +112,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           belowBarData: BarAreaData(
                             show: true,
                             gradient: LinearGradient(
-                              colors: [Colors.green, Colors.white],
+                              colors: [Color(0xFF40D876), Colors.white],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
@@ -115,9 +131,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
                           sideTitles: SideTitles(
                             interval: 50,
-                            reservedSize: width*.1,
-
+                            reservedSize: width*.075,
                             showTitles: true,
+                            minIncluded: true,
+                            maxIncluded: false,
 
                             getTitlesWidget: (value, meta) {
                               return Text(
@@ -132,6 +149,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           sideTitles: SideTitles(
                             showTitles: true,
                             interval: 10,
+                            minIncluded: false,
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 value.toInt().toString(),

@@ -25,7 +25,6 @@ class AddAlarm extends StatefulWidget {
 }
 
 class _AddAlaramState extends State<AddAlarm> {
-  late TextEditingController controller;
 
   String? dateTime;
   bool repeat = false;
@@ -34,6 +33,7 @@ class _AddAlaramState extends State<AddAlarm> {
 
   String? name = "none";
   int? Milliseconds;
+  late TextEditingController controller;
 
   @override
   void initState() {

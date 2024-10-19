@@ -60,7 +60,9 @@ void main() async {
           AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
 
-  runApp(const  MyApp(),);
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -80,9 +82,9 @@ class _MyAppState extends State<MyApp> {
         await CreatineCubit.get(context).getWakeUpTime();
         await CreatineCubit.get(context).getSleepTime();
         if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
-            now.isAfter(CreatineCubit.get(context).wakeUpTime!))
-        {
-          if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 && now.hour <= CreatineCubit.get(context).sleepTime!.hour) ) {
+            now.isAfter(CreatineCubit.get(context).wakeUpTime!)) {
+          if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 &&
+              now.hour <= CreatineCubit.get(context).sleepTime!.hour)) {
             await Alarm.set(
                 alarmSettings: AlarmSettings(
                     id: 7,
@@ -94,8 +96,7 @@ class _MyAppState extends State<MyApp> {
                         CreatineCubit.get(context).wakeUpTime!.minute),
                     assetAudioPath: _.assetAudioPath,
                     notificationSettings: _.notificationSettings));
-          }
-          else {
+          } else {
             final alarmSettings = AlarmSettings(
               id: 7,
               dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
@@ -115,23 +116,20 @@ class _MyAppState extends State<MyApp> {
               alarmSettings: alarmSettings,
             );
           }
-        }
-        else {
+        } else {
           await Alarm.set(
               alarmSettings: AlarmSettings(
                   id: 7,
                   dateTime: DateTime(
                       now.year,
                       now.month,
-                      now.day+1,
+                      now.day + 1,
                       CreatineCubit.get(context).wakeUpTime!.hour + 1,
                       CreatineCubit.get(context).wakeUpTime!.minute),
                   assetAudioPath: _.assetAudioPath,
                   notificationSettings: _.notificationSettings));
         }
-      }
-      else {
-
+      } else {
         await Alarm.set(
             alarmSettings: AlarmSettings(
                 id: _.id,
@@ -142,7 +140,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -156,24 +153,38 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProfileCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => EditProfileCubit()),
-        BlocProvider(create: (context) => CategoryCubit()
+        BlocProvider(
+          create: (context) => CategoryCubit()
             ..getCategory()
             ..getBodyParts(),
-          child: FilterPage(),
         ),
         BlocProvider(create: (context) => ExerciseCubit()),
-        BlocProvider(create: (context) => CreatineCubit()..getAlarmState()..getSleepTime()..getWakeUpTime()),
+        BlocProvider(
+            create: (context) => CreatineCubit()
+              ..getAlarmState()
+              ..getSleepTime()
+              ..getWakeUpTime()),
         BlocProvider(create: (context) => ExerciseCubit()),
-        BlocProvider(create: (context)=> GoalsCubit()),
-        BlocProvider(create: (context)=> ProgressCubit()),
-        BlocProvider(create: (context)=> FoodCalculatorCubit()),
-        BlocProvider(create: (context)=> FoodCalculatorDetailsCubit()),
-        BlocProvider(create: (context) => AlarmCubit()..initializeMeals()..GetData()),
-        BlocProvider(create: (context) => SupplementsCubit()..initializeSupplements()..GetData()),
-        BlocProvider(create: (context) => WorkoutCubit()..initializeWorkout()..GetData()),
-        BlocProvider(create: (context) => SleepCubit()..initializeSleep()..GetData()),
-
-
+        BlocProvider(create: (context) => GoalsCubit()),
+        BlocProvider(create: (context) => ProgressCubit()),
+        BlocProvider(create: (context) => FoodCalculatorCubit()),
+        BlocProvider(create: (context) => FoodCalculatorDetailsCubit()),
+        BlocProvider(
+            create: (context) => AlarmCubit()
+              ..initializeMeals()
+              ..GetData()),
+        BlocProvider(
+            create: (context) => SupplementsCubit()
+              ..initializeSupplements()
+              ..GetData()),
+        BlocProvider(
+            create: (context) => WorkoutCubit()
+              ..initializeWorkout()
+              ..GetData()),
+        BlocProvider(
+            create: (context) => SleepCubit()
+              ..initializeSleep()
+              ..GetData()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(
@@ -181,7 +192,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: TimerScreen(),
+        home: SplashScreen(),
       ),
     );
   }

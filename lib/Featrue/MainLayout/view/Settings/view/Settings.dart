@@ -3,7 +3,7 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/ChangePassword/view/ChangePassword.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/EditProfile/View/EditProfile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/StepsCounter.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Step%20Counter/StepsCounter.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -89,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Colors.yellow, size: width * 0.08),
+        leading: Icon(icon, color: Color(0xFF40D876), size: width * 0.08),
         title: Text(label, style: TextStyle(color: Colors.white, fontSize: width * 0.05)),
         trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: width * 0.05),
         onTap: onTap,
@@ -105,19 +105,19 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Colors.yellow, size: width * 0.08),
+        leading: Icon(icon, color: Color(0xFF40D876), size: width * 0.08),
         title: Text(label, style: TextStyle(color: Colors.white, fontSize: width * 0.05)),
         subtitle: description != null
-            ? Text(description, style: TextStyle(color: Colors.grey, fontSize: width * 0.04))
+            ? Text(description, style: TextStyle(color: Colors.transparent, fontSize: width * 0.04))
             : null,
         trailing: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            side: BorderSide(color: Colors.yellow),
+            backgroundColor: kThirdColor,
+            side: BorderSide(color: Color(0xFF40D876)),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
-          child: Text(buttonLabel!, style: TextStyle(color: Colors.yellow, fontSize: width * 0.04)),
+          child: Text(buttonLabel!, style: TextStyle(color: Color(0xFF40D876), fontSize: width * 0.04)),
         ),
         tileColor: Colors.grey.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
