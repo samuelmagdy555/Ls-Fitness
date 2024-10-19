@@ -1,95 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
-import '../widget/videowidget.dart';
-
-class WorkoutDetailsPage extends StatefulWidget {
-  final String videoUrl;
-  final String id;
-
-  WorkoutDetailsPage({required this.videoUrl, required this.id, });
-
+class ExercisePage extends StatefulWidget {
   @override
-  _WorkoutDetailsPageState createState() => _WorkoutDetailsPageState();
+  State<ExercisePage> createState() => _ExercisePageState();
 }
 
-class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
-  late VideoPlayerController _controller;
-  bool _isPlaying = false;
-
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse('https://vimeo.com/1015756012'));
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(true);
-    _controller.initialize();
-    _controller.play();
-  }
-
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class _ExercisePageState extends State<ExercisePage> {
+  String selectedTab = 'Animation';
+  String? selectedFocusArea;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        toolbarHeight: height * 0.05,
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(width * 0.04),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _controller.value.isInitialized
-                  ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (_controller.value.isPlaying) {
-                        _controller.pause();
-                        _isPlaying = false;
-                      } else {
-                        _controller.play();
-                        _isPlaying = true;
-                      }
-                    });
-                  },
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      VideoWidget( controller: _controller, id: widget.id,),
-                      if (!_isPlaying)
-                        Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: 80.0,
-                        ),
-                    ],
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Text(
+                  'Barbell Bench Press',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 20),
+
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.grey[200],
+                ),
+                child: Image.asset(
+                  'assets/images/Barbell-Bench-Press.png',
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildTabButton('Animation', selectedTab == 'Animation'),
+                    _buildTabButton('Muscle', selectedTab == 'Muscle'),
+                    _buildTabButton('How to do', selectedTab == 'How to do'),
+                  ],
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              _buildContent(),
+
+              SizedBox(height: 30),
+
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-              )
-                  : Center(child: CircularProgressIndicator(color: Colors.white,)),
-              SizedBox(height: height * 0.02),
-              Text(
-                'NEXT EXERCISE',
-                style: TextStyle(color: Colors.white70, fontSize: width * 0.04),
+                child: Text(
+                  'CLOSE',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),
@@ -97,4 +95,160 @@ class _WorkoutDetailsPageState extends State<WorkoutDetailsPage> {
       ),
     );
   }
+
+  Widget _buildTabButton(String text, bool isSelected) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedTab = text;
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: isSelected ? Colors.blue : Colors.transparent,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.grey,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    if (selectedTab == 'Animation') {
+      return Text(
+        'Animation content: Here is where the animation related content will be displayed.',
+        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+      );
+    } else if (selectedTab == 'Muscle') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'REPEATS',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+              Text(
+                'x12',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),Text(
+                'Sets',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
+              Text(
+                'x3',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 20),
+
+          Text(
+            'INSTRUCTIONS',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Start in the regular push-up position but with your hands spread wider than your shoulders.\n\n'
+                'Then push your body up and down. Remember to keep your body straight.',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[700],
+            ),
+          ),
+
+          SizedBox(height: 20),
+
+          Text(
+            'FOCUS AREA',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildFocusChip('Chest'),
+              SizedBox(width: 10),
+              _buildFocusChip('Triceps'),
+            ],
+          ),
+        ],
+      );
+
+
+    } else if (selectedTab == 'How to do') {
+      return Text(
+        'How to do content: Detailed instructions on how to perform this exercise correctly.',
+        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+      );
+    } else {
+      return Container();
+    }
+  }
+  Widget _buildFocusChip(String label) {
+    bool isSelected = selectedFocusArea == label;
+
+    return ChoiceChip(
+      label: Text(label),
+      selected: isSelected,
+      selectedColor: Colors.blue,
+      backgroundColor: Colors.grey[200],
+      labelStyle: TextStyle(
+        color: isSelected ? Colors.white : Colors.grey[700],
+        fontWeight: FontWeight.bold,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+
+      onSelected: (bool selected) {
+        setState(() {
+          selectedFocusArea = selected ? label : null;
+        });
+      },
+    );
+  }
+
+
+
 }
