@@ -41,6 +41,7 @@ class _MainLayoutState extends State<MainLayout> {
 
     return Scaffold(
       bottomNavigationBar: SalomonBottomBar(
+
         itemPadding: EdgeInsets.symmetric(horizontal: width * .01, vertical: width * .02),
         duration: const Duration(milliseconds: 1000),
         currentIndex: _currentIndex,
