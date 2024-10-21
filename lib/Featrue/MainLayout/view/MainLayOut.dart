@@ -105,7 +105,7 @@ class _MainLayoutState extends State<MainLayout> {
             title: const Text('Profile'),
           ),
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: kThirdColor,
       ),
       body: pages[_currentIndex],
     );

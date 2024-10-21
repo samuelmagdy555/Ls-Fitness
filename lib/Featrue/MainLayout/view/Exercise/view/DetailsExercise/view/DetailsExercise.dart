@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
 class ExercisePage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class _ExercisePageState extends State<ExercisePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kThirdColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -128,7 +129,7 @@ class _ExercisePageState extends State<ExercisePage> {
     if (selectedTab == 'Animation') {
       return Text(
         'Animation content: Here is where the animation related content will be displayed.',
-        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+        style: TextStyle(fontSize: 16, color: Colors.white),
       );
     } else if (selectedTab == 'Muscle') {
       return Column(
@@ -150,7 +151,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
+                  color: Colors.white,
                 ),
               ),Text(
                 'Sets',
@@ -165,7 +166,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey[800],
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -187,7 +188,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 'Then push your body up and down. Remember to keep your body straight.',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.grey[700],
+              color: Colors.white,
             ),
           ),
 
@@ -217,7 +218,7 @@ class _ExercisePageState extends State<ExercisePage> {
     } else if (selectedTab == 'How to do') {
       return Text(
         'How to do content: Detailed instructions on how to perform this exercise correctly.',
-        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+        style: TextStyle(fontSize: 16, color: Colors.white),
       );
     } else {
       return Container();
