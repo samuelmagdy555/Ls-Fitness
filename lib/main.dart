@@ -15,6 +15,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/
 import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view_Model/food_calculator_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
@@ -185,6 +186,9 @@ class _MyAppState extends State<MyApp> {
             create: (context) => SleepCubit()
               ..initializeSleep()
               ..GetData()),
+        BlocProvider(
+            create: (context) => CounterCubit()
+              ..GetData()..GetCounter()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(
