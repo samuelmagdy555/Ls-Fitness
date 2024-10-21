@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
 class ExercisePage extends StatefulWidget {
+  final String videoPath;
+  final String title;
+
+  ExercisePage({required this.videoPath, required this.title});
+
   @override
   State<ExercisePage> createState() => _ExercisePageState();
 }
 
 class _ExercisePageState extends State<ExercisePage> {
   String selectedTab = 'Animation';
-  String? selectedFocusArea;
+  late VideoPlayerController _controller;
+  bool _isError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset(widget.videoPath)
+      ..initialize().then((_) {
+        setState(() {});
+        _controller.play();
+      }).catchError((error) {
+        setState(() {
+          _isError = true;
+        });
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +50,11 @@ class _ExercisePageState extends State<ExercisePage> {
               Container(
                 padding: EdgeInsets.only(top: 20),
                 child: Text(
-                  'Barbell Bench Press',
+                  widget.title,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -38,15 +66,27 @@ class _ExercisePageState extends State<ExercisePage> {
                   borderRadius: BorderRadius.circular(16),
                   color: Colors.grey[200],
                 ),
-                child: Image.asset(
-                  'assets/images/Barbell-Bench-Press.png',
+                child: _isError
+                    ? Center(
+                  child: Text(
+                    "Error loading video",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                )
+                    : _controller.value.isInitialized
+                    ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+                    : Container(
                   height: 200,
-                  fit: BoxFit.cover,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
 
               SizedBox(height: 20),
-
 
               Container(
                 decoration: BoxDecoration(
@@ -92,6 +132,18 @@ class _ExercisePageState extends State<ExercisePage> {
               ),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+          });
+        },
+        child: Icon(
+          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
         ),
       ),
     );
@@ -203,53 +255,21 @@ class _ExercisePageState extends State<ExercisePage> {
             ),
           ),
           SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildFocusChip('Chest'),
-              SizedBox(width: 10),
-              _buildFocusChip('Triceps'),
-            ],
-          ),
         ],
       );
 
 
     } else if (selectedTab == 'How to do') {
-      return Text(
-        'How to do content: Detailed instructions on how to perform this exercise correctly.',
-        style: TextStyle(fontSize: 16, color: Colors.white),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'How to do content: Step by step instructions.',
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        ],
       );
-    } else {
-      return Container();
     }
+    return Container();
   }
-  Widget _buildFocusChip(String label) {
-    bool isSelected = selectedFocusArea == label;
-
-    return ChoiceChip(
-      label: Text(label),
-      selected: isSelected,
-      selectedColor: Colors.blue,
-      backgroundColor: Colors.grey[200],
-      labelStyle: TextStyle(
-        color: isSelected ? Colors.white : Colors.grey[700],
-        fontWeight: FontWeight.bold,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-      ),
-
-      onSelected: (bool selected) {
-        setState(() {
-          selectedFocusArea = selected ? label : null;
-        });
-      },
-    );
-  }
-
-
-
 }
