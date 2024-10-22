@@ -115,7 +115,7 @@ class _ExercisePageState extends State<ExercisePage> {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: kSecondColor,
                   padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
@@ -135,6 +135,7 @@ class _ExercisePageState extends State<ExercisePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kSecondColor,
         onPressed: () {
           setState(() {
             _controller.value.isPlaying
@@ -144,6 +145,7 @@ class _ExercisePageState extends State<ExercisePage> {
         },
         child: Icon(
           _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          color: Colors.white,
         ),
       ),
     );
@@ -159,7 +161,7 @@ class _ExercisePageState extends State<ExercisePage> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected ? Colors.blue : Colors.transparent,
+            color: isSelected ? kSecondColor : Colors.transparent,
             borderRadius: BorderRadius.circular(50),
           ),
           padding: EdgeInsets.symmetric(vertical: 10),
@@ -195,7 +197,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  color: kSecondColor,
                 ),
               ),
               Text(
@@ -210,7 +212,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue,
+                  color: kSecondColor,
                 ),
               ),
               Text(
@@ -231,7 +233,7 @@ class _ExercisePageState extends State<ExercisePage> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: kSecondColor,
             ),
           ),
           SizedBox(height: 10),
@@ -251,7 +253,7 @@ class _ExercisePageState extends State<ExercisePage> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.blue,
+              color: kSecondColor,
             ),
           ),
           SizedBox(height: 10),
