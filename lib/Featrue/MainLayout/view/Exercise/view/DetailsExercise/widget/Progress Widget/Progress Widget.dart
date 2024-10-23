@@ -1,104 +1,35 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
-import '../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../Exercise button/Exercise button.dart';
 
-class ProgressScreen extends StatefulWidget {
-  const ProgressScreen({super.key});
+class ProgressWidget extends StatelessWidget {
+  ProgressWidget({super.key});
 
-  @override
-  State<ProgressScreen> createState() => _ProgressScreenState();
-}
+  final List<int> volume = [130, 250, 320, 300, 350, 400];
 
-class Data {
-   String? name;
-   List<int>? volume ;
-   int ? id;
-
-  Data(this.name, this.volume , this.id);
-}
-class _ProgressScreenState extends State<ProgressScreen> {
-
-
-  List<Data> exercises = [
-    Data('Push Ups', [100,230, 300 , 400, 470,500] , 1),
-    Data('Squats', [150,230, 330 , 450, 420,510] ,2),
-    Data('Pull Ups', [70,100, 150 , 120, 125,200] ,3),
-    Data('Deadlifts', [130,250, 320 , 300, 350,400] ,4),
-    Data('Bench Press', [100,230, 300 , 400, 470,500] ,5),
-    Data('Lunges', [150,230, 330 , 450, 420,510] ,6),
-    Data('Bicep Curls', [130,250, 320 , 300, 350,400]  ,7),
-    Data('Tricep Dips',[150,230, 330 , 450, 420,510],8),
-    Data('Leg Press', [120,150, 200 , 220, 300,450] ,9),
-  ];
-
-  Data? selectedExercise;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedExercise = exercises[0];
-  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kThirdColor,
-        title: const Text(
-          'Progress',
-          style: TextStyle(color: Colors.white , fontSize: 20, fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        Text(
+          'Add your Reps & your Sets to track your progress',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
-        leading:  IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        SizedBox(
+          height: height * .05,
         ),
-        elevation: 0,
-
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: height*.025,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                child: DropdownButton<Data>(
-                  value: selectedExercise,
-                  dropdownColor: kThirdColor,
-                  items: exercises.map((Data exercise) {
-                    return DropdownMenuItem<Data>(
-                      value: exercise,
-                      child: Text(exercise.name! , style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (Data? newExercise) {
-                    setState(() {
-                      selectedExercise = newExercise;
-                    });
-                  },
-                ),
-
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height*.15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  height: height * .4,
-                  width: width*.95,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SizedBox(
+                  height: height * .3,
                   child: LineChart(
                     LineChartData(
                       baselineX: 0,
@@ -112,13 +43,13 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           belowBarData: BarAreaData(
                             show: true,
                             gradient: LinearGradient(
-                              colors: [Color(0xFF40D876), Colors.white],
+                              colors: [kSecondColor, Colors.white],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
                           ),
                           dotData: FlDotData(show: false),
-                          spots: generateSpots(selectedExercise!.volume!),
+                          spots: generateSpots(volume),
                           isCurved: true,
                           barWidth: 2,
                         )
@@ -128,19 +59,16 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       ),
                       titlesData: FlTitlesData(
                         leftTitles: AxisTitles(
-
                           sideTitles: SideTitles(
                             interval: 50,
-                            reservedSize: width*.075,
+                            reservedSize: width * .07,
                             showTitles: true,
-                            minIncluded: true,
+                            minIncluded: false,
                             maxIncluded: false,
-
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 value.toInt().toString(),
-                                style: TextStyle(
-                                    color: Colors.white),
+                                style: TextStyle(color: Colors.white),
                               );
                             },
                           ),
@@ -170,7 +98,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           ),
                         ),
                       ),
-
                       borderData: FlBorderData(
                         show: true,
                         border: Border.all(
@@ -180,18 +107,75 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       ),
                     ),
                   )),
-            ],
-          )
-        ],
-      ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: height * .05,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              width: width * .3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: kSecondColor),
+              ),
+              child: CupertinoTextFormFieldRow(
+                keyboardType: TextInputType.number,
+                placeholder: 'Weight',
+                cursorColor: Colors.white,
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+                placeholderStyle:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration(
+
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            Container(
+              width: width * .3,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: kSecondColor),
+              ),
+              child: CupertinoTextFormFieldRow(
+                keyboardType: TextInputType.number,
+                placeholder: 'Reps',
+                cursorColor: Colors.white,
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+                placeholderStyle:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration(
+
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: height*.05),
+        Row(
+          children: [
+            Expanded(child: ExerciseButton(label: 'Add',)),
+          ],
+        )
+      ],
     );
   }
+
   List<FlSpot> generateSpots(List<int> volumes) {
     List<FlSpot> spots = [];
     for (int i = 0; i < volumes.length; i++) {
-      spots.add(FlSpot(i * 10.0, volumes[i].toDouble())); // X يزيد بمقدار 10 لكل نقطة
+      spots.add(
+          FlSpot(i * 10.0, volumes[i].toDouble())); // X يزيد بمقدار 10 لكل نقطة
     }
     return spots;
   }
 }
-

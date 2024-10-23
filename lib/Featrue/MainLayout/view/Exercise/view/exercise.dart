@@ -3,7 +3,7 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart';
 import 'package:video_player/video_player.dart';
 
-import 'DetailsExercise/widget/videowidget.dart';
+import 'DetailsExercise/widget/Video Widget/videowidget.dart';
 
 class WorkoutScreen extends StatefulWidget {
   @override
@@ -200,9 +200,9 @@ late List<String>c ;
                   final exercise = exercises[index];
                   return Container(
                       margin: EdgeInsets.all(12),
-                      padding: EdgeInsets.all(15),
+                      padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Color(0xff202023),
+                        color: Colors.white12,
                         borderRadius: BorderRadius.circular(10),
 
                       ),

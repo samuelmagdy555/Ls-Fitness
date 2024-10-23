@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/widget/Progress%20Widget/Progress%20Widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
@@ -13,7 +14,7 @@ class ExercisePage extends StatefulWidget {
 }
 
 class _ExercisePageState extends State<ExercisePage> {
-  String selectedTab = 'Animation';
+  String selectedTab = 'Progress';
   late VideoPlayerController _controller;
   bool _isError = false;
 
@@ -40,6 +41,21 @@ class _ExercisePageState extends State<ExercisePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kThirdColor,
+        title: Text(widget.title , style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white
+        ),),
+        leading:  IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: kThirdColor,
       body: SingleChildScrollView(
         child: Padding(
@@ -47,19 +63,6 @@ class _ExercisePageState extends State<ExercisePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(height: 20),
 
               Container(
                 decoration: BoxDecoration(
@@ -81,7 +84,9 @@ class _ExercisePageState extends State<ExercisePage> {
                     : Container(
                   height: 200,
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: kSecondColor,
+                    ),
                   ),
                 ),
               ),
@@ -97,7 +102,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildTabButton('Animation', selectedTab == 'Animation'),
+                    _buildTabButton('Progress', selectedTab == 'Progress'),
                     _buildTabButton('Muscle', selectedTab == 'Muscle'),
                     _buildTabButton('How to do', selectedTab == 'How to do'),
                   ],
@@ -110,26 +115,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
               SizedBox(height: 30),
 
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: kSecondColor,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: Text(
-                  'CLOSE',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+
             ],
           ),
         ),
@@ -169,7 +155,7 @@ class _ExercisePageState extends State<ExercisePage> {
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: isSelected ? Colors.white : Colors.grey,
+              color: isSelected ? Colors.white : kThirdColor,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -180,11 +166,8 @@ class _ExercisePageState extends State<ExercisePage> {
   }
 
   Widget _buildContent() {
-    if (selectedTab == 'Animation') {
-      return Text(
-        'Animation content: Here is where the animation related content will be displayed.',
-        style: TextStyle(fontSize: 16, color: Colors.white),
-      );
+    if (selectedTab == 'Progress') {
+      return ProgressWidget();
     } else if (selectedTab == 'Muscle') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
