@@ -4,14 +4,15 @@ import '../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart
 
 class ExerciseButton extends StatelessWidget {
   final String label;
-  final Function onPressed;
+  final Function? onPressed;
 
   const ExerciseButton({super.key, required this.label, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: (){
+        onPressed!();
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: kSecondColor,

@@ -1,13 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
 import '../../../../../../Home/View/Progress Feature/View Model/progress_cubit.dart';
 import '../Exercise button/Exercise button.dart';
 
 class ProgressWidget extends StatefulWidget {
-  ProgressWidget({super.key});
+  final String id;
+  ProgressWidget({super.key, required this.id});
 
   @override
   State<ProgressWidget> createState() => _ProgressWidgetState();
@@ -51,7 +53,12 @@ class _ProgressWidgetState extends State<ProgressWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: SizedBox(
+              child: BlocConsumer<ProgressCubit, ProgressState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    return ProgressCubit.get(context).progressModel != null ? SizedBox(
                   height: height * .3,
                   child: LineChart(
                     LineChartData(
@@ -128,7 +135,9 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                         ),
                       ),
                     ),
-                  )),
+                  )) : Center(child: CircularProgressIndicator(color: kSecondColor,),);
+  },
+),
             ),
           ],
         ),
@@ -185,9 +194,19 @@ class _ProgressWidgetState extends State<ProgressWidget> {
         SizedBox(height: height * .05),
         Row(
           children: [
+
             Expanded(
                 child: ExerciseButton(
-              onPressed: () {
+              onPressed: ()async {
+                double reps = double.parse(repsController!.text);
+                double weight = double.parse(weightController!.text);
+                double volume = reps * weight;
+                print(volume);
+
+                repsController!.clear();
+                weightController!.clear();
+               await ProgressCubit.get(context).addProgress(
+                    Volume: volume, id: widget.id);
 
               },
               label: 'Add',

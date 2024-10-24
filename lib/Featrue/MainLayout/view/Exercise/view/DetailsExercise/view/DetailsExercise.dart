@@ -189,7 +189,7 @@ class _ExercisePageState extends State<ExercisePage> {
 
   Widget _buildContent() {
     if (selectedTab == 'Progress') {
-      return ProgressWidget();
+      return ProgressWidget(id: ExercisesDetailsCubit.get(context).exerciseDetailsModel!.data!.id,);
     } else if (selectedTab == 'Muscle') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -172,10 +172,10 @@ late List<String>c ;
                         title: exercise?.title??'',
                         category: exercise?.category.title??'',
                         bodyPart: exercise?.bodyPart.title??'',
-                        onPressed: () {
+                        onPressed: () async{
 
                            ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise!.id);
-                           ProgressCubit.get(context).getExercisesProgress(id: exercise.id);
+                          await ProgressCubit.get(context).getExercisesProgress(id: exercise.id);
                           ProgressCubit.get(context).generateSpots(
                               ProgressCubit.get(context)
                                   .progressModel

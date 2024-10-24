@@ -33,6 +33,25 @@ class ProgressCubit extends Cubit<ProgressState> {
     }
   }
 
+  Future<void> addProgress({required double Volume, required String id}) async {
+    progressModel = null;
+
+    emit(AddProgressLoading());
+    try {
+    await DioHelper.post(
+          end_ponit: EndPoints.Progress,
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          data: {"volume": Volume, 'exerciseId': id});
+      emit(AddProgressSuccess());
+     await getExercisesProgress(id: id);
+     spots.clear();
+    generateSpots(progressModel!.data!.volumes!);
+    } catch (e) {
+      print(e);
+      emit(AddProgressError());
+    }
+  }
+
   void generateSpots(List<int> volumes) {
     spots.clear();
 

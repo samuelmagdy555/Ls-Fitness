@@ -3,8 +3,8 @@ class ProgressModel {
     required this.success,
     required this.data,
   });
-  late final bool success;
-  late final Data data;
+  late  bool success;
+  late  Data data;
 
   ProgressModel.fromJson(Map<String, dynamic> json){
     success = json['success'];
@@ -26,10 +26,10 @@ class Data {
     required this.exercise,
     required this.volumes,
   });
-  late final String id;
-  late final User user;
-  late final Exercise exercise;
-  late final List<int> volumes;
+  late  String id;
+  late  User user;
+  late  Exercise exercise;
+  late  List<int> volumes;
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
