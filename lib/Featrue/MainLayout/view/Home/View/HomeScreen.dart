@@ -7,6 +7,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view/FoodCalcul
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
 import '../Model/mode.dart';
+import 'Progress Feature/View Model/progress_cubit.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
 
 class HomeView extends StatefulWidget {
@@ -241,8 +242,9 @@ class _HomeViewState extends State<HomeView> {
                 height: height * 0.025,
               ),
               GestureDetector(
-                onTap: () {
-                  ExerciseCubit.get(context).getExercise();
+                onTap: () async{
+                 await  ExerciseCubit.get(context).getExercise();
+                 await ProgressCubit.get(context).getExercisesProgress(id: ExerciseCubit.get(context).exercisesModel!.data![0].id!);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ProgressScreen()),

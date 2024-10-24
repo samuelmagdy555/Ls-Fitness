@@ -35,6 +35,7 @@ import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Fetu
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Supplement Meals/View Model/supplements_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View Model/workout_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
+import 'Featrue/MainLayout/view/Exercise/view/DetailsExercise/View Model/exercises_details_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/ChangePassword/view_model/change_password_cubit.dart';
@@ -152,7 +153,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProfileCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
         BlocProvider(create: (context) => EditProfileCubit()),
-
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(
             create: (context) => CreatineCubit()
@@ -183,6 +183,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
             create: (context) => CounterCubit()
               ..GetData()..GetCounter()),
+        BlocProvider(create: (context) => ExercisesDetailsCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/widget/Progress%20Widget/Progress%20Widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Progress%20Widget/Progress%20Widget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
@@ -40,100 +42,116 @@ class _ExercisePageState extends State<ExercisePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kThirdColor,
-        title: Text(widget.title , style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-        ),),
-        leading:  IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-      ),
-      backgroundColor: kThirdColor,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.grey[200],
-                ),
-                child: _isError
-                    ? Center(
-                  child: Text(
-                    "Error loading video",
-                    style: TextStyle(color: Colors.red),
+    return BlocConsumer<ExercisesDetailsCubit, ExercisesDetailsState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return ExercisesDetailsCubit.get(context).exerciseDetailsModel == null
+            ? Center(
+                child: CircularProgressIndicator(
+                color: kSecondColor,
+              ))
+            : Scaffold(
+                appBar: AppBar(
+                  backgroundColor: kThirdColor,
+                  title: Text(
+                    ExercisesDetailsCubit.get(context)
+                        .exerciseDetailsModel!
+                        .data!
+                        .title,
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
-                )
-                    : _controller.value.isInitialized
-                    ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-                    : Container(
-                  height: 200,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: kSecondColor,
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  centerTitle: true,
+                ),
+                backgroundColor: kThirdColor,
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.grey[200],
+                          ),
+                          child: _isError
+                              ? Center(
+                                  child: Text(
+                                    "Error loading video",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                )
+                              : _controller.value.isInitialized
+                                  ? AspectRatio(
+                                      aspectRatio:
+                                          _controller.value.aspectRatio,
+                                      child: VideoPlayer(_controller),
+                                    )
+                                  : Container(
+                                      height: 200,
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: kSecondColor,
+                                        ),
+                                      ),
+                                    ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _buildTabButton(
+                                  'Progress', selectedTab == 'Progress'),
+                              _buildTabButton(
+                                  'Muscle', selectedTab == 'Muscle'),
+                              _buildTabButton(
+                                  'How to do', selectedTab == 'How to do'),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        _buildContent(),
+                        SizedBox(height: 30),
+                      ],
                     ),
                   ),
                 ),
-              ),
-
-              SizedBox(height: 20),
-
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(50),
+                floatingActionButton: FloatingActionButton(
+                  backgroundColor: kSecondColor,
+                  onPressed: () {
+                    setState(() {
+                      _controller.value.isPlaying
+                          ? _controller.pause()
+                          : _controller.play();
+                    });
+                  },
+                  child: Icon(
+                    _controller.value.isPlaying
+                        ? Icons.pause
+                        : Icons.play_arrow,
+                    color: Colors.white,
+                  ),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildTabButton('Progress', selectedTab == 'Progress'),
-                    _buildTabButton('Muscle', selectedTab == 'Muscle'),
-                    _buildTabButton('How to do', selectedTab == 'How to do'),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              _buildContent(),
-
-              SizedBox(height: 30),
-
-
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: kSecondColor,
-        onPressed: () {
-          setState(() {
-            _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          color: Colors.white,
-        ),
-      ),
+              );
+      },
     );
   }
 
@@ -190,7 +208,8 @@ class _ExercisePageState extends State<ExercisePage> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
-              ),Text(
+              ),
+              Text(
                 'Sets',
                 style: TextStyle(
                   fontSize: 18,
@@ -208,9 +227,7 @@ class _ExercisePageState extends State<ExercisePage> {
               ),
             ],
           ),
-
           SizedBox(height: 20),
-
           Text(
             'INSTRUCTIONS',
             style: TextStyle(
@@ -222,15 +239,13 @@ class _ExercisePageState extends State<ExercisePage> {
           SizedBox(height: 10),
           Text(
             'Start in the regular push-up position but with your hands spread wider than your shoulders.\n\n'
-                'Then push your body up and down. Remember to keep your body straight.',
+            'Then push your body up and down. Remember to keep your body straight.',
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
             ),
           ),
-
           SizedBox(height: 20),
-
           Text(
             'FOCUS AREA',
             style: TextStyle(
@@ -242,8 +257,6 @@ class _ExercisePageState extends State<ExercisePage> {
           SizedBox(height: 10),
         ],
       );
-
-
     } else if (selectedTab == 'How to do') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

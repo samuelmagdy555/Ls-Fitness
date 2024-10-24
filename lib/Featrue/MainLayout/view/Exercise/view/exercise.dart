@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise%20Details%20Model/Exercise%20Details%20Model.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:video_player/video_player.dart';
 
-import 'DetailsExercise/widget/Video Widget/videowidget.dart';
 
 class WorkoutScreen extends StatefulWidget {
   @override
@@ -12,47 +14,8 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen>
     with SingleTickerProviderStateMixin {
-  List<String>images=[
-    'https://cdn.shopify.com/s/files/1/1497/9682/files/2_0f397b69-fbe0-4555-bade-e5b5c2723fc0.jpg?v=1653669602',
-    'https://static.strengthlevel.com/images/exercises/jm-press/jm-press-800.jpg',
-    'https://weighttraining.guide/wp-content/uploads/2017/08/seated-dumbbell-overhead-triceps-extension-resized.png',
-'https://cdn-0.weighttraining.guide/wp-content/uploads/2016/05/Barbell-Shrug-resized.png?ezimgfmt=ng%3Awebp%2Fngcb4',
-'https://i.pinimg.com/736x/fe/4f/5c/fe4f5c248b799c41f82858a40c414fa3.jpg'
 
 
-  ];
-  final List<Exercise> exercises = [
-    Exercise(
-      videoPath: 'assets/videos/dumbbell_arnold_press.mp4',
-      title: 'Dumbbell Arnold Press',
-      category: 'Dumbbell',
-      bodyPart: 'Shoulder',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/BarbellJMBenchPress.mp4',
-      title: 'Barbell JM Bench Press',
-      category: 'Barbell',
-      bodyPart: 'Arms',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/OverheadTricepsExtension.mp4',
-      title: 'Overhead Triceps Extension',
-      category: 'Machine',
-      bodyPart: 'Arms',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/BarbellShrug.mp4',
-      title: 'Barbell Shrug',
-      category: 'Barbell',
-      bodyPart: 'Legs',
-    ),
-    Exercise(
-      videoPath: 'assets/videos/CableUpperChestCrossovers.mp4',
-      title: 'Cable Upper Chest Crossovers',
-      category: 'Machine',
-      bodyPart: 'Chest',
-    ),
-  ];
   final buttons = [
     {
       'title': 'Body Parts',
@@ -88,7 +51,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     },
   ];
 late List<String>c ;
-  List<bool> checkedStatus = [];
   String? selectedValue;
   TabController? tabController;
   int index = 0;
@@ -98,7 +60,6 @@ late List<String>c ;
     super.initState();
     c =  buttons[0]['choices']! as List<String>;
     tabController = TabController(length: 6, vsync: this);
-    checkedStatus = List.generate(exercises.length, (index) => false);
   }
 
 
@@ -195,9 +156,9 @@ late List<String>c ;
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: exercises.length,
+                itemCount: ExerciseCubit.get(context).exercisesModel?.results,
                 itemBuilder: (context, index) {
-                  final exercise = exercises[index];
+                  final exercise = ExerciseCubit.get(context).exercisesModel?.data![index];
                   return Container(
                       margin: EdgeInsets.all(12),
                       padding: EdgeInsets.all(12),
@@ -207,21 +168,22 @@ late List<String>c ;
 
                       ),
                       child: ExerciseTile(
-                        title: exercise.title,
-                        category: exercise.category,
-                        bodyPart: exercise.bodyPart,
+                        title: exercise?.title??'',
+                        category: exercise?.category.title??'',
+                        bodyPart: exercise?.bodyPart.title??'',
                         onPressed: () {
+                          ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise!.id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     ExercisePage(
-                                      videoPath: exercise.videoPath,
-                                      title: exercise.title,)
+                                      videoPath: exercise?.videoUrl??'',
+                                      title: exercise?.title??'',)
                             ),
                           );
                         },
-                        imagePath: images[index],
+                        imagePath: 'https://cdn.shopify.com/s/files/1/1497/9682/files/2_0f397b69-fbe0-4555-bade-e5b5c2723fc0.jpg?v=1653669602',
                       )
                   );
                 },
@@ -398,16 +360,3 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 }
 
-class Exercise {
-  final String videoPath;
-  final String title;
-  final String category;
-  final String bodyPart;
-
-  Exercise({
-    required this.videoPath,
-    required this.title,
-    required this.category,
-    required this.bodyPart,
-  });
-}

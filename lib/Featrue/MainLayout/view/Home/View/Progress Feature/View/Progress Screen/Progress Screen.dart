@@ -1,9 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
 
-import '../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../../../Exercise/model/ExerciseModel.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -12,173 +14,157 @@ class ProgressScreen extends StatefulWidget {
   State<ProgressScreen> createState() => _ProgressScreenState();
 }
 
-class Data {
-   String? name;
-   List<int>? volume ;
-   int ? id;
-
-  Data(this.name, this.volume , this.id);
-}
 class _ProgressScreenState extends State<ProgressScreen> {
-
-
-  List<Data> exercises = [
-    Data('Push Ups', [100,230, 300 , 400, 470,500] , 1),
-    Data('Squats', [150,230, 330 , 450, 420,510] ,2),
-    Data('Pull Ups', [70,100, 150 , 120, 125,200] ,3),
-    Data('Deadlifts', [130,250, 320 , 300, 350,400] ,4),
-    Data('Bench Press', [100,230, 300 , 400, 470,500] ,5),
-    Data('Lunges', [150,230, 330 , 450, 420,510] ,6),
-    Data('Bicep Curls', [130,250, 320 , 300, 350,400]  ,7),
-    Data('Tricep Dips',[150,230, 330 , 450, 420,510],8),
-    Data('Leg Press', [120,150, 200 , 220, 300,450] ,9),
-  ];
-
-  Data? selectedExercise;
+  late Data selectedExercise; // تعديل النوع ليكون Data
 
   @override
   void initState() {
     super.initState();
-    selectedExercise = exercises[0];
+    // تعيين التمرين الافتراضي
+    selectedExercise = ExerciseCubit.get(context).exercisesModel!.data[0];
   }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kThirdColor,
-        title: const Text(
-          'Progress',
-          style: TextStyle(color: Colors.white , fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        leading:  IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        elevation: 0,
+    List<Data> exercises = ExerciseCubit.get(context).exercisesModel!.data;
 
-      ),
+    return Scaffold(
       body: Column(
         children: [
           SizedBox(
-            height: height*.025,
+            height: height * .05,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 child: DropdownButton<Data>(
-                  value: selectedExercise,
+                  style: TextStyle(color: Colors.black),
                   dropdownColor: kThirdColor,
+                  value: selectedExercise,
                   items: exercises.map((Data exercise) {
                     return DropdownMenuItem<Data>(
                       value: exercise,
-                      child: Text(exercise.name! , style: TextStyle(color: Colors.white),
+                      child: Text(
+                        exercise.title,
+                        style: TextStyle(color: Colors.white),
                       ),
                     );
                   }).toList(),
-                  onChanged: (Data? newExercise) {
+                  onChanged: (Data? newExercise)async {
                     setState(() {
-                      selectedExercise = newExercise;
+                      selectedExercise = newExercise!;
+
                     });
+                    await ProgressCubit.get(context)
+                        .getExercisesProgress(id: selectedExercise.id!);
+                    ProgressCubit.get(context).generateSpots(
+                        ProgressCubit.get(context)
+                            .progressModel
+                            ?.data!
+                            .volumes ??
+                            []);
                   },
                 ),
-
               ),
             ],
           ),
           SizedBox(
-            height: height*.15,
+            height: height * .15,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                   height: height * .4,
-                  width: width*.95,
-                  child: LineChart(
-                    LineChartData(
-                      baselineX: 0,
-                      baselineY: 0,
-                      gridData: FlGridData(
-                        show: false,
-                      ),
-                      lineBarsData: [
-                        LineChartBarData(
-                          color: Colors.transparent,
-                          belowBarData: BarAreaData(
-                            show: true,
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF40D876), Colors.white],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                  width: width * .95,
+                  child: BlocConsumer<ProgressCubit, ProgressState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      return LineChart(
+                        LineChartData(
+                          baselineX: 0,
+                          baselineY: 0,
+                          gridData: FlGridData(
+                            show: false,
+                          ),
+                          lineBarsData: [
+                            LineChartBarData(
+                              color: Colors.transparent,
+                              belowBarData: BarAreaData(
+                                show: true,
+                                gradient: LinearGradient(
+                                  colors: [Color(0xFF40D876), Colors.white],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                              ),
+                              dotData: FlDotData(show: false),
+                              spots: ProgressCubit.get(context).spots,
+                              isCurved: true,
+                              barWidth: 2,
+                            )
+                          ],
+                          lineTouchData: LineTouchData(
+                            enabled: false,
+                          ),
+                          titlesData: FlTitlesData(
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                interval: 25,
+                                reservedSize: width * .075,
+                                showTitles: true,
+                                minIncluded: true,
+                                maxIncluded: false,
+                                getTitlesWidget: (value, meta) {
+                                  return Text(
+                                    value.toInt().toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  );
+                                },
+                              ),
+                            ),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                reservedSize: 50,
+                                showTitles: true,
+                                interval: 20,
+                                minIncluded: false,
+                                getTitlesWidget: (value, meta) {
+                                  return Text(
+                                    value.toInt().toString(),
+                                    style: TextStyle(
+                                        color:
+                                            Colors.white),
+                                  );
+                                },
+                              ),
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                              ),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                              ),
                             ),
                           ),
-                          dotData: FlDotData(show: false),
-                          spots: generateSpots(selectedExercise!.volume!),
-                          isCurved: true,
-                          barWidth: 2,
-                        )
-                      ],
-                      lineTouchData: LineTouchData(
-                        enabled: false,
-                      ),
-                      titlesData: FlTitlesData(
-                        leftTitles: AxisTitles(
-
-                          sideTitles: SideTitles(
-                            interval: 50,
-                            reservedSize: width*.075,
-                            showTitles: true,
-                            minIncluded: true,
-                            maxIncluded: false,
-
-                            getTitlesWidget: (value, meta) {
-                              return Text(
-                                value.toInt().toString(),
-                                style: TextStyle(
-                                    color: Colors.white),
-                              );
-                            },
+                          borderData: FlBorderData(
+                            show: true,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
                           ),
                         ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: true,
-                            interval: 10,
-                            minIncluded: false,
-                            getTitlesWidget: (value, meta) {
-                              return Text(
-                                value.toInt().toString(),
-                                style: TextStyle(
-                                    color: Colors.white), // تحديد اللون الأبيض
-                              );
-                            },
-                          ),
-                        ),
-                        topTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: false,
-                          ),
-                        ),
-                        rightTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            showTitles: false,
-                          ),
-                        ),
-                      ),
-
-                      borderData: FlBorderData(
-                        show: true,
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 1,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   )),
             ],
           )
@@ -186,12 +172,4 @@ class _ProgressScreenState extends State<ProgressScreen> {
       ),
     );
   }
-  List<FlSpot> generateSpots(List<int> volumes) {
-    List<FlSpot> spots = [];
-    for (int i = 0; i < volumes.length; i++) {
-      spots.add(FlSpot(i * 10.0, volumes[i].toDouble())); // X يزيد بمقدار 10 لكل نقطة
-    }
-    return spots;
-  }
 }
-

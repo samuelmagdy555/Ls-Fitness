@@ -14,7 +14,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   ExerciseCubit() : super(ExerciseInitial());
 
   static ExerciseCubit get(context) => BlocProvider.of(context);
-  ExerciseModel? exerciseModel;
+  ExercisesModel? exercisesModel;
   LoginModel? loginModel;
 
 
@@ -24,7 +24,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       final response = await DioHelper.get(end_ponit: EndPoints.GetExercise,
         token: loginModel?.token ?? LoginCubit.token);
       print(response.data);
-      exerciseModel = ExerciseModel.fromJson(response.data);
+      exercisesModel = ExercisesModel.fromJson(response.data);
       emit(GetExerciseSuccess());
     }
         catch(e){

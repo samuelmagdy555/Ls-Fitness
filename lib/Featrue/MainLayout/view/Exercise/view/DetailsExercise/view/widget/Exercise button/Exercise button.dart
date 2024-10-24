@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 
 class ExerciseButton extends StatelessWidget {
   final String label;
