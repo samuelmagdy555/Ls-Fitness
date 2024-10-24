@@ -31,6 +31,19 @@ class _ProgressScreenState extends State<ProgressScreen> {
     List<Data> exercises = ExerciseCubit.get(context).exercisesModel!.data;
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kThirdColor,
+        title: Text(
+          "Progress",
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+        ),
+      ),
       body: Column(
         children: [
           SizedBox(
@@ -53,18 +66,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       ),
                     );
                   }).toList(),
-                  onChanged: (Data? newExercise)async {
+                  onChanged: (Data? newExercise) async {
                     setState(() {
                       selectedExercise = newExercise!;
-
                     });
                     await ProgressCubit.get(context)
                         .getExercisesProgress(id: selectedExercise.id!);
                     ProgressCubit.get(context).generateSpots(
                         ProgressCubit.get(context)
-                            .progressModel
-                            ?.data!
-                            .volumes ??
+                                .progressModel
+                                ?.data!
+                                .volumes ??
                             []);
                   },
                 ),
@@ -137,9 +149,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                                 getTitlesWidget: (value, meta) {
                                   return Text(
                                     value.toInt().toString(),
-                                    style: TextStyle(
-                                        color:
-                                            Colors.white),
+                                    style: TextStyle(color: Colors.white),
                                   );
                                 },
                               ),

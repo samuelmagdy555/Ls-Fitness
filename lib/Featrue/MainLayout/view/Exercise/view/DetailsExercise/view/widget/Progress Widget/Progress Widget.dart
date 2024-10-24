@@ -3,12 +3,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
+import '../../../../../../Home/View/Progress Feature/View Model/progress_cubit.dart';
 import '../Exercise button/Exercise button.dart';
 
-class ProgressWidget extends StatelessWidget {
+class ProgressWidget extends StatefulWidget {
   ProgressWidget({super.key});
 
+  @override
+  State<ProgressWidget> createState() => _ProgressWidgetState();
+}
+
+class _ProgressWidgetState extends State<ProgressWidget> {
   final List<int> volume = [130, 250, 320, 300, 350, 400];
+  TextEditingController? repsController;
+
+  TextEditingController? weightController;
+
+  @override
+  void initState() {
+    repsController = TextEditingController();
+    weightController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    repsController!.dispose();
+    weightController!.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +72,7 @@ class ProgressWidget extends StatelessWidget {
                             ),
                           ),
                           dotData: FlDotData(show: false),
-                          spots: generateSpots(volume),
+                          spots: ProgressCubit.get(context).spots,
                           isCurved: true,
                           barWidth: 2,
                         )
@@ -81,8 +104,7 @@ class ProgressWidget extends StatelessWidget {
                             getTitlesWidget: (value, meta) {
                               return Text(
                                 value.toInt().toString(),
-                                style: TextStyle(
-                                    color: Colors.white), // تحديد اللون الأبيض
+                                style: TextStyle(color: Colors.white),
                               );
                             },
                           ),
@@ -123,6 +145,7 @@ class ProgressWidget extends StatelessWidget {
                 border: Border.all(color: kSecondColor),
               ),
               child: CupertinoTextFormFieldRow(
+                controller: weightController,
                 keyboardType: TextInputType.number,
                 placeholder: 'Weight',
                 cursorColor: Colors.white,
@@ -132,7 +155,6 @@ class ProgressWidget extends StatelessWidget {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration: BoxDecoration(
-
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
@@ -144,38 +166,35 @@ class ProgressWidget extends StatelessWidget {
                 border: Border.all(color: kSecondColor),
               ),
               child: CupertinoTextFormFieldRow(
+                controller: repsController,
                 keyboardType: TextInputType.number,
                 placeholder: 'Reps',
                 cursorColor: Colors.white,
                 style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
                 placeholderStyle:
-                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration: BoxDecoration(
-
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: height*.05),
+        SizedBox(height: height * .05),
         Row(
           children: [
-            Expanded(child: ExerciseButton(label: 'Add',)),
+            Expanded(
+                child: ExerciseButton(
+              onPressed: () {
+
+              },
+              label: 'Add',
+            )),
           ],
         )
       ],
     );
-  }
-
-  List<FlSpot> generateSpots(List<int> volumes) {
-    List<FlSpot> spots = [];
-    for (int i = 0; i < volumes.length; i++) {
-      spots.add(
-          FlSpot(i * 10.0, volumes[i].toDouble())); // X يزيد بمقدار 10 لكل نقطة
-    }
-    return spots;
   }
 }

@@ -4,6 +4,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
 import 'package:video_player/video_player.dart';
 
 
@@ -172,7 +173,15 @@ late List<String>c ;
                         category: exercise?.category.title??'',
                         bodyPart: exercise?.bodyPart.title??'',
                         onPressed: () {
-                          ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise!.id);
+
+                           ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise!.id);
+                           ProgressCubit.get(context).getExercisesProgress(id: exercise.id);
+                          ProgressCubit.get(context).generateSpots(
+                              ProgressCubit.get(context)
+                                  .progressModel
+                                  ?.data!
+                                  .volumes ??
+                                  []);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

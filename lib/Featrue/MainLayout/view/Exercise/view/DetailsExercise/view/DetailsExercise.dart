@@ -48,10 +48,14 @@ class _ExercisePageState extends State<ExercisePage> {
       },
       builder: (context, state) {
         return ExercisesDetailsCubit.get(context).exerciseDetailsModel == null
-            ? Center(
-                child: CircularProgressIndicator(
-                color: kSecondColor,
-              ))
+            ? Scaffold(
+          backgroundColor: kThirdColor,
+          body: Center(
+            child: CircularProgressIndicator(
+              color: kSecondColor,
+            ),
+          ),
+        )
             : Scaffold(
                 appBar: AppBar(
                   backgroundColor: kThirdColor,

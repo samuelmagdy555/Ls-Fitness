@@ -17,6 +17,7 @@ class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
   ExerciseDetailsModel? exerciseDetailsModel;
 
   Future<void> getExercisesDetails({required String id}) async {
+    exerciseDetailsModel = null;
     emit(ExercisesDetailsLoading());
     try {
 
