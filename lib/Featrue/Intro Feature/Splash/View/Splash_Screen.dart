@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import '../../onboarding/View/Screens/Onboarding1_screen.dart';
 import '../../onboarding/View/Screens/Onboarding_Screen.dart';
 
@@ -14,10 +16,22 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed( Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) =>  welcomePage()),
-      );
+
+      if ( LoginCubit.token != '') {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) =>  MainLayout()));
+      }
+      if ( LoginCubit.token == '') {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                  builder: (context) =>  welcomePage()));
+      }
+
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) =>  welcomePage()),
+            // );
     });
   }
 

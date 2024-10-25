@@ -54,18 +54,12 @@ class LoginCubit extends Cubit<LoginState> {
      LoginCubit.token = await CashHelper.getFromCash(key: 'token');
      LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
 print(token);
-
      emit(LoginSuccessState());
      ExerciseCubit.get(context).getExercise();
     }catch(error){
       print(error.toString());
       emit(LoginErrorState(message: error.toString()));
     }
-
-
-
   }
-
-
 
 }
