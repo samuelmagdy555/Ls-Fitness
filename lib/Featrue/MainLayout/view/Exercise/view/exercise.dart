@@ -187,7 +187,7 @@ late List<String>c ;
                             MaterialPageRoute(
                                 builder: (context) =>
                                     ExercisePage(
-                                      videoPath: exercise?.videoUrl??'',
+                                      videoPath: 'assets/videos/BarbellJMBenchPress.mp4',
                                       title: exercise?.title??'',)
                             ),
                           );
