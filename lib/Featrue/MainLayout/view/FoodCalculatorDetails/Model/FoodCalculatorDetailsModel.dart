@@ -2,9 +2,10 @@ class FoodCalculatorDetailsModel {
   FoodCalculatorDetailsModel({
     required this.data,
   });
+
   late final Data data;
 
-  FoodCalculatorDetailsModel.fromJson(Map<String, dynamic> json){
+  FoodCalculatorDetailsModel.fromJson(Map<String, dynamic> json) {
     data = Data.fromJson(json['data']);
   }
 
@@ -21,11 +22,12 @@ class Data {
     required this.title,
     required this.calculationData,
   });
+
   late final String id;
   late final String title;
   late final CalculationData calculationData;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     title = json['title'];
     calculationData = CalculationData.fromJson(json['calculationData']);
@@ -48,13 +50,14 @@ class CalculationData {
     required this.fats,
     required this.fibers,
   });
-  late final int calories;
-  late final int protein;
-  late final int carbs;
-  late final int fats;
-  late final int fibers;
 
-  CalculationData.fromJson(Map<String, dynamic> json){
+  late var calories;
+  late var protein;
+  late var carbs;
+  late var fats;
+  late var fibers;
+
+  CalculationData.fromJson(Map<String, dynamic> json) {
     calories = json['calories'];
     protein = json['protein'];
     carbs = json['carbs'];
@@ -64,11 +67,11 @@ class CalculationData {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['calories'] = calories;
-    _data['protein'] = protein;
-    _data['carbs'] = carbs;
-    _data['fats'] = fats;
-    _data['fibers'] = fibers;
+    _data['calories'] = calories.toInt();
+    _data['protein'] = protein.toInt();
+    _data['carbs'] = carbs.toInt();
+    _data['fats'] = fats.toInt();
+    _data['fibers'] = fibers.toInt();
     return _data;
   }
 }

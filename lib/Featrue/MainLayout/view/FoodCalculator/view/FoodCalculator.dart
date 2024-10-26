@@ -19,8 +19,27 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     context.read<FoodCalculatorCubit>().getFoodCalculator();
   }
 
+ List <String>nutrientsList = [
+   "calories",
+   "proteins",
+   "carbohydrates",
+   "fats",
+   "fibers",
+ ];
+  List <String> imageList = [
+    'calories.png',
+    'protein.png',
+    'carb.png',
+    'fats.png',
+    'fiber.png'
+
+  ];
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -55,19 +74,26 @@ class _FoodCalculatorState extends State<FoodCalculator> {
             return ListView.builder(
               itemCount: foodCalculatorModel.data.length,
               itemBuilder: (context, index) {
-                final foodItem = foodCalculatorModel.data[index];
-                final foodId = foodItem.id;
-                final calories = foodItem.calories ?? 0;
-                final quantities = foodItem.quantities ?? 0;
-                final proteins = foodItem.proteins ?? 0;
-                final carbohydrates = foodItem.carbohydrates ?? 0;
-                final fats = foodItem.fats ?? 0;
-                final fibers = foodItem.fibers ?? 0;
-
+                final foodItem = foodCalculatorModel?.data[index];
+                final foodId = foodItem?.id ?? '';
+                final calories = foodItem?.calories ?? 0;
+                final quantities = foodItem?.quantities ?? 0;
+                final proteins = foodItem?.proteins ?? 0;
+                final carbohydrates = foodItem?.carbohydrates ?? 0;
+                final fats = foodItem?.fats ?? 0;
+                final fibers = foodItem?.fibers ?? 0;
+                List<String>? foodDetails = [
+                 '$calories c',
+                 '$proteins g',
+                 '$carbohydrates g',
+                 '$fats g',
+                 '$fibers g',
+                ];
                 return GestureDetector(
                   onTap: () {
-                    FoodCalculatorDetailsCubit.get(context).fetchFoodCalculatorDetails(
-                        mealId: foodId, quantities: 100.toString());
+                    FoodCalculatorDetailsCubit.get(context)
+                        .fetchFoodCalculatorDetails(
+                            mealId: foodId, quantities: 100.toString());
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -76,7 +102,9 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                     );
                   },
                   child: Card(
-                    margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 15.0),
+                    color: kSecondColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -87,20 +115,63 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            foodItem.title,
+                            foodItem?.title ?? '',
+                            maxLines: 3,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.teal[800],
+                              color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          _buildNutrientRow('Calories', calories),
-                          _buildNutrientRow('Quantities', quantities),
-                          _buildNutrientRow('Proteins', proteins),
-                          _buildNutrientRow('Carbohydrates', carbohydrates),
-                          _buildNutrientRow('Fats', fats),
-                          _buildNutrientRow('Fibers', fibers),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            height: height * .25,
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 5,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: 1.15,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10),
+                              itemBuilder: (context, index) => Container(
+                                decoration:
+                                    BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(12),
+
+                                    ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/${imageList[index]}',
+                                      height: 30,
+                                    ),
+
+                                    Text(
+                                      nutrientsList[index],
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: kThirdColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      foodDetails[index],
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: kThirdColor,
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
