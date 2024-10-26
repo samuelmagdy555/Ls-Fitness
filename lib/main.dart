@@ -27,6 +27,7 @@ import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forg
 import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
 import 'Featrue/Auth Feature/Register/view_model/regester_cubit.dart';
+import 'Featrue/Auth Feature/login/view/Screens/login_screen.dart';
 import 'Featrue/Auth Feature/login/view_mode/login_cubit.dart';
 import 'Featrue/Intro Feature/Splash/View/Splash_Screen.dart';
 import 'Featrue/Intro Feature/onboarding/View/Widget/colors.dart';
@@ -192,7 +193,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: LoginView(),
       ),
     );
   }

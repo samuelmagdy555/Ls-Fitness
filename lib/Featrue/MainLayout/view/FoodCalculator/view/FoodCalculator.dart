@@ -60,7 +60,9 @@ class _FoodCalculatorState extends State<FoodCalculator> {
         },
         builder: (context, state) {
           if (state is FoodCalculatorLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(
+              color: kSecondColor,
+            ));
           } else if (state is FoodCalculatorSuccess) {
             final foodCalculatorModel = state.foodCalculatorModel;
             if (foodCalculatorModel.data.isEmpty) {

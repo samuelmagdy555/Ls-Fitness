@@ -59,47 +59,47 @@ class _MainLayoutState extends State<MainLayout> {
         items: [
           SalomonBottomBarItem(
             icon: SizedBox(
-                height: height * .033,
+                height: height * .03,
                 width: width * .11,
                 child: const Image(
                     image:
-                        AssetImage('assets/images/gym-10968080-unscreen.gif'))),
-            title: const Text('Home', style: TextStyle(color: Colors.white)),
+                        AssetImage('assets/images/muscle Home.png'))),
+            title: const Text('Home ', style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
-                height: height * .033,
+                height: height * .03,
                 width: width * .11,
                 child: const Image(
                     image: AssetImage(
-                        'assets/images/dumbbells-17581697-unscreen.gif'))),
-            title: const Text('Exercise'),
+                        'assets/images/dumbbell home.png'))),
+            title: const Text('Exercise ',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
-                height: height * .033,
+                height: height * .03,
                 width: width * .11,
                 child: const Image(
                     image: AssetImage(
-                        'assets/images/intermittent-fasting-16862112-unscreen.gif'))),
-            title: const Text('Meals'),
+                        'assets/images/food-safety home.png'))),
+            title: const Text('Meals ',style: TextStyle(color: Colors.white),),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
-                height: height * .033,
+                height: height * .03,
                 width: width * .11,
                 child: const Image(
                     image: AssetImage(
-                        'assets/images/protein-17465892-unscreen.gif'))),
-            title: const Text('Creatine'),
+                        'assets/images/reminder home.png'))),
+            title: const Text('Reminders ',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
-                height: height * .033,
+                height: height * .03,
                 width: width * .11,
                 child: const Image(
-                    image: AssetImage('assets/images/settings_3524636.png'))),
-            title: const Text('Profile'),
+                    image: AssetImage('assets/images/settings home.png'))),
+            title: const Text('Settings ',style: TextStyle(color: Colors.white),),
           ),
         ],
         backgroundColor: kThirdColor,

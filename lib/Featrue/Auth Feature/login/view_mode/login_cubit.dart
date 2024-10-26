@@ -36,8 +36,8 @@ class LoginCubit extends Cubit<LoginState> {
       final response =await DioHelper.PostData(
           end_point: EndPoints.Login,
         data: {
-            'email' : email,
-            'password' : password
+            'email' : 'kerollosharby29@gmail.com',
+            'password' : 'qwerqwer'
         }
       );
      loginModel = LoginModel.fromJson(response.data);
