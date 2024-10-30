@@ -40,26 +40,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                 ),
               )),
         ),
-        appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Text(
-              'Workout Alarm',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: width * 0.055,
-                  fontWeight: FontWeight.bold),
-            ),
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-            )),
+
         body: BlocConsumer<WorkoutCubit, WorkoutState>(
           listener: (context, state) {
             // TODO: implement listener

@@ -5,18 +5,17 @@ import 'package:alarm/alarm.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_utils/get_utils.dart';
 
-import '../../../../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../../../../../Add Alarm Screen/Add Alarm Screen.dart';
-import '../View Model/alarm_cubit.dart';
+import '../View Model/vitamin_cubit.dart';
 
-class MealsAlarms extends StatefulWidget {
-  const MealsAlarms({super.key});
+class VitaminAlarms extends StatefulWidget {
+  const VitaminAlarms({super.key});
 
   @override
-  State<MealsAlarms> createState() => _MealsAlarmsState();
+  State<VitaminAlarms> createState() => _VitaminAlarmsState();
 }
 
-class _MealsAlarmsState extends State<MealsAlarms> {
+class _VitaminAlarmsState extends State<VitaminAlarms> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -39,13 +38,13 @@ class _MealsAlarmsState extends State<MealsAlarms> {
               )),
         ),
 
-        body: BlocConsumer<AlarmCubit, AlarmState>(
+        body: BlocConsumer<VitaminCubit, VitaminState>(
           listener: (context, state) {
             // TODO: implement listener
           },
           builder: (context, state) {
             return ListView.builder(
-                itemCount: AlarmCubit.get(context).meals.length,
+                itemCount: VitaminCubit.get(context).vitamin.length,
                 itemBuilder: (BuildContext, index) {
                   return GestureDetector(
                     onTap: () async {
@@ -88,14 +87,14 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                         String formattedTime =
                             '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
 
-                        AlarmCubit.get(context)
+                        VitaminCubit.get(context)
                             .updateMealTime(index, formattedTime);
                         await Alarm.stop(
-                            AlarmCubit.get(context).meals[index].id);
+                            VitaminCubit.get(context).vitamin[index].id);
 
                         await Alarm.set(
                             alarmSettings: AlarmSettings(
-                              id: AlarmCubit.get(context).meals[index].id,
+                              id: VitaminCubit.get(context).vitamin[index].id,
                               dateTime: selectedDateTime,
                               assetAudioPath: 'assets/alarm.mp3',
                               loopAudio: true,
@@ -105,7 +104,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                               warningNotificationOnKill: Platform.isIOS,
                               notificationSettings: NotificationSettings(
                                 body:
-                                "Time for ${AlarmCubit.get(context).meals[index].name}",
+                                "Time for ${VitaminCubit.get(context).vitamin[index].name}",
                                 title: "Alarm",
                                 stopButton: 'stop',
                               ),
@@ -124,8 +123,8 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AlarmCubit.get(context)
-                                .meals[index]
+                            VitaminCubit.get(context)
+                                .vitamin[index]
                                 .name
                                 .toString(),
                             style: TextStyle(
@@ -134,7 +133,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                                 color: Colors.white),
                           ),
                           Text(
-                            AlarmCubit.get(context).meals[index].time,
+                            VitaminCubit.get(context).vitamin[index].time,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .055,

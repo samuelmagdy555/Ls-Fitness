@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'Add Alarm Screen/Add Alarm Screen.dart';
-import 'package:provider/provider.dart';
-
-import 'Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
-import 'Tabs/Alarms Schedule/View/Alarm Schedule Screen.dart';
+import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View/Sleep%20Alarms.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/View/Supplement%20Meals.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Workout%20Alarms/View/Workout%20Alarms.dart';
+import 'Tabs/Alarm Feture/View/Alarms/Meal Alarms/View/Meal Alarms.dart';
+import 'Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View/Vitamin Alarms.dart';
 import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 
 class TimerScreen extends StatefulWidget {
@@ -19,13 +18,20 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   bool value = false;
   TabController? tabController;
 
+   List<String> c = ['Meals',
+    'Supplement',
+    'Sleep',
+    'Workout',
+    'Vitamin',
+    'Creatine',];
+  int num = 0;
+  String? selectedValue;
+  int index = 0;
+
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {});
-    });
     super.initState();
+    tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -41,31 +47,60 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
           ),
           centerTitle: true,
         ),
-
-
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
           children: [
             SizedBox(
-              height: height * .075,
-              width: width,
-              child: TabBar(
-                  labelColor: Colors.white,
-                  indicatorColor: Colors.white,
-                  controller: tabController,
-                  tabs: [
-                    Tab(
-                      text: "All Alarms",
+              child: GridView.builder(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 15),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 2.5,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemCount: c.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTapDown: (TapDownDetails details) {
+                      setState(() {
+                        num = index;
+                        tabController!.animateTo(index);
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: num == index ? kSecondColor : Colors.grey,
+                          width: 1,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Text(
+                        c[index],
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
                     ),
-                    Tab(
-                      text: "Creatine Alarms",
-                    ),
-                  ]),
+                  );
+                },
+              ),
+            ),
+            SizedBox(
+              height: height * 0.01,
             ),
             Expanded(
                 child: TabBarView(controller: tabController, children: [
-              AlarmSchedule(),
-              CreatineTab(),
+              MealsAlarms(),
+              SupplementsAlarms(),
+              SleepAlarms(),
+              WorkoutAlarms(),
+                  VitaminAlarms(),
+                  CreatineTab()
             ]))
           ],
         ));

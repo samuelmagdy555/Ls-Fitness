@@ -38,20 +38,7 @@ class _SupplementsAlarmsState extends State<SupplementsAlarms> {
                 child: Icon(Icons.add , color: Colors.white,),
               )),
         ),
-        appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Text('Supplement Alarms' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
 
-              }
-              ,
-              icon: Icon(Icons.arrow_back , color: Colors.white,),
-            )
-        ),
         body: BlocConsumer<SupplementsCubit, SupplementsState>(
           listener: (context, state) {
             // TODO: implement listener

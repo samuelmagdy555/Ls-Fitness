@@ -37,20 +37,7 @@ class _SleepAlarmsState extends State<SleepAlarms> {
                 child: Icon(Icons.add , color: Colors.white,),
               )),
         ),
-        appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: Text('Sleep Alarm ' , style: TextStyle(color: Colors.white , fontSize: width * 0.055 , fontWeight: FontWeight.bold),),
-            centerTitle: true,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
 
-              }
-              ,
-              icon: Icon(Icons.arrow_back , color: Colors.white,),
-            )
-        ),
         body: BlocConsumer<SleepCubit, SleepState>(
           listener: (context, state) {
             // TODO: implement listener
