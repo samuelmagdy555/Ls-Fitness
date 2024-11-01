@@ -60,6 +60,7 @@ dependencies:
   alarm: ^4.0.3
   rolling_switch: ^0.0.2
   fl_chart: ^0.69.0
+  iconsax: ^0.0.8
 
 
 

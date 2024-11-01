@@ -2,8 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/Model/FoodCalculatorModel.dart';
 import 'package:meta/meta.dart';
+
+import '../Model/FoodCalculatorModel.dart';
 
 part 'food_calculator_state.dart';
 

@@ -27,7 +27,7 @@ class _MainLayoutState extends State<MainLayout> {
     HomeView(),
     WorkoutScreen(),
     FoodListPage(),
-    TimerScreen(),
+    TimerScreen(value: false,),
     SettingsPage()
   ];
 

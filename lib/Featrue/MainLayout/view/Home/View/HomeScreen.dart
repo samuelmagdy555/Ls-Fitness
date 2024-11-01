@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view/FoodCalculator.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
 import '../Model/mode.dart';
+import 'FoodCalculator/view/FoodCalculator.dart';
 import 'Progress Feature/View Model/progress_cubit.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
 
@@ -185,11 +186,18 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      "Popular",
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.04,
-                        color: Colors.white,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context)=> VitaminView())
+                        );
+                      },
+                      child: Text(
+                        "Vitamins",
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.04,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     TextButton(

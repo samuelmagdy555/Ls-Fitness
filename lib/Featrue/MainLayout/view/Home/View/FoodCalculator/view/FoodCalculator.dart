@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculator/view_Model/food_calculator_cubit.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/view/FoodCalulatorDetails.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
+
+import '../view_Model/food_calculator_cubit.dart';
+import 'FoodCalculatorDetails/view/FoodCalulatorDetails.dart';
+import 'FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 
 class FoodCalculator extends StatefulWidget {
   const FoodCalculator({super.key});

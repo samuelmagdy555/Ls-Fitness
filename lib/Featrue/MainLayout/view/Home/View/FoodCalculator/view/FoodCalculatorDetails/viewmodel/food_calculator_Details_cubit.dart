@@ -4,8 +4,9 @@ import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/model/LoginModel.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/FoodCalculatorDetails/Model/FoodCalculatorDetailsModel.dart';
 import 'package:meta/meta.dart';
+
+import '../Model/FoodCalculatorDetailsModel.dart';
 
 part 'food_calculator_Details_state.dart';
 

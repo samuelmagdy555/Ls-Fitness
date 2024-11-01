@@ -8,7 +8,8 @@ import 'Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View/Vitamin Alarms.dart';
 import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 
 class TimerScreen extends StatefulWidget {
-  TimerScreen({super.key});
+  final bool value;
+  TimerScreen({super.key, required this.value});
 
   @override
   State<TimerScreen> createState() => _MyAppState();
@@ -24,14 +25,15 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     'Workout',
     'Vitamin',
     'Creatine',];
-  int num = 0;
+ late int num ;
   String? selectedValue;
-  int index = 0;
 
   @override
   void initState() {
+    tabController = TabController(length: 6, vsync: this , initialIndex: widget.value ==true ?4 : 0);
+    num = widget.value ==true ?4 : 0;
     super.initState();
-    tabController = TabController(length: 6, vsync: this);
+
   }
 
   @override
@@ -46,6 +48,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
+         leading:  widget.value ? IconButton(onPressed:  () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios, color: Colors.white,)): SizedBox(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
