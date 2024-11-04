@@ -61,6 +61,7 @@ dependencies:
   rolling_switch: ^0.0.2
   fl_chart: ^0.69.0
   iconsax: ^0.0.8
+  dotted_border: ^2.1.0
 
 
 

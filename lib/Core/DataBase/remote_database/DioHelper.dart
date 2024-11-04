@@ -93,6 +93,7 @@ class DioHelper{
     required String end_ponit,
     Map<String, dynamic>? data,
     Map<String, dynamic>? query,
+    FormData ? formData,
     String? token,
   }) async {
     dio.options.headers = {
@@ -101,8 +102,9 @@ class DioHelper{
     };
     return await dio.post(
       end_ponit,
-      data: data,
+      data: formData ??data,
       queryParameters: query,
+
     );
   }
   static Future<Response> put({

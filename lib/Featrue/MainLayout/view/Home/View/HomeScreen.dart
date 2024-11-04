@@ -6,8 +6,10 @@ import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cu
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 
+import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Model/mode.dart';
 import 'FoodCalculator/view/FoodCalculator.dart';
+import 'Nutrition Feature/View/Nutrition View.dart';
 import 'Progress Feature/View Model/progress_cubit.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
 
@@ -196,7 +198,8 @@ class _HomeViewState extends State<HomeView> {
                         "Vitamins",
                         style: GoogleFonts.lato(
                           fontSize: width * 0.04,
-                          color: Colors.white,
+                          color: kSecondColor,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -210,24 +213,30 @@ class _HomeViewState extends State<HomeView> {
                         "Food Calculator",
                         style: GoogleFonts.lato(
                           fontSize: width * 0.04,
-                          color: Colors.white,
+                          color: kSecondColor,
+                            fontWeight: FontWeight.bold
+
                         ),
                       ),
                     ),
-                    Text(
-                      "Full body",
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.04,
-                        color: Colors.white,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context)=> NutritionView())
+                        );
+                      },
+                      child: Text(
+                        "Nutrition",
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.04,
+                          color: kSecondColor,
+                            fontWeight: FontWeight.bold
+
+                        ),
                       ),
                     ),
-                    Text(
-                      "Crossfit",
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.04,
-                        color: Colors.white,
-                      ),
-                    ),
+
+
                   ],
                 ),
               ),
@@ -236,10 +245,18 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   children: [
                     Text(
-                      "Your Progress",
+                      "Your ",
+                      style: GoogleFonts.lato(
+                        fontSize: width * 0.07,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      "Progress",
                       style: GoogleFonts.lato(
                         fontSize: width * 0.08,
-                        color: Colors.white,
+                        color: kSecondColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
