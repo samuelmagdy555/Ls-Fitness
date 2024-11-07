@@ -9,6 +9,7 @@ import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
@@ -173,6 +174,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => CounterCubit()
               ..GetData()..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
+        BlocProvider(create: (context) => NutritionCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(
