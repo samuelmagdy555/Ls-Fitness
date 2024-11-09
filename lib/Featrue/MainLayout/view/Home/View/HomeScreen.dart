@@ -206,7 +206,7 @@ class _HomeViewState extends State<HomeView> {
                     TextButton(
                       onPressed: () {
                         Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=> FoodCalculator())
+                          MaterialPageRoute(builder: (context)=> FoodCalculator(mealCategory: '',))
                         );
                       },
                       child: Text(

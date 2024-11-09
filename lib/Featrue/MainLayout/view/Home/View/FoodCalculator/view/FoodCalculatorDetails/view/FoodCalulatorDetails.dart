@@ -35,13 +35,59 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
     "carbohydrates",
     "fats",
     "fibers",
+    "sugar",
+    "VitaminA",
+    "VitaminB1",
+    "VitaminB2",
+    "VitaminB3",
+    "VitaminB5",
+    "VitaminB6",
+    "VitaminB7",
+    "VitaminB9",
+    "VitaminB12",
+    "VitaminC",
+    "VitaminD",
+    "VitaminE",
+    "VitaminK",
+    "calcium",
+    "iron",
+    "magnesium",
+    "potassium",
+    "sodium",
+    "zinc",
+    "copper",
+    "manganese",
+    "selenium"
   ];
   List<String> imageList = [
     'calories.png',
     'protein.png',
     'carb.png',
     'fats.png',
-    'fiber.png'
+    'fiber.png',
+    'sugar.png',
+    'vitamin-a.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+    'vitamin-c.png',
+    'vitamin-d.png',
+    'vitamin-e.png',
+    'Vitamin K.png',
+    'calcium.png',
+    'iron.png',
+    'magnesium.png',
+    'potassium.png',
+    'sodium.png',
+    'zinc.png',
+    'copper.png',
+    'manganese.png',
+    'selenium.png'
   ];
 
   @override
@@ -87,32 +133,34 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
             .data
             .calculationData;
         List<String> nutrients = [
-          '${FoodCalculatorDetailsCubit.get(context)
-              .foodCalculatorDetails!
-              .data
-              .calculationData
-              .calories.toString() } c',
-          '${FoodCalculatorDetailsCubit.get(context)
-              .foodCalculatorDetails!
-              .data
-              .calculationData
-              .protein.toString() } g',
-          '${FoodCalculatorDetailsCubit.get(context)
-              .foodCalculatorDetails!
-              .data
-              .calculationData
-              .carbs.toString() } g',
-          '${FoodCalculatorDetailsCubit.get(context)
-              .foodCalculatorDetails!
-              .data
-              .calculationData
-              .fats.toString() } g',
-          '${FoodCalculatorDetailsCubit.get(context)
-              .foodCalculatorDetails!
-              .data
-              .calculationData
-              .fibers.toString() } g',
-
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Calories.toString()} c',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Protein.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Carbohydrates.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Fats.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Fiber.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Sugar.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminA.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB1.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB2.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB3.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB5.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB6.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB7.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB9.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminB12.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminC.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminD.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminE.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.VitaminK.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Calcium.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Iron.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Magnesium.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Potassium.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Sodium.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Zinc.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Copper.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Manganese.toString()} g',
+          '${FoodCalculatorDetailsCubit.get(context).foodCalculatorDetails!.data.calculationData.Selenium.toString()} g',
         ];
         return Padding(
           padding: const EdgeInsets.all(16.0),
@@ -192,10 +240,11 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                   const SizedBox(height: 20),
                   if (calculationData != null) ...[
                     GridView.builder(
-                      keyboardDismissBehavior:  ScrollViewKeyboardDismissBehavior.manual,
-                    shrinkWrap: true,
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.manual,
+                      shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: 28,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: .75,
@@ -209,8 +258,7 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            SizedBox()
-                            ,
+                            SizedBox(),
                             Image.asset(
                               'assets/images/${imageList[index]}',
                               height: 55,
@@ -218,7 +266,7 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                             Text(
                               nutrientsList[index],
                               style: TextStyle(
-                                fontSize: width*.05,
+                                fontSize: width * .05,
                                 fontWeight: FontWeight.bold,
                                 color: kThirdColor,
                               ),
@@ -226,18 +274,16 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                             Text(
                               nutrients[index],
                               style: TextStyle(
-                                fontSize: width*.05,
+                                fontSize: width * .05,
                                 fontWeight: FontWeight.bold,
                                 color: kThirdColor,
                               ),
                             ),
-
                             SizedBox()
                           ],
                         ),
                       ),
                     )
-
                   ] else ...[
                     const Center(
                         child: Text('No Data Available',

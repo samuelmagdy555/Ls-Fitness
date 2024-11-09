@@ -16,5 +16,6 @@ class EndPoints{
   static String FoodCalculatorDetails ="/api/v1/mealsCalculation/calc";
   static String Progress ="/api/v1/progress";
   static String nutrition = '/api/v1/nutrition';
+  static String FoodCalculatorFilter = '/api/v1/mealsCategory';
 
 }

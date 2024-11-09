@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
@@ -175,6 +176,7 @@ class _MyAppState extends State<MyApp> {
               ..GetData()..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
         BlocProvider(create: (context) => NutritionCubit()),
+        BlocProvider(create: (context)=> FoodCalculatorFilterCubit())
       ],
       child: GetMaterialApp(
         theme: ThemeData(
@@ -182,7 +184,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: kThirdColor),
         debugShowCheckedModeBanner: false,
-        home: LoginView(),
+        home: SplashScreen(),
       ),
     );
   }
