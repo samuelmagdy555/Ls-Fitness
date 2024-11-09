@@ -109,12 +109,12 @@ class _NutritionViewState extends State<NutritionView> {
           SizedBox(
             height: height * .05,
           ),
-         NutritionCubit.get(context).nutritionItems!=null? BlocConsumer<NutritionCubit, NutritionState>(
+        BlocConsumer<NutritionCubit, NutritionState>(
             listener: (context, state) {
               // TODO: implement listener
             },
             builder: (context, state) {
-              return Column(
+              return  NutritionCubit.get(context).nutritionItems != null?  Column(
                 children: [
                   SizedBox(
                     height: height*.4,
@@ -185,9 +185,9 @@ class _NutritionViewState extends State<NutritionView> {
                     }),
                   )
                 ],
-              );
+              ) : SizedBox();
             },
-          ) : const SizedBox()
+          )
         ],
       ),
     );
