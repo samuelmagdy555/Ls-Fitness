@@ -15,10 +15,19 @@ class FoodCalculator extends StatefulWidget {
 }
 
 class _FoodCalculatorState extends State<FoodCalculator> {
+  late TextEditingController _searchController;
+
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController();
     context.read<FoodCalculatorCubit>().getFoodCalculator(mealCategory: widget.mealCategory);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   List<String> nutrientsList = [
@@ -37,6 +46,11 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     'magnesium.png', 'potassium.png', 'sodium.png', 'zinc.png', 'copper.png',
     'manganese.png', 'selenium.png'
   ];
+
+  void _performSearch() {
+    final query = _searchController.text;
+    context.read<FoodCalculatorCubit>().searchFoodCalculator(query: query);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +75,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               children: [
                 Expanded(
                   child: TextField(
+                    controller: _searchController,
                     decoration: InputDecoration(
                       hintText: 'Search...',
                       prefixIcon: Icon(Icons.search, color: kThirdColor),
@@ -71,13 +86,14 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                       filled: true,
                       fillColor: Colors.grey[200],
                     ),
+                    onSubmitted: (value) => _performSearch(),
                   ),
                 ),
                 const SizedBox(width: 10),
                 IconButton(
                   icon: Icon(Icons.filter_list, color: Colors.white),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FoodCalculatorFilter()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FoodCalculatorFilter()));
                   },
                 ),
               ],
@@ -233,10 +249,9 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                       );
                     },
                   );
-                } else if (state is FoodCalculatorError) {
-                  return const Center(child: Text('Failed to load data'));
+                } else {
+                  return const Center(child: Text('Error Loading'));
                 }
-                return const Center(child: Text('Unknown Error'));
               },
             ),
           ),

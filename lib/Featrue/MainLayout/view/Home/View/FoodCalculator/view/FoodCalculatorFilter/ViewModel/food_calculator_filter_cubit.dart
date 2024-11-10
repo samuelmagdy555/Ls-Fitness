@@ -18,6 +18,7 @@ class FoodCalculatorFilterCubit extends Cubit<FoodCalculatorFilterState> {
     try{
       final response = await DioHelper.get(
           end_ponit: EndPoints.FoodCalculatorFilter,
+
         token: LoginCubit.loginModel?.token ?? LoginCubit.token
       );
       foodCalculatorFilterModel = FoodCalculatorFilterModel.fromJson(response.data);

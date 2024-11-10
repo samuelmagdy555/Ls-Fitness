@@ -13,15 +13,31 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
 
   FoodCalculatorModel? foodCalculatorModel;
 
-  // تعديل دالة getFoodCalculator لاستقبال categoryId
+  // دالة getFoodCalculator لاستقبال categoryId
   Future<void> getFoodCalculator({String? mealCategory}) async {
     emit(FoodCalculatorLoading());
 
     try {
-      // بناء الـ API endpoint بناءً على categoryId
+      // بناء endpoint بناءً على categoryId
       final String endpoint = mealCategory != null && mealCategory.isNotEmpty
           ? '${EndPoints.FoodCalculator}?mealCategory=$mealCategory'
           : EndPoints.FoodCalculator;
+
+      final response = await DioHelper.get(end_ponit: endpoint);
+      foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
+      emit(FoodCalculatorSuccess(foodCalculatorModel!));
+    } catch (e) {
+      print(e.toString());
+      emit(FoodCalculatorError());
+    }
+  }
+
+  // دالة searchFoodCalculator لإجراء عملية البحث
+  Future<void> searchFoodCalculator({required String query}) async {
+    emit(FoodCalculatorLoading());
+
+    try {
+      final String endpoint = '${EndPoints.FoodCalculator}?keyword=$query';
 
       final response = await DioHelper.get(end_ponit: endpoint);
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
