@@ -18,9 +18,9 @@ class _SettingsPageState extends State<SettingsPage> {
     final height = mediaQuery.size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
         title: Text('Settings', style: TextStyle(fontSize: width * 0.06,color: Colors.white)),
         centerTitle: true,
       ),
@@ -89,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Color(0xFF40D876), size: width * 0.08),
+        leading: Icon(icon, color: Colors.deepPurpleAccent, size: width * 0.08),
         title: Text(label, style: TextStyle(color: Colors.white, fontSize: width * 0.05)),
         trailing: Icon(Icons.arrow_forward_ios, color: Colors.white, size: width * 0.05),
         onTap: onTap,

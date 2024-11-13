@@ -19,21 +19,23 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   bool value = false;
   TabController? tabController;
 
-   List<String> c = ['Meals',
+  List<String> c = [
+    'Meals',
     'Supplement',
     'Sleep',
     'Workout',
     'Vitamin',
-    'Creatine',];
- late int num ;
+    'Creatine',
+  ];
+  late int num;
   String? selectedValue;
 
   @override
   void initState() {
-    tabController = TabController(length: 6, vsync: this , initialIndex: widget.value ==true ?4 : 0);
-    num = widget.value ==true ?4 : 0;
+    tabController = TabController(
+        length: 6, vsync: this, initialIndex: widget.value == true ? 4 : 0);
+    num = widget.value == true ? 4 : 0;
     super.initState();
-
   }
 
   @override
@@ -42,13 +44,20 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           title: const Text(
             'Alarms',
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
-         leading:  widget.value ? IconButton(onPressed:  () => Navigator.pop(context), icon: Icon(Icons.arrow_back_ios, color: Colors.white,)): SizedBox(),
+          leading: widget.value
+              ? IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ))
+              : SizedBox(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: Column(
@@ -102,8 +111,8 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
               SupplementsAlarms(),
               SleepAlarms(),
               WorkoutAlarms(),
-                  VitaminAlarms(),
-                  CreatineTab()
+              VitaminAlarms(),
+              CreatineTab()
             ]))
           ],
         ));

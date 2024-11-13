@@ -25,6 +25,7 @@ class _HomeViewState extends State<HomeView> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -161,7 +162,7 @@ class _HomeViewState extends State<HomeView> {
                   width: width * 0.9, // Adjust width
                   height: 46,
                   decoration: BoxDecoration(
-                    color: Color(0xFF232441),
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Padding(

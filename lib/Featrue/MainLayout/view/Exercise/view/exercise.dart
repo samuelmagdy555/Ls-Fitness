@@ -67,6 +67,7 @@ int num= 0;
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -134,10 +135,6 @@ int num= 0;
           },
         ),
       ),
-
-
-
-
             SizedBox(height: 15),
             Expanded(
               child: ListView.builder(

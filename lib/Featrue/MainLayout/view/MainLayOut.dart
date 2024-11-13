@@ -56,14 +56,14 @@ class _MainLayoutState extends State<MainLayout> {
             _currentIndex = i;
           });
         },
+
         items: [
           SalomonBottomBarItem(
             icon: SizedBox(
                 height: height * .03,
                 width: width * .11,
                 child: const Image(
-                    image:
-                        AssetImage('assets/images/muscle Home.png'))),
+                    image: AssetImage('assets/images/muscle Home.png'))),
             title: const Text('Home ', style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
@@ -71,8 +71,7 @@ class _MainLayoutState extends State<MainLayout> {
                 height: height * .03,
                 width: width * .11,
                 child: const Image(
-                    image: AssetImage(
-                        'assets/images/dumbbell home.png'))),
+                    image: AssetImage('assets/images/dumbbell home.png'))),
             title: const Text('Exercise ',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
@@ -90,7 +89,8 @@ class _MainLayoutState extends State<MainLayout> {
                 width: width * .11,
                 child: const Image(
                     image: AssetImage(
-                        'assets/images/reminder home.png'))),
+                        'assets/images/reminder home.png' ,)
+                )),
             title: const Text('Reminders ',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(

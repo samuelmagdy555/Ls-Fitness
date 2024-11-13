@@ -50,16 +50,18 @@ class FoodListPage extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(
-          'Meals List',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: screenWidth * 0.05, // تغيير حجم الخط بناءً على العرض
+        title: Center(
+          child: Text(
+            'Meals List',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: screenWidth * 0.05, // تغيير حجم الخط بناءً على العرض
+            ),
           ),
         ),
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
       ),
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.02), // تغيير الحواف بناءً على العرض

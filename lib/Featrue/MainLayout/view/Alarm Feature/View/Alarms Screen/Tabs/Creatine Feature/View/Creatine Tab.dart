@@ -25,6 +25,7 @@ class _CreatineTabState extends State<CreatineTab> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           SizedBox(

@@ -58,8 +58,9 @@ class _AddAlaramState extends State<AddAlarm> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
         automaticallyImplyLeading: true,
         title: const Text(
           'Add Alarm',
@@ -193,11 +194,11 @@ class _AddAlaramState extends State<AddAlarm> {
                 height: height * .055,
                 width: width*.35,
                 decoration: BoxDecoration(
-                  color: Color(0xFF40D876),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Center(
-                  child: Text('Set Alarm', style: TextStyle(color: Colors.white , fontSize: width*.05 , fontWeight: FontWeight.w500),),
+                  child: Text('Set Alarm', style: TextStyle(color: Colors.black , fontSize: width*.05 , fontWeight: FontWeight.w500),),
                 ),
               ),
             )
