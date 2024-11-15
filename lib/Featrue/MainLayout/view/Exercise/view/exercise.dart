@@ -119,7 +119,7 @@ int num= 0;
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: num == index ? kSecondColor : Colors.grey,
+                    color: num == index ? Colors.deepPurpleAccent : Colors.grey,
                     width: 1,
                   ),
                 ),
@@ -243,7 +243,7 @@ class ExerciseTile extends StatelessWidget {
                       Text(
                         category,
                         style: TextStyle(
-                          color: kSecondColor.withOpacity(.7),
+                          color: Colors.deepPurpleAccent,
                           fontSize: 14,
                         ),
                       ),
@@ -253,7 +253,7 @@ class ExerciseTile extends StatelessWidget {
                       Text(
                         bodyPart,
                         style: TextStyle(
-                          color: kSecondColor.withOpacity(.7),
+                          color: Colors.deepPurpleAccent,
                           fontSize: 14,
                         ),
                       ),
@@ -265,7 +265,7 @@ class ExerciseTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.keyboard_arrow_right_sharp, color: kSecondColor),
+            Icon(Icons.keyboard_arrow_right_sharp, color: Colors.deepPurpleAccent),
           ],
         ),
       ),

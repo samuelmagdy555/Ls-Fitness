@@ -102,7 +102,7 @@ class _MainLayoutState extends State<MainLayout> {
             title: const Text('Settings ',style: TextStyle(color: Colors.white),),
           ),
         ],
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
       ),
       body: pages[_currentIndex],
     );
