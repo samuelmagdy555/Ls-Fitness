@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -28,6 +29,8 @@ class _MainLayoutState extends State<MainLayout> {
     WorkoutScreen(),
     FoodListPage(),
     TimerScreen(value: false,),
+    FoodCalculator(mealCategory: ''),
+
     SettingsPage()
   ];
 
@@ -64,7 +67,7 @@ class _MainLayoutState extends State<MainLayout> {
                 width: width * .11,
                 child: const Image(
                     image: AssetImage('assets/images/muscle Home.png'))),
-            title: const Text('Home ', style: TextStyle(color: Colors.white)),
+            title: const Text('', style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
@@ -72,7 +75,7 @@ class _MainLayoutState extends State<MainLayout> {
                 width: width * .11,
                 child: const Image(
                     image: AssetImage('assets/images/dumbbell home.png'))),
-            title: const Text('Exercise ',style: TextStyle(color: Colors.white)),
+            title: const Text('',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
@@ -81,7 +84,7 @@ class _MainLayoutState extends State<MainLayout> {
                 child: const Image(
                     image: AssetImage(
                         'assets/images/food-safety home.png'))),
-            title: const Text('Meals ',style: TextStyle(color: Colors.white),),
+            title: const Text('',style: TextStyle(color: Colors.white),),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
@@ -91,7 +94,17 @@ class _MainLayoutState extends State<MainLayout> {
                     image: AssetImage(
                         'assets/images/reminder home.png' ,)
                 )),
-            title: const Text('Reminders ',style: TextStyle(color: Colors.white)),
+            title: const Text('',style: TextStyle(color: Colors.white)),
+          ),
+          SalomonBottomBarItem(
+            icon: SizedBox(
+                height: height * .03,
+                width: width * .11,
+                child: const Image(
+                    image: AssetImage(
+                        'assets/images/calculator.png' ,)
+                )),
+            title: const Text('',style: TextStyle(color: Colors.white)),
           ),
           SalomonBottomBarItem(
             icon: SizedBox(
@@ -99,7 +112,7 @@ class _MainLayoutState extends State<MainLayout> {
                 width: width * .11,
                 child: const Image(
                     image: AssetImage('assets/images/settings home.png'))),
-            title: const Text('Settings ',style: TextStyle(color: Colors.white),),
+            title: const Text('',style: TextStyle(color: Colors.white),),
           ),
         ],
         backgroundColor: Colors.black,

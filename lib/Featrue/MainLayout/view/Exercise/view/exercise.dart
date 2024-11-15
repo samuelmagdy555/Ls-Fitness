@@ -146,7 +146,11 @@ int num= 0;
                       margin: EdgeInsets.all(12),
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white12,
+                        color: Colors.black,
+                        border: Border.all(
+                          color: Colors.deepPurple,
+                          width: .5,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ExerciseTile(

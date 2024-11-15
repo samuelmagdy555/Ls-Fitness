@@ -24,28 +24,29 @@ class _HomeViewState extends State<HomeView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/image3.png"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.only(top: height * 0.07),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: height*.3,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/home background.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 10,
+                    top: 10,
+                    child: Row(
                       children: [
                         Text(
                           "Hey,",
@@ -62,9 +63,9 @@ class _HomeViewState extends State<HomeView> {
                           builder: (context, state) {
                             return Text(
                               ProfileCubit.get(context)
-                                      .profileModel
-                                      ?.data
-                                      .username ??
+                                  .profileModel
+                                  ?.data
+                                  .username ??
                                   '',
                               style: GoogleFonts.bebasNeue(
                                 fontSize: width * 0.08,
@@ -74,43 +75,19 @@ class _HomeViewState extends State<HomeView> {
                             );
                           },
                         ),
+      
                       ],
                     ),
-                    Container(
-                      width: width * 0.1, // Adjust width
-                      height: width * 0.1, // Adjust height
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40.0),
-                        border: Border.all(
-                          width: 3,
-                          color: Color(0xFF40D876),
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/emely.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: height * 0.05),
-                child: Container(
-                  width: width * 0.15,
-                  height: width * 0.15,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.1),
-                    borderRadius: BorderRadius.circular(40.0),
                   ),
-                  child: Center(
-                    child: Container(
-                      height: width * 0.12,
-                      width: width * 0.12,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF40D876),
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
+      
+      
+                  Positioned(
+                    right: width*.2,
+                    left: width*.2,
+                    top: height*.135,
+                    child: CircleAvatar(
+                      radius: width*.075,
+                      backgroundColor: kSecondColor,
                       child: Center(
                         child: Icon(
                           Icons.play_arrow,
@@ -118,13 +95,33 @@ class _HomeViewState extends State<HomeView> {
                           color: Colors.white,
                         ),
                       ),
-                    ),
+                    )
                   ),
-                ),
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      height: height*.03,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: Colors.black38.withOpacity(0.06),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black38,
+                            blurRadius: 10,
+                            spreadRadius: 7,
+                          ),
+                        ]
+                      ),
+                    ),
+                  )
+                ],
               ),
+      
+      
+      
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.05, vertical: height * 0.05),
+                    horizontal: width * 0.05, vertical: height * 0.01),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 10),
                 child: Container(
                   width: width * 0.9, // Adjust width
                   height: 46,
@@ -216,7 +213,7 @@ class _HomeViewState extends State<HomeView> {
                           fontSize: width * 0.04,
                           color: kSecondColor,
                             fontWeight: FontWeight.bold
-
+      
                         ),
                       ),
                     ),
@@ -232,12 +229,12 @@ class _HomeViewState extends State<HomeView> {
                           fontSize: width * 0.04,
                           color: kSecondColor,
                             fontWeight: FontWeight.bold
-
+      
                         ),
                       ),
                     ),
-
-
+      
+      
                   ],
                 ),
               ),

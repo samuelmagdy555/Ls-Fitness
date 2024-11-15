@@ -43,6 +43,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text(
@@ -85,7 +86,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: num == index ? kSecondColor : Colors.grey,
+                          color: num == index ? Colors.deepPurple : Colors.grey,
                           width: 1,
                         ),
                       ),

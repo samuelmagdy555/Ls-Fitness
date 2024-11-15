@@ -119,8 +119,8 @@ class _SupplementsAlarmsState extends State<SupplementsAlarms> {
                       padding: EdgeInsets.all(20),
                       margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white10,
-                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.black,
+                        border: Border.all(color: Colors.deepPurple,width: .5),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

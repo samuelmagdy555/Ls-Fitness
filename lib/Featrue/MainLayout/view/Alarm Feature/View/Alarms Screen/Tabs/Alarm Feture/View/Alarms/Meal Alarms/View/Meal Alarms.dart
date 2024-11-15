@@ -33,7 +33,8 @@ class _MealsAlarmsState extends State<MealsAlarms> {
           child: Container(
               margin: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                  color: Color(0xff40D876), shape: BoxShape.circle),
+                border:  Border.all(color: Colors.deepPurple,width: .5),
+                  color: Colors.black, shape: BoxShape.circle),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Icon(Icons.add , color: Colors.white,),
@@ -117,7 +118,8 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                       padding: EdgeInsets.all(20),
                       margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.white10,
+                        color: Colors.black,
+                        border: Border.all(color: Colors.deepPurple,width: .5),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
