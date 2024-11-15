@@ -35,14 +35,31 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: height*.3,
+                    height: height * 0.3,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/home background.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
+                    child: ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black
+                          ],
+                        ).createShader(bounds);
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: Container(
+                        color: Colors.black87.withOpacity(.8),
+                      ),
+                    ),
                   ),
+
                   Positioned(
                     left: 10,
                     top: 10,
@@ -97,23 +114,23 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     )
                   ),
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      height: height*.03,
-                      width: width,
-                      decoration: BoxDecoration(
-                        color: Colors.black38.withOpacity(0.06),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black38,
-                            blurRadius: 10,
-                            spreadRadius: 7,
-                          ),
-                        ]
-                      ),
-                    ),
-                  )
+                  // Positioned(
+                  //   bottom: 0,
+                  //   child: Container(
+                  //     height: height*.03,
+                  //     width: width,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.black38.withOpacity(0.06),
+                  //       boxShadow: [
+                  //         BoxShadow(
+                  //           color: Colors.black38,
+                  //           blurRadius: 10,
+                  //           spreadRadius: 7,
+                  //         ),
+                  //       ]
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
               Padding(
