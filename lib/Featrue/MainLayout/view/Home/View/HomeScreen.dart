@@ -63,9 +63,9 @@ class _HomeViewState extends State<HomeView> {
                           builder: (context, state) {
                             return Text(
                               ProfileCubit.get(context)
-                                  .profileModel
-                                  ?.data
-                                  .username ??
+                                      .profileModel
+                                      ?.data
+                                      .username ??
                                   '',
                               style: GoogleFonts.bebasNeue(
                                 fontSize: width * 0.08,
@@ -75,12 +75,12 @@ class _HomeViewState extends State<HomeView> {
                             );
                           },
                         ),
-      
+
                       ],
                     ),
                   ),
-      
-      
+
+
                   Positioned(
                     right: width*.2,
                     left: width*.2,
@@ -116,9 +116,6 @@ class _HomeViewState extends State<HomeView> {
                   )
                 ],
               ),
-      
-      
-      
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: width * 0.05, vertical: height * 0.01),
@@ -213,7 +210,7 @@ class _HomeViewState extends State<HomeView> {
                           fontSize: width * 0.04,
                           color: kSecondColor,
                             fontWeight: FontWeight.bold
-      
+
                         ),
                       ),
                     ),
@@ -229,12 +226,12 @@ class _HomeViewState extends State<HomeView> {
                           fontSize: width * 0.04,
                           color: kSecondColor,
                             fontWeight: FontWeight.bold
-      
+
                         ),
                       ),
                     ),
-      
-      
+
+
                   ],
                 ),
               ),
