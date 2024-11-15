@@ -5,13 +5,14 @@ import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dar
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
-
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Model/mode.dart';
 import 'FoodCalculator/view/FoodCalculator.dart';
 import 'Nutrition Feature/View/Nutrition View.dart';
 import 'Progress Feature/View Model/progress_cubit.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
+
+
 
 class HomeView extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _HomeViewState extends State<HomeView> {
                                   '',
                               style: GoogleFonts.bebasNeue(
                                 fontSize: width * 0.08,
-                                color: Color(0xFF40D876),
+                                color: Colors.white,
                                 letterSpacing: 1.8,
                               ),
                             );
@@ -128,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
                           "Find ",
                           style: GoogleFonts.lato(
                             fontSize: width * 0.065,
-                            color: Color(0xFF40D876),
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -193,7 +194,7 @@ class _HomeViewState extends State<HomeView> {
                         "Vitamins",
                         style: GoogleFonts.lato(
                           fontSize: width * 0.04,
-                          color: kSecondColor,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold
                         ),
                       ),
@@ -208,10 +209,8 @@ class _HomeViewState extends State<HomeView> {
                         "Food Calculator",
                         style: GoogleFonts.lato(
                           fontSize: width * 0.04,
-                          color: kSecondColor,
-                            fontWeight: FontWeight.bold
-
-                        ),
+                          color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     TextButton(
@@ -224,7 +223,7 @@ class _HomeViewState extends State<HomeView> {
                         "Nutrition",
                         style: GoogleFonts.lato(
                           fontSize: width * 0.04,
-                          color: kSecondColor,
+                          color: Colors.white,
                             fontWeight: FontWeight.bold
 
                         ),
@@ -251,7 +250,7 @@ class _HomeViewState extends State<HomeView> {
                       "Progress",
                       style: GoogleFonts.lato(
                         fontSize: width * 0.08,
-                        color: kSecondColor,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

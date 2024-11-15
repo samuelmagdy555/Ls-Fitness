@@ -96,13 +96,14 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text(
           'Food Calculator Details',
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -181,11 +182,11 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                   TextFormField(
                     controller: _quantityController,
                     keyboardType: TextInputType.number,
-                    cursorColor: kSecondColor,
+                    cursorColor: Colors.deepPurpleAccent,
                     style: TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kSecondColor),
+                        borderSide: BorderSide(color: Colors.deepPurpleAccent),
                         borderRadius: BorderRadius.all(
                           Radius.circular(18.0),
                         ),
@@ -216,7 +217,7 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(kSecondColor),
+                      backgroundColor: WidgetStateProperty.all(Colors.deepPurpleAccent),
                       textStyle: WidgetStateProperty.all(const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

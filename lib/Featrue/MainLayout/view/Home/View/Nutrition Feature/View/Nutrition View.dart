@@ -34,8 +34,9 @@ class _NutritionViewState extends State<NutritionView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-          backgroundColor: kThirdColor,
+            backgroundColor: Colors.black,
           leading: IconButton(
             icon: Icon(
               Iconsax.arrow_left,
@@ -88,7 +89,7 @@ class _NutritionViewState extends State<NutritionView> {
                                   'Add Your Image Here',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: kSecondColor,
+                                      color: Colors.deepPurpleAccent,
                                       fontSize: width * .04,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -153,7 +154,7 @@ class _NutritionViewState extends State<NutritionView> {
                                       mainAxisSpacing: 10),
                               itemBuilder: (context, index) => Container(
                                 decoration: BoxDecoration(
-                                  color: kSecondColor,
+                                  color: Colors.deepPurpleAccent,
                                   borderRadius: BorderRadius.circular(18),
                                 ),
                                 child: Column(

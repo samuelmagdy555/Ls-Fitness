@@ -5,7 +5,6 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
 import '../../Auth Feature/goals/View/AgeSelection.dart';
 import '../../Auth Feature/goals/View/End.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
@@ -13,6 +12,7 @@ import 'Exercise/view/exercise.dart';
 import 'Home/View/HomeScreen.dart';
 import 'Profile/view/Profile.dart';
 import 'Profile/view_model/profile_cubit.dart';
+
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
