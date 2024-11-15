@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20Details/Vitamin%20Details.dart';
 
 import '../../../Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import '../../../Profile/view_model/profile_cubit.dart';
@@ -59,8 +60,8 @@ class VitaminView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: kThirdColor,
@@ -73,44 +74,40 @@ class VitaminView extends StatelessWidget {
               Navigator.pop(context);
             },
           )),
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Vitamins',
-                    style: GoogleFonts.merriweather(
-                        fontSize: width * .06,
-                        color: kSecondColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.medication_outlined, color: kSecondColor),
-                      BlocConsumer<ProfileCubit, ProfileState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return Text(
-                            ProfileCubit.get(context).profileModel?.data.username ?? '',
-                            style: GoogleFonts.merriweather(
-                                fontSize: width * .045,
-                                color: kSecondColor,
-                                fontWeight: FontWeight.bold),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ]
-              ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(
+              'Vitamins',
+              style: GoogleFonts.merriweather(
+                  fontSize: width * .06,
+                  color: kSecondColor,
+                  fontWeight: FontWeight.bold),
             ),
-
+            Row(
+              children: [
+                Icon(Icons.medication_outlined, color: kSecondColor),
+                BlocConsumer<ProfileCubit, ProfileState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return Text(
+                      ProfileCubit.get(context).profileModel?.data.username ??
+                          '',
+                      style: GoogleFonts.merriweather(
+                          fontSize: width * .045,
+                          color: kSecondColor,
+                          fontWeight: FontWeight.bold),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ]),
+        ),
         SizedBox(height: height * 0.025),
         Expanded(
             child: ListView.builder(
@@ -118,87 +115,97 @@ class VitaminView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: vitamins.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(15),
-                    height: height * .3,
-                    width: width * .65,
-                    decoration: BoxDecoration(
-                        color: kSecondColor,
-                        borderRadius: BorderRadius.circular(125)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              width: width * .42,
-                              height: height * .09,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(125)),
-                              child: Image(
-                                image: AssetImage(
-                                  images[index],
-                                ),
-                                width: width * .4,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VitaminDetails()));
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(15),
+                      height: height * .3,
+                      width: width * .65,
+                      decoration: BoxDecoration(
+                          color: kSecondColor,
+                          borderRadius: BorderRadius.circular(125)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                width: width * .42,
                                 height: height * .09,
-                                fit: BoxFit.cover,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(125)),
+                                child: Image(
+                                  image: AssetImage(
+                                    images[index],
+                                  ),
+                                  width: width * .4,
+                                  height: height * .09,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * .02,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  vitamins[index],
-                                  style: TextStyle(
-                                      color: kThirdColor,
-                                      fontSize: width * .065,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  dailyAmounts[index],
-                                  style: TextStyle(
-                                      color: Colors.black26,
-                                      fontSize: width * .04,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: width * .575,
-                          child: Text(
-                            benefits[index],
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: kThirdColor,
-                                fontSize: width * .045,
-                                fontWeight: FontWeight.w500),
+                              SizedBox(
+                                height: height * .02,
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    vitamins[index],
+                                    style: TextStyle(
+                                        color: kThirdColor,
+                                        fontSize: width * .065,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    dailyAmounts[index],
+                                    style: TextStyle(
+                                        color: Colors.black26,
+                                        fontSize: width * .04,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => TimerScreen(value: true,),
-                                ));
-                          },
-                          child: CircleAvatar(
-                            radius: 35,
-                            backgroundColor: kThirdColor,
-                            child: Center(
-                                child: Icon(
-                              Iconsax.alarm,
-                              color: Colors.white,
-                              size: 35,
-                            )),
+                          SizedBox(
+                            width: width * .575,
+                            child: Text(
+                              benefits[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: kThirdColor,
+                                  fontSize: width * .045,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
-                        ),
-                      ],
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TimerScreen(
+                                      value: true,
+                                    ),
+                                  ));
+                            },
+                            child: CircleAvatar(
+                              radius: 35,
+                              backgroundColor: kThirdColor,
+                              child: Center(
+                                  child: Icon(
+                                Iconsax.alarm,
+                                color: Colors.white,
+                                size: 35,
+                              )),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }))

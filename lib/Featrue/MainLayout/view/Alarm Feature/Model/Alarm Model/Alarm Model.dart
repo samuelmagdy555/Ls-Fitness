@@ -11,6 +11,7 @@ class Model {
   String ? when;
   int ? id;
   int ? milliseconds;
+  // String? assets
 
 
   Model({
