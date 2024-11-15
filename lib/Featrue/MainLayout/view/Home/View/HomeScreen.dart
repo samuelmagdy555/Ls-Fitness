@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
                                   '',
                               style: GoogleFonts.bebasNeue(
                                 fontSize: width * 0.08,
-                                color: Color(0xFF40D876),
+                                color: Colors.white,
                                 letterSpacing: 1.8,
                               ),
                             );
@@ -83,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.circular(40.0),
                         border: Border.all(
                           width: 3,
-                          color: Color(0xFF40D876),
+                          color: Colors.white,
                         ),
                         image: DecorationImage(
                           image: AssetImage("assets/images/emely.jpg"),
@@ -134,7 +134,7 @@ class _HomeViewState extends State<HomeView> {
                           "Find ",
                           style: GoogleFonts.lato(
                             fontSize: width * 0.065,
-                            color: Color(0xFF40D876),
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
