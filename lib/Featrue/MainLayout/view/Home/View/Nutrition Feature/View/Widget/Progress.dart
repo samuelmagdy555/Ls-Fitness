@@ -33,11 +33,11 @@ class ProgressPercentage extends StatelessWidget {
             height: height * .05,
             margin: EdgeInsets.symmetric(horizontal: width * .05),
             style: RoundedProgressBarStyle(
-                colorProgress: NutritionCubit.get(context).calories >50? Colors.red:kSecondColor,
-                colorProgressDark: Colors.transparent,
-                colorBorder: NutritionCubit.get(context).calories >50? Colors.red:kSecondColor,
-                colorBackgroundIcon: kThirdColor,
-                backgroundProgress: kThirdColor,
+                colorProgress: NutritionCubit.get(context).calories >50? Colors.red:Colors.deepPurpleAccent,
+                colorProgressDark: Colors.deepPurpleAccent,
+                colorBorder: NutritionCubit.get(context).calories >50? Colors.red:Colors.deepPurpleAccent,
+                colorBackgroundIcon: Colors.deepPurpleAccent,
+                backgroundProgress: Colors.deepPurpleAccent,
                 borderWidth: 1),
             borderRadius: BorderRadius.circular(24));
       },

@@ -58,12 +58,13 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text(
           'Food Calculator',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: kThirdColor,
+        backgroundColor: Colors.black,
         elevation: 4.0,
         iconTheme: IconThemeData(color: Colors.white),
       ),
@@ -173,7 +174,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                         child: Card(
                           margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
-                          color: kSecondColor,
+                          color: Colors.deepPurpleAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
