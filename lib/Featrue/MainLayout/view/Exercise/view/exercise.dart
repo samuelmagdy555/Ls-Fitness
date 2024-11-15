@@ -289,7 +289,11 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _controller;
   bool _isError = false;
-
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     super.initState();
@@ -306,11 +310,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
