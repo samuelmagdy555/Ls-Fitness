@@ -34,7 +34,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     "calories", "proteins", "carbohydrates", "fats", "fibers", "sugar",
     "VitaminA", "VitaminB1", "VitaminB2", "VitaminB3", "VitaminB5", "VitaminB6",
     "VitaminB7", "VitaminB9", "VitaminB12", "VitaminC", "VitaminD", "VitaminE",
-    "VitaminK", "calcium", "iron", "magnesium", "potassium", "sodium", "zinc",
+    "VitaminK", "calcium", "iron", "magnesium","Phosphorus", "potassium", "sodium", "zinc",
     "copper", "manganese", "selenium"
   ];
 
@@ -43,7 +43,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     'vitamin-a.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png',
     'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-c.png',
     'vitamin-d.png', 'vitamin-e.png', 'Vitamin K.png', 'calcium.png', 'iron.png',
-    'magnesium.png', 'potassium.png', 'sodium.png', 'zinc.png', 'copper.png',
+    'magnesium.png','potassium.png', 'potassium.png', 'sodium.png', 'zinc.png', 'copper.png',
     'manganese.png', 'selenium.png'
   ];
 
@@ -152,6 +152,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                         '${foodItem.Calcium} mg',
                         '${foodItem.Iron} mg',
                         '${foodItem.Magnesium} mg',
+                        '${foodItem.Phosphorus} mg',
                         '${foodItem.Potassium} mg',
                         '${foodItem.Sodium} mg',
                         '${foodItem.Zinc} mg',

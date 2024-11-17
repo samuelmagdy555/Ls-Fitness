@@ -49,7 +49,6 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
-
   runApp(
     const MyApp(),
   );
@@ -131,6 +130,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

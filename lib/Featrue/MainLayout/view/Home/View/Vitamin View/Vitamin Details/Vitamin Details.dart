@@ -94,14 +94,14 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                       Text(
                         'potassium',
                         style: TextStyle(
-                            color: Colors.deepPurpleAccent,
+                            color: Colors.white,
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         ' Vitamin',
                         style: TextStyle(
-                            color: Colors.white38,
+                            color: Colors.white,
                             fontSize: 25,
                             fontWeight: FontWeight.bold),
                       ),
@@ -110,7 +110,7 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                   Text(
                     ' 20 - 100 ml',
                     style: TextStyle(
-                        color: Colors.white30,
+                        color: Colors.white,
                         fontSize: width * .04,
                         fontWeight: FontWeight.bold),
                   ),

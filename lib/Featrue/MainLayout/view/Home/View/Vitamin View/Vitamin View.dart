@@ -64,7 +64,7 @@ class VitaminView extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: kThirdColor,
+          backgroundColor: Colors.black,
           leading: IconButton(
             icon: Icon(
               Iconsax.arrow_left,
@@ -83,12 +83,12 @@ class VitaminView extends StatelessWidget {
               'Vitamins',
               style: GoogleFonts.merriweather(
                   fontSize: width * .06,
-                  color: kSecondColor,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
-                Icon(Icons.medication_outlined, color: kSecondColor),
+                Icon(Icons.medication_outlined, color: Colors.white),
                 BlocConsumer<ProfileCubit, ProfileState>(
                   listener: (context, state) {
                     // TODO: implement listener
@@ -99,7 +99,7 @@ class VitaminView extends StatelessWidget {
                           '',
                       style: GoogleFonts.merriweather(
                           fontSize: width * .045,
-                          color: kSecondColor,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold),
                     );
                   },
@@ -127,7 +127,7 @@ class VitaminView extends StatelessWidget {
                       height: height * .3,
                       width: width * .65,
                       decoration: BoxDecoration(
-                          color: kSecondColor,
+                          color: Colors.deepPurpleAccent,
                           borderRadius: BorderRadius.circular(125)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -164,7 +164,7 @@ class VitaminView extends StatelessWidget {
                                   Text(
                                     dailyAmounts[index],
                                     style: TextStyle(
-                                        color: Colors.black26,
+                                        color: Colors.white,
                                         fontSize: width * .04,
                                         fontWeight: FontWeight.bold),
                                   ),
