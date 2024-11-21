@@ -34,9 +34,10 @@ import 'Featrue/MainLayout/view/Profile/EditProfile/View_Model/edit_profile_cubi
 import 'Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:provider/provider.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,13 +48,12 @@ void main() async {
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()!
+      AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
   runApp(
     const MyApp(),
   );
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -66,6 +66,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _secureScreen();
     final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
       if (_.id == 7) {
@@ -131,6 +132,10 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> _secureScreen() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -176,7 +181,7 @@ class _MyAppState extends State<MyApp> {
               ..GetData()..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
         BlocProvider(create: (context) => NutritionCubit()),
-        BlocProvider(create: (context)=> FoodCalculatorFilterCubit())
+        BlocProvider(create: (context) => FoodCalculatorFilterCubit())
       ],
       child: GetMaterialApp(
         theme: ThemeData(
