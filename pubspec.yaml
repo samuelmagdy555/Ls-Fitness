@@ -64,6 +64,7 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_rounded_progress_bar: ^0.3.2
   flutter_animated_loadingkit: ^0.0.7
+  pod_player: ^0.2.2
 
 
 

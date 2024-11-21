@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+
+import 'DetailsExercise/view/DetailsExercise.dart';
 
 class WorkoutScreen extends StatefulWidget {
   @override
@@ -90,12 +93,13 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         ),
                         items: index == 0
                             ? _buildBodyPartsMenu(context)
-                            : List<String>.from(buttons[index]['choices']!).map((choice) {
-                          return PopupMenuItem<String>(
-                            value: choice,
-                            child: Text(choice),
-                          );
-                        }).toList(),
+                            : List<String>.from(buttons[index]['choices']!)
+                                .map((choice) {
+                                return PopupMenuItem<String>(
+                                  value: choice,
+                                  child: Text(choice),
+                                );
+                              }).toList(),
                       ).then((value) {
                         if (value != null) {
                           print("Selected: $value");
@@ -113,7 +117,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         ),
                       ),
                       alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Text(
                         button['title'] as String,
                         textAlign: TextAlign.center,
@@ -130,7 +135,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 itemCount: ExerciseCubit.get(context).exercisesModel?.results,
                 itemBuilder: (context, index) {
                   final exercise =
-                  ExerciseCubit.get(context).exercisesModel?.data[index];
+                      ExerciseCubit.get(context).exercisesModel?.data[index];
                   return Container(
                     margin: EdgeInsets.all(12),
                     padding: EdgeInsets.all(12),
@@ -144,8 +149,16 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                     ),
                     child: ExerciseTile(
                       title: exercise?.title ?? '',
-                      onPressed: () {
-                        // تنفيذ أي عملية إضافية عند اختيار الفيديو
+                      onPressed: () async {
+                        ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ExercisePage(
+                                videoPath: '',
+                                title: exercise.title,
+                              ),
+                            ));
                       },
                       imagePath: exercise!.video.thumbnail,
                     ),

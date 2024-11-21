@@ -24,6 +24,7 @@
             android:hardwareAccelerated="true"
             android:showWhenLocked="true"
             android:turnScreenOn="true"
+            android:windowSoftInputMode="adjustResize"
             android:configChanges="keyboardHidden|orientation|screenSize">
             android:taskAffinity=""
             android:theme="@style/LaunchTheme"

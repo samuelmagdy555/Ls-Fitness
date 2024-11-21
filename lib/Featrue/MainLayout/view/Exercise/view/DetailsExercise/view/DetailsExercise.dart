@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Progress%20Widget/Progress%20Widget.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Video%20Widget/videowidget.dart';
 import 'package:video_player/video_player.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
@@ -18,19 +19,13 @@ class ExercisePage extends StatefulWidget {
 class _ExercisePageState extends State<ExercisePage> {
   String selectedTab = 'Progress';
   late VideoPlayerController _controller;
-  bool _isError = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(widget.videoPath)
+    _controller = VideoPlayerController.network(widget.videoPath)
       ..initialize().then((_) {
         setState(() {});
-        _controller.play();
-      }).catchError((error) {
-        setState(() {
-          _isError = true;
-        });
       });
   }
 
@@ -42,6 +37,9 @@ class _ExercisePageState extends State<ExercisePage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
+
     return BlocConsumer<ExercisesDetailsCubit, ExercisesDetailsState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -49,21 +47,22 @@ class _ExercisePageState extends State<ExercisePage> {
       builder: (context, state) {
         return ExercisesDetailsCubit.get(context).exerciseDetailsModel == null
             ? Scaffold(
-          backgroundColor: kThirdColor,
-          body: Center(
-            child: CircularProgressIndicator(
-              color: kSecondColor,
-            ),
-          ),
-        )
+                backgroundColor: kThirdColor,
+                body: Center(
+                  child: CircularProgressIndicator(
+                    color: kSecondColor,
+                  ),
+                ),
+              )
             : Scaffold(
                 appBar: AppBar(
                   backgroundColor: kThirdColor,
                   title: Text(
                     ExercisesDetailsCubit.get(context)
-                        .exerciseDetailsModel!
-                        .data!
-                        .title,
+                            .exerciseDetailsModel
+                            ?.data
+                            .title ??
+                        '',
                     style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -85,32 +84,16 @@ class _ExercisePageState extends State<ExercisePage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.grey[200],
-                          ),
-                          child: _isError
-                              ? Center(
-                                  child: Text(
-                                    "Error loading video",
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                )
-                              : _controller.value.isInitialized
-                                  ? AspectRatio(
-                                      aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: VideoPlayer(_controller),
-                                    )
-                                  : Container(
-                                      height: 200,
-                                      child: Center(
-                                        child: CircularProgressIndicator(
-                                          color: kSecondColor,
-                                        ),
-                                      ),
-                                    ),
-                        ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.grey[200],
+                            ),
+                            child: SizedBox(
+                              height: height*.2,
+                                width: width,
+                                child: VideoWidget(
+                              id: '1028432421',
+                            ))),
                         SizedBox(height: 20),
                         Container(
                           decoration: BoxDecoration(
@@ -189,7 +172,9 @@ class _ExercisePageState extends State<ExercisePage> {
 
   Widget _buildContent() {
     if (selectedTab == 'Progress') {
-      return ProgressWidget(id: ExercisesDetailsCubit.get(context).exerciseDetailsModel!.data!.id,);
+      return ProgressWidget(
+        id: ExercisesDetailsCubit.get(context).exerciseDetailsModel!.data!.id,
+      );
     } else if (selectedTab == 'Muscle') {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -17,7 +17,7 @@ class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
   ExerciseDetailsModel? exerciseDetailsModel;
 
   Future<void> getExercisesDetails({required String id}) async {
-    exerciseDetailsModel = null;
+
     emit(ExercisesDetailsLoading());
     try {
 
@@ -26,6 +26,13 @@ class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           );
       exerciseDetailsModel = ExerciseDetailsModel.fromJson(response.data);
+      print(exerciseDetailsModel!.data!.id);
+      print('++++++++++++++++++++++++>');
+      print('++++++++++++++++++++++++>');
+      print('++++++++++++++++++++++++>');
+      print('++++++++++++++++++++++++>');
+      print('++++++++++++++++++++++++>');
+      print('++++++++++++++++++++++++>');
       emit(ExercisesDetailsSuccess());
     } catch (e) {
       emit(ExercisesDetailsError());
