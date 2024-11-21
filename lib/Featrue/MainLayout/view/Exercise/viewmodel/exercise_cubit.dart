@@ -20,6 +20,21 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   LoginModel? loginModel;
 
 
+  bool isWarmUp =false;
+  bool isRecovery =false;
+  bool isDeepAnatomy =false;
+
+  List exerciseFilter =[];
+
+  void showWarmUp(){
+    isWarmUp = !isWarmUp;
+    exerciseFilter = ExercisesModel.getWormUp(data:exercisesModel!.data );
+    print(exerciseFilter);
+    emit(ShowWarmUpState());
+  }
+
+
+
   Future<void> getExercise()async{
     emit(GetExerciseLoading());
     try{
@@ -52,4 +67,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       emit(BodyPartsError());
     }
   }
+
 }
+

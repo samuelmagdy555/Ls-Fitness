@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Exercise/model/ExerciseModel.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
 
 import 'DetailsExercise/view/DetailsExercise.dart';
 
@@ -77,8 +79,11 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                       });
 
                       if (index == 0) {
-                        // جلب بيانات Body Parts إذا تم الضغط على الزر
                         ExerciseCubit.get(context).BodyParts();
+                      }
+
+                      if (index == 3){
+                        ExerciseCubit.get(context).showWarmUp();
                       }
 
                       final tapPosition = details.globalPosition;
@@ -148,9 +153,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: ExerciseTile(
-                      title: exercise?.title ?? '',
+                      title:exercise?.title ?? '',
                       onPressed: () async {
                         ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise.id);
+                        ProgressCubit.get(context).getExercisesProgress(id: exercise.id);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

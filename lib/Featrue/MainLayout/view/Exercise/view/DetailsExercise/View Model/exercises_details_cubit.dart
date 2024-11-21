@@ -12,9 +12,12 @@ part 'exercises_details_state.dart';
 class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
   ExercisesDetailsCubit() : super(ExercisesDetailsInitial());
 
-  static ExercisesDetailsCubit get(context) => BlocProvider.of(context);
 
   ExerciseDetailsModel? exerciseDetailsModel;
+
+
+  static ExercisesDetailsCubit get(context) => BlocProvider.of(context);
+
 
   Future<void> getExercisesDetails({required String id}) async {
 
@@ -26,13 +29,7 @@ class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           );
       exerciseDetailsModel = ExerciseDetailsModel.fromJson(response.data);
-      print(exerciseDetailsModel!.data!.id);
-      print('++++++++++++++++++++++++>');
-      print('++++++++++++++++++++++++>');
-      print('++++++++++++++++++++++++>');
-      print('++++++++++++++++++++++++>');
-      print('++++++++++++++++++++++++>');
-      print('++++++++++++++++++++++++>');
+
       emit(ExercisesDetailsSuccess());
     } catch (e) {
       emit(ExercisesDetailsError());

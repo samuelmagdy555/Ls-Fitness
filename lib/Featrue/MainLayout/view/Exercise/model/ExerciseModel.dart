@@ -5,16 +5,28 @@ class ExercisesModel {
     required this.paginationResult,
     required this.data,
   });
+
   late final int results;
   late final int totlaCount;
   late final PaginationResult paginationResult;
   late final List<Data> data;
 
-  ExercisesModel.fromJson(Map<String, dynamic> json){
+  ExercisesModel.fromJson(Map<String, dynamic> json) {
     results = json['results'];
     totlaCount = json['totlaCount'];
     paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+  }
+
+  static List<Data>getWormUp(
+      {required List<Data> data}) {
+    List<Data> storage = [];
+    for (var i in data) {
+      if (i.Warmup) {
+        storage.add(i);
+      }
+    }
+    return storage;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +34,7 @@ class ExercisesModel {
     _data['results'] = results;
     _data['totlaCount'] = totlaCount;
     _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -34,12 +46,13 @@ class PaginationResult {
     required this.numberOfPages,
     required this.nextPage,
   });
+
   late final int currentPage;
   late final int limit;
   late final int numberOfPages;
   late final int nextPage;
 
-  PaginationResult.fromJson(Map<String, dynamic> json){
+  PaginationResult.fromJson(Map<String, dynamic> json) {
     currentPage = json['currentPage'];
     limit = json['limit'];
     numberOfPages = json['numberOfPages'];
@@ -71,6 +84,7 @@ class Data {
     required this.title,
     required this.targetGender,
   });
+
   late final BodyPart? bodyPart;
   late final ToolOrMachine toolOrMachine;
   late final bool Cardio;
@@ -84,13 +98,15 @@ class Data {
   late final String title;
   late final String targetGender;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json) {
     bodyPart = null;
     toolOrMachine = ToolOrMachine.fromJson(json['toolOrMachine']);
     Cardio = json['Cardio'];
     Warmup = json['Warmup'];
     recoveryAndStretching = json['recoveryAndStretching'];
-    deepAnatomy = List.from(json['deepAnatomy']).map((e)=>DeepAnatomy.fromJson(e)).toList();
+    deepAnatomy = List.from(json['deepAnatomy'])
+        .map((e) => DeepAnatomy.fromJson(e))
+        .toList();
     video = Video.fromJson(json['video']);
     Description = null;
     instructions = null;
@@ -106,7 +122,7 @@ class Data {
     _data['Cardio'] = Cardio;
     _data['Warmup'] = Warmup;
     _data['recoveryAndStretching'] = recoveryAndStretching;
-    _data['deepAnatomy'] = deepAnatomy.map((e)=>e.toJson()).toList();
+    _data['deepAnatomy'] = deepAnatomy.map((e) => e.toJson()).toList();
     _data['video'] = video.toJson();
     _data['Description'] = Description;
     _data['instructions'] = instructions;
@@ -122,10 +138,11 @@ class BodyPart {
     required this.id,
     required this.title,
   });
+
   late final String id;
   late final String title;
 
-  BodyPart.fromJson(Map<String, dynamic> json){
+  BodyPart.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     title = json['title'];
   }
@@ -143,10 +160,11 @@ class ToolOrMachine {
     required this.id,
     required this.title,
   });
+
   late final String id;
   late final String title;
 
-  ToolOrMachine.fromJson(Map<String, dynamic> json){
+  ToolOrMachine.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     title = json['title'];
   }
@@ -164,10 +182,11 @@ class DeepAnatomy {
     required this.id,
     required this.title,
   });
+
   late final String id;
   late final String title;
 
-  DeepAnatomy.fromJson(Map<String, dynamic> json){
+  DeepAnatomy.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     title = json['title'];
   }
@@ -186,11 +205,12 @@ class Video {
     required this.publicId,
     required this.thumbnail,
   });
+
   late final String url;
   late final int publicId;
   late final String thumbnail;
 
-  Video.fromJson(Map<String, dynamic> json){
+  Video.fromJson(Map<String, dynamic> json) {
     url = json['url'];
     publicId = json['public_id'];
     thumbnail = json['thumbnail'];
