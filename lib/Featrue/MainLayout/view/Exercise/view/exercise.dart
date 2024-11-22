@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Exercise/model/ExerciseModel.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
@@ -50,6 +49,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     super.initState();
     c = List<String>.from(buttons[0]['choices']!);
     tabController = TabController(length: 6, vsync: this);
+    ExerciseCubit.get(context).getExercise();
   }
 
   @override
@@ -82,7 +82,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         ExerciseCubit.get(context).BodyParts();
                       }
 
-                      if (index == 3){
+                      if (index == 3) {
                         ExerciseCubit.get(context).showWarmUp();
                       }
 
@@ -99,12 +99,12 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         items: index == 0
                             ? _buildBodyPartsMenu(context)
                             : List<String>.from(buttons[index]['choices']!)
-                                .map((choice) {
-                                return PopupMenuItem<String>(
-                                  value: choice,
-                                  child: Text(choice),
-                                );
-                              }).toList(),
+                            .map((choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList(),
                       ).then((value) {
                         if (value != null) {
                           print("Selected: $value");
@@ -123,7 +123,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                       ),
                       alignment: Alignment.center,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Text(
                         button['title'] as String,
                         textAlign: TextAlign.center,
@@ -136,38 +136,54 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             ),
             SizedBox(height: 15),
             Expanded(
-              child: ListView.builder(
-                itemCount: ExerciseCubit.get(context).exercisesModel?.results,
-                itemBuilder: (context, index) {
-                  final exercise =
-                      ExerciseCubit.get(context).exercisesModel?.data[index];
-                  return Container(
-                    margin: EdgeInsets.all(12),
-                    padding: EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      border: Border.all(
-                        color: Colors.deepPurple,
-                        width: .5,
+              child: BlocBuilder<ExerciseCubit, ExerciseState>(
+                builder: (context, state) {
+                  var exercises = ExerciseCubit.get(context)
+                      .exercisesModel
+                      ?.data;
+                  if (exercises == null || exercises.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Exercises Found",
+                        style: TextStyle(color: Colors.white),
                       ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ExerciseTile(
-                      title:exercise?.title ?? '',
-                      onPressed: () async {
-                        ExercisesDetailsCubit.get(context).getExercisesDetails(id: exercise.id);
-                        ProgressCubit.get(context).getExercisesProgress(id: exercise.id);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ExercisePage(
-                                videoPath: '',
-                                title: exercise.title,
-                              ),
-                            ));
-                      },
-                      imagePath: exercise!.video.thumbnail,
-                    ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: exercises.length,
+                    itemBuilder: (context, index) {
+                      final exercise = exercises[index];
+                      return Container(
+                        margin: EdgeInsets.all(12),
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          border: Border.all(
+                            color: Colors.deepPurple,
+                            width: .5,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ExerciseTile(
+                          title: exercise.title ?? 'Unknown Title',
+                          onPressed: () async {
+                            ExercisesDetailsCubit.get(context)
+                                .getExercisesDetails(id: exercise.id);
+                            ProgressCubit.get(context)
+                                .getExercisesProgress(id: exercise.id);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ExercisePage(
+                                    videoPath: '',
+                                    title: exercise.title ?? 'Unknown',
+                                  ),
+                                ));
+                          },
+                          imagePath: exercise.video?.thumbnail ?? '',
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -189,7 +205,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
         )
       ];
     } else if (state is BodyPartsSuccess) {
-      var bodyParts = cubit.bodyPartsModel!.data ?? [];
+      var bodyParts = cubit.bodyPartsModel?.data ?? [];
       if (bodyParts.isEmpty) {
         return [
           PopupMenuItem<String>(
@@ -199,8 +215,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
       }
       return bodyParts.map((part) {
         return PopupMenuItem<String>(
-          value: part.title,
-          child: Text(part.title ?? ''),
+          value: part.title ?? '',
+          child: Text(part.title ?? 'Unknown Part'),
         );
       }).toList();
     } else if (state is BodyPartsError) {
