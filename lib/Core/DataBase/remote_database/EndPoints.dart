@@ -1,21 +1,21 @@
 class EndPoints{
-  static String baseUrL ="https://ls-fitness.koyeb.app";
-  static String Register ="/api/v1/auth/signup";
-  static String Login = "/api/v1/auth/login";
-  static String ForgetPassword ="/api/v1/auth/forgotpassword";
-  static String SendOTP ="/api/v1/auth/verifyResetCode";
-  static String NewPassword ="/api/v1/auth/resetPassword";
-  static String Profile ="/api/v1/users/getMe";
-  static String ChangePassword ="/api/v1/users/changeMyPassword";
-  static String EditProfile ="/api/v1/users/changeMyData";
-  static String Categories ="/api/v1/categories";
-  static String BodyPart ="/api/v1/bodyParts";
-  static String GetExercise ="/api/v1/Exercises";
-  static String MyGoals ="/api/v1/users/MyGoals";
-  static String FoodCalculator ="/api/v1/mealsCalculation";
-  static String FoodCalculatorDetails ="/api/v1/mealsCalculation/calc";
-  static String Progress ="/api/v1/progress";
-  static String nutrition = '/api/v1/nutrition';
-  static String FoodCalculatorFilter = '/api/v1/mealsCategory';
+  static String baseUrL ="https://ls-fitness.koyeb.app/api/v1/";
+  static String Register ="auth/signup";
+  static String Login = "auth/login";
+  static String ForgetPassword ="auth/forgotpassword";
+  static String SendOTP ="verifyResetCode";
+  static String NewPassword ="resetPassword";
+  static String Profile ="users/getMe";
+  static String ChangePassword ="users/changeMyPassword";
+  static String EditProfile ="users/changeMyData";
+  static String Categories ="categories";
+  static String BodyPart ="bodyParts";
+  static String GetExercise ="Exercises";
+  static String MyGoals ="users/MyGoals";
+  static String FoodCalculator ="mealsCalculation";
+  static String FoodCalculatorDetails ="mealsCalculation/calc";
+  static String Progress ="progress";
+  static String nutrition = 'nutrition';
+  static String FoodCalculatorFilter = 'mealsCategory';
 
 }

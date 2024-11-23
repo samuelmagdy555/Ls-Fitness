@@ -1,24 +1,57 @@
 class FoodCalculatorModel {
   FoodCalculatorModel({
     required this.results,
+    required this.totalCount,
+    required this.paginationResult,
     required this.data,
   });
-
   late final int results;
+  late final int totalCount;
+  late final PaginationResult paginationResult;
   late final List<Data> data;
 
-  FoodCalculatorModel.fromJson(Map<String, dynamic> json) {
-    results = json['results'] ?? 0; // قيمة افتراضية 0 إذا كانت null
-    data = (json['data'] as List<dynamic>?)
-        ?.map((e) => Data.fromJson(e as Map<String, dynamic>))
-        .toList() ??
-        []; // قيمة افتراضية قائمة فارغة إذا كانت null
+  FoodCalculatorModel.fromJson(Map<String, dynamic> json){
+    results = json['results'];
+    totalCount = json['totalCount'];
+    paginationResult = PaginationResult.fromJson(json['paginationResult']);
+    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['results'] = results;
-    _data['data'] = data.map((e) => e.toJson()).toList();
+    _data['totalCount'] = totalCount;
+    _data['paginationResult'] = paginationResult.toJson();
+    _data['data'] = data.map((e)=>e.toJson()).toList();
+    return _data;
+  }
+}
+
+class PaginationResult {
+  PaginationResult({
+    required this.currentPage,
+    required this.limit,
+    required this.numberOfPages,
+    required this.nextPage,
+  });
+  late final int currentPage;
+  late final int limit;
+  late final int numberOfPages;
+  late final int nextPage;
+
+  PaginationResult.fromJson(Map<String, dynamic> json){
+    currentPage = json['currentPage'];
+    limit = json['limit'];
+    numberOfPages = json['numberOfPages'];
+    nextPage = json['nextPage'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['currentPage'] = currentPage;
+    _data['limit'] = limit;
+    _data['numberOfPages'] = numberOfPages;
+    _data['nextPage'] = nextPage;
     return _data;
   }
 }
@@ -61,82 +94,81 @@ class Data {
     required this.Manganese,
     required this.Selenium,
   });
-
   late final String id;
   late final MealCategory mealCategory;
-  var image;
-  var TitleAR;
-  var TitleEN;
-  var quantities;
-  var Calories;
-  var Protein;
-  var Carbohydrates;
-  var Fats;
-  var Fiber;
-  var Sugar;
-  var VitaminA;
-  var VitaminB1;
-  var VitaminB2;
-  var VitaminB3;
-  var VitaminB5;
-  var VitaminB6;
-  var VitaminB7;
-  var VitaminB9;
-  var VitaminB12;
-  var VitaminC;
-  var VitaminD;
-  var VitaminE;
-  var VitaminK;
-  var Calcium;
-  var Iron;
-  var Magnesium;
-  var Phosphorus;
-  var Potassium;
-  var Sodium;
-  var Zinc;
-  var Copper;
-  var Manganese;
-  var Selenium;
+  late final String image;
+  late final String TitleAR;
+  late final String TitleEN;
+  late final int quantities;
+  late final int Calories;
+  late final double? Protein;
+  late final double? Carbohydrates;
+  late final double? Fats;
+  late final double? Fiber;
+  late final double? Sugar;
+  late final double? VitaminA;
+  late final double VitaminB1;
+  late final double VitaminB2;
+  late final double VitaminB3;
+  late final double? VitaminB5;
+  late final double VitaminB6;
+  late final double? VitaminB7;
+  late final double? VitaminB9;
+  late final int VitaminB12;
+  late final double? VitaminC;
+  late final int VitaminD;
+  late final double? VitaminE;
+  late final double? VitaminK;
+  late final int Calcium;
+  late final double Iron;
+  late final int Magnesium;
+  late final int Phosphorus;
+  late final int Potassium;
+  late final int Sodium;
+  late final double Zinc;
+  late final double Copper;
+  late final double Manganese;
+  late final double? Selenium;
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['_id'] ?? ''; // قيمة افتراضية نص فارغ
-    mealCategory = json['mealCategory'] != null
-        ? MealCategory.fromJson(json['mealCategory'])
-        : throw Exception('mealCategory لا يمكن أن تكون null');
-    image = json['image'] ?? '';
-    TitleAR = json['Title_AR'] ?? '';
-    TitleEN = json['Title_EN'] ?? '';
-    quantities = json['quantities'] ?? 0;
-    Calories = json['Calories'] ?? 0;
-    Protein = json['Protein'] ?? 0;
-    Carbohydrates = json['Carbohydrates'] ?? 0;
-    Fats = json['Fats'] ?? 0;
-    Fiber = json['Fiber'] ?? 0;
-    Sugar = json['Sugar'] ?? 0;
-    VitaminA = json['Vitamin_A'] ?? 0;
-    VitaminB1 = json['Vitamin_B1'] ?? 0;
-    VitaminB2 = json['Vitamin_B2'] ?? 0;
-    VitaminB3 = json['Vitamin_B3'] ?? 0;
-    VitaminB5 = json['Vitamin_B5'] ?? 0;
-    VitaminB6 = json['Vitamin_B6'] ?? 0;
-    VitaminB7 = json['Vitamin_B7'] ?? 0;
-    VitaminB9 = json['Vitamin_B9'] ?? 0;
-    VitaminB12 = json['Vitamin_B12'] ?? 0;
-    VitaminC = json['Vitamin_C'] ?? 0;
-    VitaminD = json['Vitamin_D'] ?? 0;
-    VitaminE = json['Vitamin_E'] ?? 0;
-    VitaminK = json['Vitamin_K'] ?? 0;
-    Calcium = json['Calcium'] ?? 0;
-    Iron = json['Iron'] ?? 0;
-    Magnesium = json['Magnesium'] ?? 0;
-    Phosphorus = json['Phosphorus'] ?? 0;
-    Potassium = json['Potassium'] ?? 0;
-    Sodium = json['Sodium'] ?? 0;
-    Zinc = json['Zinc'] ?? 0;
-    Copper = json['Copper'] ?? 0;
-    Manganese = json['Manganese'] ?? 0;
-    Selenium = json['Selenium'] ?? 0;
+    id = json['_id'];
+    mealCategory = MealCategory.fromJson(json['mealCategory']);
+    image = json['image'];
+    TitleAR = json['Title_AR'];
+    TitleEN = json['Title_EN'];
+    quantities = json['quantities'];
+    Calories = json['Calories'];
+
+    Protein = (json['Protein'] is int) ? (json['Protein'] as int).toDouble() : json['Protein'];
+    Carbohydrates = (json['Carbohydrates'] is int) ? (json['Carbohydrates'] as int).toDouble() : json['Carbohydrates'];
+    Fats = (json['Fats'] is int) ? (json['Fats'] as int).toDouble() : json['Fats'];
+    Fiber = (json['Fiber'] is int) ? (json['Fiber'] as int).toDouble() : json['Fiber'];
+    Sugar = (json['Sugar'] is int) ? (json['Sugar'] as int).toDouble() : json['Sugar'];
+    VitaminA = (json['Vitamin_A'] is int) ? (json['Vitamin_A'] as int).toDouble() : json['Vitamin_A'];
+    VitaminB1 = (json['Vitamin_B1'] is int) ? (json['Vitamin_B1'] as int).toDouble() : json['Vitamin_B1'];
+    VitaminB2 = (json['Vitamin_B2'] is int) ? (json['Vitamin_B2'] as int).toDouble() : json['Vitamin_B2'];
+    VitaminB3 = (json['Vitamin_B3'] is int) ? (json['Vitamin_B3'] as int).toDouble() : json['Vitamin_B3'];
+    VitaminB5 = (json['Vitamin_B5'] is int) ? (json['Vitamin_B5'] as int).toDouble() : json['Vitamin_B5'];
+    VitaminB6 = (json['Vitamin_B6'] is int) ? (json['Vitamin_B6'] as int).toDouble() : json['Vitamin_B6'];
+    VitaminB7 = (json['Vitamin_B7'] is int) ? (json['Vitamin_B7'] as int).toDouble() : json['Vitamin_B7'];
+    VitaminB9 = (json['Vitamin_B9'] is int) ? (json['Vitamin_B9'] as int).toDouble() : json['Vitamin_B9'];
+    VitaminB12 = json['Vitamin_B12'];
+    VitaminC = (json['Vitamin_C'] is int) ? (json['Vitamin_C'] as int).toDouble() : json['Vitamin_C'];
+    VitaminD = json['Vitamin_D'];
+    VitaminE = (json['Vitamin_E'] is int) ? (json['Vitamin_E'] as int).toDouble() : json['Vitamin_E'];
+    VitaminK = (json['Vitamin_K'] is int) ? (json['Vitamin_K'] as int).toDouble() : json['Vitamin_K'];
+    Calcium = json['Calcium'];
+    Iron = (json['Iron'] is int) ? (json['Iron'] as int).toDouble() : json['Iron'];
+    Magnesium = json['Magnesium'];
+    Phosphorus = json['Phosphorus'];
+    Potassium = json['Potassium'];
+    Sodium = json['Sodium'];
+    Zinc = (json['Zinc'] is int) ? (json['Zinc'] as int).toDouble() : json['Zinc'];
+    Copper = (json['Copper'] is int) ? (json['Copper'] as int).toDouble() : json['Copper'];
+    Manganese = (json['Manganese'] is int) ? (json['Manganese'] as int).toDouble() : json['Manganese'];
+    Selenium = (json['Selenium'] is int) ? (json['Selenium'] as int).toDouble() : json['Selenium'];
   }
+
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
@@ -185,15 +217,14 @@ class MealCategory {
     required this.TitleAR,
     required this.TitleEN,
   });
-
   late final String id;
   late final String TitleAR;
   late final String TitleEN;
 
-  MealCategory.fromJson(Map<String, dynamic> json) {
-    id = json['_id'] ?? '';
-    TitleAR = json['Title_AR'] ?? '';
-    TitleEN = json['Title_EN'] ?? '';
+  MealCategory.fromJson(Map<String, dynamic> json){
+    id = json['_id'];
+    TitleAR = json['Title_AR'];
+    TitleEN = json['Title_EN'];
   }
 
   Map<String, dynamic> toJson() {

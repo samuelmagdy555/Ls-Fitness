@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:meta/meta.dart';
 import '../Model/FoodCalculatorModel.dart';
 
@@ -14,7 +15,7 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
   FoodCalculatorModel? foodCalculatorModel;
 
   // دالة getFoodCalculator لاستقبال categoryId
-  Future<void> getFoodCalculator({String? mealCategory}) async {
+  Future<void> getFoodCalculator({String? mealCategory,}) async {
     emit(FoodCalculatorLoading());
 
     try {
@@ -23,7 +24,12 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
           ? '${EndPoints.FoodCalculator}?mealCategory=$mealCategory'
           : EndPoints.FoodCalculator;
 
-      final response = await DioHelper.get(end_ponit: endpoint);
+
+      final response = await DioHelper.get(end_ponit: endpoint,
+          token:LoginCubit.loginModel?.token ?? LoginCubit.token,
+
+
+      );
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
       emit(FoodCalculatorSuccess(foodCalculatorModel!));
     } catch (e) {

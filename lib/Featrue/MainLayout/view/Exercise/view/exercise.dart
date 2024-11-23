@@ -253,7 +253,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     }
   }
 }
-
+  
 class ExerciseTile extends StatelessWidget {
   final String imagePath;
   final String title;
