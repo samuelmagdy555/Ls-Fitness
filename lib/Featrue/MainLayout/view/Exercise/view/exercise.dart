@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
+import 'package:number_paginator/number_paginator.dart';
 
+import '../../../../../Core/Constant/Loading Indicator/Loading indecator.dart';
 import 'DetailsExercise/view/DetailsExercise.dart';
 
 class WorkoutScreen extends StatefulWidget {
@@ -43,17 +46,22 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   late List<String> c;
   int num = 0;
   TabController? tabController;
+  late NumberPaginatorController controller;
 
   @override
   void initState() {
     super.initState();
     c = List<String>.from(buttons[0]['choices']!);
+    controller = NumberPaginatorController();
     tabController = TabController(length: 6, vsync: this);
-    ExerciseCubit.get(context).getExercise();
+    ExerciseCubit.get(context).getExercise(page: 1);
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery.sizeOf(context).height;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -78,13 +86,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         num = index;
                       });
 
-                      if (index == 0) {
-                        ExerciseCubit.get(context).BodyParts();
-                      }
-
-                      if (index == 3) {
-                        ExerciseCubit.get(context).showWarmUp();
-                      }
 
                       final tapPosition = details.globalPosition;
 
@@ -135,18 +136,33 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               ),
             ),
             SizedBox(height: 15),
+            BlocConsumer<ExerciseCubit, ExerciseState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                return NumberPaginator(
+                  showNextButton: true,
+                  showPrevButton: true,
+                  controller: controller,
+                  numberPages: 10,
+                  onPageChange: (int index) =>
+                      ExerciseCubit.get(context).changePage(
+                          controller: controller, index: index)
+
+                );
+              },
+            ),
             Expanded(
               child: BlocBuilder<ExerciseCubit, ExerciseState>(
                 builder: (context, state) {
-                  var exercises = ExerciseCubit.get(context)
+                  var exercises = ExerciseCubit
+                      .get(context)
                       .exercisesModel
                       ?.data;
                   if (exercises == null || exercises.isEmpty) {
                     return Center(
-                      child: Text(
-                        "No Exercises Found",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child:MyLoadingIndicator(height: height*.1, color: Colors.deepPurple,)
                     );
                   }
                   return ListView.builder(
@@ -174,10 +190,11 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ExercisePage(
-                                    videoPath: '',
-                                    title: exercise.title ?? 'Unknown',
-                                  ),
+                                  builder: (context) =>
+                                      ExercisePage(
+                                        videoPath: '',
+                                        title: exercise.title ?? 'Unknown',
+                                      ),
                                 ));
                           },
                           imagePath: exercise.video?.thumbnail ?? '',

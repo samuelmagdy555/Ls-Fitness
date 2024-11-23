@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,43 +21,46 @@ class LoginCubit extends Cubit<LoginState> {
   static String email = '';
   static bool isVerified = false;
 
-  static LoginCubit get(context)=> BlocProvider.of(context);
+  static LoginCubit get(context) => BlocProvider.of(context);
   static LoginModel? loginModel;
-   Future<void>  userLogin({
-    required String email,
-    required String password,
-     required BuildContext context
 
-}) async {
+  Future<void> userLogin(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     emit(LoginLoadingState());
-    try{
-      final response =await DioHelper.PostData(
+    try {
+      final response = await DioHelper.PostData(
           end_point: EndPoints.Login,
-        data: {
-            'email' : 'samuelmagdy3011@gmail.com',
-            'password' : '301175Sasa'
-        }
-      );
-     loginModel = LoginModel.fromJson(response.data);
-     print('token from model${loginModel!.token}');
-     await CashHelper.insertToCash(key: 'token', value: response.data['token']);
-     await CashHelper.insertToCash(key: 'email', value: response.data['data']['email'] );
-     await CashHelper.insertToCash(key: 'id', value: response.data['data']['_id'] );
-     await CashHelper.insertBoolToCash(key: 'isVerfied', value: response.data['data']['isOAuthUser'] );
-     await CashHelper.insertToCash(key: 'name', value: response.data['data']['username']);
+          data: {
+            'email': 'samuelmagdy3011@gmail.com',
+            'password': '301175Sasa'
+          });
+      loginModel = LoginModel.fromJson(response.data);
+      print('token from model${loginModel!.token}');
+      await CashHelper.insertToCash(
+          key: 'token', value: response.data['token']);
+      await CashHelper.insertToCash(
+          key: 'email', value: response.data['data']['email']);
+      await CashHelper.insertToCash(
+          key: 'id', value: response.data['data']['_id']);
+      await CashHelper.insertBoolToCash(
+          key: 'isVerfied', value: response.data['data']['isOAuthUser']);
+      await CashHelper.insertToCash(
+          key: 'name', value: response.data['data']['username']);
 
-     LoginCubit.email = await CashHelper.getFromCash(key: 'email');
-     LoginCubit.id = await CashHelper.getFromCash(key: 'id');
-     LoginCubit.name = await CashHelper.getFromCash(key: 'name');
-     LoginCubit.token = await CashHelper.getFromCash(key: 'token');
-     LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
-print(token);
-     emit(LoginSuccessState());
-     ExerciseCubit.get(context).getExercise();
-    }catch(error){
+      LoginCubit.email = await CashHelper.getFromCash(key: 'email');
+      LoginCubit.id = await CashHelper.getFromCash(key: 'id');
+      LoginCubit.name = await CashHelper.getFromCash(key: 'name');
+      LoginCubit.token = await CashHelper.getFromCash(key: 'token');
+      LoginCubit.isVerified =
+          await CashHelper.getBoolFromCash(key: 'isVerfied');
+      print(token);
+      emit(LoginSuccessState());
+      ExerciseCubit.get(context).getExercise(page: 1);
+    } catch (error) {
       print(error.toString());
       emit(LoginErrorState(message: error.toString()));
     }
   }
-
 }

@@ -6,6 +6,7 @@ import 'package:lsfitness/Featrue/Auth%20Feature/login/model/LoginModel.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/BodyParts/Model/BodyPartsModel.dart';
 import 'package:meta/meta.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 import '../model/ExerciseModel.dart';
 
@@ -19,54 +20,52 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   BodyPartsModel? bodyPartsModel;
   LoginModel? loginModel;
 
+  bool isWarmUp = false;
+  bool isRecovery = false;
+  bool isDeepAnatomy = false;
 
-  bool isWarmUp =false;
-  bool isRecovery =false;
-  bool isDeepAnatomy =false;
+  List exerciseFilter = [];
 
-  List exerciseFilter =[];
-
-  void showWarmUp(){
-    isWarmUp = !isWarmUp;
-    exerciseFilter = ExercisesModel.getWormUp(data:exercisesModel!.data );
-    print(exerciseFilter);
-    emit(ShowWarmUpState());
-  }
-
-
-
-  Future<void> getExercise()async{
+  Future<void> getExercise({required int page}) async {
+    exercisesModel =null;
     emit(GetExerciseLoading());
-    try{
-      final response = await DioHelper.get(end_ponit: EndPoints.GetExercise,
-        token: loginModel?.token ?? LoginCubit.token
-      );
+
+    try {
+      final response = await DioHelper.get(
+          end_ponit: EndPoints.GetExercise,
+          token: loginModel?.token ?? LoginCubit.token,
+          query: {'page': page});
       print(response.data);
       exercisesModel = ExercisesModel.fromJson(response.data);
       emit(GetExerciseSuccess());
-    }
-        catch(e){
+    } catch (e) {
       print(e.toString());
       emit(GetExerciseError());
-        }
+    }
   }
 
-  Future<void> BodyParts()async{
+  Future<void> BodyParts() async {
     emit(BodyPartsLoading());
-    try{
+    try {
       final response = await DioHelper.get(
-        end_ponit: EndPoints.BodyPart,
-          token: loginModel?.token ?? LoginCubit.token
-
-      );
+          end_ponit: EndPoints.BodyPart,
+          token: loginModel?.token ?? LoginCubit.token);
       print(response.data);
       bodyPartsModel = BodyPartsModel.fromJson(response.data);
       emit(BodyPartsSuccess());
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       emit(BodyPartsError());
     }
   }
 
-}
+  void changePage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    getExercise(page: index);
 
+    emit(ChangePageState());
+  }
+}
