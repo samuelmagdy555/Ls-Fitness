@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
@@ -19,7 +18,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   final List<Map<String, dynamic>> buttons = [
     {
       'title': 'Body Parts',
-      'choices': <String>[],
+      'choices': ['Assisted', 'Ball', 'Band', 'Barbell', 'Cable', 'Dumbbell'],
     },
     {
       'title': 'Machine',
@@ -57,9 +56,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     ExerciseCubit.get(context).getExercise(page: 1);
   }
 
+  String selectedTitle = ''; // تعريف المتغير
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
@@ -81,50 +81,90 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 itemBuilder: (context, index) {
                   var button = buttons[index];
                   return GestureDetector(
-                    onTapDown: (TapDownDetails details) {
+                    onTapDown: (TapDownDetails details) async {
                       setState(() {
-                        num = index;
-                      });
-
-
-                      final tapPosition = details.globalPosition;
-
-                      showMenu(
-                        context: context,
-                        position: RelativeRect.fromLTRB(
-                          tapPosition.dx,
-                          tapPosition.dy,
-                          tapPosition.dx,
-                          tapPosition.dy,
-                        ),
-                        items: index == 0
-                            ? _buildBodyPartsMenu(context)
-                            : List<String>.from(buttons[index]['choices']!)
-                            .map((choice) {
-                          return PopupMenuItem<String>(
-                            value: choice,
-                            child: Text(choice),
-                          );
-                        }).toList(),
-                      ).then((value) {
-                        if (value != null) {
-                          print("Selected: $value");
+                        if (ExerciseCubit.get(context).filter[index] == index) {
+                          ExerciseCubit.get(context).filter[index] = 6;
+                        } else {
+                          ExerciseCubit.get(context).filter[index] = index;
                         }
                       });
+
+                      if (index == 0 || index == 1 || index == 5) {
+                        if (ExerciseCubit.get(context).filter[index] == index) {
+                          await ExerciseCubit.get(context).getBodyParts(index);
+                          final tapPosition = details.globalPosition;
+
+                          showMenu(
+                            context: context,
+                            position: RelativeRect.fromLTRB(
+                              tapPosition.dx,
+                              tapPosition.dy,
+                              tapPosition.dx,
+                              tapPosition.dy,
+                            ),
+                            items: ExerciseCubit.get(context)
+                                .LoadItems(index)
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                              int itemIndex = entry.key;
+                              String choice = entry.value;
+                              return PopupMenuItem<Map<String, dynamic>>(
+                                value: {
+                                  'value': choice,
+                                  'itemIndex': itemIndex
+                                },
+                                child: Text(choice),
+                              );
+                            }).toList(),
+                          ).then((selected) {
+                            if (selected != null) {
+                              ExerciseCubit.get(context)
+                                  .changePage(controller: controller, index: 0);
+                              String value = selected['value'];
+                              int itemIndex = selected['itemIndex'];
+
+                              ExerciseCubit.get(context).filterDetails[index] =
+                                  value;
+
+                              ExerciseCubit.get(context).updateTitleByIndex(
+                                  index, itemIndex, buttons);
+
+                              ExerciseCubit.get(context)
+                                  .generateFilterMap(1, controller);
+                              controller.navigateToPage(0);
+                            }
+                          });
+                        } else {
+                          ExerciseCubit.get(context)
+                              .generateFilterMap(1, controller);
+                          ExerciseCubit.get(context)
+                              .changePage(controller: controller, index: 0);
+                        }
+                      } else {
+                        ExerciseCubit.get(context)
+                            .updateTitleByIndex(index, index, buttons);
+                        ExerciseCubit.get(context)
+                            .generateFilterMap(1, controller);
+                        ExerciseCubit.get(context)
+                            .changePage(controller: controller, index: 0);
+                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: num == index
-                              ? Colors.deepPurpleAccent
-                              : Colors.grey,
+                          color:
+                              ExerciseCubit.get(context).filter[index] == index
+                                  ? Colors.deepPurpleAccent
+                                  : Colors.grey,
                           width: 1,
                         ),
                       ),
                       alignment: Alignment.center,
                       padding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       child: Text(
                         button['title'] as String,
                         textAlign: TextAlign.center,
@@ -142,30 +182,38 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               },
               builder: (context, state) {
                 return NumberPaginator(
-                  showNextButton: true,
-                  showPrevButton: true,
-                  controller: controller,
-                  numberPages: 10,
-                  onPageChange: (int index) =>
-                      ExerciseCubit.get(context).changePage(
-                          controller: controller, index: index)
+                    showNextButton: true,
+                    showPrevButton: true,
+                    controller: controller,
+                    numberPages: 10,
+                    onPageChange: (int index) {
+                      print('indexxxxxxxxxxxxxxxx $index');
+                      ExerciseCubit.get(context)
+                          .changePage(controller: controller, index: index);
 
-                );
+                      ExerciseCubit.get(context)
+                          .generateFilterMap(index+1, controller);
+                    });
               },
             ),
             Expanded(
               child: BlocBuilder<ExerciseCubit, ExerciseState>(
                 builder: (context, state) {
-                  var exercises = ExerciseCubit
-                      .get(context)
-                      .exercisesModel
-                      ?.data;
-                  if (exercises == null || exercises.isEmpty) {
-                    return Center(
-                      child:MyLoadingIndicator(height: height*.1, color: Colors.deepPurple,)
-                    );
-                  }
-                  return ListView.builder(
+                  var exercises =
+                      ExerciseCubit.get(context).exercisesModel?.data;
+
+                    return exercises == null ? Center(
+                        child: MyLoadingIndicator(
+                      height: height * .1,
+                      color: Colors.deepPurple,
+                    )):
+
+
+                    exercises.isEmpty? Center(child: Text('No Exercises' , style:  TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 20
+
+                    ),)): ListView.builder(
                     itemCount: exercises.length,
                     itemBuilder: (context, index) {
                       final exercise = exercises[index];
@@ -181,7 +229,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ExerciseTile(
-                          title: exercise.title ?? 'Unknown Title',
+                          title: exercise.title,
                           onPressed: () async {
                             ExercisesDetailsCubit.get(context)
                                 .getExercisesDetails(id: exercise.id);
@@ -190,14 +238,13 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      ExercisePage(
-                                        videoPath: '',
-                                        title: exercise.title ?? 'Unknown',
-                                      ),
+                                  builder: (context) => ExercisePage(
+                                    videoPath: '',
+                                    title: exercise.title,
+                                  ),
                                 ));
                           },
-                          imagePath: exercise.video?.thumbnail ?? '',
+                          imagePath: exercise.video.thumbnail ?? '',
                         ),
                       );
                     },
@@ -210,50 +257,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
       ),
     );
   }
-
-  List<PopupMenuEntry<String>> _buildBodyPartsMenu(BuildContext context) {
-    var cubit = ExerciseCubit.get(context);
-    var state = cubit.state;
-
-    if (state is BodyPartsLoading) {
-      return [
-        PopupMenuItem<String>(
-          child: Center(child: CircularProgressIndicator()),
-        )
-      ];
-    } else if (state is BodyPartsSuccess) {
-      var bodyParts = cubit.bodyPartsModel?.data ?? [];
-      if (bodyParts.isEmpty) {
-        return [
-          PopupMenuItem<String>(
-            child: Text("No body parts found"),
-          )
-        ];
-      }
-      return bodyParts.map((part) {
-        return PopupMenuItem<String>(
-          value: part.title ?? '',
-          child: Text(part.title ?? 'Unknown Part'),
-        );
-      }).toList();
-    } else if (state is BodyPartsError) {
-      return [
-        PopupMenuItem<String>(
-          child: Text("Error: "),
-        )
-      ];
-    } else {
-      return [
-        PopupMenuItem<String>(
-          child: Center(
-            child: Text("Press to Load Body Parts"),
-          ),
-        )
-      ];
-    }
-  }
 }
-  
+
 class ExerciseTile extends StatelessWidget {
   final String imagePath;
   final String title;

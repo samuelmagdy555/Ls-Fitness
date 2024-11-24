@@ -17,5 +17,7 @@ class EndPoints{
   static String Progress ="progress";
   static String nutrition = 'nutrition';
   static String FoodCalculatorFilter = 'mealsCategory';
+  static String deepAnatomy = 'deepAnatomy';
+  static String toolOrMachine = 'deepAnatomy';
 
 }

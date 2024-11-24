@@ -83,8 +83,8 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     bodyPart = json['bodyPart'] != null ? BodyPart.fromJson(json['bodyPart']) : BodyPart(id: '', title: '');
     toolOrMachine = json['toolOrMachine'] != null ? ToolOrMachine.fromJson(json['toolOrMachine']) : ToolOrMachine(id: '', title: '');
-    Cardio = json['Cardio'];
-    Warmup = json['Warmup'];
+    Cardio = json['Cardio'] != null ? json['Cardio'] : false;
+    Warmup = json['Warmup'] != null ? json['Warmup'] : false;
     recoveryAndStretching = json['recoveryAndStretching'];
     deepAnatomy = List.from(json['deepAnatomy']).map((e) => DeepAnatomy.fromJson(e)).toList();
     video = Video.fromJson(json['video']);
