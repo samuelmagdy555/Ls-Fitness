@@ -103,6 +103,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     bodyPartsModel = null;
     emit(BodyPartsLoading());
     try {
+      print(index);
       final response = await DioHelper.get(
           end_ponit: index == 0
               ? EndPoints.BodyPart

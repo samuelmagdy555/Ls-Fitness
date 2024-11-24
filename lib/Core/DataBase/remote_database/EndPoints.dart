@@ -18,6 +18,6 @@ class EndPoints{
   static String nutrition = 'nutrition';
   static String FoodCalculatorFilter = 'mealsCategory';
   static String deepAnatomy = 'deepAnatomy';
-  static String toolOrMachine = 'deepAnatomy';
+  static String toolOrMachine = 'toolOrMachine';
 
 }

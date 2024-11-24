@@ -54,9 +54,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     controller = NumberPaginatorController();
     tabController = TabController(length: 6, vsync: this);
   }
+
   @override
   void dispose() {
-
     tabController!.dispose();
     controller.dispose();
     super.dispose();
@@ -187,19 +187,36 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 // TODO: implement listener
               },
               builder: (context, state) {
+                if (ExerciseCubit.get(context)
+                        .exercisesModel
+                        ?.paginationResult
+                        .numberOfPages ==
+                    0) {
+                  return Center(
+                    child: Text(
+                      '',
+                      style: TextStyle(color: Colors.deepPurple, fontSize: 20),
+                    ),
+                  );
+                }
                 return NumberPaginator(
                     showNextButton: true,
                     showPrevButton: true,
-                    key:  ValueKey(0) ,
+                    key: ValueKey(0),
                     controller: controller,
-                    numberPages: ExerciseCubit.get(context).exercisesModel?.paginationResult!.numberOfPages??1,
+                    numberPages: ExerciseCubit.get(context)
+                            .exercisesModel
+                            ?.paginationResult!
+                            .numberOfPages ??
+                        0,
+                    initialPage: 0,
                     onPageChange: (int index) {
                       ExerciseCubit.get(context)
                           .changePage(controller: controller, index: index);
 
                       ExerciseCubit.get(context)
-                          .generateFilterMap(index+1, controller);
-                    }) ;
+                          .generateFilterMap(index + 1, controller);
+                    });
               },
             ),
             Expanded(
@@ -208,53 +225,56 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                   var exercises =
                       ExerciseCubit.get(context).exercisesModel?.data;
 
-                    return exercises == null ? Center(
-                        child: MyLoadingIndicator(
-                      height: height * .1,
-                      color: Colors.deepPurple,
-                    )):
-
-
-                    exercises.isEmpty? Center(child: Text('No Exercises' , style:  TextStyle(
-                      color: Colors.deepPurple,
-                      fontSize: 20
-
-                    ),)): ListView.builder(
-                    itemCount: exercises.length,
-                    itemBuilder: (context, index) {
-                      final exercise = exercises[index];
-                      return Container(
-                        margin: EdgeInsets.all(12),
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          border: Border.all(
-                            color: Colors.deepPurple,
-                            width: .5,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: ExerciseTile(
-                          title: exercise.title,
-                          onPressed: () async {
-                            ExercisesDetailsCubit.get(context)
-                                .getExercisesDetails(id: exercise.id);
-                            ProgressCubit.get(context)
-                                .getExercisesProgress(id: exercise.id);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ExercisePage(
-                                    videoPath: '',
-                                    title: exercise.title,
+                  return exercises == null
+                      ? Center(
+                          child: MyLoadingIndicator(
+                          height: height * .1,
+                          color: Colors.deepPurple,
+                        ))
+                      : exercises.isEmpty
+                          ? Center(
+                              child: Text(
+                              'No Exercises',
+                              style: TextStyle(
+                                  color: Colors.deepPurple, fontSize: 20),
+                            ))
+                          : ListView.builder(
+                              itemCount: exercises.length,
+                              itemBuilder: (context, index) {
+                                final exercise = exercises[index];
+                                return Container(
+                                  margin: EdgeInsets.all(12),
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    border: Border.all(
+                                      color: Colors.deepPurple,
+                                      width: .5,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                ));
-                          },
-                          imagePath: exercise.video.thumbnail ?? '',
-                        ),
-                      );
-                    },
-                  );
+                                  child: ExerciseTile(
+                                    title: exercise.title,
+                                    onPressed: () async {
+                                      ExercisesDetailsCubit.get(context)
+                                          .getExercisesDetails(id: exercise.id);
+                                      ProgressCubit.get(context)
+                                          .getExercisesProgress(
+                                              id: exercise.id);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ExercisePage(
+                                              videoPath: '',
+                                              title: exercise.title,
+                                            ),
+                                          ));
+                                    },
+                                    imagePath: exercise.video.thumbnail ?? '',
+                                  ),
+                                );
+                              },
+                            );
                 },
               ),
             ),
