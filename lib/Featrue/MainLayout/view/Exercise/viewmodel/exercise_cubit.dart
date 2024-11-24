@@ -80,7 +80,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   List exerciseFilter = [];
 
   Future<void> getExercise({ int? page , Map<String, dynamic>? query}) async {
-    exercisesModel = null;
+
     emit(GetExerciseLoading());
 
     try {
@@ -128,15 +128,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     emit(ChangePageState());
   }
 
-  List<String> LoadItems(int index) {
-    List<String> items = [];
-
-    for (var item in bodyPartsModel!.data) {
-      items.add(item.title);
-    }
-    return items;
-  }
-
   Future<void> generateFilterMap(int page, NumberPaginatorController controller) async{
     Map<String, String> result = {};
 
@@ -148,7 +139,19 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       }
     }
 
-    getExercise(query: result);  }
+    getExercise(query: result);
+  }
+
+
+  List<String> LoadItems(int index) {
+    List<String> items = [];
+
+    for (var item in bodyPartsModel!.data) {
+      items.add(item.title);
+    }
+    return items;
+  }
+
 
 }
 

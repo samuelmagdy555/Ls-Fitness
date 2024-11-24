@@ -53,10 +53,16 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     c = List<String>.from(buttons[0]['choices']!);
     controller = NumberPaginatorController();
     tabController = TabController(length: 6, vsync: this);
-    ExerciseCubit.get(context).getExercise(page: 1);
+  }
+  @override
+  void dispose() {
+
+    tabController!.dispose();
+    controller.dispose();
+    super.dispose();
   }
 
-  String selectedTitle = ''; // تعريف المتغير
+  String selectedTitle = '';
 
   @override
   Widget build(BuildContext context) {
@@ -184,16 +190,16 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 return NumberPaginator(
                     showNextButton: true,
                     showPrevButton: true,
+                    key:  ValueKey(0) ,
                     controller: controller,
-                    numberPages: 10,
+                    numberPages: ExerciseCubit.get(context).exercisesModel?.paginationResult!.numberOfPages??1,
                     onPageChange: (int index) {
-                      print('indexxxxxxxxxxxxxxxx $index');
                       ExerciseCubit.get(context)
                           .changePage(controller: controller, index: index);
 
                       ExerciseCubit.get(context)
                           .generateFilterMap(index+1, controller);
-                    });
+                    }) ;
               },
             ),
             Expanded(
