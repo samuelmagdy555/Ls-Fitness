@@ -51,6 +51,7 @@ void main() async {
   await CashHelper.init();
   await CashHelper.getUserInfo();
 
+
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<

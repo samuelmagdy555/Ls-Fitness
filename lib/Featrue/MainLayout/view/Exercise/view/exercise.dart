@@ -50,7 +50,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   void initState() {
     super.initState();
+
+    ExerciseCubit.get(context).getExercise();
     c = List<String>.from(buttons[0]['choices']!);
+
     controller = NumberPaginatorController();
     tabController = TabController(length: 6, vsync: this);
   }
@@ -208,7 +211,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                             .exercisesModel
                             ?.paginationResult
                             .numberOfPages ??
-                        0,
+                        10,
                     onPageChange: (int index) {
                       ExerciseCubit.get(context)
                           .changePage(controller: controller, index: index);
@@ -264,7 +267,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => ExercisePage(
-                                              videoPath: '',
+                                              videoPath: exercise.video.publicId.toString(),
                                               title: exercise.title,
                                             ),
                                           ));

@@ -47,14 +47,9 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   void updateTitleByIndex(
       int index, int buttonIndex, List<Map<String, dynamic>> buttons) {
-
-
-
     if (buttons[index]['title'] == 'Cardio' ||
         buttons[index]['title'] == 'Warm up' ||
         buttons[index]['title'] == 'Recovery and Stretching') {
-
-
       if (filterDetails[index] == '' || filterDetails[index] == 'false') {
         filterDetails[index] = 'true';
         print('true');
@@ -62,15 +57,11 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         filterDetails[index] = 'false';
         print('false');
       }
-
-
-    }else{
-      print( bodyPartsModel!.data[buttonIndex].title);
+    } else {
+      print(bodyPartsModel!.data[buttonIndex].title);
       print(buttonIndex);
       filterDetails[index] = bodyPartsModel!.data[buttonIndex].id;
     }
-
-
   }
 
   String? bodyPart;
@@ -79,17 +70,18 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   List exerciseFilter = [];
 
-  Future<void> getExercise({ int? page , Map<String, dynamic>? query}) async {
-
+  Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
     emit(GetExerciseLoading());
 
     try {
       final response = await DioHelper.get(
           end_ponit: EndPoints.GetExercise,
           token: loginModel?.token ?? LoginCubit.token,
-          query: page != null ?  {
-            'page': page,
-          } : query);
+          query: page != null
+              ? {
+                  'page': page,
+                }
+              : query);
       print(response.data);
       exercisesModel = ExercisesModel.fromJson(response.data);
       emit(GetExerciseSuccess());
@@ -129,7 +121,8 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     emit(ChangePageState());
   }
 
-  Future<void> generateFilterMap(int page, NumberPaginatorController controller) async{
+  Future<void> generateFilterMap(
+      int page, NumberPaginatorController controller) async {
     Map<String, String> result = {};
 
     result['page'] = page.toString();
@@ -143,7 +136,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     getExercise(query: result);
   }
 
-
   List<String> LoadItems(int index) {
     List<String> items = [];
 
@@ -152,7 +144,4 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
     return items;
   }
-
-
 }
-

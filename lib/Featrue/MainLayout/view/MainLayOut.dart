@@ -9,6 +9,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View/Nutrition%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../Auth Feature/goals/View/AgeSelection.dart';
@@ -33,7 +34,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> _pages = [
     HomeView(),
-    WorkoutScreen(),
+    PersonView(),
     NutritionView(),
     FoodListPage(),
     TimerScreen(value: false,),

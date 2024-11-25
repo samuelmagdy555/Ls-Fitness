@@ -27,7 +27,7 @@ class DioHelper{
           if(options.path.contains('/posts')){
             return false;
           }
-          // don't print responses with unit8 list data
+
           return !args.isResponse || !args.hasUint8ListData;
         }
     ));
