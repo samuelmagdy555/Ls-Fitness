@@ -13,9 +13,9 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final width = mediaQuery.size.width;
-    final height = mediaQuery.size.height;
+    final mediaQuery = MediaQuery.sizeOf(context);
+    final width = mediaQuery.width;
+    final height = mediaQuery.height;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -50,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
               context,
               icon: Icons.volume_up,
               label: 'Sounds',
-              // onTap: () => _navigateToPage(context, ProfilePage()),
+
             ),
             _buildSettingsItem(
               context,
@@ -65,17 +65,13 @@ class _SettingsPageState extends State<SettingsPage> {
               buttonLabel: 'Edit',
               onTap: () => _navigateToPage(context, EditProfilePage()),
             ),
-            // _buildSettingsItemWithButton(
-            //   context,
-            //   icon: Icons.watch,
-            //   label: 'Apple Watch',
-            //   buttonLabel: 'Connect',
-            // ),
+
             _buildSettingsItemWithButton(
               context,
               icon: Icons.language,
               label: 'Language',
               buttonLabel: 'Change',
+
             ),
           ],
         ),
@@ -105,19 +101,19 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Color(0xFF40D876), size: width * 0.08),
+        leading: Icon(icon, color: Colors.deepPurple, size: width * 0.08),
         title: Text(label, style: TextStyle(color: Colors.white, fontSize: width * 0.05)),
         subtitle: description != null
-            ? Text(description, style: TextStyle(color: Colors.transparent, fontSize: width * 0.04))
+            ? Text(description, style: TextStyle(color: Colors.red, fontSize: width * 0.04))
             : null,
         trailing: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
-            backgroundColor: kThirdColor,
-            side: BorderSide(color: Color(0xFF40D876)),
+            backgroundColor: Colors.transparent,
+            side: BorderSide(color: Colors.white),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
-          child: Text(buttonLabel!, style: TextStyle(color: Color(0xFF40D876), fontSize: width * 0.04)),
+          child: Text(buttonLabel!, style: TextStyle(color:Colors.deepPurple, fontSize: width * 0.04)),
         ),
         tileColor: Colors.grey.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

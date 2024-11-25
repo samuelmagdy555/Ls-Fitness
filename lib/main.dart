@@ -8,10 +8,13 @@ import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart';
+import 'package:lsfitness/Featrue/MainLayout/View%20Model/main_layout_model_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
+import 'package:lsfitness/try.dart';
+import 'package:lsfitness/try2.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
@@ -29,6 +32,7 @@ import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view_Model/food_calculator_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart';
+import 'Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'Featrue/MainLayout/view/Profile/ChangePassword/view_model/change_password_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/EditProfile/View_Model/edit_profile_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
@@ -37,7 +41,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +52,7 @@ void main() async {
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()!
+          AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
   runApp(
     const MyApp(),
@@ -175,13 +179,18 @@ class _MyAppState extends State<MyApp> {
             create: (context) => SleepCubit()
               ..initializeSleep()
               ..GetData()),
-        BlocProvider(create: (context) => VitaminCubit()..initializeVitamin()..GetData()),
+        BlocProvider(
+            create: (context) => VitaminCubit()
+              ..initializeVitamin()
+              ..GetData()),
         BlocProvider(
             create: (context) => CounterCubit()
-              ..GetData()..GetCounter()),
+              ..GetData()
+              ..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
         BlocProvider(create: (context) => NutritionCubit()),
-        BlocProvider(create: (context) => FoodCalculatorFilterCubit())
+        BlocProvider(create: (context) => FoodCalculatorFilterCubit()),
+        BlocProvider(create: (context) => MainLayoutModelCubit()),
       ],
       child: GetMaterialApp(
         theme: ThemeData(
@@ -189,7 +198,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: PersonView(),
       ),
     );
   }

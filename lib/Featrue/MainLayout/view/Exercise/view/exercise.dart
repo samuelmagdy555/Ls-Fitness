@@ -206,10 +206,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                     controller: controller,
                     numberPages: ExerciseCubit.get(context)
                             .exercisesModel
-                            ?.paginationResult!
+                            ?.paginationResult
                             .numberOfPages ??
                         0,
-                    initialPage: 0,
                     onPageChange: (int index) {
                       ExerciseCubit.get(context)
                           .changePage(controller: controller, index: index);
