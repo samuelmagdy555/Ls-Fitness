@@ -32,18 +32,15 @@ class PaginationResult {
     required this.currentPage,
     required this.limit,
     required this.numberOfPages,
-    required this.nextPage,
   });
   late final int currentPage;
   late final int limit;
   late final int numberOfPages;
-  late final int nextPage;
 
   PaginationResult.fromJson(Map<String, dynamic> json){
     currentPage = json['currentPage'];
     limit = json['limit'];
     numberOfPages = json['numberOfPages'];
-    nextPage = json['nextPage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,15 +48,13 @@ class PaginationResult {
     _data['currentPage'] = currentPage;
     _data['limit'] = limit;
     _data['numberOfPages'] = numberOfPages;
-    _data['nextPage'] = nextPage;
     return _data;
   }
 }
-
 class Data {
   Data({
-    this.bodyPart,
-    required this.toolOrMachine,
+    this.bodyPart, // الآن يمكن أن تكون null
+     this.toolOrMachine,
     required this.Cardio,
     required this.Warmup,
     required this.recoveryAndStretching,
@@ -67,39 +62,34 @@ class Data {
     required this.video,
     this.Description,
     this.instructions,
-    required this.createdAt,
-    required this.updatedAt,
     required this.id,
     required this.title,
     required this.targetGender,
   });
-  late final BodyPart? bodyPart;
-  late final ToolOrMachine toolOrMachine;
+
+  BodyPart? bodyPart;
+   ToolOrMachine? toolOrMachine;
   late final bool Cardio;
   late final bool Warmup;
   late final bool recoveryAndStretching;
   late final List<DeepAnatomy> deepAnatomy;
   late final Video video;
-  late final Null Description;
-  late final Null instructions;
-  late final String createdAt;
-  late final String updatedAt;
+  String? Description;
+  String? instructions;
   late final String id;
   late final String title;
   late final String targetGender;
 
-  Data.fromJson(Map<String, dynamic> json){
-    bodyPart = null;
-    toolOrMachine = ToolOrMachine.fromJson(json['toolOrMachine']);
-    Cardio = json['Cardio'];
-    Warmup = json['Warmup'];
+  Data.fromJson(Map<String, dynamic> json) {
+    bodyPart = json['bodyPart'] != null ? BodyPart.fromJson(json['bodyPart']) : BodyPart(id: '', title: '');
+    toolOrMachine = json['toolOrMachine'] != null ? ToolOrMachine.fromJson(json['toolOrMachine']) : ToolOrMachine(id: '', title: '');
+    Cardio = json['Cardio'] != null ? json['Cardio'] : false;
+    Warmup = json['Warmup'] != null ? json['Warmup'] : false;
     recoveryAndStretching = json['recoveryAndStretching'];
-    deepAnatomy = List.from(json['deepAnatomy']).map((e)=>DeepAnatomy.fromJson(e)).toList();
+    deepAnatomy = List.from(json['deepAnatomy']).map((e) => DeepAnatomy.fromJson(e)).toList();
     video = Video.fromJson(json['video']);
-    Description = null;
-    instructions = null;
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    Description = json['Description'] ?? '';
+    instructions = json['instructions'] ?? '';
     id = json['_id'];
     title = json['title'];
     targetGender = json['targetGender'];
@@ -107,17 +97,15 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['bodyPart'] = bodyPart;
-    _data['toolOrMachine'] = toolOrMachine.toJson();
+    _data['bodyPart'] = bodyPart?.toJson() ?? BodyPart(id: '', title: '');
+    _data['toolOrMachine'] = toolOrMachine?.toJson() ?? ToolOrMachine(id: '', title: '');
     _data['Cardio'] = Cardio;
     _data['Warmup'] = Warmup;
     _data['recoveryAndStretching'] = recoveryAndStretching;
-    _data['deepAnatomy'] = deepAnatomy.map((e)=>e.toJson()).toList();
+    _data['deepAnatomy'] = deepAnatomy.map((e) => e.toJson()).toList();
     _data['video'] = video.toJson();
     _data['Description'] = Description;
     _data['instructions'] = instructions;
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
     _data['_id'] = id;
     _data['title'] = title;
     _data['targetGender'] = targetGender;
@@ -127,39 +115,40 @@ class Data {
 
 class BodyPart {
   BodyPart({
-    required this.id,
-    required this.title,
+     this.id,
+     this.title,
   });
-  late final String id;
-  late final String title;
 
-  BodyPart.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
+  String? id;
+  String? title;
+
+  BodyPart.fromJson(Map<String, dynamic> ?json) {
+    id = json?['_id'];
+    title = json?['title'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>? toJson() {
     final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['title'] = title;
+    _data['_id'] = id ?? '';
+    _data['title'] = title ?? '';
     return _data;
   }
 }
 
 class ToolOrMachine {
   ToolOrMachine({
-    required this.id,
-    required this.title,
+   this.id,
+   this.title,
   });
-  late final String id;
-  late final String title;
+   String? id;
+   String? title;
 
-  ToolOrMachine.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
+  ToolOrMachine.fromJson(Map<String, dynamic>? json){
+    id = json?['_id'];
+    title = json?['title'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>? toJson() {
     final _data = <String, dynamic>{};
     _data['_id'] = id;
     _data['title'] = title;
