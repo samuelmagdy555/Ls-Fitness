@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/login/model/LoginModel.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:meta/meta.dart';
 
@@ -13,15 +14,9 @@ part 'regester_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
-  static String token =''  ;
-  static String id ='';
-  static String name = '';
-  static String phone = '' ;
-  static String email = '' ;
-  static bool isverified= false;
+
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  RegisterModel? registerModel;
 
   Future<void> userRegister({
     required  String username,
@@ -45,7 +40,7 @@ class RegisterCubit extends Cubit<RegisterState> {
          }
        );
 
-       registerModel = RegisterModel.fromJson(response.data);
+       LoginCubit.loginModel = LoginModel.fromJson(response.data);
        print(response.data);
 
 
@@ -54,13 +49,14 @@ class RegisterCubit extends Cubit<RegisterState> {
        await CashHelper.insertToCash(key: 'id', value: response.data['data']['_id']);
        await CashHelper.insertToCash(key: 'phone', value: phone);
        await CashHelper.insertBoolToCash(key:'isVerified', value: response.data['data']['isOAuthUser']);
-       await CashHelper.insertToCash(key: 'name', value: registerModel!.data.username );
+       await CashHelper.insertToCash(key: 'name', value: response.data['data']['username'] );
 
-       RegisterCubit.name= await CashHelper.getFromCash(key: 'name');
-       RegisterCubit.email = await CashHelper.getFromCash(key: 'email');
-       RegisterCubit.id = await CashHelper.getFromCash(key: 'id');
+       LoginCubit.email = await CashHelper.getFromCash(key: 'email');
+       LoginCubit.id = await CashHelper.getFromCash(key: 'id');
+       LoginCubit.name = await CashHelper.getFromCash(key: 'name');
        LoginCubit.token = await CashHelper.getFromCash(key: 'token');
-       RegisterCubit.isverified = await CashHelper.getBoolFromCash(key: 'isVerified');
+       LoginCubit.isVerified =
+       await CashHelper.getBoolFromCash(key: 'isVerfied');
 
        emit(RegisterSuccessState());
 

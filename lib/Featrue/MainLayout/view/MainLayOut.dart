@@ -33,7 +33,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final List<Widget> _pages = [
     HomeView(),
-    // WorkoutScreen(),
+    WorkoutScreen(),
     NutritionView(),
     FoodListPage(),
     TimerScreen(value: false,),

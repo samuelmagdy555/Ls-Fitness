@@ -1,3 +1,4 @@
+import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CashHelper {
@@ -5,6 +6,18 @@ class CashHelper {
 
   static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  static getUserInfo()async{
+
+    LoginCubit.email = await CashHelper.getFromCash(key: 'email');
+    LoginCubit.id = await CashHelper.getFromCash(key: 'id');
+    LoginCubit.name = await CashHelper.getFromCash(key: 'name');
+    LoginCubit.token = await CashHelper.getFromCash(key: 'token');
+    LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
+    LoginCubit.phone = await CashHelper.getFromCash(key: 'phone');
+    LoginCubit.isOAuth = await CashHelper.getBoolFromCash(key:'isOAuthUser');
+    LoginCubit.role = await CashHelper.getFromCash(key: 'role');
   }
 
   static Future<bool> insertToCash(

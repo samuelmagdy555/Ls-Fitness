@@ -80,10 +80,7 @@ class _HomeViewState extends State<HomeView> {
                           },
                           builder: (context, state) {
                             return Text(
-                              ProfileCubit.get(context)
-                                      .profileModel
-                                      ?.data
-                                      .username ??
+                              ProfileCubit.get(context).profileModel?.data.username ??
                                   '',
                               style: GoogleFonts.bebasNeue(
                                 fontSize: width * 0.08,

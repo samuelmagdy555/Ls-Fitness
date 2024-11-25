@@ -12,6 +12,7 @@ import 'package:lsfitness/Featrue/MainLayout/View%20Model/main_layout_model_cubi
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
@@ -48,6 +49,7 @@ void main() async {
   await Alarm.init();
   await DioHelper.init();
   await CashHelper.init();
+  await CashHelper.getUserInfo();
 
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
@@ -198,7 +200,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         debugShowCheckedModeBanner: false,
-        home: PersonView(),
+        home: LoginCubit.token == ''? const SplashScreen() : const MainLayout(),
       ),
     );
   }

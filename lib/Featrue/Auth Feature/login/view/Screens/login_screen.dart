@@ -73,7 +73,7 @@ class _LoginViewState extends State<LoginView> {
                             onTap: () async {
 
                               await cubit.userLogin(
-                                  email: emailController.text,
+                                  mail: emailController.text,
                                   password: passwordController.text, context: context);
                              await ProfileCubit.get(context).myProfile();
                             },

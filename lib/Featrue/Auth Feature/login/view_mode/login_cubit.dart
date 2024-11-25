@@ -20,12 +20,15 @@ class LoginCubit extends Cubit<LoginState> {
   static String name = '';
   static String email = '';
   static bool isVerified = false;
+  static String phone = '';
+  static bool isOAuth = false;
+  static String role = '';
 
   static LoginCubit get(context) => BlocProvider.of(context);
   static LoginModel? loginModel;
 
   Future<void> userLogin(
-      {required String email,
+      {required String mail,
       required String password,
       required BuildContext context}) async {
     emit(LoginLoadingState());
@@ -33,8 +36,8 @@ class LoginCubit extends Cubit<LoginState> {
       final response = await DioHelper.PostData(
           end_point: EndPoints.Login,
           data: {
-            'email': 'sos@gmail.com',
-            'password': 'qwerqwer'
+            'email': mail,
+            'password': password
           });
       loginModel = LoginModel.fromJson(response.data);
       print('token from model${loginModel!.token}');
@@ -42,6 +45,9 @@ class LoginCubit extends Cubit<LoginState> {
           key: 'token', value: response.data['token']);
       await CashHelper.insertToCash(
           key: 'email', value: response.data['data']['email']);
+      await CashHelper.insertToCash(key: 'phone', value: response.data['data']['phone'] );
+      await CashHelper.insertBoolToCash(key: 'isOAuthUser', value: response.data['data']['isOAuthUser'] );
+      await CashHelper.insertToCash(key: 'role', value: response.data['data']['role'] );
       await CashHelper.insertToCash(
           key: 'id', value: response.data['data']['_id']);
       await CashHelper.insertBoolToCash(
@@ -49,12 +55,11 @@ class LoginCubit extends Cubit<LoginState> {
       await CashHelper.insertToCash(
           key: 'name', value: response.data['data']['username']);
 
-      LoginCubit.email = await CashHelper.getFromCash(key: 'email');
-      LoginCubit.id = await CashHelper.getFromCash(key: 'id');
-      LoginCubit.name = await CashHelper.getFromCash(key: 'name');
-      LoginCubit.token = await CashHelper.getFromCash(key: 'token');
-      LoginCubit.isVerified =
-          await CashHelper.getBoolFromCash(key: 'isVerfied');
+      email = await CashHelper.getFromCash(key: 'email');
+      id = await CashHelper.getFromCash(key: 'id');
+      name = await CashHelper.getFromCash(key: 'name');
+      token = await CashHelper.getFromCash(key: 'token');
+      isVerified = await CashHelper.getBoolFromCash(key: 'isVerfied');
       print(token);
       emit(LoginSuccessState());
       ExerciseCubit.get(context).getExercise(page: 1);

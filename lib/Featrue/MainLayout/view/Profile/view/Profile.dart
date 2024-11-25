@@ -8,10 +8,15 @@ import '../view_model/profile_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
+
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void initState() {
+    super.initState();
+    ProfileCubit.get(context).myProfile();
+  }
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
