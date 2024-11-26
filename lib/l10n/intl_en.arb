@@ -1,0 +1,116 @@
+{
+  "home_Hey": "Hey,",
+  "home_Find": "Find",
+  "home_your Workout": "your Workout",
+  "home_Vitamins": "Vitamins",
+  "home_Food Calculator": "Food Calculator",
+  "home_Nutrition": "Nutrition",
+  "home_Your": "Your",
+  "home_Progress": "Progress",
+
+  "Vitamin": "Vitamin",
+  "Vitamin_Details_About": "About",
+  "Vitamin A": "Vitamin A",
+  "Vitamin B":"Vitamin B",
+  "Vitamin C": "Vitamin C",
+  "Vitamin D":"Vitamin D",
+  "Vitamin E": "Vitamin E",
+  "Vitamin K":"Vitamin K",
+  "Omega 3": "Omega 3",
+
+  "location1": "carrots , sweet potatoes, and spinach",
+  "location2": "meat , eggs , dairy products , and whole grains",
+  "location3": "citrus fruits , strawberries , and oranges",
+  "location4": "sunlight , fatty fish , and dairy products",
+  "location5": "nuts , seeds , and vegetable oils",
+  "location6": "fatty fish like salmon and tuna , and walnuts",
+
+  "benefits1": "Helps maintain eye health and strengthens immunity",
+  "benefits2": "Supports energy production and nervous system health",
+  "benefits3": "Boosts immunity and maintains skin health",
+  "benefits4": "Supports bone health and calcium absorption",
+  "benefits5": "Protects cells from damage as an antioxidant",
+  "benefits6": "Supports blood clotting and bone health",
+  "benefits7": "Promotes heart health and reduces inflammation",
+
+  "dailyAmount1" : "700-900 mcg",
+  "dailyAmount2" : "1 to 3 mg",
+  "dailyAmount3" : "75-90 mg",
+  "dailyAmount4" : "600-800 IU",
+  "dailyAmount5" : "15 mg",
+  "dailyAmount6" : "90-120 mcg",
+  "dailyAmount7" : "90-120 mcg",
+
+  "Progress": "Progress",
+
+"Nutrition_Add_Image":"Add Your Image Here",
+
+  "Settings": "Settings",
+  "Settings_My_Profile": "My Profile",
+  "Settings_Log_Out": "Log Out",
+  "Settings_Change_Password": "Change Password",
+  "Settings_Sounds": "Sounds",
+  "Settings_Language": "Language",
+  "Settings_Steps_Counter": "Steps Counter",
+  "Settings_Edit_Profile": "Edit Profile",
+  "Settings_Edit": "Edit",
+  "Settings_Change": "Change",
+
+  "Steps_Counter": "Steps Counter",
+  "Steps_Counter_Error": "Error",
+  "Steps_Counter_Steps": "Step",
+  "Steps_Counter_Target": "Target : ",
+  "Steps_Counter_Set_Target": "Add Target Steps",
+  "Steps_Counter_Set": "Set",
+
+  "Profile":"Phone",
+  "Profile_Email":"Email",
+  "Profile_Gender":"Gender",
+  "Profile_Age":"Age",
+  "Profile_Length":"Length",
+  "Profile_Weight":"Weight",
+  "Profile_Target_Weight":"Target Weight",
+  "Profile_Edit":"Edit",
+  "Profile_Logout":"Logout",
+
+  "Change_Password":"Change Password",
+  "Change_Password_Old":"Old Password",
+  "Change_Password_New":"New Password",
+  "Change_Password_Confirm":"Confirm Password",
+  "Change_Password_Error":"Old Password Incorrect",
+  "Change_Password_Success":"Change Password Successfully",
+  "Change_Password_Success_Message":"Update Successful",
+  "Change_Password_Required":"Required",
+  "Change_Password_Submit" : "Submit",
+
+  "Edit_Profile":"Edit Profile",
+  "Edit_Profile_Photo":"Change Photo Profile",
+  "Edit_Profile_Username":"Username",
+  "Edit_Profile_Phone":"Phone",
+  "Edit_Profile_Email":"Email",
+  "Edit_Profile_Gender":"Gender",
+  "Edit_Profile_Age":"Age",
+  "Edit_Profile_Length":"Length",
+  "Edit_Profile_Weight":"Weight",
+  "Edit_Profile_Target_Weight":"Target Weight",
+  "Edit_Profile_Edit":"Edit",
+  "Edit_Profile_Save_Profile":"Save Profile",
+
+  "Sounds":"Sounds",
+
+  "Language":"Language",
+  "Change":"Change",
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
