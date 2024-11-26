@@ -7,9 +7,10 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 
 import '../view_model/change_password_cubit.dart';
 
-
 class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({super.key,});
+  const ChangePasswordScreen({
+    super.key,
+  });
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -21,7 +22,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   // Controllers for new password and confirm password
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+
       backgroundColor: kThirdColor,
       body: SingleChildScrollView(
         child: Column(
@@ -38,6 +41,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               children: [
                 _buildBackgroundImage(screenHeight),
                 _buildTitleSubtitle(screenWidth, screenHeight),
+                Positioned(
+                  top: screenHeight*.065,
+                    left: screenWidth*.02,
+                    child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios_new,
+                          size: 30,
+                          color: Colors.white,
+                        )))
               ],
             ),
             Padding(
@@ -65,7 +80,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           _buildPasswordField(
             controller: oldPasswordController,
             labelText: 'old Password',
-          ),SizedBox(height: 20,),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           _buildPasswordField(
             controller: newPasswordController,
             labelText: 'New Password',
@@ -86,7 +104,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }) {
     return TextFormField(
       controller: controller,
-      obscureText: true, // Hide password input
+      obscureText: true,
+      // Hide password input
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: const TextStyle(color: Colors.white),
@@ -114,37 +133,38 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          BlocConsumer<ChangePasswordCubit,ChangePasswordState>(
-            listener: (context,state){
-            if (state is ChangePasswordSuccess){
-              Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (context)=> LoginView()),
-                  (route) => false);
-              final snackBar = SnackBar(
-                elevation: 0,
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                  title: 'Change Password Successfully ',
-                  color:  Colors.blue,
-                  message: 'Update Successful',
-                  contentType: ContentType.success,
-                ),
-              );
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(snackBar);
-            }
-            else if (state is ChangePasswordError){
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('Old Password Incorrect'),
-              ));
-            }
+          BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+            listener: (context, state) {
+              if (state is ChangePasswordSuccess) {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginView()),
+                    (route) => false);
+                final snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Change Password Successfully ',
+                    color: Colors.blue,
+                    message: 'Update Successful',
+                    contentType: ContentType.success,
+                  ),
+                );
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              } else if (state is ChangePasswordError) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Old Password Incorrect'),
+                ));
+              }
             },
-            builder: (context, state){
+            builder: (context, state) {
               return GestureDetector(
                 onTap: () async {
-                  if (newPasswordController.text == confirmPasswordController.text) {
+                  if (newPasswordController.text ==
+                      confirmPasswordController.text) {
                     await ChangePasswordCubit.get(context).changePassword(
                         currentPassword: oldPasswordController.text,
                         newPassword: newPasswordController.text,
@@ -159,25 +179,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     borderRadius: BorderRadius.circular(18.0),
                   ),
                   child: Center(
-                    child : state is ChangePasswordLoading
-                    ? CircularProgressIndicator(
-                      color: Colors.black,
-                    ) : Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.5,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
+                    child: state is ChangePasswordLoading
+                        ? CircularProgressIndicator(
+                            color: Colors.black,
+                          )
+                        : Text(
+                            'Submit',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.5,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
                   ),
                 ),
               );
-
             },
           ),
-
           SizedBox(height: 60),
         ],
       ),

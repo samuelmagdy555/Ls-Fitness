@@ -29,12 +29,31 @@ class _ProfilePageState extends State<ProfilePage> {
         var userData = cubit.profileModel?.data;
 
         return Scaffold(
+          appBar:  AppBar(
+            backgroundColor: kThirdColor,
+            title: Text(
+              'Profile',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth * 0.05,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
           backgroundColor: kThirdColor,
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: screenWidth * 0.05,
-                vertical: screenHeight * 0.09,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

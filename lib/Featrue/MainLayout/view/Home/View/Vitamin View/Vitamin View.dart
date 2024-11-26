@@ -55,7 +55,7 @@ class VitaminView extends StatelessWidget {
     '600-800 IU',
     '15 mg',
     '90-120 mcg',
-    '250-500 mg'
+    '90-120 mcg'
   ];
 
   @override

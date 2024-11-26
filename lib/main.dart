@@ -14,6 +14,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
+import 'package:lsfitness/generated/l10n.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 import 'package:lsfitness/try3.dart';
@@ -41,6 +42,9 @@ import 'Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:provider/provider.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -197,11 +201,18 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => MainLayoutModelCubit()),
       ],
       child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
-        debugShowCheckedModeBanner: false,
         home: LoginCubit.token == ''? const SplashScreen() :  const MainLayout(),
       ),
     );

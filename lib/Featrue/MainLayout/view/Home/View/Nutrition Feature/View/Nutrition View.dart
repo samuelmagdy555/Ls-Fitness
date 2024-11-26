@@ -22,12 +22,7 @@ class _NutritionViewState extends State<NutritionView> {
   UniqueKey listKey = UniqueKey();
   UniqueKey listKey2 = UniqueKey();
 
-  List <String>items = [
-    'calories',
-    'calcium',
-    'iron',
-    'magnesium',
-  ];
+
 
   @override
   Widget build(BuildContext context) {

@@ -15,12 +15,11 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
-  late Data selectedExercise; // تعديل النوع ليكون Data
+  late Data selectedExercise;
 
   @override
   void initState() {
     super.initState();
-    // تعيين التمرين الافتراضي
     selectedExercise = ExerciseCubit.get(context).exercisesModel!.data[0];
   }
 

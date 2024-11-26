@@ -112,23 +112,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     )
                   ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: Container(
-                  //     height: height*.03,
-                  //     width: width,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.black38.withOpacity(0.06),
-                  //       boxShadow: [
-                  //         BoxShadow(
-                  //           color: Colors.black38,
-                  //           blurRadius: 10,
-                  //           spreadRadius: 7,
-                  //         ),
-                  //       ]
-                  //     ),
-                  //   ),
-                  // )
+
                 ],
               ),
               Padding(
@@ -157,44 +141,13 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ],
                     ),
-                    Icon(
-                      Icons.filter_alt_outlined,
-                      size: width * 0.1,
-                      color: Colors.white,
-                    ),
+
                   ],
                 ),
               ),
+
               Padding(
                 padding: EdgeInsets.only(top: 10),
-                child: Container(
-                  width: width * 0.9, // Adjust width
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "SEARCH WORKOUT",
-                        hintStyle: TextStyle(
-                          color: Colors.white54,
-                        ),
-                        border: InputBorder.none,
-                        icon: Icon(
-                          Icons.search,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

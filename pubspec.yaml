@@ -69,6 +69,7 @@ dependencies:
   number_paginator: ^0.4.1
   bottom_navbar_with_indicator: ^0.0.9
   google_nav_bar: ^5.0.7
+  flutter_localization: ^0.2.2
 
 
 
@@ -130,3 +131,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
