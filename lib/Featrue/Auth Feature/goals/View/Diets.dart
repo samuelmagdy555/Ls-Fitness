@@ -77,7 +77,7 @@ class _DietsPageState extends State<DietsPage> {
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'Other',
+                      'Other',
                     'assets/images/other_6874038.png',
                     screenWidth,
                     screenHeight,

@@ -101,16 +101,146 @@
   "Language":"Language",
   "Change":"Change",
 
+  "Person_Warmup": "Warmup",
+  "Person_Neck": "Neck",
+  "Person_Chest": "Chest",
+  "Person_Triceps": "Triceps",
+  "Person_Biceps": "Biceps",
+  "Person_Cardio": "Cardio",
+  "Person_Calves": "Calves",
+  "Person_Legs": "Legs",
+  "Person_Traps": "Traps",
+  "Person_Forearms": "Forearms",
+  "Person_Lats": "Lats",
+  "Person_Abs": "Abs",
+  "Person_LowerBack": "Lower Back",
+  "Person_Shoulder": "Shoulder",
+  "Person_Hamstrings": "Hamstrings",
+  "Person_Glutes": "Glutes",
+  "Person_Quads": "Quads",
+  "Person_Adductors": "Adductors",
+  "Person_Flip": "Flip",
+
+
+  "Goals":"Goals",
+  "AgeSelection_Body_Data": "Body Data",
+  "AgeSelection_Age": "Your age",
+  "AgeSelection_Years_Old": "years old",
+  "AgeSelection_Age_Information": "Age information helps us more accurately\nassess your metabolic level",
+  "Continue": "Continue",
+
+  "CurrentBody1":"Your Estimated Body Fat: <15% \nYou need to increase your nutrient intake and maintain muscle mass through exercise",
+  "CurrentBody2":"Your Estimated Body Fat: 15-20%\nYou are at a normal body fat level! Try the personalized plan for you to keep your body active",
+  "CurrentBody3":"Your Estimated Body Fat: 21-30%\nYour body fat percentage is slightly higher and you need to exercise properly to get back to a healthy level",
+  "CurrentBody4":"Your Estimated Body Fat: 31-40%\nThe current body fate rate is a bit high so lets start exercising to burn fat",
+  "CurrentBody5":"Your Estimated Body Fat: >40%\nHigh body fat percentage may lead to health problems.Focus on fitness and diet!",
+  "CurrentBody_Body_Data": "Body Data",
+  "CurrentBody_Shape": "What’s your current body shape",
+
+
+  "Diets_Question":"Do you follow any of \n  these diets",
+  "Diets_Restrictions":"No Dietary Restrictions",
+  "Diets_Vegetation":"Vegetation",
+  "Diets_Vegan":"Vegan",
+  "Diets_Keto":"Keto",
+  "Diets_Other":"Other",
+
+  "End": "thanks for your time",
+
+  "Experience_Question":"Do you experience any of \n    the following issues",
+  "Experience_Prolonged":"Prolonged sitting",
+  "Experience_Poor_Sleep_Quality":"Poor Sleep Quality",
+  "Experience_Dietary_issues":"Dietary issues",
+  "Experience_None_Iam_healthy":"None, Iam healthy! ",
+
+  "Main_Goal":"What’s your main goal?",
+  "Goal_Best_Strategy":"We’ll tailor the best blend of strength and cardio training to align with your goal?",
+  "Goal_Lose_Weight": "Lose Weight",
+  "Goal_Build_Muscle": "Build Muscle",
+  "Goal_Keep_Fit": "Keep Fit",
+
+  "what_fitness_equipment": "What fitness equipment can you use?",
+  "no_equipment": "No equipment",
+  "portable_equipment": "Portable equipment",
+  "gym_equipment": "Gym equipment",
+
+
+  "what_is_your_gender": "What is your gender?",
+  "female": "Female",
+  "male": "Male",
+
+  "body_data": "Body Data",
+  "your_height": "Your height",
+  "height_info": "Height information helps us calculate your BMI more accurately",
+  "ft": "FT",
+  "cm": "CM",
+  "recent_injuries_question": "Have you suffered any injuries recently?",
+  "none_healthy": "None. I am healthy",
+  "shoulder": "Shoulder",
+  "back": "Back",
+  "waist": "Waist",
+  "wrist": "Wrist",
+  "knee": "Knee",
+  "leg": "Leg",
+  "ankle": "Ankle",
+  "fitness_level_question": "How would you rate your fitness level?",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "advanced": "Advanced",
+
+
+
+  "motivations": {
+    "improving_health": "Improving Health",
+    "boosting_immune_system": "Boosting Immune System",
+    "looking_better": "Looking Better",
+    "building_strength_endurance": "Building Strength and Endurance",
+    "boosting_libido": "Boosting Libido"
+  },
+  "what_motivates_to_exercise": "What motivates you to exercise?",
+  "selected_goals_title": "Selected Goals",
+  "you_have_selected": "You have selected:",
 
 
 
 
+  "your_target_weight": "Your target weight",
+  "lb": "LB",
+  "kg": "KG",
+  "which_areas_focus": "Which areas do you want to focus on?",
+  "select_target_area": "Select the target area for more accurate course recommendations",
+  "chest": "Chest",
+  "arms": "Arms",
+  "abs": "Abs",
+  "butt": "Butt",
+  "legs": "Legs",
+  "whole_body": "Whole Body",
+  "your_current_weight": "Your current weight",
 
 
 
-
-
-
-
+  "login": "Login",
+  "sign_up": "Sign Up",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "phone": "Phone",
+  "name": "Name",
+  "enter_email": "Enter Your Email",
+  "enter_password": "Enter Your Password",
+  "enter_name": "Enter Your Name",
+  "enter_phone": "Enter Your Phone Number",
+  "invalid_email": "Please enter a valid email",
+  "invalid_password": "Password must be at least 6 characters",
+  "password_mismatch": "Passwords do not match",
+  "account_created_success": "Account successfully created",
+  "login_success": "Successfully logged in",
+  "login_error": "Incorrect email or password",
+  "already_have_account": "Already Have an Account?",
+  "forget_password": "Forget Password?",
+  "train_experience": "Train and live the new experience of exercising at home",
+  "social_login_facebook": "Login with Facebook",
+  "social_login_google": "Login with Google",
+  "social_login_apple": "Login with Apple"
 
 }
