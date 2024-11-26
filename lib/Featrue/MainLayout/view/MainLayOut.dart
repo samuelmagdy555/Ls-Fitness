@@ -151,8 +151,8 @@ class _MainLayoutState extends State<MainLayout> {
     );
   }
 
-  Widget _buildTabItem(
-      {required int index, required String label, required Widget path}) {
+   Widget _buildTabItem(
+      {required int index, required final String label, required final Widget path}) {
     final isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () {
@@ -167,7 +167,7 @@ class _MainLayoutState extends State<MainLayout> {
           SizedBox(
             height:3.5,
           ),
-          Text(
+           Text(
             label,
             style: TextStyle(
               color: isSelected ? Colors.white : Colors.black,

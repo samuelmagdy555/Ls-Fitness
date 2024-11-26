@@ -16,6 +16,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
+import 'package:lsfitness/try3.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
@@ -73,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _secureScreen();
+    // _secureScreen();
     final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
       if (_.id == 7) {
@@ -201,7 +202,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         debugShowCheckedModeBanner: false,
-        home: LoginCubit.token == ''? const SplashScreen() : const MainLayout(),
+        home: LoginCubit.token == ''? const SplashScreen() :  const MainLayout(),
       ),
     );
   }

@@ -25,31 +25,33 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     6,
     6,
     6,
-    6,
-    6,
+
   ];
   List<String> filterDetails = [
     '',
     '',
     '',
     '',
-    '',
-    '',
   ];
   List<String> buttons = [
-    'bodyPart',
     'toolOrMachine',
     'Cardio',
-    'Warmup',
     'recoveryAndStretching',
-    'deepAnatomy',
+    'deepAnatomy'
+
   ];
 
+
+
+  String result2 ='';
   void updateTitleByIndex(
       int index, int buttonIndex, List<Map<String, dynamic>> buttons) {
-    if (buttons[index]['title'] == 'Cardio' ||
-        buttons[index]['title'] == 'Warm up' ||
-        buttons[index]['title'] == 'Recovery and Stretching') {
+    if (
+        buttons[index]['title'] == 'Recovery and Stretching'||
+        buttons[index]['title'] == 'Cardio'
+
+    ) {
+      print('in function (updateTitleByIndex) title is ${buttons[index]['title']}');
       if (filterDetails[index] == '' || filterDetails[index] == 'false') {
         filterDetails[index] = 'true';
         print('true');
@@ -57,7 +59,9 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         filterDetails[index] = 'false';
         print('false');
       }
-    } else {
+    }
+    else {
+
       print(bodyPartsModel!.data[buttonIndex].title);
       print(buttonIndex);
       filterDetails[index] = bodyPartsModel!.data[buttonIndex].id;
@@ -71,6 +75,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   List exerciseFilter = [];
 
   Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
+exercisesModel =null;
     emit(GetExerciseLoading());
 
     try {
@@ -97,11 +102,8 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     try {
       print(index);
       final response = await DioHelper.get(
-          end_ponit: index == 0
-              ? EndPoints.BodyPart
-              : index == 1
-                  ? EndPoints.toolOrMachine
-                  : EndPoints.deepAnatomy,
+          end_ponit:
+              index == 0 ? EndPoints.toolOrMachine : EndPoints.deepAnatomy,
           token: loginModel?.token ?? LoginCubit.token);
       print(response.data);
       bodyPartsModel = BodyPartsModel.fromJson(response.data);
@@ -122,14 +124,19 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   }
 
   Future<void> generateFilterMap(
-      int page, NumberPaginatorController controller) async {
+  {int? page, NumberPaginatorController? controller }) async {
     Map<String, String> result = {};
 
-    result['page'] = page.toString();
+    result['page'] = page.toString()??'1';
+print(result2);
+    result['bodyPart'] = result2;
+
 
     for (int i = 0; i < filter.length; i++) {
       if (filter[i] != 6) {
         result[buttons[i]] = filterDetails[i];
+        print('==============>');
+        print(filterDetails[i]);
       }
     }
 
@@ -143,5 +150,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       items.add(item.title);
     }
     return items;
+
   }
 }
