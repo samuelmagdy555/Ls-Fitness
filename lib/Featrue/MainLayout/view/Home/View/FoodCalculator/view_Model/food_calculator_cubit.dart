@@ -14,23 +14,30 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
 
   FoodCalculatorModel? foodCalculatorModel;
 
-  // دالة getFoodCalculator لاستقبال categoryId
-  Future<void> getFoodCalculator({String? mealCategory,}) async {
+  int currentPage = 1; // الصفحة الحالية
+  int numberOfPages = 1; // عدد الصفحات الإجمالي
+
+  // دالة لجلب البيانات
+  Future<void> getFoodCalculator({String? mealCategory, required int page}) async {
     emit(FoodCalculatorLoading());
 
     try {
-      // بناء endpoint بناءً على categoryId
+      // بناء endpoint مع الفلترة بناءً على categoryId والصفحة
       final String endpoint = mealCategory != null && mealCategory.isNotEmpty
-          ? '${EndPoints.FoodCalculator}?mealCategory=$mealCategory'
-          : EndPoints.FoodCalculator;
+          ? '${EndPoints.FoodCalculator}?mealCategory=$mealCategory&page=$page'
+          : '${EndPoints.FoodCalculator}?page=$page';
 
-
-      final response = await DioHelper.get(end_ponit: endpoint,
-          token:LoginCubit.loginModel?.token ?? LoginCubit.token,
-
-
+      final response = await DioHelper.get(
+        end_ponit: endpoint,
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
       );
+
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
+
+      // تحديث الصفحة الحالية وعدد الصفحات
+      currentPage = page;
+      numberOfPages = foodCalculatorModel?.paginationResult.numberOfPages ?? 1;
+
       emit(FoodCalculatorSuccess(foodCalculatorModel!));
     } catch (e) {
       print(e.toString());
@@ -38,14 +45,18 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
     }
   }
 
-  // دالة searchFoodCalculator لإجراء عملية البحث
+  // دالة للبحث عن البيانات
   Future<void> searchFoodCalculator({required String query}) async {
     emit(FoodCalculatorLoading());
 
     try {
       final String endpoint = '${EndPoints.FoodCalculator}?keyword=$query';
 
-      final response = await DioHelper.get(end_ponit: endpoint);
+      final response = await DioHelper.get(
+        end_ponit: endpoint,
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+      );
+
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
       emit(FoodCalculatorSuccess(foodCalculatorModel!));
     } catch (e) {

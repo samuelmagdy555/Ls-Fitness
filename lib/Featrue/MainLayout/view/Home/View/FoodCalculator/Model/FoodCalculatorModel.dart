@@ -10,11 +10,11 @@ class FoodCalculatorModel {
   late final PaginationResult paginationResult;
   late final List<Data> data;
 
-  FoodCalculatorModel.fromJson(Map<String, dynamic> json){
+  FoodCalculatorModel.fromJson(Map<String, dynamic> json) {
     results = json['results'];
     totalCount = json['totalCount'];
     paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class FoodCalculatorModel {
     _data['results'] = results;
     _data['totalCount'] = totalCount;
     _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -39,7 +39,7 @@ class PaginationResult {
   late final int numberOfPages;
   late final int nextPage;
 
-  PaginationResult.fromJson(Map<String, dynamic> json){
+  PaginationResult.fromJson(Map<String, dynamic> json) {
     currentPage = json['currentPage'];
     limit = json['limit'];
     numberOfPages = json['numberOfPages'];
@@ -93,6 +93,8 @@ class Data {
     required this.Copper,
     required this.Manganese,
     required this.Selenium,
+    required this.createdAt,
+    required this.updatedAt,
   });
   late final String id;
   late final MealCategory mealCategory;
@@ -129,6 +131,8 @@ class Data {
   late final double Copper;
   late final double Manganese;
   late final double? Selenium;
+  late final String createdAt;
+  late final String updatedAt;
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -136,39 +140,47 @@ class Data {
     image = json['image'];
     TitleAR = json['Title_AR'];
     TitleEN = json['Title_EN'];
-    quantities = json['quantities'];
-    Calories = json['Calories'];
 
-    Protein = (json['Protein'] is int) ? (json['Protein'] as int).toDouble() : json['Protein'];
-    Carbohydrates = (json['Carbohydrates'] is int) ? (json['Carbohydrates'] as int).toDouble() : json['Carbohydrates'];
-    Fats = (json['Fats'] is int) ? (json['Fats'] as int).toDouble() : json['Fats'];
-    Fiber = (json['Fiber'] is int) ? (json['Fiber'] as int).toDouble() : json['Fiber'];
-    Sugar = (json['Sugar'] is int) ? (json['Sugar'] as int).toDouble() : json['Sugar'];
-    VitaminA = (json['Vitamin_A'] is int) ? (json['Vitamin_A'] as int).toDouble() : json['Vitamin_A'];
-    VitaminB1 = (json['Vitamin_B1'] is int) ? (json['Vitamin_B1'] as int).toDouble() : json['Vitamin_B1'];
-    VitaminB2 = (json['Vitamin_B2'] is int) ? (json['Vitamin_B2'] as int).toDouble() : json['Vitamin_B2'];
-    VitaminB3 = (json['Vitamin_B3'] is int) ? (json['Vitamin_B3'] as int).toDouble() : json['Vitamin_B3'];
-    VitaminB5 = (json['Vitamin_B5'] is int) ? (json['Vitamin_B5'] as int).toDouble() : json['Vitamin_B5'];
-    VitaminB6 = (json['Vitamin_B6'] is int) ? (json['Vitamin_B6'] as int).toDouble() : json['Vitamin_B6'];
-    VitaminB7 = (json['Vitamin_B7'] is int) ? (json['Vitamin_B7'] as int).toDouble() : json['Vitamin_B7'];
-    VitaminB9 = (json['Vitamin_B9'] is int) ? (json['Vitamin_B9'] as int).toDouble() : json['Vitamin_B9'];
-    VitaminB12 = json['Vitamin_B12'];
-    VitaminC = (json['Vitamin_C'] is int) ? (json['Vitamin_C'] as int).toDouble() : json['Vitamin_C'];
-    VitaminD = json['Vitamin_D'];
-    VitaminE = (json['Vitamin_E'] is int) ? (json['Vitamin_E'] as int).toDouble() : json['Vitamin_E'];
-    VitaminK = (json['Vitamin_K'] is int) ? (json['Vitamin_K'] as int).toDouble() : json['Vitamin_K'];
-    Calcium = json['Calcium'];
-    Iron = (json['Iron'] is int) ? (json['Iron'] as int).toDouble() : json['Iron'];
-    Magnesium = json['Magnesium'];
-    Phosphorus = json['Phosphorus'];
-    Potassium = json['Potassium'];
-    Sodium = json['Sodium'];
-    Zinc = (json['Zinc'] is int) ? (json['Zinc'] as int).toDouble() : json['Zinc'];
-    Copper = (json['Copper'] is int) ? (json['Copper'] as int).toDouble() : json['Copper'];
-    Manganese = (json['Manganese'] is int) ? (json['Manganese'] as int).toDouble() : json['Manganese'];
-    Selenium = (json['Selenium'] is int) ? (json['Selenium'] as int).toDouble() : json['Selenium'];
+    // Handle the fields where a double might be passed
+    quantities = (json['quantities'] is int) ? json['quantities'] : (json['quantities'] as double).toInt();
+    Calories = (json['Calories'] is int) ? json['Calories'] : (json['Calories'] as double).toInt();
+
+    // For fields that can be either int or double, handle accordingly
+    Protein = json['Protein'] is double ? json['Protein'] : (json['Protein'] as int).toDouble();
+    Carbohydrates = json['Carbohydrates'] is double ? json['Carbohydrates'] : (json['Carbohydrates'] as int).toDouble();
+    Fats = json['Fats'] is double ? json['Fats'] : (json['Fats'] as int).toDouble();
+    Fiber = json['Fiber'] is double ? json['Fiber'] : (json['Fiber'] as int).toDouble();
+    Sugar = json['Sugar'] is double ? json['Sugar'] : (json['Sugar'] as int).toDouble();
+    VitaminA = json['Vitamin_A'] is double ? json['Vitamin_A'] : (json['Vitamin_A'] as int).toDouble();
+
+    VitaminB1 = json['Vitamin_B1'].toDouble();
+    VitaminB2 = json['Vitamin_B2'].toDouble();
+    VitaminB3 = json['Vitamin_B3'].toDouble();
+    VitaminB5 = json['Vitamin_B5']?.toDouble(); // nullable
+    VitaminB6 = json['Vitamin_B6'].toDouble();
+    VitaminB7 = json['Vitamin_B7']?.toDouble(); // nullable
+    VitaminB9 = json['Vitamin_B9']?.toDouble(); // nullable
+    VitaminB12 = json['Vitamin_B12'] is int ? json['Vitamin_B12'] : (json['Vitamin_B12'] as double).toInt();
+
+    VitaminC = json['Vitamin_C'] is double ? json['Vitamin_C'] : (json['Vitamin_C'] as int).toDouble();
+    VitaminD = json['Vitamin_D'] is int ? json['Vitamin_D'] : (json['Vitamin_D'] as double).toInt();
+    VitaminE = json['Vitamin_E'] is double ? json['Vitamin_E'] : (json['Vitamin_E'] as int).toDouble();
+    VitaminK = json['Vitamin_K'] is double ? json['Vitamin_K'] : (json['Vitamin_K'] as int).toDouble();
+
+    Calcium = json['Calcium'] is int ? json['Calcium'] : (json['Calcium'] as double).toInt();
+    Iron = json['Iron'] is double ? json['Iron'] : (json['Iron'] as int).toDouble();
+    Magnesium = json['Magnesium'] is int ? json['Magnesium'] : (json['Magnesium'] as double).toInt();
+    Phosphorus = json['Phosphorus'] is int ? json['Phosphorus'] : (json['Phosphorus'] as double).toInt();
+    Potassium = json['Potassium'] is int ? json['Potassium'] : (json['Potassium'] as double).toInt();
+    Sodium = json['Sodium'] is int ? json['Sodium'] : (json['Sodium'] as double).toInt();
+    Zinc = json['Zinc'] is double ? json['Zinc'] : (json['Zinc'] as int).toDouble();
+    Copper = json['Copper'] is double ? json['Copper'] : (json['Copper'] as int).toDouble();
+    Manganese = json['Manganese'] is double ? json['Manganese'] : (json['Manganese'] as int).toDouble();
+    Selenium = json['Selenium'] is double ? json['Selenium'] : (json['Selenium'] as int?)?.toDouble();
+
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
-
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
@@ -207,6 +219,8 @@ class Data {
     _data['Copper'] = Copper;
     _data['Manganese'] = Manganese;
     _data['Selenium'] = Selenium;
+    _data['createdAt'] = createdAt;
+    _data['updatedAt'] = updatedAt;
     return _data;
   }
 }
@@ -214,24 +228,28 @@ class Data {
 class MealCategory {
   MealCategory({
     required this.id,
-    required this.TitleAR,
-    required this.TitleEN,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
   });
   late final String id;
-  late final String TitleAR;
-  late final String TitleEN;
+  late final String name;
+  late final String createdAt;
+  late final String updatedAt;
 
-  MealCategory.fromJson(Map<String, dynamic> json){
+  MealCategory.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
-    TitleAR = json['Title_AR'];
-    TitleEN = json['Title_EN'];
+    name = json['name'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['_id'] = id;
-    _data['Title_AR'] = TitleAR;
-    _data['Title_EN'] = TitleEN;
+    _data['name'] = name;
+    _data['createdAt'] = createdAt;
+    _data['updatedAt'] = updatedAt;
     return _data;
   }
 }
