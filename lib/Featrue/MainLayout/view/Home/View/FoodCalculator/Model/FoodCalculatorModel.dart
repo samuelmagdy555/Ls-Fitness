@@ -11,10 +11,10 @@ class FoodCalculatorModel {
   late final List<Data> data;
 
   FoodCalculatorModel.fromJson(Map<String, dynamic> json) {
-    results = json['results'];
-    totalCount = json['totalCount'];
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    results = json['results'] ?? 0;
+    totalCount = json['totalCount'] ?? 0;
+    paginationResult = PaginationResult.fromJson(json['paginationResult'] ?? {});
+    data = List.from(json['data'] ?? []).map((e) => Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -40,10 +40,10 @@ class PaginationResult {
   late final int nextPage;
 
   PaginationResult.fromJson(Map<String, dynamic> json) {
-    currentPage = json['currentPage'];
-    limit = json['limit'];
-    numberOfPages = json['numberOfPages'];
-    nextPage = json['nextPage'];
+    currentPage = json['currentPage'] ?? 0;
+    limit = json['limit'] ?? 0;
+    numberOfPages = json['numberOfPages'] ?? 0;
+    nextPage = json['nextPage'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -109,77 +109,69 @@ class Data {
   late final double? Fiber;
   late final double? Sugar;
   late final double? VitaminA;
-  late final double VitaminB1;
-  late final double VitaminB2;
-  late final double VitaminB3;
+  late final double? VitaminB1;
+  late final double? VitaminB2;
+  late final double? VitaminB3;
   late final double? VitaminB5;
-  late final double VitaminB6;
+  late final double? VitaminB6;
   late final double? VitaminB7;
   late final double? VitaminB9;
-  late final int VitaminB12;
+  late final int? VitaminB12;
   late final double? VitaminC;
-  late final int VitaminD;
+  late final int? VitaminD;
   late final double? VitaminE;
   late final double? VitaminK;
-  late final int Calcium;
-  late final double Iron;
-  late final int Magnesium;
-  late final int Phosphorus;
-  late final int Potassium;
-  late final int Sodium;
-  late final double Zinc;
-  late final double Copper;
-  late final double Manganese;
+  late final int? Calcium;
+  late final double? Iron;
+  late final int? Magnesium;
+  late final int? Phosphorus;
+  late final int? Potassium;
+  late final int? Sodium;
+  late final double? Zinc;
+  late final double? Copper;
+  late final double? Manganese;
   late final double? Selenium;
   late final String createdAt;
   late final String updatedAt;
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    mealCategory = MealCategory.fromJson(json['mealCategory']);
-    image = json['image'];
-    TitleAR = json['Title_AR'];
-    TitleEN = json['Title_EN'];
-
-    // Handle the fields where a double might be passed
-    quantities = (json['quantities'] is int) ? json['quantities'] : (json['quantities'] as double).toInt();
-    Calories = (json['Calories'] is int) ? json['Calories'] : (json['Calories'] as double).toInt();
-
-    // For fields that can be either int or double, handle accordingly
-    Protein = json['Protein'] is double ? json['Protein'] : (json['Protein'] as int).toDouble();
-    Carbohydrates = json['Carbohydrates'] is double ? json['Carbohydrates'] : (json['Carbohydrates'] as int).toDouble();
-    Fats = json['Fats'] is double ? json['Fats'] : (json['Fats'] as int).toDouble();
-    Fiber = json['Fiber'] is double ? json['Fiber'] : (json['Fiber'] as int).toDouble();
-    Sugar = json['Sugar'] is double ? json['Sugar'] : (json['Sugar'] as int).toDouble();
-    VitaminA = json['Vitamin_A'] is double ? json['Vitamin_A'] : (json['Vitamin_A'] as int).toDouble();
-
-    VitaminB1 = json['Vitamin_B1'].toDouble();
-    VitaminB2 = json['Vitamin_B2'].toDouble();
-    VitaminB3 = json['Vitamin_B3'].toDouble();
-    VitaminB5 = json['Vitamin_B5']?.toDouble(); // nullable
-    VitaminB6 = json['Vitamin_B6'].toDouble();
-    VitaminB7 = json['Vitamin_B7']?.toDouble(); // nullable
-    VitaminB9 = json['Vitamin_B9']?.toDouble(); // nullable
-    VitaminB12 = json['Vitamin_B12'] is int ? json['Vitamin_B12'] : (json['Vitamin_B12'] as double).toInt();
-
-    VitaminC = json['Vitamin_C'] is double ? json['Vitamin_C'] : (json['Vitamin_C'] as int).toDouble();
-    VitaminD = json['Vitamin_D'] is int ? json['Vitamin_D'] : (json['Vitamin_D'] as double).toInt();
-    VitaminE = json['Vitamin_E'] is double ? json['Vitamin_E'] : (json['Vitamin_E'] as int).toDouble();
-    VitaminK = json['Vitamin_K'] is double ? json['Vitamin_K'] : (json['Vitamin_K'] as int).toDouble();
-
-    Calcium = json['Calcium'] is int ? json['Calcium'] : (json['Calcium'] as double).toInt();
-    Iron = json['Iron'] is double ? json['Iron'] : (json['Iron'] as int).toDouble();
-    Magnesium = json['Magnesium'] is int ? json['Magnesium'] : (json['Magnesium'] as double).toInt();
-    Phosphorus = json['Phosphorus'] is int ? json['Phosphorus'] : (json['Phosphorus'] as double).toInt();
-    Potassium = json['Potassium'] is int ? json['Potassium'] : (json['Potassium'] as double).toInt();
-    Sodium = json['Sodium'] is int ? json['Sodium'] : (json['Sodium'] as double).toInt();
-    Zinc = json['Zinc'] is double ? json['Zinc'] : (json['Zinc'] as int).toDouble();
-    Copper = json['Copper'] is double ? json['Copper'] : (json['Copper'] as int).toDouble();
-    Manganese = json['Manganese'] is double ? json['Manganese'] : (json['Manganese'] as int).toDouble();
-    Selenium = json['Selenium'] is double ? json['Selenium'] : (json['Selenium'] as int?)?.toDouble();
-
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    id = json['_id'] ?? '';
+    mealCategory = MealCategory.fromJson(json['mealCategory'] ?? {});
+    image = json['image'] ?? '';
+    TitleAR = json['Title_AR'] ?? '';
+    TitleEN = json['Title_EN'] ?? '';
+    quantities = (json['quantities'] ?? 0).toInt();
+    Calories = (json['Calories'] ?? 0).toInt();
+    Protein = (json['Protein'] as num?)?.toDouble();
+    Carbohydrates = (json['Carbohydrates'] as num?)?.toDouble();
+    Fats = (json['Fats'] as num?)?.toDouble();
+    Fiber = (json['Fiber'] as num?)?.toDouble();
+    Sugar = (json['Sugar'] as num?)?.toDouble();
+    VitaminA = (json['Vitamin_A'] as num?)?.toDouble();
+    VitaminB1 = (json['Vitamin_B1'] as num?)?.toDouble();
+    VitaminB2 = (json['Vitamin_B2'] as num?)?.toDouble();
+    VitaminB3 = (json['Vitamin_B3'] as num?)?.toDouble();
+    VitaminB5 = (json['Vitamin_B5'] as num?)?.toDouble();
+    VitaminB6 = (json['Vitamin_B6'] as num?)?.toDouble();
+    VitaminB7 = (json['Vitamin_B7'] as num?)?.toDouble();
+    VitaminB9 = (json['Vitamin_B9'] as num?)?.toDouble();
+    VitaminB12 = (json['Vitamin_B12'] as num?)?.toInt();
+    VitaminC = (json['Vitamin_C'] as num?)?.toDouble();
+    VitaminD = (json['Vitamin_D'] as num?)?.toInt();
+    VitaminE = (json['Vitamin_E'] as num?)?.toDouble();
+    VitaminK = (json['Vitamin_K'] as num?)?.toDouble();
+    Calcium = (json['Calcium'] as num?)?.toInt();
+    Iron = (json['Iron'] as num?)?.toDouble();
+    Magnesium = (json['Magnesium'] as num?)?.toInt();
+    Phosphorus = (json['Phosphorus'] as num?)?.toInt();
+    Potassium = (json['Potassium'] as num?)?.toInt();
+    Sodium = (json['Sodium'] as num?)?.toInt();
+    Zinc = (json['Zinc'] as num?)?.toDouble();
+    Copper = (json['Copper'] as num?)?.toDouble();
+    Manganese = (json['Manganese'] as num?)?.toDouble();
+    Selenium = (json['Selenium'] as num?)?.toDouble();
+    createdAt = json['createdAt'] ?? '';
+    updatedAt = json['updatedAt'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -227,15 +219,15 @@ class Data {
 
 class MealCategory {
   MealCategory({
-    required this.id,
-    required this.name,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.name,
+    this.createdAt,
+    this.updatedAt,
   });
-  late final String id;
-  late final String name;
-  late final String createdAt;
-  late final String updatedAt;
+  late final String? id;
+  late final String? name;
+  late final String? createdAt;
+  late final String? updatedAt;
 
   MealCategory.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
