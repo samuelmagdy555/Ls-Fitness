@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Shifts.dart';
 
-class WhereDidYouLive extends StatefulWidget {
-  const WhereDidYouLive({super.key});
+class Contact extends StatefulWidget {
+  const Contact({super.key});
 
   @override
-  State<WhereDidYouLive> createState() => _WhereDidYouLiveState();
+  State<Contact> createState() => _ContactState();
 }
 
-class _WhereDidYouLiveState extends State<WhereDidYouLive> {
+class _ContactState extends State<Contact> {
   // إنشاء TextEditingController للتحكم في النص
   final TextEditingController _nationalityController = TextEditingController();
   bool isButtonEnabled = false;
@@ -45,7 +45,7 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
             left: 0,
             right: 0,
             child: Image.asset(
-              'assets/images/Nationalty.png',
+              'assets/images/Contact.png',
               width: size.width,
               height: size.height * 0.4,
               fit: BoxFit.cover,
@@ -78,7 +78,7 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                     children: [
                       // السؤال
                       Text(
-                        "Where do you live?",
+                        "Your Phone For Contact?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: size.width * 0.06,
@@ -90,13 +90,13 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                       // حقل النص لإدخال الجنسية
                       TextFormField(
                         controller: _nationalityController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
                           filled: true,
                           fillColor: Colors.grey[100],
-                          prefixIcon: Icon(Icons.flag, color: Colors.blue),
                         ),
                       ),
                       SizedBox(height: size.height * 0.2),
@@ -104,7 +104,7 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                       ElevatedButton(
                         onPressed: isButtonEnabled
                             ? () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact()));
+                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ShiftsPage()));
                         }
                             : null,
                         style: ElevatedButton.styleFrom(

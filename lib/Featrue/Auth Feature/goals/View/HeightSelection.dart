@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Body%20dimensions%20measurement.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -18,7 +19,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -44,7 +45,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.02),
           Text(
@@ -52,7 +53,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.07,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.01),
           Text(
@@ -163,7 +164,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
                                     ? FontWeight.bold
                                     : FontWeight.normal,
                                 color: height == selectedHeightCm
-                                    ? Colors.white
+                                    ? Colors.black
                                     : Colors.grey.shade400,
                               ),
                             ),
@@ -188,7 +189,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => WeightSelectionPage(),
+                    builder: (context) => BodyMeasurementsPage(),
                   ),
                 );
               },

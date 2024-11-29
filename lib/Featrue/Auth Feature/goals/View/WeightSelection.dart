@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/HeightSelection.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
@@ -28,7 +29,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -54,7 +55,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.02),
           Text(
@@ -62,7 +63,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.07,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.04),
           Row(
@@ -169,7 +170,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
                               ? FontWeight.bold
                               : FontWeight.normal,
                           color: isSelected
-                              ? Colors.white
+                              ? Colors.black
                               : Colors.grey.shade400,
                         ),
                       );
@@ -196,7 +197,7 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TargetWeightSelectionPage(),
+                    builder: (context) => HeightSelectionPage(),
                   ),
                 );
               },
