@@ -1,59 +1,90 @@
 import 'package:flutter/material.dart';
 
-class MyWidget extends StatefulWidget {
-  @override
-  _MyWidgetState createState() => _MyWidgetState();
-}
 
-class _MyWidgetState extends State<MyWidget> with SingleTickerProviderStateMixin {
-  bool _isFlipped = false;
-  late AnimationController _controller;
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-  }
+
+class VerticalTimeline extends StatelessWidget {
+  final List<String> steps = ["PATTERN", "GOAL", "USERS", "SUCCESS", "RESOURCES"];
+  final List<bool> completed = [true, true, true, false, false];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Flip Image')),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              _isFlipped = !_isFlipped;
-              if (_isFlipped) {
-                _controller.forward();
-              } else {
-                _controller.reverse();
-              }
-            });
-          },
-          child: AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            transitionBuilder: (child, animation) {
-              return RotationTransition(
-                turns: Tween(begin: 0.0, end: 0.5).animate(animation),
-                child: child,
-              );
-            },
-            child: _isFlipped
-                ? Image.asset('assets/images/Person.png') // الصورة الخلفية
-                : Image.asset('assets/images/Person back.png'), // الصورة الأمامية
-          ),
-        ),
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(steps.length, (index) {
+          return TimelineStep(
+            title: index.toString(),
+            isCompleted: completed[index],
+            isLast: index == steps.length - 1, isNextCompleted: completed[index],
+          );
+        }),
       ),
     );
   }
+}
+
+class TimelineStep extends StatelessWidget {
+  final String title;
+  final bool isCompleted;
+  final bool isNextCompleted;
+  final bool isLast;
+
+  const TimelineStep({
+    required this.title,
+    required this.isCompleted,
+    required this.isNextCompleted,
+    required this.isLast,
+  });
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            // Circle
+            Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isCompleted ? Colors.purple : Colors.grey,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                (isCompleted ? title[0] : (title[0])).toUpperCase(),
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
+            // Line below the circle (if not last)
+            if (!isLast)
+              Container(
+                width: 4,
+                height: 50,
+                color: isNextCompleted ? Colors.purple : Colors.grey,
+              ),
+          ],
+        ),
+        const SizedBox(width: 16),
+        // Title
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(top: 5),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                color: isCompleted ? Colors.black : Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
