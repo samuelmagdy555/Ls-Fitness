@@ -1,26 +1,29 @@
 class FoodCalculatorFilterModel {
   FoodCalculatorFilterModel({
     required this.results,
-    required this.totlaCount,
+    required this.totalCount,
     required this.paginationResult,
     required this.data,
   });
   late final int results;
-  late final int totlaCount;
+  late final int totalCount;
   late final PaginationResult paginationResult;
   late final List<Data> data;
 
   FoodCalculatorFilterModel.fromJson(Map<String, dynamic> json) {
-    results = (json['results'] as num).toInt(); // Cast to num first to handle double and int
-    totlaCount = (json['totlaCount'] as num).toInt();
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    results = (json['results'] as num?)?.toInt() ?? 0; // Safely handle null values
+    totalCount = (json['totalCount'] as num?)?.toInt() ?? 0;
+    paginationResult = PaginationResult.fromJson(json['paginationResult'] ?? {});
+    data = (json['data'] as List<dynamic>?)
+        ?.map((e) => Data.fromJson(e))
+        .toList() ??
+        [];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['results'] = results;
-    _data['totlaCount'] = totlaCount;
+    _data['totalCount'] = totalCount;
     _data['paginationResult'] = paginationResult.toJson();
     _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
@@ -38,9 +41,9 @@ class PaginationResult {
   late final int numberOfPages;
 
   PaginationResult.fromJson(Map<String, dynamic> json) {
-    currentPage = (json['currentPage'] as num).toInt();
-    limit = (json['limit'] as num).toInt();
-    numberOfPages = (json['numberOfPages'] as num).toInt();
+    currentPage = (json['currentPage'] as num?)?.toInt() ?? 0; // Default to 0 if null
+    limit = (json['limit'] as num?)?.toInt() ?? 0;
+    numberOfPages = (json['numberOfPages'] as num?)?.toInt() ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -63,9 +66,9 @@ class Data {
   late final String TitleEN;
 
   Data.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    TitleAR = json['Title_AR'];
-    TitleEN = json['Title_EN'];
+    id = json['_id'] ?? ''; // Default to empty string if null
+    TitleAR = json['Title_AR'] ?? '';
+    TitleEN = json['Title_EN'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

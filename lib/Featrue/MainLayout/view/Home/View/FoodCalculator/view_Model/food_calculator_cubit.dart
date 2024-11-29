@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
@@ -26,7 +27,7 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
 
 
       final response = await DioHelper.get(end_ponit: endpoint,
-          token:LoginCubit.loginModel?.token ?? LoginCubit.token,
+        token:LoginCubit.loginModel?.token ?? LoginCubit.token,
 
 
       );

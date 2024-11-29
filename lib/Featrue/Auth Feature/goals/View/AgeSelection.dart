@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/gender.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
@@ -13,6 +14,7 @@ class AgeSelectionPage extends StatefulWidget {
 
 class _AgeSelectionPageState extends State<AgeSelectionPage> {
   int selectedAge = 20; // Default starting age
+  bool isAgeSelected = false; // Track if age is selected
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -45,24 +47,24 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
           Text(
             'Body Data',
             style: TextStyle(
-                fontSize: screenWidth * 0.05,
+                fontSize: screenWidth * 0.07,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.02),
           // Age selection header
           Text(
             'Your age',
             style: TextStyle(
-                fontSize: screenWidth * 0.07,
+                fontSize: screenWidth * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.01),
           Text(
             'Age information helps us more accurately\nassess your metabolic level',
             style: TextStyle(
-                fontSize: screenWidth * 0.04, color: Colors.grey.shade500),
+                fontSize: screenWidth * 0.04, color: Colors.black),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: screenHeight * 0.05),
@@ -77,6 +79,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 setState(() {
                   selectedAge = index + 14; // Assuming age starts from 14
                   GoalsCubit.get(context).setAge(selectedAge); // Store age in cubit
+                  isAgeSelected = true; // Mark age as selected
                 });
               },
               childDelegate: ListWheelChildBuilderDelegate(
@@ -91,7 +94,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                             : screenWidth * 0.05,
                         fontWeight: age == selectedAge ? FontWeight.bold : FontWeight.normal,
                         color: age == selectedAge
-                            ? Colors.white
+                            ? Colors.black
                             : Colors.grey.shade400,
                       ),
                     ),
@@ -105,14 +108,16 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
           Padding(
             padding: EdgeInsets.only(bottom: screenHeight * 0.05),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: isAgeSelected
+                  ? () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HeightSelectionPage(),
+                    builder: (context) => Gender(),
                   ),
                 );
-              },
+              }
+                  : null, // Disable button if age is not selected
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsets.symmetric(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/nationalty.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
@@ -19,7 +20,7 @@ class _GenderState extends State<Gender> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
@@ -39,7 +40,7 @@ class _GenderState extends State<Gender> {
               style: TextStyle(
                   fontSize: screenWidth * 0.07,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white),
+                  color: Colors.black),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: screenHeight * 0.10),
@@ -71,13 +72,13 @@ class _GenderState extends State<Gender> {
                   ? () {
                 GoalsCubit.get(context).setGender(selectedGender!);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=>AgeSelectionPage())
+                    MaterialPageRoute(builder: (context)=>NationaltyPage())
                 );
               }
                   : null,
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(
-                    vertical: screenHeight * 0.02, horizontal: screenWidth * 0.3), backgroundColor: selectedGender != null ? Colors.white : Colors.black,
+                    vertical: screenHeight * 0.02, horizontal: screenWidth * 0.3), backgroundColor: selectedGender != null ? Colors.black : Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -86,7 +87,7 @@ class _GenderState extends State<Gender> {
                 'CONTINUE',
                 style: TextStyle(
                   fontSize: screenWidth * 0.05,
-                  color: selectedGender != null ? Colors.black : Colors.white,
+                  color: selectedGender != null ? Colors.white : Colors.white,
                 ),
               ),
             ),

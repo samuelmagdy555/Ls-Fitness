@@ -241,6 +241,87 @@
   "train_experience": "Train and live the new experience of exercising at home",
   "social_login_facebook": "Login with Facebook",
   "social_login_google": "Login with Google",
-  "social_login_apple": "Login with Apple"
+  "social_login_apple": "Login with Apple",
+
+
+  "food_calculator" : "Food Calculator",
+
+  "nitration_List" : {
+    "calories": "calories",
+    "proteins": "proteins",
+    "carbohydrates": "carbohydrates",
+    "fats": "fats",
+    "fibers": "fibers",
+    "sugar": "sugar",
+    "VitaminA": "VitaminA",
+    "VitaminB1": "VitaminB1",
+    "VitaminB2": "VitaminB2",
+    "VitaminB3": "VitaminB3",
+    "VitaminB5": "VitaminB5",
+    "VitaminB6": "VitaminB6",
+    "VitaminB7": "VitaminB7",
+    "VitaminB9": "VitaminB9",
+    "VitaminB12": "VitaminB12",
+    "VitaminC": "VitaminC",
+    "VitaminD": "VitaminD",
+    "VitaminE": "VitaminE",
+    "VitaminK": "VitaminK",
+    "calcium": "calcium",
+    "iron": "iron",
+    "magnesium": "magnesium",
+    "Phosphorus": "Phosphorus",
+    "potassium": "potassium",
+    "sodium": "sodium",
+    "zinc": "zinc",
+    "copper": "copper",
+    "manganese": "manganese",
+    "selenium": "selenium"
+  },
+
+  "Alarms": "Alarms",
+  "Meals": "Meals",
+  "Supplement": "Supplement",
+  "Workout": "Workout",
+  "Vitamin_Alarm1" : " Vitamin ",
+  "Creatine" : "Creatine",
+  "Meals_Alarm" : {
+    "Breakfast": "Breakfast",
+    "Lunch" : "Lunch",
+    "Dinner" : "Dinner",
+    "Training": "Training"
+  },
+  "Supplement_Alarm": {
+    "protein" : "protein",
+    "Carbs": "Carbs",
+    "PreWorkout" : "PreWorkout",
+    "BCAAS":"BCAAS",
+    "omega": "Omega",
+    "Vitamins": "Vitamins",
+    "Glutathione" : "Glutathione"
+  },
+
+  "Sleep_Alarm" : {
+    "WakeUp" : "Wake Up",
+    "Sleep" : "Sleep"
+  },
+
+  "WorkOut_Alarm" : {
+    "Work Out" : "Workout"
+  },
+
+  "Vitamin_Alarm": {
+    "Vitamin_A": "Vitamin A",
+    "Vitamin_B": "Vitamin B Complex",
+    "Vitamin_C": "Vitamin C",
+    "Vitamin_D": "Vitamin D",
+    "Vitamin_E": "Vitamin E",
+    "Omega3": "Omega3"
+  }
+
+
+
+
+
+
 
 }
