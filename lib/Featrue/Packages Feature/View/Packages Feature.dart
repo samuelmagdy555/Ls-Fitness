@@ -1,261 +1,200 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import 'Widget/Packages Card.dart';
-
-class PackagesView extends StatefulWidget {
-  const PackagesView({super.key});
-
+class SubscriptionPage extends StatefulWidget {
   @override
-  State<PackagesView> createState() => _PackagesViewState();
+  _SubscriptionPageState createState() => _SubscriptionPageState();
 }
 
-class _PackagesViewState extends State<PackagesView>
-    with SingleTickerProviderStateMixin {
-  late final PageController _pageController1;
-  late final PageController _pageController2;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController1 = PageController(
-      initialPage: 0,
-      viewportFraction: 0.85,
-    );
-    _pageController2 = PageController(
-      initialPage: 0,
-      viewportFraction: 0.85,
-    );
-
-    _pageController1.addListener(() {
-      if (_pageController1.hasClients && _pageController2.hasClients) {
-        _pageController2.jumpTo(_pageController1.offset,);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _pageController1.dispose();
-    _pageController2.dispose();
-    super.dispose();
-  }
+class _SubscriptionPageState extends State<SubscriptionPage> {
+  int selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
+
     return Scaffold(
-      backgroundColor: Colors.white.withOpacity(.9),
+      backgroundColor: Colors.black,
       body: Column(
         children: [
-          Expanded(
-              child: SizedBox(
-            child: PageView.builder(
-              controller: _pageController2,
-              itemCount: 5,
-              physics: NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(20.0), child: PricingCard()),
-            ),
-          )),
-          Container(
-            height: height * .35,
+          Image(
+            image: AssetImage('assets/images/Backage Logo1.jpeg'),
+            height: height * .275,
             width: width,
-            decoration: BoxDecoration(
+            fit: BoxFit.fill,
+          ),
+          SizedBox(height: 10),
+          Text(
+            "Get Unlimited To Your Personalized Workout Plan",
+            textAlign: TextAlign.center,
+            style: TextStyle(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(35), topRight: Radius.circular(35)),
+              fontSize: width * .05,
+              fontWeight: FontWeight.bold,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      height: height * .0085,
-                      width: width * .075,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.black38),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                    child: Text(
-                      "Choose a plan",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: width * .04,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * .015,
-                  ),
-                  SizedBox(
-                    height: height * .175,
-                    child: PageView.builder(
-                      allowImplicitScrolling: true,
-                      controller: _pageController1,
-                      itemCount: 5,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: width * .8,
-                          padding: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.deepPurpleAccent,
-                                  width: width * .002),
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Monthly",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: width * .04,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: width * .02,
-                                      ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
-                                        decoration: BoxDecoration(
-                                            color: Colors.deepPurpleAccent,
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Center(
-                                          child: Text(
-                                            'New',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: width * .03),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * .01,
-                                  ),
-                                  Text(
-                                    "Selver Plan",
-                                    style: TextStyle(
-                                        color: Colors.black26,
-                                        fontSize: width * .04,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "1 month",
-                                    style: TextStyle(
-                                        color: Colors.black26,
-                                        fontSize: width * .04,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "125\$",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: width * .04,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: height * .01,
-                                  ),
-                                  Text(
-                                    "For 6 Months",
-                                    style: TextStyle(
-                                        color: Colors.black26,
-                                        fontSize: width * .04,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "Save 25\$",
-                                    style: TextStyle(
-                                        color: Colors.black26,
-                                        fontSize: width * .04,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * .015,
-                  ),
-                  Container(
-                    width: width,
-                    height: height * .06,
-                    decoration: BoxDecoration(
-                        color: Colors.deepPurpleAccent,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: Center(
-                      child: Text(
-                        'Subscribe',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: width * .04),
-                      ),
-                    ),
-                  )
-                ],
+          ),
+          SizedBox(height: 70),
+          OverflowBar(
+            overflowAlignment: OverflowBarAlignment.center,
+            alignment: MainAxisAlignment.center,
+            overflowDirection: VerticalDirection.up,
+            overflowSpacing: 10,
+            spacing: 10,
+            children: [
+              _buildOptionCard("1\n Month", 0, "QAR69.99"),
+              _buildOptionCard("12\n Months", 1, "QAR12.49"),
+              _buildOptionCard("6\n  Months", 2, "QAR16.66"),
+            ],
+          ),
+          SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Iconsax.shield_tick5,
+                color: Colors.greenAccent,
               ),
+              Text(
+                " No Commitments, Cancel Anytime",
+                style:
+                TextStyle(color: Colors.greenAccent, fontSize: width * .03),
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            iconAlignment: IconAlignment.end,
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.yellow,
+                iconColor: Colors.black,
+                fixedSize: Size(
+                  width,
+                  height * .075,
+                )),
+            onPressed: () {
+              print("Continue pressed for index $selectedIndex");
+            },
+            child: Text(
+              "CONTINUE",
+              style: TextStyle(color: Colors.black),
             ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            textAlign: TextAlign.center,
+            selectedIndex == 0
+                ? 'Total QAR 69.99 / month , Cancel Anytime \n Terms & Conditions'
+                : selectedIndex == 1
+                ? 'Total QAR 149.99 / year , Cancel Anytime \n Terms & Conditions'
+                : 'Total QAR 99.96 / year , Cancel Anytime \n Terms & Conditions',
+            style: TextStyle(color: Colors.white60, fontSize: width * .03),
           )
         ],
       ),
     );
   }
 
-  Widget MyRow(String title, IconData icon, double height, double width) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12.0,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-                height: height * .1,
-                width: width * .4,
-                child: Center(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17.5,
-                        fontWeight: FontWeight.bold),
-                  ),
+  Widget _buildOptionCard(
+      String title,
+      int index,
+      String price,
+      ) {
+    final width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.sizeOf(context).height;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            height: height * .03,
+            width: width * .29,
+            decoration: BoxDecoration(
+                color: selectedIndex != index ? Colors.black : Colors.yellow,
+                border: Border.all(
+                  color: selectedIndex == index
+                      ? Colors.yellow
+                      : Colors.transparent,
+                  width: selectedIndex == index ? 4 : 1,
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 )),
-            Icon(
-              icon,
-              color: Colors.green,
-            )
-          ],
-        ),
-      );
+            child: Center(
+              child: Text(
+                textAlign: TextAlign.center,
+                index == 0
+                    ? "10% OFF"
+                    : index == 1
+                    ? "18% OFF"
+                    : "13% OFF",
+                style: TextStyle(
+                    color: selectedIndex == index ? Colors.black : Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            width: width * .29,
+            padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+            decoration: BoxDecoration(
+                color: selectedIndex == index ? Colors.white : Colors.black,
+                border: Border.all(
+                  color: selectedIndex == index ? Colors.yellow : Colors.grey,
+                  width: selectedIndex == index ? 4 : 1,
+                ),
+                borderRadius: selectedIndex == index
+                    ? BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                )
+                    : null),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: selectedIndex == index ? Colors.black : Colors.white,
+                    fontSize: width * .04,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Divider(),
+                SizedBox(height: 10),
+                Text(
+                  price,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color:
+                      selectedIndex == index ? Colors.black : Colors.white,
+                      fontSize: width * .04,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Per month",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color:
+                      selectedIndex == index ? Colors.black : Colors.white,
+                      fontSize: width * .025,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

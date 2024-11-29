@@ -213,7 +213,7 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
-        home: LoginCubit.token == ''? const SplashScreen() :  const MainLayout(),
+        home: LoginCubit.token == ''? const SplashScreen() :   SubscriptionScreen(),
       ),
     );
   }

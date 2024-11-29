@@ -14,6 +14,8 @@ class TodayWorkOutView extends StatefulWidget {
 
 class _TodayWorkOutViewState extends State<TodayWorkOutView> {
   bool? value1 = false;
+  bool? value2 = false;
+  bool? value3 = false;
   final AudioPlayer audioPlayer = AudioPlayer();
   final List<String> steps = ["PATTERN", "GOAL", "USERS", "SUCCESS", "RESOURCES"];
   final List<bool> completed = [true, true, true, false, false];
@@ -216,17 +218,28 @@ class _TodayWorkOutViewState extends State<TodayWorkOutView> {
                   SizedBox(
                     height: height * .05,
                   ),
-                  Align(
-                    alignment: Alignment.center,
-                    child:
-                    Text(
-                      '2 minutes of rest',
-                      style: TextStyle(
-                        color: Colors.black38,
-                        fontSize: width * 0.04,
-                        fontWeight: FontWeight.bold,
+                  Container(
+                    height: height*.05,
+                    width: width ,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child:
+                      Text(
+                        '2 minutes of rest',
+                        style: TextStyle(
+                          color: Colors.black38,
+                          fontSize: width * 0.04,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: height * .015,
                   ),
 
                   Row(
@@ -245,15 +258,15 @@ class _TodayWorkOutViewState extends State<TodayWorkOutView> {
                       Checkbox(
 
                           activeColor: Colors.green,
-                          value: value1, onChanged: (_){
+                          value: value3, onChanged: (_){
                         setState(() {
                           if (_ == false)
                           {
-                            value1 = false;
+                            value3 = false;
                           }
                           else
                           {
-                            value1 = true;
+                            value3 = true;
                             _playAudio();
 
                           }
@@ -461,15 +474,15 @@ class _TodayWorkOutViewState extends State<TodayWorkOutView> {
                       Checkbox(
 
                           activeColor: Colors.green,
-                          value: value1, onChanged: (_){
+                          value: value2, onChanged: (_){
                         setState(() {
                           if (_ == false)
                           {
-                            value1 = false;
+                            value2 = false;
                           }
                           else
                           {
-                            value1 = true;
+                            value2 = true;
                             _playAudio();
 
                           }
