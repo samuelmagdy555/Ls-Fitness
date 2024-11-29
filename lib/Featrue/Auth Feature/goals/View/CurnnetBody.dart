@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TargetWegiht.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'experience.dart';
@@ -32,7 +33,7 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -58,7 +59,7 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
             style: TextStyle(
               fontSize: screenWidth * 0.05,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           SizedBox(height: screenHeight * 0.02),
@@ -68,7 +69,7 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
             style: TextStyle(
               fontSize: screenWidth * 0.06,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           SizedBox(height: screenHeight * 0.02),
@@ -104,7 +105,7 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: screenWidth * 0.04,
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),
@@ -118,7 +119,7 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ExperiencePage(),
+                    builder: (context) => TargetWeightSelectionPage(),
                   ),
                 );
               },

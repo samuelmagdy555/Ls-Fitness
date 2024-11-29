@@ -9,14 +9,12 @@ class Contact extends StatefulWidget {
 }
 
 class _ContactState extends State<Contact> {
-  // إنشاء TextEditingController للتحكم في النص
   final TextEditingController _nationalityController = TextEditingController();
   bool isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    // إضافة مستمع لتحديث حالة الزر عند تغيير النص
     _nationalityController.addListener(() {
       setState(() {
         isButtonEnabled = _nationalityController.text.isNotEmpty;
@@ -26,7 +24,6 @@ class _ContactState extends State<Contact> {
 
   @override
   void dispose() {
-    // التأكد من التخلص من الـ controller عند انتهاء الصفحة
     _nationalityController.dispose();
     super.dispose();
   }
@@ -39,7 +36,6 @@ class _ContactState extends State<Contact> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // صورة الخلفية
           Positioned(
             top: size.height * 0.027,
             left: 0,
@@ -51,10 +47,9 @@ class _ContactState extends State<Contact> {
               fit: BoxFit.cover,
             ),
           ),
-          // محتويات الصفحة
           Column(
             children: [
-              SizedBox(height: size.height * 0.4), // ترك مساحة للصورة
+              SizedBox(height: size.height * 0.4),
               Expanded(
                 child: Container(
                   padding: EdgeInsets.symmetric(
@@ -73,60 +68,64 @@ class _ContactState extends State<Contact> {
                       ),
                     ],
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // السؤال
-                      Text(
-                        "Your Phone For Contact?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: size.width * 0.06,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.03),
-                      // حقل النص لإدخال الجنسية
-                      TextFormField(
-                        controller: _nationalityController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          filled: true,
-                          fillColor: Colors.grey[100],
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.2),
-                      // زر متابعة
-                      ElevatedButton(
-                        onPressed: isButtonEnabled
-                            ? () {
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ShiftsPage()));
-                        }
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.3, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          backgroundColor: isButtonEnabled
-                              ? Colors.black
-                              : Colors.grey,
-                        ),
-                        child: Text(
-                          "Continue",
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // السؤال
+                        Text(
+                          "Your Phone For Contact?",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: size.width * 0.045,
-                            color: Colors.white,
+                            fontSize: size.width * 0.06,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: size.height * 0.03),
+                        TextFormField(
+                          controller: _nationalityController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[100],
+                          ),
+                        ),
+                        SizedBox(height: size.height * 0.2),
+                        // زر متابعة
+                        ElevatedButton(
+                          onPressed: isButtonEnabled
+                              ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShiftsPage()));
+                          }
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.3, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            backgroundColor: isButtonEnabled
+                                ? Colors.black
+                                : Colors.grey,
+                          ),
+                          child: Text(
+                            "Continue",
+                            style: TextStyle(
+                              fontSize: size.width * 0.045,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

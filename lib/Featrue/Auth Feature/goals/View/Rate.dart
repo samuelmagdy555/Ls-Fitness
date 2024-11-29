@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/First_Goal_Screen.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'FitnessEquipment.dart';
@@ -18,7 +19,7 @@ class _RateFitnessPageState extends State<RateFitnessPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
 
       body: SafeArea(
         child: Column(
@@ -39,7 +40,7 @@ class _RateFitnessPageState extends State<RateFitnessPage> {
               style: TextStyle(
                 fontSize: screenWidth * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.white
+                color: Colors.black
               ),
             ),
 
@@ -96,7 +97,7 @@ class _RateFitnessPageState extends State<RateFitnessPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FitnessEquipmentPage(),
+            builder: (context) => MainGoalPage(),
           ),
         );
       },

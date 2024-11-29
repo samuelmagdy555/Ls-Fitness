@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/traininglocation.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingWays.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
-import 'Diets.dart';
+import 'End.dart';
 
-class ExperiencePage extends StatefulWidget {
+
+class TrainingLocation extends StatefulWidget {
+
   @override
-  _ExperiencePageState createState() => _ExperiencePageState();
+  _TrainingLocationState createState() => _TrainingLocationState();
 }
 
-class _ExperiencePageState extends State<ExperiencePage> {
+class _TrainingLocationState extends State<TrainingLocation> {
   String selectedGoal = '';
 
   @override
@@ -27,60 +30,49 @@ class _ExperiencePageState extends State<ExperiencePage> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
               child: ProgressIndicatorWidget(
-                currentStep: 8,
+                currentStep: 1,
                 totalSteps: 10,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
 
 
-            Center(
-              child: Text(
-                "Do you experience any of \n    the following issues?",
-                style: TextStyle(
+            Text(
+              "Where do you train?",
+              style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
                   color: Colors.black
-                ),
               ),
             ),
-            SizedBox(height: screenHeight * 0.03),
+            SizedBox(height: screenHeight * 0.05),
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 children: [
                   buildGoalOption(
                     context,
-                    'assets/images/Prolonged.png',
-                    'Prolonged sitting',
+                    'assets/images/beginner.jpg',
+                    'Home',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/Sleep.png',
-                    'Poor sleep quality',
+                    'assets/images/equimpent.png',
+                    'Small Gym',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/Diet.png',
-                    'Dietary issues',
+                    'assets/images/GymEquipment.png',
+                    'Big Gym',
                     screenWidth,
                     screenHeight,
                   ),
-                  SizedBox(height: screenHeight * 0.04),
-                  buildGoalOption(
-                    context,
-                    'assets/images/healthy.png',
-                    'None, Iam healthy! ',
-                    screenWidth,
-                    screenHeight,
-                  ),
-
                 ],
               ),
             ),
@@ -101,11 +93,10 @@ class _ExperiencePageState extends State<ExperiencePage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TrainingLocation(),
+            builder: (context) => TrainingWays(),
           ),
         );
       },
-
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -136,7 +127,7 @@ class _ExperiencePageState extends State<ExperiencePage> {
               ),
               child: Image.asset(
                 imagePath,
-                width: screenWidth * 0.25,
+                width: screenWidth * 0.30,
                 height: screenWidth * 0.25,
                 fit: BoxFit.cover,
               ),

@@ -9,14 +9,12 @@ class WhereDidYouLive extends StatefulWidget {
 }
 
 class _WhereDidYouLiveState extends State<WhereDidYouLive> {
-  // إنشاء TextEditingController للتحكم في النص
   final TextEditingController _nationalityController = TextEditingController();
   bool isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    // إضافة مستمع لتحديث حالة الزر عند تغيير النص
     _nationalityController.addListener(() {
       setState(() {
         isButtonEnabled = _nationalityController.text.isNotEmpty;
@@ -26,7 +24,6 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
 
   @override
   void dispose() {
-    // التأكد من التخلص من الـ controller عند انتهاء الصفحة
     _nationalityController.dispose();
     super.dispose();
   }
@@ -39,7 +36,6 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // صورة الخلفية
           Positioned(
             top: size.height * 0.027,
             left: 0,
@@ -51,12 +47,12 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
               fit: BoxFit.cover,
             ),
           ),
-          // محتويات الصفحة
-          Column(
-            children: [
-              SizedBox(height: size.height * 0.4), // ترك مساحة للصورة
-              Expanded(
-                child: Container(
+
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: size.height * 0.4),
+                Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: size.width * 0.08, vertical: size.height * 0.05),
                   width: size.width,
@@ -76,7 +72,6 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // السؤال
                       Text(
                         "Where do you live?",
                         textAlign: TextAlign.center,
@@ -87,7 +82,6 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                         ),
                       ),
                       SizedBox(height: size.height * 0.03),
-                      // حقل النص لإدخال الجنسية
                       TextFormField(
                         controller: _nationalityController,
                         decoration: InputDecoration(
@@ -100,11 +94,15 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                         ),
                       ),
                       SizedBox(height: size.height * 0.2),
-                      // زر متابعة
                       ElevatedButton(
                         onPressed: isButtonEnabled
                             ? () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Contact(),
+                            ),
+                          );
                         }
                             : null,
                         style: ElevatedButton.styleFrom(
@@ -113,9 +111,8 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
-                          backgroundColor: isButtonEnabled
-                              ? Colors.black
-                              : Colors.grey,
+                          backgroundColor:
+                          isButtonEnabled ? Colors.black : Colors.grey,
                         ),
                         child: Text(
                           "Continue",
@@ -129,8 +126,8 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

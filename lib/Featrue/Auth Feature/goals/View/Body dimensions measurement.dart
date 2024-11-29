@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Walk.dart';
 
 class BodyMeasurementsPage extends StatefulWidget {
   const BodyMeasurementsPage({Key? key}) : super(key: key);
@@ -21,6 +22,10 @@ class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
     "hand": 0,
   };
 
+  bool get areAllMeasurementsDone {
+    return savedValues.values.every((value) => value > 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -29,7 +34,6 @@ class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // خلفية الصفحة
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -177,14 +181,6 @@ class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
                       setState(() {
                         savedValues[selectedMeasurement] = measurementValue;
                       });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            "تم حفظ قيمة $selectedMeasurement: ${measurementValue.toStringAsFixed(1)}",
-                          ),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
                     },
                     child: Text(
                       "Save",
@@ -225,6 +221,29 @@ class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
                     }).toList(),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 16,
+            left: 16,
+            right: 16,
+            child: ElevatedButton(
+              onPressed: areAllMeasurementsDone
+                  ? () {
+                Navigator.push(context,MaterialPageRoute(builder: (context)=>WalkDaily()));
+              }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                    vertical: screenHeight * 0.02, horizontal: screenWidth * 0.1),
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: const Text("Continue",
+                style: TextStyle(
+                  color: Colors.white
+                ),
               ),
             ),
           ),

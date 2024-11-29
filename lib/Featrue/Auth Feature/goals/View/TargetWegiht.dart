@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/experience.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -10,7 +11,7 @@ class TargetWeightSelectionPage extends StatefulWidget {
 }
 
 class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
-  double selectedWeightKg = 70;
+  double selectedWeightKg = 40;
   bool isKg = true;
   late FixedExtentScrollController scrollController;
 
@@ -26,7 +27,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -48,7 +49,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.05,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.02),
           Text(
@@ -56,7 +57,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             style: TextStyle(
                 fontSize: screenWidth * 0.07,
                 fontWeight: FontWeight.bold,
-                color: Colors.white),
+                color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.01),
           Row(
@@ -106,7 +107,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
           SizedBox(height: screenHeight * 0.05),
           Text(
             isKg ? '${selectedWeightKg.toStringAsFixed(1)} kg' : '${(selectedWeightKg / 0.453592).toStringAsFixed(1)} lb',
-            style: TextStyle(fontSize: screenWidth * 0.08, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(fontSize: screenWidth * 0.08, fontWeight: FontWeight.bold, color: Colors.black),
           ),
           SizedBox(height: screenHeight * 0.02),
           Expanded(
@@ -137,7 +138,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
                         style: TextStyle(
                           fontSize: isSelected ? screenWidth * 0.07 : screenWidth * 0.05,
                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected ? Colors.white : Colors.grey.shade400,
+                          color: isSelected ? Colors.black : Colors.grey.shade400,
                         ),
                       );
                     },
@@ -157,7 +158,7 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BodyShapeSelectionPage(),
+                    builder: (context) => ExperiencePage(),
                   ),
                 );
               },

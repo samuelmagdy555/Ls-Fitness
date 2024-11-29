@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Disess.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Training.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class InjuriesRecently extends StatefulWidget {
+class DiseasesScreen extends StatefulWidget {
   @override
-  _InjuriesRecentlyState createState() => _InjuriesRecentlyState();
+  _DiseasesScreenState createState() => _DiseasesScreenState();
 }
 
-class _InjuriesRecentlyState extends State<InjuriesRecently> {
+class _DiseasesScreenState extends State<DiseasesScreen> {
   List<String> selectedGoals = [];
 
   @override
@@ -32,7 +32,7 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Have you suffered any \n  injuries recently?",
+                "Do you suffer from any diseases?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DiseasesScreen(),
+                      builder: (context) => TrainingDays(),
                     ),
                   );
                 }
@@ -149,11 +149,9 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
 
 final List<Map<String, String>> goals = [
   {'title': 'None. I am healthy', 'image': 'assets/images/problem_9000296-removebg-preview.png'},
-  {'title': 'Shoulder', 'image': 'assets/images/Shoulders.png'},
-  {'title': 'Back', 'image': 'assets/images/Back.png'},
-  {'title': 'Waist', 'image': 'assets/images/Waist.png'},
-  {'title': 'Wrist', 'image': 'assets/images/Wrist.png'},
-  {'title': 'Knee', 'image': 'assets/images/Knee.png'},
-  {'title': 'Leg', 'image': 'assets/images/Leg.png'},
-  {'title': 'Ankle', 'image': 'assets/images/Ankel.png'},
+  {'title': 'Sugar', 'image': 'assets/images/dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png'},
+  {'title': 'Pressure', 'image': 'assets/images/Presseure.png'},
+  {'title': 'Heart diseases', 'image': 'assets/images/Heart.png'},
+  {'title': 'Lung problems', 'image': 'assets/images/Lung.png'},
+  {'title': 'Other', 'image': 'assets/images/dl.beatsnoop.com-high-53d10eed4e4ae606b7.jpg'},
 ];

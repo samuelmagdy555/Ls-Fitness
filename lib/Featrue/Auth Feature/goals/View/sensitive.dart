@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/traininglocation.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/injuries.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
-import 'Diets.dart';
+import 'Second_goal_Screen.dart';
 
-class ExperiencePage extends StatefulWidget {
+class SensitivePage extends StatefulWidget {
   @override
-  _ExperiencePageState createState() => _ExperiencePageState();
+  _SensitivePageState createState() => _SensitivePageState();
 }
 
-class _ExperiencePageState extends State<ExperiencePage> {
-  String selectedGoal = '';
+class _SensitivePageState extends State<SensitivePage> {
+  List<String> selectedGoals = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,69 +19,122 @@ class _ExperiencePageState extends State<ExperiencePage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SafeArea(
         child: Column(
           children: [
-
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
               child: ProgressIndicatorWidget(
-                currentStep: 8,
+                currentStep: 1,
                 totalSteps: 10,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
 
-
             Center(
               child: Text(
-                "Do you experience any of \n    the following issues?",
+                "Are you allergic to \nthose substances?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black
                 ),
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
+
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+              padding: EdgeInsets.all(screenWidth * 0.04),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(screenWidth * 0.03),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
+                  SizedBox(width: screenWidth * 0.03),
+                  Expanded(
+                    child: Text(
+                      "We’ll tailor the best blend of strength and cardio training to align with your goal.",
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: screenWidth * 0.045,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: screenHeight * 0.05),
+
             Expanded(
               child: ListView(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 children: [
                   buildGoalOption(
                     context,
-                    'assets/images/Prolonged.png',
-                    'Prolonged sitting',
+                    'assets/images/fish.png',
+                    'Fish',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/Sleep.png',
-                    'Poor sleep quality',
+                    'assets/images/lambus.jpg',
+                    'Legumes',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/Diet.png',
-                    'Dietary issues',
+                    'assets/images/Egg.png',
+                    'Egg',
                     screenWidth,
                     screenHeight,
                   ),
                   SizedBox(height: screenHeight * 0.04),
                   buildGoalOption(
                     context,
-                    'assets/images/healthy.png',
-                    'None, Iam healthy! ',
+                    'assets/images/OtherFood.png',
+                    'Other',
                     screenWidth,
                     screenHeight,
                   ),
-
                 ],
+              ),
+            ),
+
+            Padding(
+              padding: EdgeInsets.all(screenWidth * 0.05),
+              child: ElevatedButton(
+                onPressed: selectedGoals.isNotEmpty
+                    ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => InjuriesRecently(),
+                    ),
+                  );
+                }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02,horizontal: screenWidth*0.09),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(screenWidth * 0.04,),
+                  ),
+                  backgroundColor: selectedGoals.isNotEmpty
+                      ? Colors.black
+                      : Colors.grey.shade400,
+                ),
+                child: Text(
+                  "Continue",
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.05,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ],
@@ -90,28 +143,25 @@ class _ExperiencePageState extends State<ExperiencePage> {
     );
   }
 
-
   Widget buildGoalOption(BuildContext context, String imagePath, String title, double screenWidth, double screenHeight) {
+    bool isSelected = selectedGoals.contains(title);
+
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedGoal = title;
+          if (isSelected) {
+            selectedGoals.remove(title);
+          } else {
+            selectedGoals.add(title);
+          }
         });
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TrainingLocation(),
-          ),
-        );
       },
-
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(screenWidth * 0.03),
           border: Border.all(
-            color: selectedGoal == title ? Colors.black : Colors.transparent,
+            color: isSelected ? Colors.black : Colors.transparent,
             width: screenWidth * 0.005,
           ),
         ),
@@ -147,5 +197,3 @@ class _ExperiencePageState extends State<ExperiencePage> {
     );
   }
 }
-
-

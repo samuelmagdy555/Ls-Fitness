@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'End.dart';
@@ -18,7 +19,7 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
 
       body: SafeArea(
         child: Column(
@@ -39,7 +40,7 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
               style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white
+                  color: Colors.black
               ),
             ),
 
@@ -96,7 +97,7 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ThankYouPage(),
+            builder: (context) => BodyShapeSelectionPage(),
           ),
         );
       },
@@ -105,7 +106,7 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(screenWidth * 0.03),
           border: Border.all(
-            color: selectedGoal == title ? Colors.blue : Colors.transparent,
+            color: selectedGoal == title ? Colors.black : Colors.transparent,
             width: screenWidth * 0.005,
           ),
         ),

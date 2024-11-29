@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/sensitive.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Second_goal_Screen.dart';
@@ -17,7 +18,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
     var screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
 
       body: SafeArea(
         child: Column(
@@ -76,7 +77,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
                   buildGoalOption(
                     context,
                     'assets/images/goal1.png',
-                    'Lose Weight',
+                    'Reduce fat percentage',
                     screenWidth,
                     screenHeight,
                   ),
@@ -84,7 +85,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
                   buildGoalOption(
                     context,
                     'assets/images/goal2.png',
-                    'Build Muscle',
+                    'Increase muscle mass',
                     screenWidth,
                     screenHeight,
                   ),
@@ -92,7 +93,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
                   buildGoalOption(
                     context,
                     'assets/images/gaol3.png',
-                    'Keep Fit',
+                    'Get the perfect body',
                     screenWidth,
                     screenHeight,
                   ),
@@ -116,7 +117,7 @@ class _MainGoalPageState extends State<MainGoalPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MotivationSelectionScreen(),
+            builder: (context) => SensitivePage(),
           ),
         );
       },
