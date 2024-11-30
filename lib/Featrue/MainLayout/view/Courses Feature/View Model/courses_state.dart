@@ -13,3 +13,7 @@ final class GetAllCoursesFailed extends CoursesState {}
 final class GetMyCoursesLoading extends CoursesState {}
 final class GetMyCoursesSuccess extends CoursesState {}
 final class GetMyCoursesFailed extends CoursesState {}
+
+final class GetSpecificCoursesLoading extends CoursesState {}
+final class GetSpecificCoursesSuccess extends CoursesState {}
+final class GetSpecificCoursesFailed extends CoursesState {}

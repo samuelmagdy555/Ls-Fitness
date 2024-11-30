@@ -53,7 +53,6 @@ class _MyCoursesViewState extends State<MyCoursesView> {
               color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-
       ),
       body: BlocConsumer<CoursesCubit, CoursesState>(
         listener: (context, state) {
@@ -66,36 +65,32 @@ class _MyCoursesViewState extends State<MyCoursesView> {
                       height: height * .3, color: Colors.deepPurple),
                 )
               : CoursesCubit.get(context).myCourses!.data.isEmpty
-              ? Center(
-              child: Text(
-                'No Courses Yet',
-                style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
-              ))
-              : MasonryGridView.count(
-                     itemCount: CoursesCubit.get(context)
-                         .myCourses!
-                         .data
-                         .length,
-                     itemBuilder: (context, index) {
-                       final course = CoursesCubit.get(context)
-                           .myCourses!
-                           .data[index];
-                       return CourseCard(
-                         title: course.title,
-                         subtitle: course.description,
-                         duration: '',
-                         rating: 0,
-                         image: courses[index]['image'],
-                       );
-                     },
-                     crossAxisCount: 2,
-                     mainAxisSpacing: 10,
-                     crossAxisSpacing: 10,
-                   );
+                  ? Center(
+                      child: Text(
+                      'No Courses Yet',
+                      style: TextStyle(
+                          color: Colors.deepPurple,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ))
+                  : MasonryGridView.count(
+                      itemCount:
+                          CoursesCubit.get(context).myCourses!.data.length,
+                      itemBuilder: (context, index) {
+                        final course =
+                            CoursesCubit.get(context).myCourses!.data[index];
+                        return CourseCard(
+                          title: course.title,
+                          subtitle: course.description,
+                          duration: '',
+                          rating: 0,
+                          image: courses[index]['image'],
+                        );
+                      },
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                    );
         },
       ),
     );

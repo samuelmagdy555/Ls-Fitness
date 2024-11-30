@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model/courses_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Specific%20Course/View/Specific%20Course.dart';
 
 import 'My Courses/view/My Courses View.dart';
 
@@ -120,10 +121,20 @@ class _CoursesViewState extends State<CoursesView> {
                                 .allCoursesModel!
                                 .data[index];
                             return CourseCard(
+                              onTap: () {
+                                CoursesCubit.get(context).getSpecificCoursesLesson(id: course.id);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SpecificCourse(),
+                                    ));
+                              },
                               title: course.title,
                               subtitle: course.description,
                               duration: course.price.toString(),
-                              PriceAfterDiscount: course.priceAfterDiscount.toString(),
+                              PriceAfterDiscount:
+                                  course.priceAfterDiscount.toString(),
                               rating: 0,
                               image: courses[index]['image'],
                             );
@@ -185,6 +196,7 @@ class CourseCard extends StatelessWidget {
   final double rating;
   final String image;
   final String? PriceAfterDiscount;
+  final VoidCallback? onTap;
 
   const CourseCard({
     Key? key,
@@ -192,7 +204,9 @@ class CourseCard extends StatelessWidget {
     required this.subtitle,
     required this.duration,
     required this.rating,
-    required this.image, this.PriceAfterDiscount,
+    required this.image,
+    this.PriceAfterDiscount,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -200,78 +214,82 @@ class CourseCard extends StatelessWidget {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image(
-            image: NetworkImage(image),
-            height: height * .08,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-         Row(
-           children: [
-             Container(
-               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-               decoration: BoxDecoration(
-                 color: Colors.deepPurpleAccent,
-                 borderRadius: BorderRadius.circular(8),
-               ),
-               child: Text(
-                 PriceAfterDiscount??'',
-                 style: const TextStyle(fontSize: 12, color: Colors.white),
-               ),
-             ),
-             SizedBox(
-
-               width: width * .025,
-             ),
-             Text(
-               duration,
-               style: const TextStyle(fontSize: 12, color: Colors.grey , decoration: TextDecoration.lineThrough),
-
-
-             )
-           ],
-         ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: width * .275,
-                child: Text(
-                  subtitle,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 6,
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image(
+              image: NetworkImage(image),
+              height: height * .08,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurpleAccent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    PriceAfterDiscount ?? '',
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
+                  ),
                 ),
-              ),
-              const Icon(
-                Iconsax.arrow_circle_right4,
-                color: Colors.deepPurpleAccent,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-        ],
+                SizedBox(
+                  width: width * .025,
+                ),
+                Text(
+                  duration,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      decoration: TextDecoration.lineThrough),
+                )
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: width * .275,
+                  child: Text(
+                    subtitle,
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ),
+                const Icon(
+                  Iconsax.arrow_circle_right4,
+                  color: Colors.deepPurpleAccent,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
       ),
     );
   }

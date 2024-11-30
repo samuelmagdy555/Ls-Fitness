@@ -21,5 +21,6 @@ class EndPoints{
   static String toolOrMachine = 'toolOrMachine';
   static String courses = 'courses';
   static String myCourses = 'courses/MyCourses';
+  static String specificCourseLesson = 'lessons/courseLessons';
 
 }

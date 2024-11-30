@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../View/My Courses/Model/My Courses Model.dart';
+import '../View/Specific Course/Model/SpecificCourseLessonModel.dart';
 
 part 'courses_state.dart';
 
@@ -17,6 +18,7 @@ class CoursesCubit extends Cubit<CoursesState> {
 
   AllCoursesModel? allCoursesModel;
   MyCourses? myCourses;
+  SpecificCourseLessonModel? specificCourseLessonModel;
 
   Future<void> getAllCourses() async {
     emit(GetAllCoursesLoading());
@@ -45,6 +47,21 @@ class CoursesCubit extends Cubit<CoursesState> {
 
     } catch (e) {
       emit(GetMyCoursesFailed());
+      print(e.toString());
+    }
+  }
+  Future<void> getSpecificCoursesLesson({required String id}) async {
+    emit(GetSpecificCoursesLoading());
+    try {
+      final response = await DioHelper.get(
+          end_ponit: '${EndPoints.specificCourseLesson}/${id}',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+
+      specificCourseLessonModel =   SpecificCourseLessonModel.fromJson(response.data);
+      emit(GetSpecificCoursesSuccess());
+
+    } catch (e) {
+      emit(GetSpecificCoursesFailed());
       print(e.toString());
     }
   }
