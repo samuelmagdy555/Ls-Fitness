@@ -15,6 +15,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../Auth Feature/goals/View/AgeSelection.dart';
 import '../../Auth Feature/goals/View/End.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
+import 'Courses Feature/View/Courses View.dart';
 import 'Exercise/view/exercise.dart';
 import 'Home/View/HomeScreen.dart';
 import 'Profile/view/Profile.dart';
@@ -29,13 +30,13 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
 
-
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
     HomeView(),
     PersonView(),
     NutritionView(),
+    CoursesView(),
     FoodListPage(),
     TimerScreen(value: false,),
     FoodCalculator(mealCategory: ''),
@@ -65,6 +66,7 @@ class _MainLayoutState extends State<MainLayout> {
                     index: 0,
                     label: 'Home',
                     path: SizedBox(
+
                         height: height * .03,
                         width: width * .11,
                         child: const Image(
@@ -87,9 +89,17 @@ class _MainLayoutState extends State<MainLayout> {
                         width: width * .11,
                         child: const Image(
                             image:
-                            AssetImage('assets/images/nutrition.png')))),
+                            AssetImage('assets/images/nutrition.png')))),_buildTabItem(
+                    index:3,
+                    label: 'Courses',
+                    path: SizedBox(
+                        height: height * .03,
+                        width: width * .11,
+                        child: const Image(
+                            image:
+                            AssetImage('assets/images/courses.png')))),
                 _buildTabItem(
-                    index: 3,
+                    index: 4,
                     label: 'Alarms',
                     path: SizedBox(
                         height: height * .03,
@@ -106,7 +116,7 @@ class _MainLayoutState extends State<MainLayout> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildTabItem(
-                    index: 4,
+                    index: 5,
                     label: 'Remider',
                     path: SizedBox(
                         height: height * .03,
@@ -115,7 +125,7 @@ class _MainLayoutState extends State<MainLayout> {
                             image:
                             AssetImage('assets/images/reminder home.png')))),
                 _buildTabItem(
-                    index: 5,
+                    index: 6,
                     label: 'Calculator',
                     path: SizedBox(
                         height: height * .03,
@@ -124,7 +134,7 @@ class _MainLayoutState extends State<MainLayout> {
                             image:
                             AssetImage('assets/images/calculator.png')))),
                 _buildTabItem(
-                    index: 6,
+                    index: 7,
                     label: 'Vitamins',
                     path: SizedBox(
                         height: height * .03,
@@ -133,7 +143,7 @@ class _MainLayoutState extends State<MainLayout> {
                             image:
                             AssetImage('assets/images/Vitamis.png')))),
                 _buildTabItem(
-                    index: 7,
+                    index: 8,
                     label: 'Tab 6',
                     path: SizedBox(
                         height: height * .03,

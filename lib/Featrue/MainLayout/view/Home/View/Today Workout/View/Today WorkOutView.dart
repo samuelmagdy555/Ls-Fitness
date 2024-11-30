@@ -218,23 +218,19 @@ class _TodayWorkOutViewState extends State<TodayWorkOutView> {
                   SizedBox(
                     height: height * .05,
                   ),
-                  Container(
-                    height: height*.05,
-                    width: width ,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child:
-                      Text(
-                        '2 minutes of rest',
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: width * 0.04,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Divider(),
+                  SizedBox(
+                    height: height * .05,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child:
+                    Text(
+                      '2 minutes of rest',
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: width * 0.04,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -439,6 +435,10 @@ class _TodayWorkOutViewState extends State<TodayWorkOutView> {
                           ),
                         )),
                   ),
+                  SizedBox(
+                    height: height * .05,
+                  ),
+                  Divider(),
                   SizedBox(
                     height: height * .05,
                   ),

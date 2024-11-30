@@ -1,11 +1,25 @@
-// File: lib/main.dart
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model/courses_cubit.dart';
 
-class LearningCoursesScreen extends StatelessWidget {
-  const LearningCoursesScreen({Key? key}) : super(key: key);
+import 'My Courses/view/My Courses View.dart';
+
+class CoursesView extends StatefulWidget {
+  const CoursesView({super.key});
+
+  @override
+  State<CoursesView> createState() => _CoursesViewState();
+}
+
+class _CoursesViewState extends State<CoursesView> {
+  @override
+  void initState() {
+    CoursesCubit.get(context).getAllCourses();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +31,7 @@ class LearningCoursesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: SizedBox(),
         title: const Text(
           'Our Courses',
           style: TextStyle(
@@ -63,7 +77,16 @@ class LearningCoursesScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 8),
-                      CategoryChip(label: 'My Courses', isActive: false),
+                      CategoryChip(
+                          label: 'My Courses',
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MyCoursesView(),
+                                ));
+                          },
+                          isActive: false),
                     ],
                   ),
                 ],
@@ -76,23 +99,41 @@ class LearningCoursesScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 24),
             // Courses
-            Expanded(
-              child: MasonryGridView.count(
-                itemCount: courses.length,
-                itemBuilder: (context, index) {
-                  final course = courses[index];
-                  return CourseCard(
-                    title: course['title'],
-                    subtitle: course['subtitle'],
-                    duration: course['duration'],
-                    rating: course['rating'],
-                    image: course['image'],
-                  );
-                },
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
+            BlocConsumer<CoursesCubit, CoursesState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                return CoursesCubit.get(context).allCoursesModel == null
+                    ? Center(
+                        child: MyLoadingIndicator(
+                            height: height * .1, color: Colors.deepPurple),
+                      )
+                    : Expanded(
+                        child: MasonryGridView.count(
+                          itemCount: CoursesCubit.get(context)
+                              .allCoursesModel!
+                              .data
+                              .length,
+                          itemBuilder: (context, index) {
+                            final course = CoursesCubit.get(context)
+                                .allCoursesModel!
+                                .data[index];
+                            return CourseCard(
+                              title: course.title,
+                              subtitle: course.description,
+                              duration: course.price.toString(),
+                              PriceAfterDiscount: course.priceAfterDiscount.toString(),
+                              rating: 0,
+                              image: courses[index]['image'],
+                            );
+                          },
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                        ),
+                      );
+              },
             ),
           ],
         ),
@@ -143,6 +184,7 @@ class CourseCard extends StatelessWidget {
   final String duration;
   final double rating;
   final String image;
+  final String? PriceAfterDiscount;
 
   const CourseCard({
     Key? key,
@@ -150,7 +192,7 @@ class CourseCard extends StatelessWidget {
     required this.subtitle,
     required this.duration,
     required this.rating,
-    required this.image,
+    required this.image, this.PriceAfterDiscount,
   }) : super(key: key);
 
   @override
@@ -186,6 +228,32 @@ class CourseCard extends StatelessWidget {
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
+         Row(
+           children: [
+             Container(
+               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+               decoration: BoxDecoration(
+                 color: Colors.deepPurpleAccent,
+                 borderRadius: BorderRadius.circular(8),
+               ),
+               child: Text(
+                 PriceAfterDiscount??'',
+                 style: const TextStyle(fontSize: 12, color: Colors.white),
+               ),
+             ),
+             SizedBox(
+
+               width: width * .025,
+             ),
+             Text(
+               duration,
+               style: const TextStyle(fontSize: 12, color: Colors.grey , decoration: TextDecoration.lineThrough),
+
+
+             )
+           ],
+         ),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -196,7 +264,7 @@ class CourseCard extends StatelessWidget {
                   style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ),
-              Icon(
+              const Icon(
                 Iconsax.arrow_circle_right4,
                 color: Colors.deepPurpleAccent,
               ),

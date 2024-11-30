@@ -6,11 +6,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/AgeSelection.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart';
 import 'package:lsfitness/Featrue/MainLayout/View%20Model/main_layout_model_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model/courses_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
@@ -199,7 +199,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
         BlocProvider(create: (context) => NutritionCubit()),
         BlocProvider(create: (context) => FoodCalculatorFilterCubit()),
-        BlocProvider(create: (context) => MainLayoutModelCubit()),
+        BlocProvider(create: (context) => MainLayoutModelCubit(),),
+        BlocProvider(create: (context) => CoursesCubit(),),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -214,7 +215,7 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
-        home: LoginCubit.token == ''? const SplashScreen() :   AgeSelectionPage(),
+        home: LoginCubit.token == ''? const SplashScreen() :   MainLayout(),
       ),
     );
   }
