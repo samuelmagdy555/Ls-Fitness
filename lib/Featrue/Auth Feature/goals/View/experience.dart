@@ -26,10 +26,10 @@ class _ExperiencePageState extends State<ExperiencePage> {
 
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 8,
-                totalSteps: 10,
-              ),
+              // child: ProgressIndicatorWidget(
+              //   currentStep: 8,
+              //   totalSteps: 10,
+              // ),
             ),
             SizedBox(height: screenHeight * 0.03),
 

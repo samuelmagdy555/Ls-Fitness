@@ -30,10 +30,10 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-                  child: ProgressIndicatorWidget(
-                    currentStep: 6,
-                    totalSteps: 10,
-                  ),
+                  // child: ProgressIndicatorWidget(
+                  //   currentStep: 6,
+                  //   totalSteps: 10,
+                  // ),
                 ),
               ],
             ),

@@ -30,9 +30,13 @@ class _GenderState extends State<Gender> {
             // Progress Indicator
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-              child: ProgressIndicatorWidget(
-                currentStep: 4,
-                totalSteps: 10,
+              child:  ProgressIndicatorWidget(
+                currentStep: 0,
+                totalSteps: 5,
+                currentPage: 2, // الصفحة الحالية داخل الخطوة
+                totalPages: 5, // إجمالي صفحات الخطوة الحالية
+                pagesPerStep: [5, 5, 5, 5, 5,5], // عدد الصفحات لكل خطوة
+                width: screenWidth * 0.52,
               ),
             ),
             Text(

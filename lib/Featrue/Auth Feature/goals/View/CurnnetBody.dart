@@ -44,10 +44,10 @@ class _BodyShapeSelectionPageState extends State<BodyShapeSelectionPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-                  child: ProgressIndicatorWidget(
-                    currentStep: 7,
-                    totalSteps: 10,
-                  ),
+                  // child: ProgressIndicatorWidget(
+                  //   currentStep: 7,
+                  //   totalSteps: 10,
+                  // ),
                 ),
               ],
             ),

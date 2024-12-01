@@ -25,10 +25,10 @@ class _TheTypeOfExerciseYouPreferState extends State<TheTypeOfExerciseYouPrefer>
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 10,
-                totalSteps: 10,
-              ),
+              // child: ProgressIndicatorWidget(
+              //   currentStep: 10,
+              //   totalSteps: 10,
+              // ),
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(

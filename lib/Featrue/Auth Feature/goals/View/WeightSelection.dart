@@ -11,8 +11,11 @@ class WeightSelectionPage extends StatefulWidget {
   _WeightSelectionPageState createState() => _WeightSelectionPageState();
 }
 
+
+
+
 class _WeightSelectionPageState extends State<WeightSelectionPage> {
-  double selectedWeightKg = 70;
+  double selectedWeightKg = 45;
   bool isKg = true;
   late FixedExtentScrollController scrollController;
 
@@ -40,10 +43,10 @@ class _WeightSelectionPageState extends State<WeightSelectionPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-                  child: ProgressIndicatorWidget(
-                    currentStep: 6,
-                    totalSteps: 10,
-                  ),
+                  // child: ProgressIndicatorWidget(
+                  //   currentStep: 6,
+                  //   totalSteps: 10,
+                  // ),
                 ),
               ],
             ),

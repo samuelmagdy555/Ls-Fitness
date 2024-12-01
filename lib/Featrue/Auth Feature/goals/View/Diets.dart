@@ -23,10 +23,10 @@ class _DietsPageState extends State<DietsPage> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 9,
-                totalSteps: 10,
-              ),
+              // child: ProgressIndicatorWidget(
+              //   currentStep: 9,
+              //   totalSteps: 10,
+              // ),
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(

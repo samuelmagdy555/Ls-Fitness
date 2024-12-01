@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Disess.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class InjuriesRecently extends StatefulWidget {
+class TrainingTime extends StatefulWidget {
   @override
-  _InjuriesRecentlyState createState() => _InjuriesRecentlyState();
+  _TrainingTimeState createState() => _TrainingTimeState();
 }
 
-class _InjuriesRecentlyState extends State<InjuriesRecently> {
+class _TrainingTimeState extends State<TrainingTime> {
   List<String> selectedGoals = [];
 
   @override
@@ -32,7 +33,7 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Have you suffered any \n  injuries recently?",
+                "Choose Your Training Days ?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -56,7 +57,6 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
                   return buildGoalOption(
                     context,
                     goal['title']!,
-                    goal['image']!,
                     screenWidth,
                   );
                 },
@@ -70,7 +70,7 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DiseasesScreen(),
+                      builder: (context) => FitnessEquipmentPage(),
                     ),
                   );
                 }
@@ -101,7 +101,7 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
   }
 
   Widget buildGoalOption(
-      BuildContext context, String title, String imagePath, double screenWidth) {
+      BuildContext context, String title, double screenWidth) {
     bool isSelected = selectedGoals.contains(title);
 
     return GestureDetector(
@@ -126,12 +126,6 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              imagePath,
-              width: screenWidth * 0.30,
-              height: screenWidth * 0.30,
-            ),
-            SizedBox(height: screenWidth * 0.02),
             Text(
               title,
               style: TextStyle(
@@ -148,12 +142,12 @@ class _InjuriesRecentlyState extends State<InjuriesRecently> {
 }
 
 final List<Map<String, String>> goals = [
-  {'title': 'None. I am healthy', 'image': 'assets/images/problem_9000296-removebg-preview.png'},
-  {'title': 'Shoulder', 'image': 'assets/images/Shoulders.png'},
-  {'title': 'Back', 'image': 'assets/images/Back.png'},
-  {'title': 'Waist', 'image': 'assets/images/Waist.png'},
-  {'title': 'Wrist', 'image': 'assets/images/Wrist.png'},
-  {'title': 'Knee', 'image': 'assets/images/Knee.png'},
-  {'title': 'Leg', 'image': 'assets/images/Leg.png'},
-  {'title': 'Ankle', 'image': 'assets/images/Ankel.png'},
+  {'title': '30-45 Minutes', },
+  {'title': '45-60 Minutes', },
+  {'title': '60-75 Minutes', },
+  {'title': '75-100 Minutes', },
+  {'title': '100-120 Minutes', },
+  {'title': '120-140 Minutes', },
+  {'title': '140-160 Minutes', },
+  {'title': '160-180 Minutes', },
 ];

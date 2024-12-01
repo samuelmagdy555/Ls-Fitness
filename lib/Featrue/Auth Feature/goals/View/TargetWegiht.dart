@@ -36,10 +36,10 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ProgressIndicatorWidget(
-                  currentStep: 7,
-                  totalSteps: 10,
-                ),
+                // ProgressIndicatorWidget(
+                //   currentStep: 7,
+                //   totalSteps: 10,
+                // ),
               ],
             ),
           ),
