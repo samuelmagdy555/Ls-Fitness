@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/Model/Courses%20Model/Courses%20Model.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/Model/Specific%20Model.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
@@ -19,6 +20,7 @@ class CoursesCubit extends Cubit<CoursesState> {
   AllCoursesModel? allCoursesModel;
   MyCourses? myCourses;
   SpecificCourseLessonModel? specificCourseLessonModel;
+  SpecificLesson ? specificLesson;
 
   Future<void> getAllCourses() async {
     emit(GetAllCoursesLoading());
@@ -51,17 +53,37 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
   Future<void> getSpecificCoursesLesson({required String id}) async {
+    specificCourseLessonModel = null ;
     emit(GetSpecificCoursesLoading());
     try {
       final response = await DioHelper.get(
           end_ponit: '${EndPoints.specificCourseLesson}/${id}',
           token: LoginCubit.loginModel?.token ?? LoginCubit.token);
 
-      specificCourseLessonModel =   SpecificCourseLessonModel.fromJson(response.data);
+      specificCourseLessonModel =  SpecificCourseLessonModel.fromJson(response.data);
+      
+      print(specificCourseLessonModel!.data![1].video!.publicId);
+      print(specificCourseLessonModel!.data![1].video!.thumbnail);
+      print(specificCourseLessonModel!.data![1].video!.url);
       emit(GetSpecificCoursesSuccess());
 
     } catch (e) {
       emit(GetSpecificCoursesFailed());
+      print(e.toString());
+    }
+  }
+  Future<void> getSpecificLesson({required String id}) async {
+    emit(GetSpecificLessonLoading());
+    try {
+      final response = await DioHelper.get(
+          end_ponit: '${EndPoints.lesson}/${id}',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+
+      specificLesson =   SpecificLesson.fromJson(response.data);
+      emit(GetSpecificLessonSuccess());
+
+    } catch (e) {
+      emit(GetSpecificLessonFailed());
       print(e.toString());
     }
   }

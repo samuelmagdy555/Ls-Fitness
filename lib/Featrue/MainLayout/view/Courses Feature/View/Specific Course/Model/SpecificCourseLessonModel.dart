@@ -1,157 +1,162 @@
 class SpecificCourseLessonModel {
-  int? results;
-  int? totalCount;
-  PaginationResult? paginationResult;
-  List<Data>? data;
+  SpecificCourseLessonModel({
+    required this.results,
+    required this.totalCount,
+    required this.paginationResult,
+    required this.data,
+  });
 
-  SpecificCourseLessonModel(
-      {this.results, this.totalCount, this.paginationResult, this.data});
+  final int? results;
+  final int? totalCount;
+  final PaginationResult? paginationResult;
+  final List<Datum> data;
 
-  SpecificCourseLessonModel.fromJson(Map<String, dynamic> json) {
-    results = json['results'];
-    totalCount = json['totalCount'];
-    paginationResult = json['paginationResult'] != null
-        ? new PaginationResult.fromJson(json['paginationResult'])
-        : null;
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
+  factory SpecificCourseLessonModel.fromJson(Map<String, dynamic> json){
+    return SpecificCourseLessonModel(
+      results: json["results"],
+      totalCount: json["totalCount"],
+      paginationResult: json["paginationResult"] == null ? null : PaginationResult.fromJson(json["paginationResult"]),
+      data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['results'] = this.results;
-    data['totalCount'] = this.totalCount;
-    if (this.paginationResult != null) {
-      data['paginationResult'] = this.paginationResult!.toJson();
-    }
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "results": results,
+    "totalCount": totalCount,
+    "paginationResult": paginationResult?.toJson(),
+    "data": data.map((x) => x.toJson()).toList(),
+  };
+
 }
 
-class PaginationResult {
-  int? currentPage;
-  int? limit;
-  int? numberOfPages;
+class Datum {
+  Datum({
+    required this.id,
+    required this.title,
+    required this.course,
+    required this.type,
+    required this.image,
+    required this.videoUrl,
+    required this.attachment,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.video,
+  });
 
-  PaginationResult({this.currentPage, this.limit, this.numberOfPages});
+  final String? id;
+  final String? title;
+  final Course? course;
+  final String? type;
+  final String? image;
+  final String? videoUrl;
+  final String? attachment;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final Video? video;
 
-  PaginationResult.fromJson(Map<String, dynamic> json) {
-    currentPage = json['currentPage'];
-    limit = json['limit'];
-    numberOfPages = json['numberOfPages'];
+  factory Datum.fromJson(Map<String, dynamic> json){
+    return Datum(
+      id: json["_id"],
+      title: json["title"],
+      course: json["course"] == null ? null : Course.fromJson(json["course"]),
+      type: json["type"],
+      image: json["image"],
+      videoUrl: json["videoUrl"],
+      attachment: json["attachment"],
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ""),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ""),
+      video: json["video"] == null ? null : Video.fromJson(json["video"]),
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['currentPage'] = this.currentPage;
-    data['limit'] = this.limit;
-    data['numberOfPages'] = this.numberOfPages;
-    return data;
-  }
-}
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "title": title,
+    "course": course?.toJson(),
+    "type": type,
+    "image": image,
+    "videoUrl": videoUrl,
+    "attachment": attachment,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "video": video?.toJson(),
+  };
 
-class Data {
-  String? sId;
-  String? title;
-  Course? course;
-  String? type;
-  String? image;
-  String? videoUrl;
-  String? attachment;
-  String? createdAt;
-  String? updatedAt;
-  Video? video;
-
-  Data(
-      {this.sId,
-        this.title,
-        this.course,
-        this.type,
-        this.image,
-        this.videoUrl,
-        this.attachment,
-        this.createdAt,
-        this.updatedAt,
-        this.video});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    title = json['title'];
-    course =
-    json['course'] != null ? new Course.fromJson(json['course']) : null;
-    type = json['type'];
-    image = json['image'];
-    videoUrl = json['videoUrl'];
-    attachment = json['attachment'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    video = json['video'] != null ? new Video.fromJson(json['video']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    if (this.course != null) {
-      data['course'] = this.course!.toJson();
-    }
-    data['type'] = this.type;
-    data['image'] = this.image;
-    data['videoUrl'] = this.videoUrl;
-    data['attachment'] = this.attachment;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    if (this.video != null) {
-      data['video'] = this.video!.toJson();
-    }
-    return data;
-  }
 }
 
 class Course {
-  String? sId;
-  String? title;
+  Course({
+    required this.id,
+    required this.title,
+  });
 
-  Course({this.sId, this.title});
+  final String? id;
+  final String? title;
 
-  Course.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    title = json['title'];
+  factory Course.fromJson(Map<String, dynamic> json){
+    return Course(
+      id: json["_id"],
+      title: json["title"],
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "title": title,
+  };
+
 }
 
 class Video {
-  String? url;
-  int? publicId;
-  String? thumbnail;
+  Video({
+    required this.url,
+    required this.publicId,
+    required this.thumbnail,
+  });
 
-  Video({this.url, this.publicId, this.thumbnail});
+  final String? url;
+  final int? publicId;
+  final String? thumbnail;
 
-  Video.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    publicId = json['public_id'];
-    thumbnail = json['thumbnail'];
+  factory Video.fromJson(Map<String, dynamic> json){
+    return Video(
+      url: json["url"],
+      publicId: json["public_id"],
+      thumbnail: json["thumbnail"],
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['public_id'] = this.publicId;
-    data['thumbnail'] = this.thumbnail;
-    return data;
+  Map<String, dynamic> toJson() => {
+    "url": url,
+    "public_id": publicId,
+    "thumbnail": thumbnail,
+  };
+
+}
+
+class PaginationResult {
+  PaginationResult({
+    required this.currentPage,
+    required this.limit,
+    required this.numberOfPages,
+  });
+
+  final int? currentPage;
+  final int? limit;
+  final int? numberOfPages;
+
+  factory PaginationResult.fromJson(Map<String, dynamic> json){
+    return PaginationResult(
+      currentPage: json["currentPage"],
+      limit: json["limit"],
+      numberOfPages: json["numberOfPages"],
+    );
   }
+
+  Map<String, dynamic> toJson() => {
+    "currentPage": currentPage,
+    "limit": limit,
+    "numberOfPages": numberOfPages,
+  };
+
 }

@@ -17,3 +17,7 @@ final class GetMyCoursesFailed extends CoursesState {}
 final class GetSpecificCoursesLoading extends CoursesState {}
 final class GetSpecificCoursesSuccess extends CoursesState {}
 final class GetSpecificCoursesFailed extends CoursesState {}
+
+final class GetSpecificLessonLoading extends CoursesState {}
+final class GetSpecificLessonSuccess extends CoursesState {}
+final class GetSpecificLessonFailed extends CoursesState {}

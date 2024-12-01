@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
+import '../../../../Intro Feature/onboarding/View/Screens/Onboarding_Screen.dart';
 import '../ChangePassword/view/ChangePassword.dart';
 import '../EditProfile/View/EditProfile.dart';
 import '../view_model/profile_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
-
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
@@ -17,10 +18,17 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     ProfileCubit.get(context).myProfile();
   }
+
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    var screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
 
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {},
@@ -29,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
         var userData = cubit.profileModel?.data;
 
         return Scaffold(
-          appBar:  AppBar(
+          appBar: AppBar(
             backgroundColor: kThirdColor,
             title: Text(
               'Profile',
@@ -63,7 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       CircleAvatar(
                         radius: screenWidth * 0.1,
-                        backgroundImage: AssetImage('assets/images/weightlifting_10968103.gif'),
+                        backgroundImage: AssetImage(
+                            'assets/images/weightlifting_10968103.gif'),
                       ),
                       SizedBox(width: screenWidth * 0.04),
                       Expanded(
@@ -90,7 +99,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => EditProfilePage()),
+                            MaterialPageRoute(
+                                builder: (context) => EditProfilePage()),
                           );
                         },
                       ),
@@ -106,26 +116,31 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        profileDetail(Icons.email, "Email", userData?.email ?? '', screenWidth),
+                        profileDetail(
+                            Icons.email, "Email", userData?.email ?? '',
+                            screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.phone, "Phone", userData?.phone ?? '', screenWidth),
+                        profileDetail(
+                            Icons.phone, "Phone", userData?.phone ?? '',
+                            screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.plus_one, "age", userData?.age.toString() ?? '', screenWidth),
+                        profileDetail(Icons.plus_one, "age", userData?.age
+                            .toString() ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.plus_one, "Length", userData?.length ?? '', screenWidth),
+                        profileDetail(
+                            Icons.plus_one, "Length", userData?.length ?? '',
+                            screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.merge_type, "Gender", userData?.gender ?? '', screenWidth),
+                        profileDetail(
+                            Icons.merge_type, "Gender", userData?.gender ?? '',
+                            screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.monitor_weight_outlined, "weight", userData?.weight ?? '', screenWidth),
+                        profileDetail(Icons.monitor_weight_outlined, "weight",
+                            userData?.weight ?? '', screenWidth),
                         SizedBox(height: screenHeight * 0.02),
-                        profileDetail(Icons.monitor_weight_outlined, "Target weight", userData?.targetWeight ?? '', screenWidth),
-
-
-
-
-
-
-
+                        profileDetail(
+                            Icons.monitor_weight_outlined, "Target weight",
+                            userData?.targetWeight ?? '', screenWidth),
 
 
                         // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
@@ -136,7 +151,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(height: screenHeight * 0.07),
                   // Sign Out Button
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      CashHelper.deleteAll();
+                      Navigator.pushAndRemoveUntil(
+                          context, MaterialPageRoute(builder: (context) =>
+                          WelcomeView()), (route) => false);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFE63946),
                       shape: RoundedRectangleBorder(
@@ -169,7 +189,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget profileDetail(IconData icon, String label, String value, double screenWidth) {
+  Widget profileDetail(IconData icon, String label, String value,
+      double screenWidth) {
     return Row(
       children: [
         Icon(icon, color: Colors.white70),
@@ -211,12 +232,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         Spacer(),
-        Icon(Icons.arrow_forward_ios, color: Colors.white70, size: screenWidth * 0.04),
+        Icon(Icons.arrow_forward_ios, color: Colors.white70,
+            size: screenWidth * 0.04),
       ],
     );
   }
 
-  Widget optionRowWithNavigation(IconData icon, String label, double screenWidth, VoidCallback onTap) {
+  Widget optionRowWithNavigation(IconData icon, String label,
+      double screenWidth, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Row(
@@ -231,7 +254,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           Spacer(),
-          Icon(Icons.arrow_forward_ios, color: Colors.white70, size: screenWidth * 0.04),
+          Icon(Icons.arrow_forward_ios, color: Colors.white70,
+              size: screenWidth * 0.04),
         ],
       ),
     );
