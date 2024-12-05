@@ -504,13 +504,13 @@
 
 
 
-  "motivations": {
+
     "improving_health": "Improving Health",
     "boosting_immune_system": "Boosting Immune System",
     "looking_better": "Looking Better",
     "building_strength_endurance": "Building Strength and Endurance",
-    "boosting_libido": "Boosting Libido"
-  },
+    "boosting_libido": "Boosting Libido",
+
   "what_motivates_to_exercise": "What motivates you to exercise?",
   "selected_goals_title": "Selected Goals",
   "you_have_selected": "You have selected:",
@@ -560,7 +560,7 @@
 
   "food_calculator" : "Food Calculator",
 
-  "nitration_List" : {
+
     "calories": "calories",
     "proteins": "proteins",
     "carbohydrates": "carbohydrates",
@@ -589,8 +589,8 @@
     "zinc": "zinc",
     "copper": "copper",
     "manganese": "manganese",
-    "selenium": "selenium"
-  },
+    "selenium": "selenium",
+
 
   "Alarms": "Alarms",
   "Meals": "Meals",
@@ -598,39 +598,40 @@
   "Workout": "Workout",
   "Vitamin_Alarm1" : " Vitamin ",
   "Creatine" : "Creatine",
-  "Meals_Alarm" : {
+
+
     "Breakfast": "Breakfast",
     "Lunch" : "Lunch",
     "Dinner" : "Dinner",
-    "Training": "Training"
-  },
-  "Supplement_Alarm": {
+    "Training": "Training",
+
+
     "protein" : "protein",
     "Carbs": "Carbs",
     "PreWorkout" : "PreWorkout",
     "BCAAS":"BCAAS",
     "omega": "Omega",
     "Vitamins": "Vitamins",
-    "Glutathione" : "Glutathione"
-  },
+    "Glutathione" : "Glutathione",
 
-  "Sleep_Alarm" : {
+
+
     "WakeUp" : "Wake Up",
-    "Sleep" : "Sleep"
-  },
+    "Sleep" : "Sleep",
 
-  "WorkOut_Alarm" : {
-    "Work Out" : "Workout"
-  },
 
-  "Vitamin_Alarm": {
+
+    "Work Out" : "Workout",
+
+
+
     "Vitamin_A": "Vitamin A",
     "Vitamin_B": "Vitamin B Complex",
     "Vitamin_C": "Vitamin C",
     "Vitamin_D": "Vitamin D",
     "Vitamin_E": "Vitamin E",
     "Omega3": "Omega3"
-  }
+
 
 
 

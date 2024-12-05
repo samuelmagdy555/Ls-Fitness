@@ -92,7 +92,7 @@ class _ExercisePageState extends State<ExercisePage> {
                               height: height*.2,
                                 width: width,
                                 child: VideoWidget(
-                              id: '1028432421',
+                              id: widget.videoPath,
                             ))),
                         SizedBox(height: 20),
                         Container(

@@ -4,7 +4,6 @@ import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Progress%20Feature/View%20Model/progress_cubit.dart';
 import 'package:number_paginator/number_paginator.dart';
-
 import '../../../../../Core/Constant/Loading Indicator/Loading indecator.dart';
 import 'DetailsExercise/view/DetailsExercise.dart';
 

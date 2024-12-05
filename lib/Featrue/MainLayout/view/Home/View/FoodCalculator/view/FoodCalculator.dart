@@ -18,6 +18,7 @@ class FoodCalculator extends StatefulWidget {
 
 class _FoodCalculatorState extends State<FoodCalculator> {
   late TextEditingController _searchController;
+  late NumberPaginatorController _controller;
 
 
   late List<String> c;
@@ -30,7 +31,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   void initState() {
     super.initState();
     controller = NumberPaginatorController();
-
+    _controller = NumberPaginatorController();
 
     _searchController = TextEditingController();
     context.read<FoodCalculatorCubit>().getFoodCalculator(mealCategory: widget.mealCategory);
@@ -71,6 +72,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     final exerciseCubit = FoodCalculatorCubit.get(context);
+
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -115,32 +117,21 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               ],
             ),
           ),
-          BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
-            listener: (context, state) {
-            },
+          BlocBuilder<FoodCalculatorCubit, FoodCalculatorState>(
             builder: (context, state) {
-              return   FoodCalculatorCubit.get(context).foodCalculatorModel!=null?
-              exerciseCubit.foodCalculatorModel!.data.isNotEmpty ?  NumberPaginator(
-                showNextButton: true,
-                showPrevButton: true,
-                controller: controller,
-                numberPages: exerciseCubit.foodCalculatorModel
-                    ?.paginationResult.numberOfPages ??
-                    0,
-                onPageChange: (int index) {
-                  exerciseCubit.changePage(
-                      controller: controller, index: index);
-                },
-              ):SizedBox() : Center(
-                child: Text(
-                  '',
-                  style: TextStyle(
-                      color: Colors.deepPurple, fontSize: 20),
-                ),
-              );
+              if (FoodCalculatorCubit .get(context).foodCalculatorModel != null &&
+                  FoodCalculatorCubit .get(context).foodCalculatorModel!.data.isNotEmpty) {
+                return NumberPaginator(
+                  controller: _controller,
+                  numberPages: FoodCalculatorCubit .get(context).foodCalculatorModel!.paginationResult.numberOfPages ?? 0,
+                  onPageChange: (int index) {
+                   FoodCalculatorCubit.get(context).getFoodCalculator(page: index + 1);
+                  },
+                );
+              }
+              return const SizedBox();
             },
           ),
-
           Expanded(
             child: BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
               listener: (context, state) {

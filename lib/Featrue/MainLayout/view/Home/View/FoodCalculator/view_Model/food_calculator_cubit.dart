@@ -17,21 +17,19 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
   FoodCalculatorModel? foodCalculatorModel;
   int currentPage = 1;
 
-  // دالة getFoodCalculator لاستقبال categoryId
-  Future<void> getFoodCalculator({String? mealCategory,}) async {
-    emit(FoodCalculatorLoading());
 
+
+  Future<void> getFoodCalculator({String? mealCategory,int page=1}) async {
+    emit(FoodCalculatorLoading());
     try {
-      // بناء endpoint بناءً على categoryId
       final String endpoint = mealCategory != null && mealCategory.isNotEmpty
           ? '${EndPoints.FoodCalculator}?mealCategory=$mealCategory'
           : EndPoints.FoodCalculator;
-
-
       final response = await DioHelper.get(end_ponit: endpoint,
+        query: {
+        'page' :page
+        },
         token:LoginCubit.loginModel?.token ?? LoginCubit.token,
-
-
       );
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
       emit(FoodCalculatorSuccess(foodCalculatorModel!));
@@ -40,6 +38,10 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
       emit(FoodCalculatorError());
     }
   }
+
+
+
+
 
   // دالة searchFoodCalculator لإجراء عملية البحث
   Future<void> searchFoodCalculator({required String query}) async {
@@ -66,7 +68,7 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
     if (controller.currentPage != index) {
       controller.navigateToPage(index);
     }
-    emit(ChangePageState());
+    emit(ChangePageFoodState());
   }
 
 
