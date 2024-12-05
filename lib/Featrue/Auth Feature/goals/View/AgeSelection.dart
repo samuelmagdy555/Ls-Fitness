@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/gender.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
+import 'package:lsfitness/generated/l10n.dart';
 
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -43,7 +44,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 SizedBox(height: screenHeight * 0.06),
                 // Title
                 Text(
-                  'Body Data',
+                  S.of(context).AgeSelection_Body_Data,
                   style: TextStyle(
                     fontSize: screenWidth * 0.07,
                     fontWeight: FontWeight.bold,
@@ -54,7 +55,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 SizedBox(height: screenHeight * 0.02),
                 // Age selection header
                 Text(
-                  'Your age',
+                  S.of(context).AgeSelection_Age,
                   style: TextStyle(
                     fontSize: screenWidth * 0.06,
                     fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                 ),
                 SizedBox(height: screenHeight * 0.01),
                 Text(
-                  'Age information helps us more accurately\nassess your metabolic level',
+                  S.of(context).AgeSelection_Age_Information,
                   style: TextStyle(
                     fontSize: screenWidth * 0.04,
                     color: Colors.black,
@@ -133,7 +134,7 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
                     ),
                   ),
                   child: Text(
-                    'CONTINUE',
+                    S.of(context).Continue,
                     style: TextStyle(
                       fontSize: screenWidth * 0.05,
                       color: Colors.white,

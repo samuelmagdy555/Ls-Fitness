@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/nationalty.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/generated/l10n.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'AgeSelection.dart';
@@ -37,7 +38,7 @@ class _GenderState extends State<Gender> {
             ),
             SizedBox(height: screenHeight*0.06,),
             Text(
-              "What is your gender?",
+              S.of(context).what_is_your_gender,
               style: TextStyle(
                   fontSize: screenWidth * 0.07,
                   fontWeight: FontWeight.bold,
@@ -50,7 +51,7 @@ class _GenderState extends State<Gender> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 genderCard(
-                  "Female",
+                  S.of(context).female,
                   'assets/images/Woman.png', // Update with your asset path
                   selectedGender == "Female",
                   screenWidth,
@@ -58,7 +59,7 @@ class _GenderState extends State<Gender> {
                 ),
                 SizedBox(width: screenWidth * 0.05),
                 genderCard(
-                  "Male",
+                  S.of(context).male,
                   'assets/images/Men.png', // Update with your asset path
                   selectedGender == "Male",
                   screenWidth,
