@@ -101,6 +101,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               ],
             ),
           ),
+
           Expanded(
             child: BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
               listener: (context, state) {
