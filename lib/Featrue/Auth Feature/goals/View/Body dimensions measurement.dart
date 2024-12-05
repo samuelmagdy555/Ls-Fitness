@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Walk.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 class BodyMeasurementsPage extends StatefulWidget {
   const BodyMeasurementsPage({Key? key}) : super(key: key);
@@ -9,13 +10,13 @@ class BodyMeasurementsPage extends StatefulWidget {
 }
 
 class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
-  final List<String> measurements = ["thighs", "duck", "neck", "chest", "waist", "hand"];
+  final List<String> measurements = ["thighs", "Foot fat", "neck", "chest", "waist", "hand"];
   String selectedMeasurement = "thighs";
   double measurementValue = 0;
 
   final Map<String, double> savedValues = {
     "thighs": 0,
-    "duck": 0,
+    "Foot fat": 0,
     "neck": 0,
     "chest": 0,
     "waist": 0,
@@ -49,6 +50,18 @@ class _BodyMeasurementsPageState extends State<BodyMeasurementsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                    child:
+                    ProgressIndicatorWidget(
+                      currentStep: 1,
+                      totalSteps: 5,
+                      currentPage: 4, // الصفحة الحالية داخل الخطوة
+                      totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                      pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                      width: screenWidth * 0.30,
+                    ),
+                  ),
                   SizedBox(height: screenHeight * 0.1),
                   Text(
                     "Body Dimensions Measurement",

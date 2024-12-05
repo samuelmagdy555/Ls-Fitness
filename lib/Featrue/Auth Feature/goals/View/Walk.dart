@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/BreakTwo.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Rate.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 class WalkDaily extends StatefulWidget {
   const WalkDaily({super.key});
@@ -20,13 +22,24 @@ class _WalkDailyState extends State<WalkDaily> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.05,
-            vertical: size.height * 0.1,
+            vertical: size.height * 0.06,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // السؤال
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: size.height * 0.01),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 1,
+                  totalSteps: 5,
+                  currentPage: 5, // الصفحة الحالية داخل الخطوة
+                  totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                  width: size.width * 0.30,
+                ),
+              ),
+              SizedBox(height: size.height*0.04,),
               Text(
                 'How Much Do You Walk Daily?',
                 textAlign: TextAlign.center,
@@ -62,12 +75,12 @@ class _WalkDailyState extends State<WalkDaily> {
               ElevatedButton(
                 onPressed: selectedContainer != null
                     ? () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>RateFitnessPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>BodyDataPage()));
                 }
                     : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selectedContainer != null
-                      ? Colors.blue
+                      ? Colors.black
                       : Colors.grey,
                   padding: EdgeInsets.symmetric(
                     vertical: size.height * 0.015,
@@ -107,10 +120,10 @@ class _WalkDailyState extends State<WalkDaily> {
         curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue.shade100 : Colors.grey.shade200,
+          color: isSelected ? Colors.white : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(
-            color: isSelected ? Colors.blue : Colors.grey,
+            color: isSelected ? Colors.black : Colors.grey,
             width: 1.5,
           ),
           boxShadow: [
@@ -127,7 +140,7 @@ class _WalkDailyState extends State<WalkDaily> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.blue : Colors.black,
+              color: isSelected ? Colors.black : Colors.grey,
             ),
           ),
         ),

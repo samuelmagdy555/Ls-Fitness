@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/WeightSelection.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
+
 
 class ShiftsPage extends StatefulWidget {
   const ShiftsPage({super.key});
@@ -27,11 +29,21 @@ class _ShiftsPageState extends State<ShiftsPage> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: screenWidth * 0.05,
-          vertical: screenHeight * 0.05,
+          vertical: screenHeight * 0.06,
         ),
         child: Column(
           children: [
+            SizedBox(height: screenHeight*0.02,),
+            // Progress Indicator
+            ProgressIndicatorWidget(
+              currentStep: 1,
+              totalSteps: 5,
+              currentPage: 1, // الصفحة الحالية داخل الخطوة
+              totalPages: 6, // إجمالي صفحات الخطوة الحالية
+              pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+              width: screenWidth * 0.33,
+            ),
+            SizedBox(height: screenHeight * 0.02),
             // العنوان الرئيسي
             Center(
               child: Text(
@@ -66,7 +78,7 @@ class _ShiftsPageState extends State<ShiftsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => WeightSelectionPage()
+                            builder: (context) => WeightSelectionPage(),
                           ),
                         );
                       });
@@ -131,30 +143,6 @@ class _ShiftsPageState extends State<ShiftsPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class NextPage extends StatelessWidget {
-  final String selectedOption;
-
-  const NextPage({super.key, required this.selectedOption});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Next Page'),
-      ),
-      body: Center(
-        child: Text(
-          'You chose: $selectedOption',
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
         ),
       ),
     );

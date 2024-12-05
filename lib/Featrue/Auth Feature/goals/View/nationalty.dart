@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/live.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 class NationaltyPage extends StatefulWidget {
   const NationaltyPage({super.key});
@@ -206,133 +207,158 @@ class _NationaltyPageState extends State<NationaltyPage> {
     "Zimbabwean"
   ];
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          // صورة الخلفية
-          Positioned(
-            top: size.height * 0.027,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/images/Nationalty.png',
-              width: size.width,
-              height: size.height * 0.4,
-              fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: size.height*0.05 ,),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
+              child:  ProgressIndicatorWidget(
+                currentStep: 0,
+                totalSteps: 5,
+                currentPage: 3, // الصفحة الحالية داخل الخطوة
+                totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                width: screenWidth * 0.33,
+              ),
             ),
-          ),
-          // محتويات الصفحة
-          Column(
-            children: [
-              SizedBox(height: size.height * 0.4), // ترك مساحة للصورة
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.08, vertical: size.height * 0.05),
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(30),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 10,
-                        spreadRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // السؤال
-                      Text(
-                        "What is your nationality?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: size.width * 0.06,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.03),
-                      // قائمة اختيار الجنسية
-                      Container(
-                        width: size.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade400),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: selectedNationality,
-                            hint: const Text("Select your nationality"),
-                            isExpanded: true,
-                            items: nationalities.map((String nationality) {
-                              return DropdownMenuItem<String>(
-                                value: nationality,
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.flag, color: Colors.blue),
-                                    SizedBox(width: 10),
-                                    Text(nationality),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedNationality = newValue;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.2),
-                      // زر متابعة
-                      ElevatedButton(
-                        onPressed: selectedNationality == null
-                            ? null
-                            : () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>WhereDidYouLive()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.3, vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          backgroundColor: selectedNationality == null
-                              ? Colors.grey
-                              : Colors.black,
-                        ),
-                        child: Text(
-                          "Continue",
-                          style: TextStyle(
-                            fontSize: size.width * 0.045,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
+            // Stack for Background Image and Content
+            Stack(
+              children: [
+                // صورة الخلفية
+                Positioned(
+                  top: size.height * 0.027,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(
+                    'assets/images/Nationalty.png',
+                    width: size.width,
+                    height: size.height * 0.4,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                // محتويات الصفحة
+                Column(
+                  children: [
+                    SizedBox(height: size.height * 0.4), // ترك مساحة للصورة
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.width * 0.08,
+                        vertical: size.height * 0.05,
+                      ),
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(30),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 10,
+                            spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // السؤال
+                          Text(
+                            "What is your nationality?",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: size.width * 0.06,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          // قائمة اختيار الجنسية
+                          Container(
+                            width: size.width,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.grey.shade400),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<String>(
+                                value: selectedNationality,
+                                hint: const Text("Select your nationality"),
+                                isExpanded: true,
+                                items: nationalities.map((String nationality) {
+                                  return DropdownMenuItem<String>(
+                                    value: nationality,
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.flag, color: Colors.blue),
+                                        SizedBox(width: 10),
+                                        Text(nationality),
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedNationality = newValue;
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: size.height * 0.2),
+                          // زر متابعة
+                          ElevatedButton(
+                            onPressed: selectedNationality == null
+                                ? null
+                                : () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WhereDidYouLive(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.3,
+                                vertical: 15,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              backgroundColor: selectedNationality == null
+                                  ? Colors.grey
+                                  : Colors.black,
+                            ),
+                            child: Text(
+                              "Continue",
+                              style: TextStyle(
+                                fontSize: size.width * 0.045,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-

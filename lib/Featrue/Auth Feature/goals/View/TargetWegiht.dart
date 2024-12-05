@@ -36,9 +36,17 @@ class _TargetWeightSelectionPageState extends State<TargetWeightSelectionPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ProgressIndicatorWidget(
-                  currentStep: 7,
-                  totalSteps: 10,
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                    child:
+                    ProgressIndicatorWidget(
+                      currentStep: 4,
+                      totalSteps: 5,
+                      currentPage: 2 ,
+                      totalPages: 6,
+                      pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                      width: screenWidth * 0.33,
+                    )
                 ),
               ],
             ),

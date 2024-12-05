@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/BreakFive.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingWays.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class TrainingDays extends StatefulWidget {
+class HearingAboutUs extends StatefulWidget {
   @override
-  _TrainingDaysState createState() => _TrainingDaysState();
+  _HearingAboutUsState createState() => _HearingAboutUsState();
 }
 
-class _TrainingDaysState extends State<TrainingDays> {
+class _HearingAboutUsState extends State<HearingAboutUs> {
   List<String> selectedGoals = [];
 
   @override
@@ -23,21 +26,21 @@ class _TrainingDaysState extends State<TrainingDays> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child:
-              ProgressIndicatorWidget(
-                currentStep: 3,
-                totalSteps: 5,
-                currentPage: 1 ,
-                totalPages: 6,
-                pagesPerStep: [5, 5, 5, 5, 5,5,5],
-                width: screenWidth * 0.33,
-              )
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 4,
+                  totalSteps: 5,
+                  currentPage: 5 ,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
+                )
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Number of Training Days ?",
+                "Where did you hear about us?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -74,7 +77,7 @@ class _TrainingDaysState extends State<TrainingDays> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TheTypeOfExerciseYouPrefer(),
+                      builder: (context) => FitnessDataTwo(),
                     ),
                   );
                 }
@@ -103,10 +106,24 @@ class _TrainingDaysState extends State<TrainingDays> {
       ),
     );
   }
-
-  Widget buildGoalOption(
-      BuildContext context, String title, double screenWidth) {
+  Widget buildGoalOption(BuildContext context, String title, double screenWidth) {
     bool isSelected = selectedGoals.contains(title);
+
+    // اختر الأيقونة المناسبة لكل عنوان
+    IconData getIcon(String title) {
+      switch (title) {
+        case 'FaceBook':
+          return Icons.facebook; // أيقونة Facebook
+        case 'TikTok':
+          return Icons.tiktok_outlined; // لا يوجد أيقونة مباشرة لـ TikTok، استخدم بديل
+        case 'Instagram':
+          return Icons.camera_alt; // أيقونة الكاميرا كبديل لـ Instagram
+        case 'Twitter':
+          return Icons.alternate_email; // أيقونة البريد الإلكتروني كبديل لـ Twitter
+        default:
+          return Icons.help; // أيقونة افتراضية
+      }
+    }
 
     return GestureDetector(
       onTap: () {
@@ -138,18 +155,23 @@ class _TrainingDaysState extends State<TrainingDays> {
               ),
               textAlign: TextAlign.center,
             ),
+            SizedBox(height: 10), // مسافة بين النص والأيقونة
+            Icon(
+              getIcon(title),
+              size: screenWidth * 0.1,
+              color: isSelected ? Colors.black : Colors.grey,
+            ),
           ],
         ),
       ),
     );
   }
+
 }
 
 final List<Map<String, String>> goals = [
-  {'title': 'One Day', },
-  {'title': 'Two Days', },
-  {'title': 'Three Days', },
-  {'title': 'Four Days', },
-  {'title': 'Five Days', },
-  {'title': 'Six Days', },
+  {'title': 'FaceBook', },
+  {'title': 'TikTok', },
+  {'title': 'Instagram', },
+  {'title': 'Twitter', },
 ];

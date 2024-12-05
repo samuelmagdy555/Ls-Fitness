@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class TrainingDays extends StatefulWidget {
+class BreakingDay extends StatefulWidget {
   @override
-  _TrainingDaysState createState() => _TrainingDaysState();
+  _BreakingDayState createState() => _BreakingDayState();
 }
 
-class _TrainingDaysState extends State<TrainingDays> {
+class _BreakingDayState extends State<BreakingDay> {
   List<String> selectedGoals = [];
 
   @override
@@ -24,20 +25,15 @@ class _TrainingDaysState extends State<TrainingDays> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child:
-              ProgressIndicatorWidget(
-                currentStep: 3,
-                totalSteps: 5,
-                currentPage: 1 ,
-                totalPages: 6,
-                pagesPerStep: [5, 5, 5, 5, 5,5,5],
-                width: screenWidth * 0.33,
-              )
+              // child: ProgressIndicatorWidget(
+              //   currentStep: 10,
+              //   totalSteps: 10,
+              // ),
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Number of Training Days ?",
+                "Choose Your Training Days ?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -74,7 +70,7 @@ class _TrainingDaysState extends State<TrainingDays> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TheTypeOfExerciseYouPrefer(),
+                      builder: (context) => FitnessEquipmentPage(),
                     ),
                   );
                 }
@@ -146,10 +142,11 @@ class _TrainingDaysState extends State<TrainingDays> {
 }
 
 final List<Map<String, String>> goals = [
-  {'title': 'One Day', },
-  {'title': 'Two Days', },
-  {'title': 'Three Days', },
-  {'title': 'Four Days', },
-  {'title': 'Five Days', },
-  {'title': 'Six Days', },
+  {'title': 'Sunday', },
+  {'title': 'Saturday', },
+  {'title': 'Monday', },
+  {'title': 'Tuesday', },
+  {'title': 'Wednesday', },
+  {'title': 'Thursday', },
+  {'title': 'Friday', },
 ];

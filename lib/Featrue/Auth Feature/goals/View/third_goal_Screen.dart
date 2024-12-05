@@ -37,10 +37,10 @@ class _BodySelectionScreenState extends State<BodySelectionScreen> {
                   // Progress Indicator
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-                    child: ProgressIndicatorWidget(
-                      currentStep: 3,
-                      totalSteps: 10,
-                    ),
+                    // child: ProgressIndicatorWidget(
+                    //   currentStep: 3,
+                    //   totalSteps: 10,
+                    // ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   // Main Heading

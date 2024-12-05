@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/AboutUs.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingWays.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
@@ -28,11 +29,16 @@ class _TrainingLocationState extends State<TrainingLocation> {
           children: [
 
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 1,
-                totalSteps: 10,
-              ),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 4,
+                  totalSteps: 5,
+                  currentPage: 4 ,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
+                )
             ),
             SizedBox(height: screenHeight * 0.03),
 
@@ -93,10 +99,11 @@ class _TrainingLocationState extends State<TrainingLocation> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TrainingWays(),
+            builder: (context) => HearingAboutUs(),
           ),
         );
       },
+
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

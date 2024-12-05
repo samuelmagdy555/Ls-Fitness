@@ -23,18 +23,19 @@ class _GenderState extends State<Gender> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+             vertical: screenHeight * 0.06),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Progress Indicator
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
-              child: ProgressIndicatorWidget(
-                currentStep: 4,
-                totalSteps: 10,
-              ),
+               ProgressIndicatorWidget(
+                currentStep: 0,
+                totalSteps: 5,
+                currentPage: 2, // الصفحة الحالية داخل الخطوة
+                totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                width: screenWidth * 0.33,
             ),
+            SizedBox(height: screenHeight*0.06,),
             Text(
               "What is your gender?",
               style: TextStyle(

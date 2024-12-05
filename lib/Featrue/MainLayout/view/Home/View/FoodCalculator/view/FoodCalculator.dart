@@ -40,7 +40,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   ];
 
   List<String> imageList = [
-    'calories.png', 'protein.png', 'carb.png', 'fats.png', 'fiber.png', 'sugar.png',
+    'calories.png', 'protein.png', 'carb.png', 'fats.png', 'fiber.png', 'assets/images/dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
     'vitamin-a.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png',
     'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-c.png',
     'vitamin-d.png', 'vitamin-e.png', 'Vitamin K.png', 'calcium.png', 'iron.png',
@@ -190,7 +190,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                                   foodItem.image,
                                   width: width * 0.8,
                                   height: height * 0.3,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 ),
                                 const SizedBox(height: 10),
                                 Text(

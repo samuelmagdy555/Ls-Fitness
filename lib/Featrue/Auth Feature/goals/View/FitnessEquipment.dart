@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/BreakFour.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/CurnnetBody.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -27,10 +28,15 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
 
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 1,
-                totalSteps: 10,
-              ),
+              child:
+              ProgressIndicatorWidget(
+                currentStep: 3,
+                totalSteps: 5,
+                currentPage: 6 ,
+                totalPages: 5,
+                pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                width: screenWidth * 0.33,
+              )
             ),
             SizedBox(height: screenHeight * 0.03),
 
@@ -97,7 +103,7 @@ class _FitnessEquipmentPageState extends State<FitnessEquipmentPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BodyShapeSelectionPage(),
+            builder: (context) => FitnessData(),
           ),
         );
       },

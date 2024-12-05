@@ -46,7 +46,11 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
     try {
       final String endpoint = '${EndPoints.FoodCalculator}?keyword=$query';
 
-      final response = await DioHelper.get(end_ponit: endpoint);
+      final response = await DioHelper.get(end_ponit: endpoint,
+        token:LoginCubit.loginModel?.token ?? LoginCubit.token,
+
+      );
+
       foodCalculatorModel = FoodCalculatorModel.fromJson(response.data);
       emit(FoodCalculatorSuccess(foodCalculatorModel!));
     } catch (e) {

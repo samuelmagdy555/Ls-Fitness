@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TraingBreak.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class TrainingDays extends StatefulWidget {
+class TrainingTime extends StatefulWidget {
   @override
-  _TrainingDaysState createState() => _TrainingDaysState();
+  _TrainingTimeState createState() => _TrainingTimeState();
 }
 
-class _TrainingDaysState extends State<TrainingDays> {
+class _TrainingTimeState extends State<TrainingTime> {
   List<String> selectedGoals = [];
 
   @override
@@ -23,21 +25,21 @@ class _TrainingDaysState extends State<TrainingDays> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child:
-              ProgressIndicatorWidget(
-                currentStep: 3,
-                totalSteps: 5,
-                currentPage: 1 ,
-                totalPages: 6,
-                pagesPerStep: [5, 5, 5, 5, 5,5,5],
-                width: screenWidth * 0.33,
-              )
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 5,
+                  totalSteps: 5,
+                  currentPage: 2 ,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
+                )
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Number of Training Days ?",
+                "Choose Your Training Time ?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -74,7 +76,7 @@ class _TrainingDaysState extends State<TrainingDays> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TheTypeOfExerciseYouPrefer(),
+                      builder: (context) => ChooseTrainingBreak(),
                     ),
                   );
                 }
@@ -146,10 +148,12 @@ class _TrainingDaysState extends State<TrainingDays> {
 }
 
 final List<Map<String, String>> goals = [
-  {'title': 'One Day', },
-  {'title': 'Two Days', },
-  {'title': 'Three Days', },
-  {'title': 'Four Days', },
-  {'title': 'Five Days', },
-  {'title': 'Six Days', },
+  {'title': '30-45 Minutes', },
+  {'title': '45-60 Minutes', },
+  {'title': '60-75 Minutes', },
+  {'title': '75-100 Minutes', },
+  {'title': '100-120 Minutes', },
+  {'title': '120-140 Minutes', },
+  {'title': '140-160 Minutes', },
+  {'title': '160-180 Minutes', },
 ];

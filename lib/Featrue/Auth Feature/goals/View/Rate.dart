@@ -27,9 +27,14 @@ class _RateFitnessPageState extends State<RateFitnessPage> {
 
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              child: ProgressIndicatorWidget(
-                currentStep: 1,
-                totalSteps: 10,
+              child:
+              ProgressIndicatorWidget(
+                currentStep: 2,
+                totalSteps: 5,
+                currentPage: 1, // الصفحة الحالية داخل الخطوة
+                totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                width: screenWidth * 0.33,
               ),
             ),
             SizedBox(height: screenHeight * 0.03),
