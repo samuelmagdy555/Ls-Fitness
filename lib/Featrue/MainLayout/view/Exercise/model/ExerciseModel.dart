@@ -31,16 +31,16 @@ class PaginationResult {
   PaginationResult({
     required this.currentPage,
     required this.limit,
-    required this.numberOfPages,
+     this.numberOfPages,
   });
   late final int currentPage;
   late final int limit;
-  late final int numberOfPages;
+   int? numberOfPages;
 
   PaginationResult.fromJson(Map<String, dynamic> json){
     currentPage = json['currentPage'];
     limit = json['limit'];
-    numberOfPages = json['numberOfPages'];
+    numberOfPages = json['numberOfPages'] ?? 0 ;
   }
 
   Map<String, dynamic> toJson() {

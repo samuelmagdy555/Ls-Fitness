@@ -221,7 +221,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         home:
-            LoginCubit.token == '' ? const SplashScreen() : AgeSelectionPage(),
+            LoginCubit.token == '' ? const SplashScreen() : MainLayout(),
       ),
     );
   }

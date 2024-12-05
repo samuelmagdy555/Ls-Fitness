@@ -20,12 +20,26 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   BodyPartsModel? bodyPartsModel;
   LoginModel? loginModel;
 
+  int currentPage = 1;
+
+  // void changePage({required controller, required int index}) {
+  //   currentPage = index + 1;
+  //   emit(PageChangedState());
+  // }
+
+  void changePage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    emit(ChangePageState());
+  }
+
   List<int> filter = [
     6,
     6,
     6,
     6,
-
   ];
   List<String> filterDetails = [
     '',
@@ -38,20 +52,16 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     'Cardio',
     'recoveryAndStretching',
     'deepAnatomy'
-
   ];
 
+  String result2 = '';
 
-
-  String result2 ='';
   void updateTitleByIndex(
       int index, int buttonIndex, List<Map<String, dynamic>> buttons) {
-    if (
-        buttons[index]['title'] == 'Recovery and Stretching'||
-        buttons[index]['title'] == 'Cardio'
-
-    ) {
-      print('in function (updateTitleByIndex) title is ${buttons[index]['title']}');
+    if (buttons[index]['title'] == 'Recovery and Stretching' ||
+        buttons[index]['title'] == 'Cardio') {
+      print(
+          'in function (updateTitleByIndex) title is ${buttons[index]['title']}');
       if (filterDetails[index] == '' || filterDetails[index] == 'false') {
         filterDetails[index] = 'true';
         print('true');
@@ -59,9 +69,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         filterDetails[index] = 'false';
         print('false');
       }
-    }
-    else {
-
+    } else {
       print(bodyPartsModel!.data[buttonIndex].title);
       print(buttonIndex);
       filterDetails[index] = bodyPartsModel!.data[buttonIndex].id;
@@ -75,7 +83,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   List exerciseFilter = [];
 
   Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
-exercisesModel =null;
     emit(GetExerciseLoading());
     try {
       final response = await DioHelper.get(
@@ -113,23 +120,15 @@ exercisesModel =null;
     }
   }
 
-  void changePage(
-      {required NumberPaginatorController controller, required int index}) {
-    if (controller.currentPage != index) {
-      controller.navigateToPage(index);
-    }
 
-    emit(ChangePageState());
-  }
 
   Future<void> generateFilterMap(
-  {int? page, NumberPaginatorController? controller }) async {
+      {int? page, NumberPaginatorController? controller}) async {
     Map<String, String> result = {};
 
-    result['page'] = page.toString()??'1';
-print(result2);
+    result['page'] = page.toString() ?? '1';
+    print(result2);
     result['bodyPart'] = result2;
-
 
     for (int i = 0; i < filter.length; i++) {
       if (filter[i] != 6) {
@@ -149,6 +148,5 @@ print(result2);
       items.add(item.title);
     }
     return items;
-
   }
 }
