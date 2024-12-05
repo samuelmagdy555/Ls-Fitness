@@ -10,3 +10,4 @@ class FoodCalculatorSuccess extends FoodCalculatorState{
 }
 class FoodCalculatorError extends FoodCalculatorState{}
 class FoodCalculatorLoading extends FoodCalculatorState{}
+class ChangePageState extends FoodCalculatorState{}

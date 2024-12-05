@@ -239,6 +239,7 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
+
                   const SizedBox(height: 20),
                   if (calculationData != null) ...[
                     GridView.builder(

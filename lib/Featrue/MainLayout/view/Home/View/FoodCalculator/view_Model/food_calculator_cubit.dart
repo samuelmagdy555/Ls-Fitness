@@ -5,6 +5,7 @@ import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:meta/meta.dart';
+import 'package:number_paginator/number_paginator.dart';
 import '../Model/FoodCalculatorModel.dart';
 
 part 'food_calculator_state.dart';
@@ -14,6 +15,7 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
   static FoodCalculatorCubit get(context) => BlocProvider.of(context);
 
   FoodCalculatorModel? foodCalculatorModel;
+  int currentPage = 1;
 
   // دالة getFoodCalculator لاستقبال categoryId
   Future<void> getFoodCalculator({String? mealCategory,}) async {
@@ -58,4 +60,14 @@ class FoodCalculatorCubit extends Cubit<FoodCalculatorState> {
       emit(FoodCalculatorError());
     }
   }
+
+  void changePage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    emit(ChangePageState());
+  }
+
+
 }

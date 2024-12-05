@@ -6,8 +6,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/AboutUs.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/AgeSelection.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TraingTime.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart';
@@ -222,7 +220,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         home:
-            LoginCubit.token == '' ? const SplashScreen() : AgeSelectionPage(),
+            LoginCubit.token == '' ? const SplashScreen() : MainLayout(),
       ),
     );
   }

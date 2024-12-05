@@ -112,10 +112,7 @@ class _CoursesViewState extends State<CoursesView> {
                       )
                     : Expanded(
                         child: MasonryGridView.count(
-                          itemCount: CoursesCubit.get(context)
-                              .allCoursesModel!
-                              .data
-                              .length,
+                          itemCount: 4,
                           itemBuilder: (context, index) {
                             final course = CoursesCubit.get(context)
                                 .allCoursesModel!

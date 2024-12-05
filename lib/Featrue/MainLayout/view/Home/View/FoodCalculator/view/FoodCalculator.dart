@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/View/FoodCalculatorFilter.dart';
+import 'package:number_paginator/number_paginator.dart';
 import '../view_Model/food_calculator_cubit.dart';
 import 'FoodCalculatorDetails/view/FoodCalulatorDetails.dart';
 import 'FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
@@ -18,9 +19,19 @@ class FoodCalculator extends StatefulWidget {
 class _FoodCalculatorState extends State<FoodCalculator> {
   late TextEditingController _searchController;
 
+
+  late List<String> c;
+  int num = 0;
+  late NumberPaginatorController controller;
+
+
+
   @override
   void initState() {
     super.initState();
+    controller = NumberPaginatorController();
+
+
     _searchController = TextEditingController();
     context.read<FoodCalculatorCubit>().getFoodCalculator(mealCategory: widget.mealCategory);
   }
@@ -28,6 +39,8 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   @override
   void dispose() {
     _searchController.dispose();
+    controller.dispose();
+
     super.dispose();
   }
 
@@ -57,6 +70,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final exerciseCubit = FoodCalculatorCubit.get(context);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -101,6 +115,32 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               ],
             ),
           ),
+          BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
+            listener: (context, state) {
+            },
+            builder: (context, state) {
+              return   FoodCalculatorCubit.get(context).foodCalculatorModel!=null?
+              exerciseCubit.foodCalculatorModel!.data.isNotEmpty ?  NumberPaginator(
+                showNextButton: true,
+                showPrevButton: true,
+                controller: controller,
+                numberPages: exerciseCubit.foodCalculatorModel
+                    ?.paginationResult.numberOfPages ??
+                    0,
+                onPageChange: (int index) {
+                  exerciseCubit.changePage(
+                      controller: controller, index: index);
+                },
+              ):SizedBox() : Center(
+                child: Text(
+                  '',
+                  style: TextStyle(
+                      color: Colors.deepPurple, fontSize: 20),
+                ),
+              );
+            },
+          ),
+
           Expanded(
             child: BlocConsumer<FoodCalculatorCubit, FoodCalculatorState>(
               listener: (context, state) {
