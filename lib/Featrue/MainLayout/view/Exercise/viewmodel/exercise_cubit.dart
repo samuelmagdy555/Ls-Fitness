@@ -77,7 +77,6 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
 exercisesModel =null;
     emit(GetExerciseLoading());
-
     try {
       final response = await DioHelper.get(
           end_ponit: EndPoints.GetExercise,

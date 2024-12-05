@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Training.dart';
-import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
-import '../Widgets/View/ProgressIndicator.dart';
-import 'Rate.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/BreakThree.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 class DiseasesScreen extends StatefulWidget {
   @override
@@ -11,6 +9,7 @@ class DiseasesScreen extends StatefulWidget {
 
 class _DiseasesScreenState extends State<DiseasesScreen> {
   List<String> selectedGoals = [];
+  String otherText = ""; // لتخزين النص المدخل
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +23,15 @@ class _DiseasesScreenState extends State<DiseasesScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              // child: ProgressIndicatorWidget(
-              //   currentStep: 10,
-              //   totalSteps: 10,
-              // ),
+              child:
+              ProgressIndicatorWidget(
+                currentStep: 2,
+                totalSteps: 5,
+                currentPage: 5,
+                totalPages: 6,
+                pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                width: screenWidth * 0.33,
+              ),
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
@@ -62,17 +66,27 @@ class _DiseasesScreenState extends State<DiseasesScreen> {
                 },
               ),
             ),
+            if (selectedGoals.contains("Other")) // عرض حقل الكتابة عند اختيار "Other"
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      otherText = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Please specify",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
               child: ElevatedButton(
                 onPressed: selectedGoals.isNotEmpty
                     ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TrainingDays(),
-                    ),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>IllnessAndInjury()));
                 }
                     : null,
                 style: ElevatedButton.styleFrom(
@@ -109,6 +123,9 @@ class _DiseasesScreenState extends State<DiseasesScreen> {
         setState(() {
           if (isSelected) {
             selectedGoals.remove(title);
+            if (title == "Other") {
+              otherText = ""; // إعادة تعيين النص إذا تم إلغاء التحديد
+            }
           } else {
             selectedGoals.add(title);
           }

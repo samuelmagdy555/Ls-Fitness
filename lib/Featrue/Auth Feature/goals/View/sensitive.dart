@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/injuries.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
-import 'Second_goal_Screen.dart';
 
 class SensitivePage extends StatefulWidget {
   @override
@@ -11,6 +10,7 @@ class SensitivePage extends StatefulWidget {
 
 class _SensitivePageState extends State<SensitivePage> {
   List<String> selectedGoals = [];
+  TextEditingController otherController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,55 +20,61 @@ class _SensitivePageState extends State<SensitivePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              // child: ProgressIndicatorWidget(
-              //   currentStep: 1,
-              //   totalSteps: 10,
-              // ),
-            ),
-            SizedBox(height: screenHeight * 0.03),
-
-            Center(
-              child: Text(
-                "Are you allergic to \nthose substances?",
-                style: TextStyle(
-                  fontSize: screenWidth * 0.06,
-                  fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
+                child: ProgressIndicatorWidget(
+                  currentStep: 2,
+                  totalSteps: 5,
+                  currentPage: 3,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
                 ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.03),
+              SizedBox(height: screenHeight * 0.03),
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-              padding: EdgeInsets.all(screenWidth * 0.04),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(screenWidth * 0.03),
+              Center(
+                child: Text(
+                  "Are you allergic to \nthose substances?",
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.06,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
-                  SizedBox(width: screenWidth * 0.03),
-                  Expanded(
-                    child: Text(
-                      "We’ll tailor the best blend of strength and cardio training to align with your goal.",
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontSize: screenWidth * 0.045,
+              SizedBox(height: screenHeight * 0.03),
+
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                padding: EdgeInsets.all(screenWidth * 0.04),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(screenWidth * 0.03),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.adjust, color: Colors.red, size: screenWidth * 0.07),
+                    SizedBox(width: screenWidth * 0.03),
+                    Expanded(
+                      child: Text(
+                        "We’ll tailor the best blend of strength and cardio training to align with your goal.",
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: screenWidth * 0.045,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.05),
+              SizedBox(height: screenHeight * 0.05),
 
-            Expanded(
-              child: ListView(
+              ListView(
+                shrinkWrap: true, // Important to avoid infinite height
+                physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 children: [
                   buildGoalOption(
@@ -102,48 +108,65 @@ class _SensitivePageState extends State<SensitivePage> {
                     screenWidth,
                     screenHeight,
                   ),
+                  SizedBox(height: screenHeight * 0.02),
+
+                  // TextField for "Other" option
+                  Visibility(
+                    visible: selectedGoals.contains('Other'),
+                    child: TextField(
+                      controller: otherController,
+                      decoration: InputDecoration(
+                        labelText: "Please specify",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(screenWidth * 0.03),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
 
-            Padding(
-              padding: EdgeInsets.all(screenWidth * 0.05),
-              child: ElevatedButton(
-                onPressed: selectedGoals.isNotEmpty
-                    ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => InjuriesRecently(),
+              Padding(
+                padding: EdgeInsets.all(screenWidth * 0.05),
+                child: ElevatedButton(
+                  onPressed: selectedGoals.isNotEmpty
+                      ? () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => InjuriesRecently(),
+                      ),
+                    );
+                  }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        vertical: screenHeight * 0.02, horizontal: screenWidth * 0.09),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.04),
                     ),
-                  );
-                }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02,horizontal: screenWidth*0.09),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(screenWidth * 0.04,),
+                    backgroundColor: selectedGoals.isNotEmpty
+                        ? Colors.black
+                        : Colors.grey.shade400,
                   ),
-                  backgroundColor: selectedGoals.isNotEmpty
-                      ? Colors.black
-                      : Colors.grey.shade400,
-                ),
-                child: Text(
-                  "Continue",
-                  style: TextStyle(
-                    fontSize: screenWidth * 0.05,
-                    color: Colors.white,
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.05,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget buildGoalOption(BuildContext context, String imagePath, String title, double screenWidth, double screenHeight) {
+  Widget buildGoalOption(BuildContext context, String imagePath, String title,
+      double screenWidth, double screenHeight) {
     bool isSelected = selectedGoals.contains(title);
 
     return GestureDetector(
@@ -197,3 +220,4 @@ class _SensitivePageState extends State<SensitivePage> {
     );
   }
 }
+

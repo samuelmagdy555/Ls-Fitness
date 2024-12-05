@@ -43,14 +43,14 @@ class ProgressIndicatorWidget extends StatelessWidget {
             CircleAvatar(
               radius: screenWidth * 0.04,
               backgroundColor: isCompleted
-                  ? Colors.purple
+                  ? Colors.green
                   : Colors.grey.shade300,
               child: isCompleted
                   ? Icon(Icons.check, color: Colors.white, size: screenWidth * 0.05)
                   : Text(
                 "${index + 1}",
                 style: TextStyle(
-                  color: isActive ? Colors.purple : Colors.black54,
+                  color: isActive ? Colors.green : Colors.black54,
                   fontWeight: FontWeight.bold,
                   fontSize: screenWidth * 0.035,
                 ),
@@ -70,7 +70,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
                   Container(
                     width: progressIndicatorWidth * 0.2 * progress,
                     height: progressIndicatorHeight,
-                    color: Colors.purple,
+                    color: Colors.green,
                   ),
                 ],
               ),

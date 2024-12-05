@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/BreakFive.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingWays.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
@@ -24,11 +26,16 @@ class _HearingAboutUsState extends State<HearingAboutUs> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              // child: ProgressIndicatorWidget(
-              //   currentStep: 10,
-              //   totalSteps: 10,
-              // ),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 4,
+                  totalSteps: 5,
+                  currentPage: 5 ,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
+                )
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
@@ -70,7 +77,7 @@ class _HearingAboutUsState extends State<HearingAboutUs> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FitnessEquipmentPage(),
+                      builder: (context) => FitnessDataTwo(),
                     ),
                   );
                 }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/End.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/FitnessEquipment.dart';
-import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TraingBreak.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TrainingKind.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
 import 'Rate.dart';
 
-class TrainingTime extends StatefulWidget {
+class ChooseTrainingBreak extends StatefulWidget {
   @override
-  _TrainingTimeState createState() => _TrainingTimeState();
+  _ChooseTrainingBreakState createState() => _ChooseTrainingBreakState();
 }
 
-class _TrainingTimeState extends State<TrainingTime> {
+class _ChooseTrainingBreakState extends State<ChooseTrainingBreak> {
   List<String> selectedGoals = [];
 
   @override
@@ -25,12 +25,12 @@ class _TrainingTimeState extends State<TrainingTime> {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
                 child:
                 ProgressIndicatorWidget(
                   currentStep: 5,
                   totalSteps: 5,
-                  currentPage: 2 ,
+                  currentPage: 3 ,
                   totalPages: 6,
                   pagesPerStep: [5, 5, 5, 5, 5,5,5],
                   width: screenWidth * 0.33,
@@ -39,7 +39,7 @@ class _TrainingTimeState extends State<TrainingTime> {
             SizedBox(height: screenHeight * 0.03),
             Center(
               child: Text(
-                "Choose Your Training Time ?",
+                "Choose Your Training Break ?",
                 style: TextStyle(
                   fontSize: screenWidth * 0.06,
                   fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class _TrainingTimeState extends State<TrainingTime> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ChooseTrainingBreak(),
+                      builder: (context) => ThankYouPage(),
                     ),
                   );
                 }
@@ -148,12 +148,11 @@ class _TrainingTimeState extends State<TrainingTime> {
 }
 
 final List<Map<String, String>> goals = [
-  {'title': '30-45 Minutes', },
-  {'title': '45-60 Minutes', },
-  {'title': '60-75 Minutes', },
-  {'title': '75-100 Minutes', },
-  {'title': '100-120 Minutes', },
-  {'title': '120-140 Minutes', },
-  {'title': '140-160 Minutes', },
-  {'title': '160-180 Minutes', },
+  {'title': 'Sunday', },
+  {'title': 'Saturday', },
+  {'title': 'Monday', },
+  {'title': 'Tuesday', },
+  {'title': 'Wednesday', },
+  {'title': 'Thursday', },
+  {'title': 'Friday', },
 ];

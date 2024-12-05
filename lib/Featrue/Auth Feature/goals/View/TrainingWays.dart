@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Diets.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TraingTime.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Training.dart';
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Widgets/View/ProgressIndicator.dart';
@@ -24,11 +25,16 @@ class _TrainingWaysState extends State<TrainingWays> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              // child: ProgressIndicatorWidget(
-              //   currentStep: 10,
-              //   totalSteps: 10,
-              // ),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.06),
+                child:
+                ProgressIndicatorWidget(
+                  currentStep: 5,
+                  totalSteps: 5,
+                  currentPage: 1 ,
+                  totalPages: 6,
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                  width: screenWidth * 0.33,
+                )
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(
@@ -70,7 +76,7 @@ class _TrainingWaysState extends State<TrainingWays> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DietsPage(),
+                      builder: (context) => TrainingTime(),
                     ),
                   );
                 }

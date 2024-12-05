@@ -24,10 +24,15 @@ class _TrainingDaysState extends State<TrainingDays> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
-              // child: ProgressIndicatorWidget(
-              //   currentStep: 10,
-              //   totalSteps: 10,
-              // ),
+              child:
+              ProgressIndicatorWidget(
+                currentStep: 3,
+                totalSteps: 5,
+                currentPage: 1 ,
+                totalPages: 6,
+                pagesPerStep: [5, 5, 5, 5, 5,5,5],
+                width: screenWidth * 0.33,
+              )
             ),
             SizedBox(height: screenHeight * 0.03),
             Center(

@@ -49,7 +49,6 @@ import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -59,7 +58,6 @@ void main() async {
   await DioHelper.init();
   await CashHelper.init();
   await CashHelper.getUserInfo();
-
 
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
@@ -202,8 +200,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
         BlocProvider(create: (context) => NutritionCubit()),
         BlocProvider(create: (context) => FoodCalculatorFilterCubit()),
-        BlocProvider(create: (context) => MainLayoutModelCubit(),),
-        BlocProvider(create: (context) => CoursesCubit(),),
+        BlocProvider(
+          create: (context) => MainLayoutModelCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CoursesCubit(),
+        ),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -218,9 +220,9 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
-        home: LoginCubit.token == ''? const SplashScreen() :   AgeSelectionPage(),
+        home:
+            LoginCubit.token == '' ? const SplashScreen() : AgeSelectionPage(),
       ),
     );
   }
 }
-

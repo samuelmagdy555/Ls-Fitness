@@ -41,7 +41,7 @@ class _ThankYouPageState extends State<ThankYouPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kThirdColor,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -58,7 +58,7 @@ class _ThankYouPageState extends State<ThankYouPage>
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -102,10 +102,15 @@ class _ThankYouPageState extends State<ThankYouPage>
                     ),
                   );
                 },
-                child: Text('Continue'),
+                child: Text('Continue',
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: TextStyle(fontSize: 18),
+                  textStyle: TextStyle(fontSize: 18,),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

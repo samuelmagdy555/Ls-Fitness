@@ -26,22 +26,21 @@ class _AgeSelectionPageState extends State<AgeSelectionPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
+            padding: EdgeInsets.symmetric(vertical:screenHeight * 0.06 ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: screenHeight * 0.02),
-                // Progress indicator
+                SizedBox(height: screenHeight*0,),
                 ProgressIndicatorWidget(
                   currentStep: 0,
                   totalSteps: 5,
                   currentPage: 1, // الصفحة الحالية داخل الخطوة
                   totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                  pagesPerStep: [5, 5, 5, 5, 5,5], // عدد الصفحات لكل خطوة
+                  pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
                   width: screenWidth * 0.33,
                 ),
 
-                SizedBox(height: screenHeight * 0.02),
+                SizedBox(height: screenHeight * 0.06),
                 // Title
                 Text(
                   'Body Data',

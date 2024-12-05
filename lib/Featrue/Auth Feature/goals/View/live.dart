@@ -48,9 +48,9 @@ class _WhereDidYouLiveState extends State<WhereDidYouLive> {
                 currentStep: 0,
                 totalSteps: 5,
                 currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 5, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 4, 5, 3, 7], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.52,
+                totalPages: 6, // إجمالي صفحات الخطوة الحالية
+                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
+                width: screenWidth * 0.33,
               ),
             ),
             Stack(
