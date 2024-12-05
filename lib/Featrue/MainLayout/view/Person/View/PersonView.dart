@@ -40,9 +40,6 @@ class _PersonViewState extends State<PersonView>
 
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
-
-    precacheImage(AssetImage('assets/images/Person.png'), context);
-    precacheImage(AssetImage('assets/images/Person back.png'), context);
   }
 
   @override
