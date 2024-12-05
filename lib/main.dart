@@ -58,6 +58,7 @@ void main() async {
   await DioHelper.init();
   await CashHelper.init();
   await CashHelper.getUserInfo();
+  // await CashHelper.deleteAll();
 
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
@@ -221,7 +222,7 @@ class _MyAppState extends State<MyApp> {
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
         home:
-            LoginCubit.token == '' ? const SplashScreen() : MainLayout(),
+            LoginCubit.token == '' ? const SplashScreen() : AgeSelectionPage(),
       ),
     );
   }

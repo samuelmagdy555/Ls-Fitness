@@ -217,7 +217,8 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.deepPurpleAccent),
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.deepPurpleAccent),
                       textStyle: WidgetStateProperty.all(const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

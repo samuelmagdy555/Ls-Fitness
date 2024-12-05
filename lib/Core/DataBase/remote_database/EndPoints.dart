@@ -3,8 +3,8 @@ class EndPoints{
   static String Register ="auth/signup";
   static String Login = "auth/login";
   static String ForgetPassword ="auth/forgotpassword";
-  static String SendOTP ="verifyResetCode";
-  static String NewPassword ="resetPassword";
+  static String SendOTP ="auth/verifyResetCode";
+  static String NewPassword ="auth/resetPassword";
   static String Profile ="users/getMe";
   static String ChangePassword ="users/changeMyPassword";
   static String EditProfile ="users/changeMyData";
