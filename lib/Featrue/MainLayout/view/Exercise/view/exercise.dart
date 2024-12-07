@@ -16,7 +16,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     with SingleTickerProviderStateMixin {
   final List<Map<String, dynamic>> buttons = [
     {
-      'title': 'Machine',
+      'title': 'Machine and Tools',
       'choices': ['Assisted', 'Ball', 'Band', 'Barbell', 'Cable', 'Dumbbell'],
     },
     {

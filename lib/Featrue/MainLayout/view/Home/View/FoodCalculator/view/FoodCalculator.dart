@@ -207,7 +207,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                         child: Card(
                           margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 15.0),
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.black,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),

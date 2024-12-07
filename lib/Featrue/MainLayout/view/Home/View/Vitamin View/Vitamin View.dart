@@ -127,7 +127,7 @@ class VitaminView extends StatelessWidget {
                       height: height * .3,
                       width: width * .65,
                       decoration: BoxDecoration(
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.black,
                           borderRadius: BorderRadius.circular(125)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,7 +157,7 @@ class VitaminView extends StatelessWidget {
                                   Text(
                                     vitamins[index],
                                     style: TextStyle(
-                                        color: kThirdColor,
+                                        color: Colors.white,
                                         fontSize: width * .065,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -178,7 +178,7 @@ class VitaminView extends StatelessWidget {
                               benefits[index],
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: kThirdColor,
+                                  color: Colors.white,
                                   fontSize: width * .045,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -195,11 +195,11 @@ class VitaminView extends StatelessWidget {
                             },
                             child: CircleAvatar(
                               radius: 35,
-                              backgroundColor: kThirdColor,
+                              backgroundColor: Colors.white,
                               child: Center(
                                   child: Icon(
                                 Iconsax.alarm,
-                                color: Colors.white,
+                                color: Colors.black,
                                 size: 35,
                               )),
                             ),
