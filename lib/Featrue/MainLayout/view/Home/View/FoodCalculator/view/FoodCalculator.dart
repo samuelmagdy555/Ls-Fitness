@@ -38,7 +38,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
     'carb.png',
     'fats.png',
     'fiber.png',
-    'assets/images/dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
+    'dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
     'vitamin-a.png',
     'vitamin-b.png',
     'vitamin-b.png',
@@ -184,92 +184,90 @@ class _FoodCalculatorState extends State<FoodCalculator> {
 
                       return GestureDetector(
                         onTap: () {
-                          FoodCalculatorDetailsCubit.get(context)
-                              .fetchFoodCalculatorDetails(
-                              mealId: foodId, quantities: '100');
+                          FoodCalculatorDetailsCubit.get(context).fetchFoodCalculatorDetails(
+                            mealId: foodId,
+                            quantities: '100',
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  FoodCalculatorDetails(id: foodId),
+                              builder: (context) => FoodCalculatorDetails(id: foodId),
                             ),
                           );
                         },
                         child: Card(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15.0),
+                          margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 10.0), // تقليل الهوامش الخارجية
                           color: Colors.black,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(
-                                  color: Colors.white, width: width * 0.01)),
-                          elevation: 6.0,
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(color: Colors.white, width: width * 0.005), // تقليل عرض الحدود
+                          ),
+                          elevation: 4.0, // تقليل الظل
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(10.0), // تقليل الهوامش الداخلية
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.network(
                                   foodItem.image,
-                                  width: width * 0.8,
-                                  height: height * 0.3,
+                                  width: width * 0.9, // تقليل عرض الصورة
+                                  height: height * 0.3, // تقليل ارتفاع الصورة
                                   fit: BoxFit.contain,
                                 ),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 8), // تقليل المسافة بين العناصر
                                 Text(
                                   foodItem.TitleEN,
-                                  maxLines: 3,
+                                  maxLines: 2, // تقليل عدد السطور للنص
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 18, // تقليل حجم النص
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(height: 20),
+                                const SizedBox(height: 10),
                                 SizedBox(
-                                  height: height * 0.50,
+                                  height: height * 0.4, // تقليل ارتفاع الشبكة
                                   child: GridView.builder(
+                                    physics: const NeverScrollableScrollPhysics(), // تعطيل التمرير داخل الشبكة
+                                    shrinkWrap: true, // تقليل حجم الشبكة بما يتناسب مع المحتوى
                                     itemCount: nutrientsList.length,
-                                    gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 3,
-                                      childAspectRatio: 1.15,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 10,
+                                      childAspectRatio: 1.2, // تحسين نسبة العرض إلى الارتفاع
+                                      crossAxisSpacing: 8, // تقليل المسافات بين الأعمدة
+                                      mainAxisSpacing: 8, // تقليل المسافات بين الصفوف
                                     ),
-                                    itemBuilder: (context, index) =>
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(12),
+                                    itemBuilder: (context, index) => Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8), // تقليل الزوايا
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/${imageList[index]}',
+                                            height: 25, // تقليل حجم الأيقونات
                                           ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/${imageList[index]}',
-                                                height: 30,
-                                              ),
-                                              Text(
-                                                nutrientsList[index],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kThirdColor,
-                                                ),
-                                              ),
-                                              Text(
-                                                foodDetails[index],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kThirdColor,
-                                                ),
-                                              ),
-                                            ],
+                                          Text(
+                                            nutrientsList[index],
+                                            style: const TextStyle(
+                                              fontSize: 12, // تقليل حجم النص
+                                              fontWeight: FontWeight.bold,
+                                              color: kThirdColor,
+                                            ),
                                           ),
-                                        ),
+                                          Text(
+                                            foodDetails[index],
+                                            style: const TextStyle(
+                                              fontSize: 12, // تقليل حجم النص
+                                              fontWeight: FontWeight.bold,
+                                              color: kThirdColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 )
                               ],
@@ -277,6 +275,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                           ),
                         ),
                       );
+
                     },
                   );
                 } else {
