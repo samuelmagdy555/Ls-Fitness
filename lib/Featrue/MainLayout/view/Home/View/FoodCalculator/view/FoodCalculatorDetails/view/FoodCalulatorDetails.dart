@@ -65,7 +65,7 @@ class _FoodCalculatorDetailsState extends State<FoodCalculatorDetails> {
     'carb.png',
     'fats.png',
     'fiber.png',
-    'sugar.png',
+    'assets/images/dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
     'vitamin-a.png',
     'vitamin-b.png',
     'vitamin-b.png',

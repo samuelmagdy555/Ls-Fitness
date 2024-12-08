@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
@@ -10,6 +9,7 @@ import 'FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 
 class FoodCalculator extends StatefulWidget {
   final String mealCategory;
+
   const FoodCalculator({super.key, required this.mealCategory});
 
   @override
@@ -20,47 +20,46 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   late TextEditingController _searchController;
   late NumberPaginatorController _controller;
 
+  List<String> nutrientsList = [
+    "calories",
+    "proteins",
+    "carbohydrates",
+    "fats",
+    "fibers",
+    "sugar",
+    "VitaminA",
+    "VitaminB1",
+    "VitaminB2"
+  ];
 
-  late List<String> c;
-  int num = 0;
-  late NumberPaginatorController controller;
-
-
+  List<String> imageList = [
+    'calories.png',
+    'protein.png',
+    'carb.png',
+    'fats.png',
+    'fiber.png',
+    'assets/images/dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
+    'vitamin-a.png',
+    'vitamin-b.png',
+    'vitamin-b.png',
+  ];
 
   @override
   void initState() {
     super.initState();
-    controller = NumberPaginatorController();
     _controller = NumberPaginatorController();
-
     _searchController = TextEditingController();
-    context.read<FoodCalculatorCubit>().getFoodCalculator(mealCategory: widget.mealCategory);
+    context
+        .read<FoodCalculatorCubit>()
+        .getFoodCalculator(mealCategory: widget.mealCategory);
   }
 
   @override
   void dispose() {
     _searchController.dispose();
-    controller.dispose();
-
+    _controller.dispose();
     super.dispose();
   }
-
-  List<String> nutrientsList = [
-    "calories", "proteins", "carbohydrates", "fats", "fibers", "sugar",
-    "VitaminA", "VitaminB1", "VitaminB2", "VitaminB3", "VitaminB5", "VitaminB6",
-    "VitaminB7", "VitaminB9", "VitaminB12", "VitaminC", "VitaminD", "VitaminE",
-    "VitaminK", "calcium", "iron", "magnesium","Phosphorus", "potassium", "sodium", "zinc",
-    "copper", "manganese", "selenium"
-  ];
-
-  List<String> imageList = [
-    'calories.png', 'protein.png', 'carb.png', 'fats.png', 'fiber.png', 'dl.beatsnoop.com-high-3033d91e97a3b91c0a-removebg-preview.png',
-    'vitamin-a.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png',
-    'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-b.png', 'vitamin-c.png',
-    'vitamin-d.png', 'vitamin-e.png', 'Vitamin K.png', 'calcium.png', 'iron.png',
-    'magnesium.png','potassium.png', 'potassium.png', 'sodium.png', 'zinc.png', 'copper.png',
-    'manganese.png', 'selenium.png'
-  ];
 
   void _performSearch() {
     final query = _searchController.text;
@@ -71,8 +70,6 @@ class _FoodCalculatorState extends State<FoodCalculator> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    final exerciseCubit = FoodCalculatorCubit.get(context);
-
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -83,12 +80,13 @@ class _FoodCalculatorState extends State<FoodCalculator> {
         ),
         backgroundColor: Colors.black,
         elevation: 4.0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+            padding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Row(
               children: [
                 Expanded(
@@ -109,9 +107,12 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                 ),
                 const SizedBox(width: 10),
                 IconButton(
-                  icon: Icon(Icons.filter_list, color: Colors.white),
+                  icon: const Icon(Icons.filter_list, color: Colors.white),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => FoodCalculatorFilter()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FoodCalculatorFilter()));
                   },
                 ),
               ],
@@ -119,13 +120,17 @@ class _FoodCalculatorState extends State<FoodCalculator> {
           ),
           BlocBuilder<FoodCalculatorCubit, FoodCalculatorState>(
             builder: (context, state) {
-              if (FoodCalculatorCubit .get(context).foodCalculatorModel != null &&
-                  FoodCalculatorCubit .get(context).foodCalculatorModel!.data.isNotEmpty) {
+              final cubit = FoodCalculatorCubit.get(context);
+              final numberOfPages =
+                  cubit.foodCalculatorModel?.paginationResult.numberOfPages ??
+                      0;
+
+              if (numberOfPages > 0) {
                 return NumberPaginator(
                   controller: _controller,
-                  numberPages: FoodCalculatorCubit .get(context).foodCalculatorModel!.paginationResult.numberOfPages ?? 0,
+                  numberPages: numberOfPages,
                   onPageChange: (int index) {
-                   FoodCalculatorCubit.get(context).getFoodCalculator(page: index + 1);
+                    cubit.getFoodCalculator(page: index + 1);
                   },
                 );
               }
@@ -143,24 +148,28 @@ class _FoodCalculatorState extends State<FoodCalculator> {
               },
               builder: (context, state) {
                 if (state is FoodCalculatorLoading) {
-                  return const Center(child: CircularProgressIndicator(
-                    color: kSecondColor,
-                  ));
+                  return const Center(
+                    child: CircularProgressIndicator(color: kSecondColor),
+                  );
                 } else if (state is FoodCalculatorSuccess) {
                   final foodCalculatorModel = state.foodCalculatorModel;
+
                   if (foodCalculatorModel.data.isEmpty) {
                     return const Center(
                       child: Text(
                         'No Data To Show',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     );
                   }
+
                   return ListView.builder(
                     itemCount: foodCalculatorModel.data.length,
                     itemBuilder: (context, index) {
                       final foodItem = foodCalculatorModel.data[index];
                       final foodId = foodItem.id;
+
                       List<String> foodDetails = [
                         '${foodItem.Calories} c',
                         '${foodItem.Protein ?? 0} g',
@@ -169,29 +178,10 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                         '${foodItem.Fiber ?? 0} g',
                         '${foodItem.Sugar ?? 0} g',
                         '${foodItem.VitaminA ?? 0} g',
-                        '${foodItem.VitaminB1} g',
-                        '${foodItem.VitaminB2} g',
-                        '${foodItem.VitaminB3} g',
-                        '${foodItem.VitaminB5 ?? 0} g',
-                        '${foodItem.VitaminB6} g',
-                        '${foodItem.VitaminB7 ?? 0} g',
-                        '${foodItem.VitaminB9 ?? 0} g',
-                        '${foodItem.VitaminB12} g',
-                        '${foodItem.VitaminC ?? 0} g',
-                        '${foodItem.VitaminD} g',
-                        '${foodItem.VitaminE ?? 0} g',
-                        '${foodItem.VitaminK ?? 0} g',
-                        '${foodItem.Calcium} mg',
-                        '${foodItem.Iron} mg',
-                        '${foodItem.Magnesium} mg',
-                        '${foodItem.Phosphorus} mg',
-                        '${foodItem.Potassium} mg',
-                        '${foodItem.Sodium} mg',
-                        '${foodItem.Zinc} mg',
-                        '${foodItem.Copper} mg',
-                        '${foodItem.Manganese} mg',
-                        '${foodItem.Selenium ?? 0} mg',
+                        '${foodItem.VitaminB1 ?? 0} g',
+                        '${foodItem.VitaminB2 ?? 0} g',
                       ];
+
                       return GestureDetector(
                         onTap: () {
                           FoodCalculatorDetailsCubit.get(context)
@@ -200,7 +190,8 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FoodCalculatorDetails(id: foodId),
+                              builder: (context) =>
+                                  FoodCalculatorDetails(id: foodId),
                             ),
                           );
                         },
@@ -209,8 +200,9 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                               vertical: 10.0, horizontal: 15.0),
                           color: Colors.black,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                  color: Colors.white, width: width * 0.01)),
                           elevation: 6.0,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -227,7 +219,7 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                                 Text(
                                   foodItem.TitleEN,
                                   maxLines: 3,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -238,42 +230,46 @@ class _FoodCalculatorState extends State<FoodCalculator> {
                                   height: height * 0.50,
                                   child: GridView.builder(
                                     itemCount: nutrientsList.length,
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        childAspectRatio: 1.15,
-                                        crossAxisSpacing: 10,
-                                        mainAxisSpacing: 10),
-                                    itemBuilder: (context, index) => Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Image.asset(
-                                            'assets/images/${imageList[index]}',
-                                            height: 30,
-                                          ),
-                                          Text(
-                                            nutrientsList[index],
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: kThirdColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            foodDetails[index],
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                              color: kThirdColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                    gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      childAspectRatio: 1.15,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
                                     ),
+                                    itemBuilder: (context, index) =>
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Image.asset(
+                                                'assets/images/${imageList[index]}',
+                                                height: 30,
+                                              ),
+                                              Text(
+                                                nutrientsList[index],
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kThirdColor,
+                                                ),
+                                              ),
+                                              Text(
+                                                foodDetails[index],
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kThirdColor,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                   ),
                                 )
                               ],
