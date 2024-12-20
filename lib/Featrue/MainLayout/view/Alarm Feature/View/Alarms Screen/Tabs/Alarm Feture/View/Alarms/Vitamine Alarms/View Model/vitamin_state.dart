@@ -16,6 +16,7 @@ final class SetDataState extends VitaminState {}
 
 final class SetAlarm extends     VitaminState {}
 final class InitializeVitamin extends VitaminState {}
+final class UpdateStatus extends VitaminState {}
 
 
 

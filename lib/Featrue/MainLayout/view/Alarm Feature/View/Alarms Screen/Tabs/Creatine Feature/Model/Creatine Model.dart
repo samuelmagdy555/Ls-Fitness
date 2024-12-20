@@ -1,10 +1,14 @@
-class Meal {
+class CreatineModel {
   String name;
   String time;
   int id = 0;
   bool status = false;
 
-  Meal({required this.name, required this.time , required this.id , required this.status});
+  CreatineModel(
+      {required this.name,
+      required this.time,
+      required this.id,
+      required this.status,});
 
   Map<String, String> toJson() {
     return {
@@ -12,11 +16,12 @@ class Meal {
       'time': time,
       'id': id.toString(),
       'status': status.toString(),
+
     };
   }
 
-  factory Meal.fromJson(Map<String, dynamic> json) {
-    return Meal(
+  factory CreatineModel.fromJson(Map<String, dynamic> json) {
+    return CreatineModel(
       name: json['name'],
       time: json['time'],
       id: int.parse(json['id']),

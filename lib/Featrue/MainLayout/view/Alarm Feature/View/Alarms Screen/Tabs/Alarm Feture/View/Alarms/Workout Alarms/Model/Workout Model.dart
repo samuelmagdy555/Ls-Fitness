@@ -2,8 +2,10 @@ class Workout {
   String name;
   String time;
   int id = 0;
+  bool status = false;
 
-  Workout({required this.name, required this.time , required this.id});
+
+  Workout({required this.name, required this.time , required this.id ,  required this.status});
 
   // لتحويل الموديل إلى JSON
   Map<String, String> toJson() {
@@ -11,6 +13,7 @@ class Workout {
       'name': name,
       'time': time,
       'id': id.toString(),
+      'status': status.toString(),
     };
   }
 
@@ -19,7 +22,7 @@ class Workout {
     return Workout(
       name: json['name'],
       time: json['time'],
-      id: int.parse(json['id']),
+      id: int.parse(json['id']), status: bool.parse(json['status']),
     );
   }
 }

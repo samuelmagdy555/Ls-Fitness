@@ -8,6 +8,8 @@ import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/Model/Supplement.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Creatine%20Feature/View%20Model/creatine_cubit.dart';
 
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
@@ -47,9 +49,9 @@ class _AddAlaramState extends State<AddAlarm> {
 
     if (now.isAfter(alarmTime)) {
       return alarmTime
-          .add(Duration(days: 1)); // Next day if the time has passed
+          .add(Duration(days: 1));
     } else {
-      return alarmTime; // Same day if time has not passed yet
+      return alarmTime;
     }
   }
 
@@ -176,15 +178,23 @@ class _AddAlaramState extends State<AddAlarm> {
                   }
                   if (widget.index == 1) {
                     SupplementsCubit.get(context).SetAlaram(controller.text,
-                        dateTime!, false, '', id, Milliseconds!);
+                        dateTime!, true, '', id, Milliseconds!);
                   }
                   if (widget.index == 2) {
                     SleepCubit.get(context).SetAlaram(controller.text,
-                        dateTime!, false, '', id, Milliseconds!);
+                        dateTime!, true, '', id, Milliseconds!);
                   }
                   if (widget.index == 3) {
                     WorkoutCubit.get(context).SetAlaram(controller.text,
-                        dateTime!, false, '', id, Milliseconds!);
+                        dateTime!, true, '', id, Milliseconds!);
+                  }
+                  if (widget.index == 4) {
+                    VitaminCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, true, '', id, Milliseconds!);
+                  }
+                  if (widget.index == 5) {
+                    CreatineCubit.get(context).SetAlaram(controller.text,
+                        dateTime!, true, '', id, Milliseconds!);
                   }
 
                   Navigator.pop(context);

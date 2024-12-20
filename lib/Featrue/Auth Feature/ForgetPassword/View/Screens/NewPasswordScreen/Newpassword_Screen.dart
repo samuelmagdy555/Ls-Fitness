@@ -148,7 +148,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         email: widget.email,
                         newPassword: newPasswordController.text,
                         confirmNewPassword: confirmPasswordController.text);
-                    // 70
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  LoginView()),
+                            (Route<dynamic> route) => false);
                   } else {
                     final snackBar = SnackBar(
                       elevation: 0,

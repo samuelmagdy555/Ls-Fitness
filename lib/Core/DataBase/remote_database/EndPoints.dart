@@ -1,7 +1,7 @@
 class EndPoints{
   static String baseUrL ="https://ls-fitness.koyeb.app/api/v1/";
   static String Register ="auth/signup";
-  static String Login = "auth/login";
+  static String Login = "auth/login/userLogin";
   static String ForgetPassword ="auth/forgotpassword";
   static String SendOTP ="auth/verifyResetCode";
   static String NewPassword ="auth/resetPassword";
@@ -22,6 +22,7 @@ class EndPoints{
   static String courses = 'courses';
   static String myCourses = 'courses/MyCourses';
   static String lesson = 'lessons';
+  static String notifications = 'notifications';
   static String specificCourseLesson = 'lessons/courseLessons';
 
 }

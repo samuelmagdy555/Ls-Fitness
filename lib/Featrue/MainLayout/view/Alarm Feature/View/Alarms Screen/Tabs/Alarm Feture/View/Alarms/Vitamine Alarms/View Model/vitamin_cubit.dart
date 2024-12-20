@@ -21,13 +21,24 @@ class VitaminCubit extends Cubit<VitaminState> {
   late SharedPreferences preferences;
 
   List<Vitamin> vitamin = [
-    Vitamin(name: 'Vitamin A', time: '00:00', id: 17),
-    Vitamin(name: 'Vitamin C', time: '00:00', id: 18),
-    Vitamin(name: 'Vitamin D', time: '00:00', id: 19),
-    Vitamin(name: 'Vitamin E', time: '00:00', id: 20),
-    Vitamin(name: 'Vitamin B Complex', time: '00:00', id: 21),
-    Vitamin(name: 'omega 3', time: '00:00', id: 22),
+    Vitamin(name: 'Vitamin A', time: '00:00', id: 55, status: false),
+    Vitamin(name: 'Vitamin C', time: '00:00', id: 56, status: false),
+    Vitamin(name: 'Vitamin D', time: '00:00', id: 57, status: false),
+    Vitamin(name: 'Vitamin E', time: '00:00', id: 58, status: false),
+    Vitamin(name: 'Vitamin B Complex', time: '00:00', id: 59, status: false),
+    Vitamin(name: 'omega 3', time: '00:00', id: 60, status: false),
   ];
+
+
+
+  void updateMealStatus(int index, bool newStatus) {
+    print('old status ${vitamin[index].status}');
+
+    vitamin[index].status = newStatus;
+    print('new status ${vitamin[index].status}');
+    setMeals();
+    emit(UpdateStatus());
+  }
 
   List<String> listofstring = [];
 
@@ -81,7 +92,7 @@ class VitaminCubit extends Cubit<VitaminState> {
 
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
-    vitamin.add(Vitamin(name: label, time: dateTime, id: id));
+    vitamin.add(Vitamin(name: label, time: dateTime, id: id, status: check));
     emit(SetAlarm());
     SetData();
   }

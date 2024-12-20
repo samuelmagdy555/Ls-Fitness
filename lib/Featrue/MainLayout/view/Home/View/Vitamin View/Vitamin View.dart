@@ -5,6 +5,8 @@ import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View/Vitamin%20Alarms.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20Details/Vitamin%20Details.dart';
 
+import '../../../../../../generated/l10n.dart';
+
 class VitaminView extends StatelessWidget {
   const VitaminView({super.key});
 
@@ -82,7 +84,7 @@ class VitaminView extends StatelessWidget {
             },
           ),
           title: Text(
-            'Vitamins & Supplements',
+           S.of(context).Vitamin_And_Supplements,
             style: GoogleFonts.merriweather(
               fontSize: width * .05,
               color: Colors.white,
@@ -94,8 +96,8 @@ class VitaminView extends StatelessWidget {
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey,
             tabs: [
-              Tab(text: 'Vitamins'),
-              Tab(text: 'Supplements'),
+              Tab(text: S.of(context).Vitamin),
+              Tab(text: S.of(context).Supplements),
             ],
           ),
         ),

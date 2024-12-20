@@ -16,3 +16,4 @@ final class SetSupplementsDataState extends SupplementsState {}
 final class SetSupplementsAlarm extends SupplementsState {}
 
 final class InitializeSupplements extends SupplementsState {}
+final class UpdateStatus extends SupplementsState {}

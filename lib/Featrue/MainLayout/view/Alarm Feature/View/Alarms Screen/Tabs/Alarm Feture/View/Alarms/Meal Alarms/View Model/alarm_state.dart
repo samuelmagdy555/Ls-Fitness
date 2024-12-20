@@ -9,6 +9,7 @@ final class AlarmInitial extends AlarmState {}
 final class SetMeals extends     AlarmState {}
 
 final class UpdateTime extends   AlarmState {}
+final class UpdateStatus extends   AlarmState {}
 
 final class GetDataState extends AlarmState {}
 

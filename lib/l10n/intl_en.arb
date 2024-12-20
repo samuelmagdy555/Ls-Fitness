@@ -1,5 +1,7 @@
 {
   "home_Hey": "Hey,",
+  "home_Today_Plan": "Today's Plan",
+  "home_See_more": "See more",
   "home_Find": "Find",
   "home_your Workout": "your Workout",
   "home_Vitamins": "Vitamins",
@@ -9,6 +11,8 @@
   "home_Progress": "Progress",
 
   "Vitamin": "Vitamin",
+  "Vitamin_And_Supplements": "Vitamins & Supplements",
+  "Supplements": "Supplements",
   "Vitamin_Details_About": "About",
   "Vitamin A": "Vitamin A",
   "Vitamin B":"Vitamin B",

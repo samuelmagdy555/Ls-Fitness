@@ -117,7 +117,7 @@ class DioHelper{
       'Content-type': 'application/json',
       'Authorization': 'Bearer $token',
     };
-    return await dio.post(
+    return await dio.put(
       end_ponit,
       data: data,
       queryParameters: query,
@@ -192,8 +192,4 @@ class DioHelper{
       data: formData,
       queryParameters: query,
     );
-  }
-
-
-
-}
+  }}

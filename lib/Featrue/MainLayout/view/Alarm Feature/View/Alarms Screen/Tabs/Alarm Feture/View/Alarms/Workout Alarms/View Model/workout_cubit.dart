@@ -14,10 +14,12 @@ class WorkoutCubit extends Cubit<WorkoutState> {
   WorkoutCubit() : super(WorkoutInitial());
 
   List<Workout> workout = [
-    Workout(name: 'Workout', time: '00:00' , id: 17),
-
-
+    Workout(name: 'MorningWorkout', time: '00:00', id: 61, status: false),
+    Workout(name: 'NightWorkout', time: '00:00', id: 62, status: false),
+    Workout(name: 'GymWorkout', time: '00:00', id: 63, status: false),
+    Workout(name: 'HomeWorkout', time: '00:00', id: 64, status: false),
   ];
+
 
   static WorkoutCubit get(context) => BlocProvider.of(context);
 
@@ -49,6 +51,15 @@ class WorkoutCubit extends Cubit<WorkoutState> {
     emit(SetWorkout());
   }
 
+  void updateMealStatus(int index, bool newStatus) {
+    print('old status ${workout[index].status}');
+
+    workout[index].status = newStatus;
+    print('new status ${workout[index].status}');
+    setMeals();
+    emit(UpdateStatus());
+  }
+
   void updateMealTime(int index, String newTime) {
     workout[index].time = newTime;
     setMeals();
@@ -76,7 +87,7 @@ class WorkoutCubit extends Cubit<WorkoutState> {
 
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
-    workout.add(Workout(name: label , time: dateTime, id: id));
+    workout.add(Workout(name: label , time: dateTime, id: id, status: check));
     emit(SetWorkoutAlarm());
     SetData();
   }

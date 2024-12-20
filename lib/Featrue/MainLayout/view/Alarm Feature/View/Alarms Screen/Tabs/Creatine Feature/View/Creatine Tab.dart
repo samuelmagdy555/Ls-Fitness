@@ -4,10 +4,13 @@ import 'package:alarm/alarm.dart';
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_utils/get_utils.dart';
+import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Creatine%20Feature/View%20Model/creatine_cubit.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 
 import '../../../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
 
 class CreatineTab extends StatefulWidget {
   const CreatineTab({super.key});
@@ -17,8 +20,6 @@ class CreatineTab extends StatefulWidget {
 }
 
 class _CreatineTabState extends State<CreatineTab> {
-
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -26,355 +27,210 @@ class _CreatineTabState extends State<CreatineTab> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          SizedBox(
-            height: height * .025,
-          ),
-          Text(
-            'This page reminds you to take your daily amount of water required if you take creatine',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: width * .04, color: Colors.white30),
-          ),
-          SizedBox(
-            height: height * .05,
-          ),
-          Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-                color: Colors.white24, borderRadius: BorderRadius.circular(18)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Wake up time',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: width * .0575,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                CreatineCubit.get(context).wakeUpTime == null
-                    ? BlocConsumer<CreatineCubit, CreatineState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff40D876),
-                            ),
-                            child: TextButton(
-                                onPressed: () async {
-                                  TimeOfDay? pickedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-
-                                  if (pickedTime != null) {
-                                    CreatineCubit.get(context).setWakeUpTime(
-                                      DateTime(
-                                        DateTime.now().year,
-                                        DateTime.now().month,
-                                        DateTime.now().day,
-                                        pickedTime.hour,
-                                        pickedTime.minute,
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Text(
-                                  '00:00',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: width * .055,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          );
-                        },
-                      )
-                    : BlocConsumer<CreatineCubit, CreatineState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color(0xff40D876),
-                              ),
-                              child: TextButton(
-                                onPressed: () async {
-                                  TimeOfDay? pickedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-
-                                  if (pickedTime != null) {
-                                    CreatineCubit.get(context).setWakeUpTime(
-                                      DateTime(
-                                        DateTime.now().year,
-                                        DateTime.now().month,
-                                        DateTime.now().day,
-                                        pickedTime.hour,
-                                        pickedTime.minute,
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Text(
-                                  CreatineCubit.get(context)
-                                          .wakeUpTime!
-                                          .toLocal()
-                                          .hour
-                                          .toString()
-                                          .padLeft(2, '0') +
-                                      ':' +
-                                      CreatineCubit.get(context)
-                                          .wakeUpTime!
-                                          .toLocal()
-                                          .minute
-                                          .toString()
-                                          .padLeft(2, '0'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: width * .055,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ));
-                        },
-                      ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: height * .005,
-          ),
-          Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-                color: Colors.white24, borderRadius: BorderRadius.circular(18)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Sleep time',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: width * .0575,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                CreatineCubit.get(context).sleepTime == null
-                    ? BlocConsumer<CreatineCubit, CreatineState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Color(0xff40D876),
-                            ),
-                            child: TextButton(
-                                onPressed: () async {
-                                  TimeOfDay? pickedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-
-                                  if (pickedTime != null) {
-                                    CreatineCubit.get(context).setSleepTime(
-                                      DateTime(
-                                        DateTime.now().year,
-                                        DateTime.now().month,
-                                        DateTime.now().day,
-                                        pickedTime.hour,
-                                        pickedTime.minute,
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Text(
-                                  '00:00',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: width * .055,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          );
-                        },
-                      )
-                    : BlocConsumer<CreatineCubit, CreatineState>(
-                        listener: (context, state) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, state) {
-                          return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Color(0xff40D876),
-                              ),
-                              child: TextButton(
-                                onPressed: () async {
-                                  TimeOfDay? pickedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-
-                                  if (pickedTime != null) {
-                                    CreatineCubit.get(context).setSleepTime(
-                                      DateTime(
-                                        DateTime.now().year,
-                                        DateTime.now().month,
-                                        DateTime.now().day,
-                                        pickedTime.hour,
-                                        pickedTime.minute,
-                                      ),
-                                    );
-                                  }
-                                },
-                                child: Text(
-                                  CreatineCubit.get(context)
-                                          .sleepTime!
-                                          .toLocal()
-                                          .hour
-                                          .toString()
-                                          .padLeft(2, '0') +
-                                      ':' +
-                                      CreatineCubit.get(context)
-                                          .sleepTime!
-                                          .minute
-                                          .toString()
-                                          .padLeft(2, '0'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: width * .055,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ));
-                        },
-                      ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: height * .05,
-          ),
-          BlocConsumer<CreatineCubit, CreatineState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
-            builder: (context, state) {
-              return RollingSwitch.widget(
-                initialState: CreatineCubit.get(context).alarmState,
-                onChanged: (bool Main) {
-                  if (state == true) {
-                    if (CreatineCubit.get(context).wakeUpTime == null ||
-                        CreatineCubit.get(context).sleepTime == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Please make sure that the time to go to sleep and wake up have been set'),
-                        ),
-                      );
-                    } else {
-                      DateTime dateTime = DateTime.now();
-                      CreatineCubit.get(context).getWakeUpTime();
-                      CreatineCubit.get(context).getWakeUpTime();
-
-                      if (dateTime.hour <=
-                          CreatineCubit.get(context).sleepTime!.hour - 1) {
-                        if (dateTime.hour <=
-                            CreatineCubit.get(context).wakeUpTime!.hour) {
-                          final alarmSettings = AlarmSettings(
-                              id: 7,
-                              dateTime: DateTime(
-                                  dateTime.year,
-                                  dateTime.month,
-                                  dateTime.day,
-                                  CreatineCubit.get(context).wakeUpTime!.hour +
-                                      2,
-                                  CreatineCubit.get(context)
-                                      .wakeUpTime!
-                                      .minute),
-                              assetAudioPath: 'assets/alarm.mp3',
-                              loopAudio: true,
-                              vibrate: true,
-                              volume: 0.8,
-                              fadeDuration: 3.0,
-                              warningNotificationOnKill: Platform.isIOS,
-                              notificationSettings: NotificationSettings(
-                                body: "Time for Water",
-                                title: "Alarm",
-                                stopButton: 'stop',
-                              ));
-                          Alarm.set(
-                            alarmSettings: alarmSettings,
-                          );
-                          CreatineCubit.get(context).changeAlarmState(true);
-                        } else {
-                          final alarmSettings = AlarmSettings(
-                              id: 7,
-                              dateTime: DateTime(
-                                  dateTime.year,
-                                  dateTime.month,
-                                  dateTime.day,
-                                  dateTime.hour + 2,
-                                  dateTime.minute),
-                              assetAudioPath: 'assets/alarm.mp3',
-                              loopAudio: true,
-                              vibrate: true,
-                              volume: 0.8,
-                              fadeDuration: 3.0,
-                              warningNotificationOnKill: Platform.isIOS,
-                              notificationSettings: NotificationSettings(
-                                body: "Time for Water",
-                                title: "Alarm",
-                                stopButton: 'stop',
-                              ));
-                          Alarm.set(
-                            alarmSettings: alarmSettings,
-                          );
-                          CreatineCubit.get(context).changeAlarmState(true);
-                        }
-                      }
-                    }
-                  }
-                  if (state == false) {
-                    Alarm.stop(7);
-                    CreatineCubit.get(context).changeAlarmState(false);
-                  }
-                },
-                rollingInfoRight: RollingWidgetInfo(
-
-                  text: Text(
-                    'On',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: width * .04),
+      body: BlocConsumer<CreatineCubit, CreatineState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return  ListView.builder(
+              itemCount: CreatineCubit.get(context).water.length,
+              itemBuilder: (BuildContext, index) {
+                return Container(
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.white, width: .5),
                   ),
-                  backgroundColor: Color(0xff40D876),
-                ),
-                rollingInfoLeft: RollingWidgetInfo(
-                  backgroundColor: Colors.grey,
-                  text: Text('Off',style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: width * .04),),
-                ),
-              );
-            },
-          ),
-        ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: width * .25,
+                            child: Text(
+                              CreatineCubit.get(context)
+                                  .water[index]
+                                  .name
+                                  .toString(),
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: width * .045,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(
+                            width: width * .3,
+                            child: ListTileSwitch(
+                              switchInactiveColor: Colors.grey,
+                              value: CreatineCubit.get(context)
+                                  .water[index]
+                                  .status,
+                              onChanged: (value) async {
+                                CreatineCubit.get(context)
+                                    .updateMealStatus(index, value);
+                                if (value) {
+                                  String time =
+                                  await CreatineCubit.get(context)
+                                      .water[index]
+                                      .time;
+                                  List<String> timeParts =
+                                  await time.split(':');
+                                  int hour =
+                                  await int.parse(timeParts[0]);
+                                  int minute =
+                                  await int.parse(timeParts[1]);
+                                  DateTime dateTime =
+                                  await DateTime.now();
+                                  if (hour.isLowerThan(dateTime.hour)) {
+                                    dateTime = await DateTime(
+                                      dateTime.year,
+                                      dateTime.month,
+                                      dateTime.day + 1,
+                                      hour,
+                                      minute,
+                                    );
+                                  } else {
+                                    if (hour.isEqual(dateTime.hour) &&
+                                        minute.isLowerThan(
+                                            dateTime.minute)) {
+                                      dateTime = await DateTime(
+                                        dateTime.year,
+                                        dateTime.month,
+                                        dateTime.day + 1,
+                                        hour,
+                                        minute,
+                                      );
+                                    }
+                                  }
+                                  DateTime newDateTime = await DateTime(
+                                    dateTime.year,
+                                    dateTime.month,
+                                    dateTime.day,
+                                    hour,
+                                    minute,
+                                  );
+
+                                  print(newDateTime);
+                                  AlarmSettings alarmSettings =
+                                  await AlarmSettings(
+                                    id: CreatineCubit.get(context)
+                                        .water[index]
+                                        .id,
+                                    dateTime: newDateTime,
+                                    assetAudioPath: 'assets/alarm.mp3',
+                                    loopAudio: true,
+                                    vibrate: true,
+                                    volume: 0.8,
+                                    fadeDuration: 3.0,
+                                    warningNotificationOnKill:
+                                    Platform.isIOS,
+                                    notificationSettings:
+                                    NotificationSettings(
+                                      body:
+                                      "Time for ${CreatineCubit.get(context).water[index].name}",
+                                      title: "Alarm",
+                                      stopButton: 'stop',
+                                    ),
+                                  );
+                                  await Alarm.set(
+                                      alarmSettings: alarmSettings);
+                                }
+                              },
+                              switchActiveColor: kSecondColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                          width: width * .25,
+                          child: TextButton(onPressed: ()async {
+                            TimeOfDay? pickedTime = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+                            final now = DateTime.now();
+                            DateTime? selectedDateTime;
+
+                            if (pickedTime != null) {
+                              if (pickedTime.hour.isLowerThan(now.hour)) {
+                                selectedDateTime = DateTime(
+                                  now.year,
+                                  now.month,
+                                  now.day + 1,
+                                  pickedTime.hour,
+                                  pickedTime.minute,
+                                );
+                              } else {
+                                if (pickedTime.hour.isEqual(now.hour) &&
+                                    pickedTime.minute.isLowerThan(now.minute)) {
+                                  selectedDateTime = DateTime(
+                                    now.year,
+                                    now.month,
+                                    now.day + 1,
+                                    pickedTime.hour,
+                                    pickedTime.minute,
+                                  );
+                                } else {
+                                  selectedDateTime = DateTime(
+                                    now.year,
+                                    now.month,
+                                    now.day,
+                                    pickedTime.hour,
+                                    pickedTime.minute,
+                                  );
+                                }
+                              }
+                              String formattedTime =
+                                  '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
+
+                              CreatineCubit.get(context)
+                                  .updateCreatineTime(index, formattedTime);
+                              await Alarm.stop(
+                                  CreatineCubit.get(context).water[index].id);
+
+                              await Alarm.set(
+                                  alarmSettings: AlarmSettings(
+                                    id: CreatineCubit.get(context).water[index].id,
+                                    dateTime: selectedDateTime,
+                                    assetAudioPath: 'assets/alarm.mp3',
+                                    loopAudio: true,
+                                    vibrate: true,
+                                    volume: 0.8,
+                                    fadeDuration: 3.0,
+                                    warningNotificationOnKill: Platform.isIOS,
+                                    notificationSettings: NotificationSettings(
+                                      body:
+                                      "Time for ${CreatineCubit.get(context).water[index].name}",
+                                      title: "Alarm",
+                                      stopButton: 'stop',
+                                    ),
+                                  ));
+                              CreatineCubit.get(context)
+                                  .updateMealStatus(index, true);
+                            }
+                          }, child:Text(
+                            CreatineCubit.get(context).water[index].time,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width * .045,
+                              color: Colors.white,
+                            ),
+                          ),)
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
       ),
     );
   }

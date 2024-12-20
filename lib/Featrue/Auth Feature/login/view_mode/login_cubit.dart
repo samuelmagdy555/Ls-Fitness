@@ -15,7 +15,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  static String token = '';
+  static String? token = '';
   static String id = '';
   static String name = '';
   static String email = '';
@@ -33,21 +33,25 @@ class LoginCubit extends Cubit<LoginState> {
       required BuildContext context}) async {
     emit(LoginLoadingState());
     try {
-      final response = await DioHelper.PostData(
-          end_point: EndPoints.Login,
-          data: {
-            'email': mail,
-            'password': password,
-          });
+      final response =
+          await DioHelper.PostData(end_point: EndPoints.Login, data: {
+        'email': mail,
+        'password': password,
+      });
       loginModel = LoginModel.fromJson(response.data);
       print('token from model${loginModel!.token}');
+      print('token from response${response.data['token']}');
+
       await CashHelper.insertToCash(
           key: 'token', value: response.data['token']);
       await CashHelper.insertToCash(
           key: 'email', value: response.data['data']['email']);
-      await CashHelper.insertToCash(key: 'phone', value: response.data['data']['phone'] );
-      await CashHelper.insertBoolToCash(key: 'isOAuthUser', value: response.data['data']['isOAuthUser'] );
-      await CashHelper.insertToCash(key: 'role', value: response.data['data']['role'] );
+      await CashHelper.insertToCash(
+          key: 'phone', value: response.data['data']['phone']);
+      await CashHelper.insertBoolToCash(
+          key: 'isOAuthUser', value: response.data['data']['isOAuthUser']);
+      await CashHelper.insertToCash(
+          key: 'role', value: response.data['data']['role']);
       await CashHelper.insertToCash(
           key: 'id', value: response.data['data']['_id']);
       await CashHelper.insertBoolToCash(
@@ -67,5 +71,17 @@ class LoginCubit extends Cubit<LoginState> {
       print(error.toString());
       emit(LoginErrorState(message: error.toString()));
     }
+  }
+
+ static  Future<void> setUserData() async {
+    email = await CashHelper.getFromCash(key: 'email');
+    id = await CashHelper.getFromCash(key: 'id');
+    name = await CashHelper.getFromCash(key: 'name');
+    token = await CashHelper.getFromCash(key: 'token');
+    isVerified = await CashHelper.getBoolFromCash(key: 'isVerfied');
+    print(token);
+    isOAuth = await CashHelper.getBoolFromCash(key: 'isOAuthUser');
+    role = await CashHelper.getFromCash(key: 'role');
+
   }
 }

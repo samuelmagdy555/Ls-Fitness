@@ -22,12 +22,11 @@ class AlarmCubit extends Cubit<AlarmState> {
 
 
   List<Meal> meals = [
-    Meal(name: 'Breakfast', time: '00:00' , id: 1),
-    Meal(name: 'Lunch', time: '00:00',id: 2),
-    Meal(name: 'Dinner', time: '00:00',id: 3),
-    Meal(name: 'Training', time: '00:00',id: 4),
-    Meal(name: 'Snack 1', time: '00:00',id: 5),
-    Meal(name: 'Snack 2', time: '00:00',id: 6),
+    Meal(name: 'Before Exercise', time: '00:00' , id: 1, status: false),
+    Meal(name: 'After Exercise', time: '00:00',id: 2, status: false),
+    Meal(name: 'Snack 3', time: '00:00',id: 3, status: false),
+    Meal(name: 'Ramadan Breakfast', time: '00:00',id: 4, status: false),
+    Meal(name: 'Ramadan Suhoor', time: '00:00',id: 5, status: false),
   ];
 
   List<String> listofstring = [];
@@ -37,10 +36,8 @@ class AlarmCubit extends Cubit<AlarmState> {
     List<String>? storedMeals = preferences.getStringList('meals');
 
     if (storedMeals == null) {
-      // لو أول مرة، نحفظ الوجبات الافتراضية
       setMeals();
     } else {
-      // تحميل الوجبات المخزنة
       meals = storedMeals.map((e) => Meal.fromJson(json.decode(e))).toList();
       emit(InitializeMeals());
     }
@@ -62,6 +59,15 @@ class AlarmCubit extends Cubit<AlarmState> {
     meals[index].time = newTime;
     setMeals();
     emit(UpdateTime());
+  }
+
+  void updateMealStatus(int index, bool newStatus) {
+    print('old status ${meals[index].status}');
+
+    meals[index].status = newStatus;
+    print('new status ${meals[index].status}');
+    setMeals();
+    emit(UpdateStatus());
   }
 
 
@@ -86,7 +92,7 @@ class AlarmCubit extends Cubit<AlarmState> {
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
 
-    meals.add(Meal(name: label , time: dateTime, id: id));
+    meals.add(Meal(name: label , time: dateTime, id: id, status: check));
     emit(SetAlarm());
     SetData();
   }
@@ -97,7 +103,7 @@ class AlarmCubit extends Cubit<AlarmState> {
     int id;
 
     do {
-      id = random.nextInt(100);
+      id = random.nextInt(1000);
     } while (meals.any((meal) => meal.id == id));
 
     return id;

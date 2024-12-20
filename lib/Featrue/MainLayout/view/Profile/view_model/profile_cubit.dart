@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
@@ -8,6 +10,8 @@ import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dar
 import 'package:meta/meta.dart';
 
 import '../model/ProfileModel.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
@@ -35,6 +39,12 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(getProfileError(message: e.toString()));
     }
   }
+
+
+
+
+
+
 
 
 

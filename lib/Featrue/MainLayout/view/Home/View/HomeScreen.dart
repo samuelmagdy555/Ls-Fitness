@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
+import '../../../../../generated/l10n.dart';
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import 'FoodCalculator/view/FoodCalculator.dart';
 import 'Nutrition Feature/View/Nutrition View.dart';
@@ -79,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       children: [
                         Text(
-                          "Hey,",
+                          S.of(context).home_Hey,
                           style: GoogleFonts.bebasNeue(
                             fontSize: width * 0.08,
                             color: Colors.white,
@@ -132,7 +133,7 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Today Plan",
+                      S.of(context).home_Today_Plan,
                       style: GoogleFonts.lato(
                         fontSize: width * 0.055,
                         color: Colors.white,
@@ -140,7 +141,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Text(
-                      "See More",
+                      S.of(context).home_See_more,
                       style: GoogleFonts.lato(
                           fontSize: width * 0.03,
                           color: Colors.white,
@@ -271,7 +272,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Row(
                   children: [
                     Text(
-                      "Your ",
+                      "${S.of(context).home_Your} ",
                       style: GoogleFonts.lato(
                         fontSize: width * 0.07,
                         color: Colors.white,
@@ -279,7 +280,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Text(
-                      "Progress",
+                      S.of(context).home_Progress,
                       style: GoogleFonts.lato(
                         fontSize: width * 0.08,
                         color: Colors.white,

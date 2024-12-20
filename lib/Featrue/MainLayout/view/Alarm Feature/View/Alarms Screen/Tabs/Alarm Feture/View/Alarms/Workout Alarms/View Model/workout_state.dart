@@ -8,6 +8,7 @@ final class WorkoutInitial extends WorkoutState {}
 final class SupplementsInitial extends WorkoutState {}
 
 final class SetWorkout extends WorkoutState {}
+final class UpdateStatus extends WorkoutState {}
 
 final class UpdateWorkoutTime extends WorkoutState {}
 

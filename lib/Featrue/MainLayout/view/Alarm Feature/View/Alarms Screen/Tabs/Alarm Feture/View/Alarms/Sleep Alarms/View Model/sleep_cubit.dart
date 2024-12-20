@@ -7,7 +7,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Meal Alarms/View Model/alarm_cubit.dart';
 import '../Model/Sleep Model.dart';
 
 part 'sleep_state.dart';
@@ -24,11 +23,11 @@ class SleepCubit extends Cubit<SleepState> {
   List<String> listofstring = [];
 
   List<Sleep> sleep = [
-    Sleep(name: 'Wake Up', time: '00:00' , id: 15),
-    Sleep(name: 'Sleep', time: '00:00',id: 16),
-
-
+    Sleep(name: 'Wake Up', time: '00:00', id: 52, status: false),
+    Sleep(name: 'Sleep', time: '00:00', id: 53, status: false),
+    Sleep(name: 'Nap', time: '00:00', id: 54, status: false),
   ];
+
 
   Future<void> initializeSleep() async {
     preferences = await SharedPreferences.getInstance();
@@ -42,6 +41,14 @@ class SleepCubit extends Cubit<SleepState> {
     }
   }
 
+  void updateMealStatus(int index, bool newStatus) {
+    print('old status ${sleep[index].status}');
+
+    sleep[index].status = newStatus;
+    print('new status ${sleep[index].status}');
+    setMeals();
+    emit(UpdateStatus());
+  }
 
   FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
@@ -79,7 +86,7 @@ class SleepCubit extends Cubit<SleepState> {
 
   SetAlaram(String label, String dateTime, bool check, String repeat, int id,
       int milliseconds) {
-    sleep.add(Sleep(name: label , time: dateTime, id: id));
+    sleep.add(Sleep(name: label , time: dateTime, id: id, status: check));
     emit(SetSleepAlarm());
     SetData();
   }

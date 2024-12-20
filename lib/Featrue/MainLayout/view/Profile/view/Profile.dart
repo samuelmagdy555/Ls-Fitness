@@ -56,6 +56,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 Navigator.pop(context);
               },
             ),
+            actions: [
+
+            ],
           ),
           backgroundColor: kThirdColor,
           body: SingleChildScrollView(

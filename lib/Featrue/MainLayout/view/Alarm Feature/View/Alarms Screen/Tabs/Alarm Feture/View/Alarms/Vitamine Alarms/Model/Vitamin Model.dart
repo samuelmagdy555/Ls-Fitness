@@ -2,15 +2,16 @@ class Vitamin {
   String name;
   String time;
   int id = 0;
+  bool status = false;
 
-  Vitamin({required this.name, required this.time , required this.id});
+  Vitamin({required this.name, required this.time , required this.id , required this.status});
 
-  // لتحويل الموديل إلى JSON
   Map<String, String> toJson() {
     return {
       'name': name,
       'time': time,
       'id': id.toString(),
+      'status': status.toString(),
     };
   }
 
@@ -18,7 +19,7 @@ class Vitamin {
     return Vitamin(
       name: json['name'],
       time: json['time'],
-      id: int.parse(json['id']),
+      id: int.parse(json['id']), status: bool.parse(json['status']),
     );
   }
 }

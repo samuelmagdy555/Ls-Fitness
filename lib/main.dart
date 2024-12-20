@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_client_sse/constants/sse_request_type_enum.dart';
+import 'package:flutter_client_sse/flutter_client_sse.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
@@ -37,6 +39,7 @@ import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view_Model/food_calculator_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart';
+import 'Featrue/MainLayout/view/Notification/View Model/notification_cubit.dart';
 import 'Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'Featrue/MainLayout/view/Profile/ChangePassword/view_model/change_password_cubit.dart';
 import 'Featrue/MainLayout/view/Profile/EditProfile/View_Model/edit_profile_cubit.dart';
@@ -46,10 +49,12 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Alarm.init();
   await DioHelper.init();
   await CashHelper.init();
@@ -61,9 +66,7 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
-  runApp(
-    const MyApp(),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -80,66 +83,69 @@ class _MyAppState extends State<MyApp> {
     // _secureScreen();
     final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
-      if (_.id == 7) {
-        await CreatineCubit.get(context).getWakeUpTime();
-        await CreatineCubit.get(context).getSleepTime();
-        if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
-            now.isAfter(CreatineCubit.get(context).wakeUpTime!)) {
-          if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 &&
-              now.hour <= CreatineCubit.get(context).sleepTime!.hour)) {
-            await Alarm.set(
-                alarmSettings: AlarmSettings(
-                    id: 7,
-                    dateTime: DateTime(
-                        now.year,
-                        now.month,
-                        now.day + 1,
-                        CreatineCubit.get(context).wakeUpTime!.hour + 1,
-                        CreatineCubit.get(context).wakeUpTime!.minute),
-                    assetAudioPath: _.assetAudioPath,
-                    notificationSettings: _.notificationSettings));
-          } else {
-            final alarmSettings = AlarmSettings(
-              id: 7,
-              dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
-              assetAudioPath: 'assets/alarm.mp3',
-              loopAudio: true,
-              vibrate: true,
-              volume: 0.8,
-              fadeDuration: 3.0,
-              warningNotificationOnKill: Platform.isIOS,
-              notificationSettings: NotificationSettings(
-                body: "Time for Water",
-                title: "Alarm",
-                stopButton: 'stop',
-              ),
-            );
-            Alarm.set(
-              alarmSettings: alarmSettings,
-            );
-          }
-        } else {
-          await Alarm.set(
-              alarmSettings: AlarmSettings(
-                  id: 7,
-                  dateTime: DateTime(
-                      now.year,
-                      now.month,
-                      now.day + 1,
-                      CreatineCubit.get(context).wakeUpTime!.hour + 1,
-                      CreatineCubit.get(context).wakeUpTime!.minute),
-                  assetAudioPath: _.assetAudioPath,
-                  notificationSettings: _.notificationSettings));
-        }
-      } else {
-        await Alarm.set(
-            alarmSettings: AlarmSettings(
-                id: _.id,
-                dateTime: DateTime(now.year, now.month, now.day + 1,
-                    _.dateTime.hour, _.dateTime.minute),
-                assetAudioPath: _.assetAudioPath,
-                notificationSettings: _.notificationSettings));
-      }
+      await Alarm.set(
+        alarmSettings: AlarmSettings(
+            id: _.id,
+            dateTime: DateTime(now.year, now.month, now.day + 1,
+                _.dateTime.hour, _.dateTime.minute),
+            assetAudioPath: _.assetAudioPath,
+            notificationSettings: _.notificationSettings),
+      );
+      // if (_.id == 7) {
+      //   await CreatineCubit.get(context).getWakeUpTime();
+      //   await CreatineCubit.get(context).getSleepTime();
+      //   if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
+      //       now.isAfter(CreatineCubit.get(context).wakeUpTime!)) {
+      //     if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 &&
+      //         now.hour <= CreatineCubit.get(context).sleepTime!.hour)) {
+      //       await Alarm.set(
+      //           alarmSettings: AlarmSettings(
+      //               id: 7,
+      //               dateTime: DateTime(
+      //                   now.year,
+      //                   now.month,
+      //                   now.day + 1,
+      //                   CreatineCubit.get(context).wakeUpTime!.hour + 1,
+      //                   CreatineCubit.get(context).wakeUpTime!.minute),
+      //               assetAudioPath: _.assetAudioPath,
+      //               notificationSettings: _.notificationSettings));
+      //     } else {
+      //       final alarmSettings = AlarmSettings(
+      //         id: 7,
+      //         dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
+      //         assetAudioPath: 'assets/alarm.mp3',
+      //         loopAudio: true,
+      //         vibrate: true,
+      //         volume: 0.8,
+      //         fadeDuration: 3.0,
+      //         warningNotificationOnKill: Platform.isIOS,
+      //         notificationSettings: NotificationSettings(
+      //           body: "Time for Water",
+      //           title: "Alarm",
+      //           stopButton: 'stop',
+      //         ),
+      //       );
+      //       Alarm.set(
+      //         alarmSettings: alarmSettings,
+      //       );
+      //     }
+      //   } else {
+      //     await Alarm.set(
+      //         alarmSettings: AlarmSettings(
+      //             id: 7,
+      //             dateTime: DateTime(
+      //                 now.year,
+      //                 now.month,
+      //                 now.day + 1,
+      //                 CreatineCubit.get(context).wakeUpTime!.hour + 1,
+      //                 CreatineCubit.get(context).wakeUpTime!.minute),
+      //             assetAudioPath: _.assetAudioPath,
+      //             notificationSettings: _.notificationSettings));
+      //   }
+      // } else {
+      //
+      //
+      // }
     });
   }
 
@@ -149,8 +155,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final String sseUrl =
+        'https://ls-fitness.koyeb.app/api/v1/notifications/event';
+
+    final Map<String, String> headers = {
+      'Authorization':
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwZjQxYTk3NWE3ZTE2NGI3ZDBiYmUiLCJpYXQiOjE3MzQ2MjYwNzEsImV4cCI6MTc0MjQwMjA3MX0.KKOvwUCROslKGqKkcBkuKIvH6oy5tm1zCxdpEmJVLrk',
+      'Accept': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+    };
     return MultiProvider(
       providers: [
+        BlocProvider(
+            create: (context) {
+              print('notification cubit');
+              return  NotificationCubit();
+            }),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ForgetPasswordCubit()),
@@ -164,7 +184,8 @@ class _MyAppState extends State<MyApp> {
             create: (context) => CreatineCubit()
               ..getAlarmState()
               ..getSleepTime()
-              ..getWakeUpTime()),
+              ..getWakeUpTime()
+              ..initializeCreatine()),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(create: (context) => GoalsCubit()),
         BlocProvider(create: (context) => ProgressCubit()),
@@ -217,8 +238,9 @@ class _MyAppState extends State<MyApp> {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
             scaffoldBackgroundColor: Colors.black),
-        home:
-            LoginCubit.token == '' ? const SplashScreen() : MainLayout(),
+        home: CashHelper.getFromCash(key: 'token') == ''
+            ? const SplashScreen()
+            : MainLayout(),
       ),
     );
   }

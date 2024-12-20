@@ -3,6 +3,7 @@ import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View/Sleep%20Alarms.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/View/Supplement%20Meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Workout%20Alarms/View/Workout%20Alarms.dart';
+import 'Add Alarm Screen/Add Alarm Screen.dart';
 import 'Tabs/Alarm Feture/View/Alarms/Meal Alarms/View/Meal Alarms.dart';
 import 'Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View/Vitamin Alarms.dart';
 import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
@@ -50,6 +51,24 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             'Alarms',
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            num == 5 ? const SizedBox() : GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddAlarm(index: num,)));
+              },
+              child: Center(
+                child: Container(
+                    margin: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        color: Colors.white, shape: BoxShape.circle),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(Icons.add , color: Colors.black,),
+                    )),
+              ),
+            ),
+          ],
           centerTitle: true,
           leading: widget.value
               ? IconButton(
@@ -69,7 +88,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(top: 15),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 2.5,
+                  childAspectRatio: 2.75,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
@@ -84,9 +103,10 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                     },
                     child: Container(
                       decoration: BoxDecoration(
+                        color: num == index ? Colors.white : Colors.black,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: num == index ? Colors.deepPurple : Colors.grey,
+                          color:  Colors.grey,
                           width: 1,
                         ),
                       ),
@@ -96,7 +116,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                       child: Text(
                         c[index],
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        style: TextStyle(fontSize: 14, color: num == index  ? Colors.black :Colors.white),
                       ),
                     ),
                   );

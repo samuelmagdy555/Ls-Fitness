@@ -58,6 +58,13 @@ class _SettingsPageState extends State<SettingsPage> {
               label: 'Steps Counter',
               onTap: () => _navigateToPage(context, StepCounterPage()),
             ),
+            _buildSettingsItem(
+              context,
+              icon: Icons.color_lens,
+              label: 'Themes',
+              onTap: () => _navigateToPage(context, StepCounterPage()),
+            ),
+
             _buildSettingsItemWithButton(
               context,
               icon: Icons.edit,

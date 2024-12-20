@@ -17,3 +17,4 @@ final class SetSleepDataState extends SleepState {}
 final class SetSleepAlarm extends SleepState {}
 
 final class InitializeSleep extends SleepState {}
+final class UpdateStatus extends SleepState {}
