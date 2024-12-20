@@ -357,6 +357,7 @@ class CoursePage extends StatelessWidget {
     },
   ];
   /////
+  /////////////
 
   final List<Map<String, String>> chestWorkouts = [
     {
