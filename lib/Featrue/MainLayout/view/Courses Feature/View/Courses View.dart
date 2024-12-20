@@ -344,13 +344,13 @@ class CoursePage extends StatelessWidget {
       'image': 'assets/images/12.jpg',
     },
     {
-      'title': 'Dumbbell Core Strength W',
+      'title': 'Dumbbell Core Strength ',
       'price': '250',
       'price after Discount': '200',
       'image': 'assets/images/9.jpg',
     },
     {
-      'title': 'Dumbbell Core Strength W',
+      'title': 'Dumbbell Core Strength ',
       'price': '250',
       'price after Discount': '200',
       'image': 'assets/images/9.jpg',
@@ -528,8 +528,6 @@ class CoursePage extends StatelessWidget {
                         fontSize: 15,
                       ),
                     ),
-
-
                   ],
                 ),
 
