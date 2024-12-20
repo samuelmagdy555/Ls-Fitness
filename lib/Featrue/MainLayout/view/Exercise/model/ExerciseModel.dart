@@ -88,8 +88,9 @@ class Data {
     recoveryAndStretching = json['recoveryAndStretching'];
     deepAnatomy = List.from(json['deepAnatomy']).map((e) => DeepAnatomy.fromJson(e)).toList();
     video = Video.fromJson(json['video']);
-    Description = json['Description'] ?? '';
-    instructions = json['instructions'] ?? '';
+    Description = json['Description'] as String? ?? ''; // Null-safe casting
+    instructions = json['instructions'] as String? ?? '';
+
     id = json['_id'];
     title = json['title'];
     targetGender = json['targetGender'];

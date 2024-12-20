@@ -36,12 +36,13 @@ class _MainLayoutState extends State<MainLayout> {
     HomeView(),
     PersonView(),
     NutritionView(),
-    CoursesView(),
+    CoursePage(),
     FoodListPage(),
     TimerScreen(value: false,),
     FoodCalculator(mealCategory: ''),
     VitaminView(),
     SettingsPage(),
+
   ];
 
   @override

@@ -37,6 +37,7 @@ class CoursesCubit extends Cubit<CoursesState> {
       print(e.toString());
     }
   }
+
   Future<void> getMyCourses() async {
     emit(GetMyCoursesLoading());
     try {

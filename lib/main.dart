@@ -46,8 +46,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
