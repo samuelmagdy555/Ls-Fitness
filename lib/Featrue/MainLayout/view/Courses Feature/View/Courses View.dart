@@ -356,6 +356,7 @@ class CoursePage extends StatelessWidget {
       'image': 'assets/images/9.jpg',
     },
   ];
+  /////
 
   final List<Map<String, String>> chestWorkouts = [
     {
