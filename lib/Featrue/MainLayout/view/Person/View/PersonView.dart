@@ -11,7 +11,7 @@ class PersonView extends StatefulWidget {
   @override
   State<PersonView> createState() => _PersonViewState();
 }
-
+// ignore: camel_case_typessafasd
 class _PersonViewState extends State<PersonView>
     with SingleTickerProviderStateMixin {
   bool _isFlipped = false;
