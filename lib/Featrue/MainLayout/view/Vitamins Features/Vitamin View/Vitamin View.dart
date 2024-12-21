@@ -3,13 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Alarms%20Screen.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View/Vitamin%20Alarms.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20Details/Vitamin%20Details.dart';
-
 import '../../../../../../generated/l10n.dart';
+import '../../Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View Model/vitamin_cubit.dart';
+import 'Vitamin Details/Vitamin Details.dart';
 
-class VitaminView extends StatelessWidget {
+class VitaminView extends StatefulWidget {
   const VitaminView({super.key});
 
+  @override
+  State<VitaminView> createState() => _VitaminViewState();
+}
+
+class _VitaminViewState extends State<VitaminView> {
   final List<String> vitamins = const [
     'Vitamin A',
     'Vitamin B',
@@ -19,6 +24,7 @@ class VitaminView extends StatelessWidget {
     'Vitamin K',
     'Omega 3',
   ];
+
   final List<String> supplements = const [
     'Protein Powder',
     'Creatine',
@@ -27,6 +33,7 @@ class VitaminView extends StatelessWidget {
     'Multivitamin',
     'Iron',
   ];
+
   final List<String> images = const [
     'assets/images/Vitamin A.png',
     'assets/images/Vitamin B.png',
@@ -36,6 +43,7 @@ class VitaminView extends StatelessWidget {
     'assets/images/Vitamin K.png',
     'assets/images/omega 3.png',
   ];
+
   final List<String> locations = const [
     'carrots , sweet potatoes, and spinach',
     'meat , eggs , dairy products , and whole grains',
@@ -45,6 +53,7 @@ class VitaminView extends StatelessWidget {
     'leafy greens , broccoli , and Brussels sprouts',
     'fatty fish like salmon and tuna , and walnuts',
   ];
+
   final List<String> benefits = const [
     'Helps maintain eye health and strengthens immunity',
     'Supports energy production and nervous system health',
@@ -54,6 +63,7 @@ class VitaminView extends StatelessWidget {
     'Supports blood clotting and bone health',
     'Promotes heart health and reduces inflammation',
   ];
+
   final List<String> dailyAmounts = const [
     '700-900 mcg',
     '1 to 3 mg',
@@ -64,6 +74,10 @@ class VitaminView extends StatelessWidget {
     '90-120 mcg',
   ];
 
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
@@ -84,7 +98,7 @@ class VitaminView extends StatelessWidget {
             },
           ),
           title: Text(
-           S.of(context).Vitamin_And_Supplements,
+            S.of(context).Vitamin_And_Supplements,
             style: GoogleFonts.merriweather(
               fontSize: width * .05,
               color: Colors.white,
@@ -111,8 +125,8 @@ class VitaminView extends StatelessWidget {
     );
   }
 
-  Widget _buildList(BuildContext context, List<String> items, List<String> images,
-      List<String> dailyAmounts, List<String> benefits) {
+  Widget _buildList(BuildContext context, List<String> items,
+      List<String> images, List<String> dailyAmounts, List<String> benefits) {
     double width = MediaQuery.sizeOf(context).width;
     double height = MediaQuery.sizeOf(context).height;
 
@@ -122,7 +136,8 @@ class VitaminView extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>VitaminDetails()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => VitaminDetails()));
           },
           child: Container(
             margin: EdgeInsets.all(15),
@@ -189,7 +204,12 @@ class VitaminView extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>TimerScreen(value: false,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TimerScreen(
+                                  value: false,
+                                )));
                   },
                   child: CircleAvatar(
                     radius: 35,

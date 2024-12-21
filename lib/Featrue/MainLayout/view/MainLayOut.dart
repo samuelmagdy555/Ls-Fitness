@@ -3,7 +3,6 @@ import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dar
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View/Nutrition%20View.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
@@ -12,6 +11,7 @@ import 'Courses Feature/View/Courses View.dart';
 import 'Home/View/HomeScreen.dart';
 import 'Notification/View Model/notification_cubit.dart';
 import 'Notification/View/Notification View.dart';
+import 'Vitamins Features/Vitamin View/Vitamin View.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -32,12 +32,8 @@ class _MainLayoutState extends State<MainLayout> {
     TimerScreen(
       value: false,
     ),
-
-    //dd
     FoodCalculator(mealCategory: ''),
-
     CoursePage(),
-
     VitaminView(),
     SettingsPage(),
   ];
@@ -56,7 +52,7 @@ class _MainLayoutState extends State<MainLayout> {
   void initState() {
     super.initState();
     print('sseUrl $sseUrl');
-     print('headers $headers');
+    print('headers $headers');
     NotificationCubit.get(context).connectToServer(sseUrl, headers);
   }
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
-import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Vitamin%20View/Vitamin%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';

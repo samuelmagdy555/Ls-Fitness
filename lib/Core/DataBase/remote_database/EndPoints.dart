@@ -24,5 +24,7 @@ class EndPoints{
   static String lesson = 'lessons';
   static String notifications = 'notifications';
   static String specificCourseLesson = 'lessons/courseLessons';
+  static String vitamins = 'vitamins';
+
 
 }
