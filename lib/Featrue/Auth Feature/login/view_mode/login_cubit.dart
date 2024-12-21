@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/exercise.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:meta/meta.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import '../model/LoginModel.dart';
 
@@ -37,6 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
           await DioHelper.PostData(end_point: EndPoints.Login, data: {
         'email': mail,
         'password': password,
+            'deviceId': await getDeviceId()
       });
       loginModel = LoginModel.fromJson(response.data);
       print('token from model${loginModel!.token}');
@@ -84,4 +88,20 @@ class LoginCubit extends Cubit<LoginState> {
     role = await CashHelper.getFromCash(key: 'role');
 
   }
+
+
+  static Future<String?> getDeviceId() async {
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id;
+    } else if (Platform.isIOS) {
+      final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor;
+    } else {
+      return null;
+    }
+  }
+
 }

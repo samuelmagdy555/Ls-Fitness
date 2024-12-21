@@ -155,15 +155,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final String sseUrl =
-        'https://ls-fitness.koyeb.app/api/v1/notifications/event';
 
-    final Map<String, String> headers = {
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQwZjQxYTk3NWE3ZTE2NGI3ZDBiYmUiLCJpYXQiOjE3MzQ2MjYwNzEsImV4cCI6MTc0MjQwMjA3MX0.KKOvwUCROslKGqKkcBkuKIvH6oy5tm1zCxdpEmJVLrk',
-      'Accept': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-    };
     return MultiProvider(
       providers: [
         BlocProvider(
@@ -240,7 +232,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.black),
         home: CashHelper.getFromCash(key: 'token') == ''
             ? const SplashScreen()
-            : MainLayout(),
+            : LoginView(),
       ),
     );
   }

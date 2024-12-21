@@ -28,14 +28,14 @@ class RegisterCubit extends Cubit<RegisterState> {
      emit(RegisterLoadingState());
      try{
        final response = await DioHelper.PostData(
-           // end_ponit: EndPoints.Register,
          end_point: EndPoints.Register,
          data: {
              'username' : username,
              'email' : email,
              'phone' : phone,
              'password' : password,
-             'confirmPassword' : confirmPassword
+             'confirmPassword' : confirmPassword,
+           'deviceId': await LoginCubit.getDeviceId()
 
          }
        );
