@@ -8,6 +8,10 @@ import '../../../../../Core/Constant/Loading Indicator/Loading indecator.dart';
 import 'DetailsExercise/view/DetailsExercise.dart';
 
 class WorkoutScreen extends StatefulWidget {
+  final String? bodyPartID;
+
+  WorkoutScreen({this.bodyPartID});
+
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 }
@@ -110,7 +114,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                 }
                               });
 
-                              if (index == 0 || index == 3) {
+                              if (index == 0) {
                                 if (ExerciseCubit.get(context).filter[index] ==
                                     index) {
                                   await ExerciseCubit.get(context)
@@ -169,7 +173,80 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   ExerciseCubit.get(context).changePage(
                                       controller: controller, index: 0);
                                 }
-                              } else {
+                              }
+
+                              else  if (index == 3) {
+                                if (ExerciseCubit.get(context).filter[index] ==
+                                    index) {
+                                  await ExerciseCubit.get(context)
+                                      .getDeepAnatomyForSpecificBodyPart(id: widget.bodyPartID!);
+                                  final tapPosition = details.globalPosition;
+
+                                  showMenu(
+                                    context: context,
+                                    position: RelativeRect.fromLTRB(
+                                      tapPosition.dx,
+                                      tapPosition.dy,
+                                      tapPosition.dx,
+                                      tapPosition.dy,
+                                    ),
+                                    items: ExerciseCubit.get(context)
+                                        .LoadDeepAnatomyItems(index)
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      int itemIndex = entry.key;
+                                      String choice = entry.value;
+                                      return PopupMenuItem<
+                                          Map<String, dynamic>>(
+                                        value: {
+                                          'value': choice,
+                                          'itemIndex': itemIndex
+                                        },
+                                        child: Text(
+                                          choice,
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ).then((selected) {
+                                    if (selected != null) {
+                                      ExerciseCubit.get(context).changePage(
+                                          controller: controller, index: 0);
+                                      String value = selected['value'];
+                                      int itemIndex = selected['itemIndex'];
+
+
+                                      print('filterDetails');
+                                      ExerciseCubit.get(context)
+                                          .filterDetails[index] = value;
+                                      print('updateTitleByIndex');
+                                      print(index);
+                                      print(itemIndex);
+                                      print(buttons);
+                                      print('print 3');
+
+
+                                      ExerciseCubit.get(context)
+                                          .updateTitleByIndex(
+                                          index, itemIndex, buttons);
+                                      print('generateFilterMap');
+
+                                      ExerciseCubit.get(context)
+                                          .generateFilterMap(
+                                          page: 1, controller: controller);
+                                      controller.navigateToPage(0);
+                                    }
+                                  });
+                                } else {
+                                  ExerciseCubit.get(context).generateFilterMap(
+                                      page: 1, controller: controller);
+                                  ExerciseCubit.get(context).changePage(
+                                      controller: controller, index: 0);
+                                }
+                              }
+
+
+                              else {
                                 ExerciseCubit.get(context)
                                     .updateTitleByIndex(index, index, buttons);
                                 ExerciseCubit.get(context).generateFilterMap(
@@ -208,30 +285,30 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                     ),
                     SizedBox(height: 15),
                     BlocConsumer<ExerciseCubit, ExerciseState>(
-                      listener: (context, state) {
-                      },
+                      listener: (context, state) {},
                       builder: (context, state) {
-                        return exerciseCubit.exercisesModel!.data!.isNotEmpty ?  NumberPaginator(
-                          showNextButton: true,
-                          showPrevButton: true,
-                          controller: controller,
-                          numberPages: exerciseCubit.exercisesModel
-                                  ?.paginationResult.numberOfPages ??
-                              0,
-                          onPageChange: (int index) {
-                              exerciseCubit.changePage(
-                                  controller: controller, index: index);
-                              exerciseCubit.generateFilterMap(
-                                  page: index + 1, controller: controller);
-
-                          },
-                        ) : Center(
-                          child: Text(
-                            '',
-                            style: TextStyle(
-                                color: Colors.deepPurple, fontSize: 20),
-                          ),
-                        );
+                        return exerciseCubit.exercisesModel!.data!.isNotEmpty
+                            ? NumberPaginator(
+                                showNextButton: true,
+                                showPrevButton: true,
+                                controller: controller,
+                                numberPages: exerciseCubit.exercisesModel
+                                        ?.paginationResult.numberOfPages ??
+                                    0,
+                                onPageChange: (int index) {
+                                  exerciseCubit.changePage(
+                                      controller: controller, index: index);
+                                  exerciseCubit.generateFilterMap(
+                                      page: index + 1, controller: controller);
+                                },
+                              )
+                            : Center(
+                                child: Text(
+                                  '',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple, fontSize: 20),
+                                ),
+                              );
                       },
                     ),
                     Expanded(

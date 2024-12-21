@@ -18,6 +18,7 @@ class EndPoints{
   static String nutrition = 'nutrition';
   static String FoodCalculatorFilter = 'mealsCategory';
   static String deepAnatomy = 'deepAnatomy';
+  static String deepAnatomies = 'deepAnatomies';
   static String toolOrMachine = 'toolOrMachine';
   static String courses = 'courses';
   static String myCourses = 'courses/MyCourses';

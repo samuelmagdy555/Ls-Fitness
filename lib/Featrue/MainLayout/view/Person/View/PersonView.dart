@@ -78,7 +78,7 @@ class _PersonViewState extends State<PersonView>
                     ExerciseCubit.get(context).getExercise(query: {
                       "Warmup": "true"
                     }) ;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutScreen()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutScreen(bodyPartID: '',)));
                   },
                   child: Icon(Iconsax.tag_right),
                 ),
@@ -136,7 +136,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d2',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -175,7 +175,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d3',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +246,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d0',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -310,7 +310,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '673a542bc913a95d94166edf',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -347,7 +347,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d9',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -385,7 +385,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d7')));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -424,7 +424,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668dc',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -461,7 +461,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '674078d89f0d1eedab574aae',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -499,7 +499,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '674078d89f0d1eedab574aae',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -536,7 +536,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '674078d89f0d1eedab574aaa',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -574,7 +574,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d5',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -611,7 +611,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668d8')));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -649,7 +649,7 @@ class _PersonViewState extends State<PersonView>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WorkoutScreen()));
+                              builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668db',)));
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

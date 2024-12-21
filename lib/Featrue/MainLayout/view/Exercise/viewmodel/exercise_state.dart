@@ -15,3 +15,9 @@ class BodyPartsError extends ExerciseState{}
 class BodyPartsLoading extends ExerciseState{}
 
 class ChangePageState extends ExerciseState{}
+
+
+class GetDeepAnatomyForBodyPartsSuccess extends ExerciseState{}
+class GetDeepAnatomyForBodyPartsError extends ExerciseState{}
+class GetDeepAnatomyForBodyPartsLoading extends ExerciseState{}
+

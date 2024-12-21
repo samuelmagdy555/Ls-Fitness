@@ -63,11 +63,7 @@ class LoginCubit extends Cubit<LoginState> {
       await CashHelper.insertToCash(
           key: 'name', value: response.data['data']['username']);
 
-      email = await CashHelper.getFromCash(key: 'email');
-      id = await CashHelper.getFromCash(key: 'id');
-      name = await CashHelper.getFromCash(key: 'name');
-      token = await CashHelper.getFromCash(key: 'token');
-      isVerified = await CashHelper.getBoolFromCash(key: 'isVerfied');
+      setUserData();
       print(token);
       emit(LoginSuccessState());
       ExerciseCubit.get(context).getExercise(page: 1);

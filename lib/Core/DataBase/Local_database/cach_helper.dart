@@ -18,6 +18,9 @@ class CashHelper {
     LoginCubit.phone = await CashHelper.getFromCash(key: 'phone');
     LoginCubit.isOAuth = await CashHelper.getBoolFromCash(key:'isOAuthUser');
     LoginCubit.role = await CashHelper.getFromCash(key: 'role');
+
+    print('token ${LoginCubit.token}');
+     
   }
 
   static Future<bool> insertToCash(

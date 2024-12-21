@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 import 'package:number_paginator/number_paginator.dart';
 
 import '../model/ExerciseModel.dart';
+import '../model/Specific deep anatomy/Specific deep anatomy.dart';
 
 part 'exercise_state.dart';
 
@@ -19,6 +20,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   ExercisesModel? exercisesModel;
   BodyPartsModel? bodyPartsModel;
   LoginModel? loginModel;
+  SpecificDeepAnatomy? specificDeepAnatomy;
 
   int currentPage = 1;
 
@@ -58,10 +60,17 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   void updateTitleByIndex(
       int index, int buttonIndex, List<Map<String, dynamic>> buttons) {
+    print('buttons[index]["title"] is ${buttons[index]['title']}');
+
+    print('intered updateTitleByIndex');
+    print('filterDetails[index] is ${filterDetails[index]}');
+
     if (buttons[index]['title'] == 'Recovery and Stretching' ||
         buttons[index]['title'] == 'Cardio') {
       print(
           'in function (updateTitleByIndex) title is ${buttons[index]['title']}');
+      print('buttons[index]["title"] is ${buttons[index]['title']}');
+
       if (filterDetails[index] == '' || filterDetails[index] == 'false') {
         filterDetails[index] = 'true';
         print('true');
@@ -70,9 +79,13 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         print('false');
       }
     } else {
-      print(bodyPartsModel!.data[buttonIndex].title);
-      print(buttonIndex);
-      filterDetails[index] = bodyPartsModel!.data[buttonIndex].id;
+      print('elseeeeeeeee');
+
+      if (buttons[index]['title'] == 'Deep Anatomy') {
+        filterDetails[index] = specificDeepAnatomy!.data[buttonIndex].id;
+      } else {
+        filterDetails[index] = bodyPartsModel!.data[buttonIndex].id;
+      }
     }
   }
 
@@ -120,7 +133,21 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
   }
 
+  Future<void> getDeepAnatomyForSpecificBodyPart({required String id}) async {
+    emit(GetDeepAnatomyForBodyPartsSuccess());
+    try {
+      final response = await DioHelper.get(
+        end_ponit: '${EndPoints.BodyPart}/$id/${EndPoints.deepAnatomies}',
+        token: loginModel?.token ?? LoginCubit.token,
+      );
 
+      specificDeepAnatomy = SpecificDeepAnatomy.fromJson(response.data);
+      emit(GetDeepAnatomyForBodyPartsSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(GetDeepAnatomyForBodyPartsError());
+    }
+  }
 
   Future<void> generateFilterMap(
       {int? page, NumberPaginatorController? controller}) async {
@@ -145,6 +172,15 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     List<String> items = [];
 
     for (var item in bodyPartsModel!.data) {
+      items.add(item.title);
+    }
+    return items;
+  }
+
+  List<String> LoadDeepAnatomyItems(int index) {
+    List<String> items = [];
+
+    for (var item in specificDeepAnatomy!.data) {
       items.add(item.title);
     }
     return items;
