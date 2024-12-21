@@ -132,7 +132,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       emit(BodyPartsError());
     }
   }
-
+//hel
   Future<void> getDeepAnatomyForSpecificBodyPart({required String id}) async {
     emit(GetDeepAnatomyForBodyPartsSuccess());
     try {
