@@ -327,6 +327,7 @@
 //   },
 // ];
 //
+
 import 'package:flutter/material.dart';
 
 class CoursePage extends StatelessWidget {
@@ -337,6 +338,7 @@ class CoursePage extends StatelessWidget {
       'price after Discount': '200',
       'image': 'assets/images/12.jpg',
     },
+
     {
       'title': 'Cable Core Strength Workout',
       'price': '250',

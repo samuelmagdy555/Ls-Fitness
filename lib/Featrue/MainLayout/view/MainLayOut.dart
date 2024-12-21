@@ -43,7 +43,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final Map<String, String> headers = {
     'Authorization':
-        'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
+    'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
     'Accept': 'text/event-stream',
     'Cache-Control': 'no-cache',
   };
@@ -81,7 +81,7 @@ class _MainLayoutState extends State<MainLayout> {
                         width: width * .11,
                         child: const Image(
                             image:
-                                AssetImage('assets/images/muscle Home.png')))),
+                            AssetImage('assets/images/muscle Home.png')))),
                 _buildTabItem(
                     index: 1,
                     label: 'exercise',
@@ -141,7 +141,7 @@ class _MainLayoutState extends State<MainLayout> {
                         width: width * .11,
                         child: const Image(
                             image:
-                                AssetImage('assets/images/calculator.png')))),
+                            AssetImage('assets/images/calculator.png')))),
                 _buildTabItem(
                     index: 7,
                     label: 'Courses',
@@ -177,8 +177,8 @@ class _MainLayoutState extends State<MainLayout> {
 
   Widget _buildTabItem(
       {required int index,
-      required final String label,
-      required final Widget path}) {
+        required final String label,
+        required final Widget path}) {
     final isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () {

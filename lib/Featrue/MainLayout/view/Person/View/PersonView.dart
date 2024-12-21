@@ -65,73 +65,73 @@ class _PersonViewState extends State<PersonView>
     final width = mediaQuery.width;
     final height = mediaQuery.height;
     return Scaffold(
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: FloatingActionButton(
+                    onPressed: (){
+                      ExerciseCubit.get(context).getExercise(query: {
+                        "Warmup": "true"
+                      }) ;
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutScreen(bodyPartID: '',)));
+                    },
+                    child: Icon(Iconsax.tag_right),
+                  ),
+                ),
+                Text('WormUP')
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  onPressed: _flipImage,
+                  child: Icon(Icons.flip),
+                ),
+                Text('Flip')
+              ],
+            ),
+          ],
+        ),
+        backgroundColor: Colors.white,
+        body: Stack(
+            alignment: Alignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: FloatingActionButton(
-                  onPressed: (){
-                    ExerciseCubit.get(context).getExercise(query: {
-                      "Warmup": "true"
-                    }) ;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => WorkoutScreen(bodyPartID: '',)));
-                  },
-                  child: Icon(Iconsax.tag_right),
+              Center(
+                child: AnimatedOpacity(
+                  opacity: !_isFlipped ? 0 : 1,
+                  duration: const Duration(seconds: 1),
+                  child: Image.asset(
+                    'assets/images/Person back.png',
+                    width: width * 0.8,
+                    height: height * 0.8,
+                  ),
                 ),
               ),
-              Text('WormUP')
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                onPressed: _flipImage,
-                child: Icon(Icons.flip),
+              Center(
+                child: AnimatedOpacity(
+                  opacity: !_isFlipped ? 1 : 0,
+                  duration: const Duration(seconds: 1),
+                  child: Image.asset(
+                    'assets/images/Person.jpeg',
+                    width: width * 0.8,
+                    height: height * 0.8,
+                  ),
+                ),
               ),
-              Text('Flip')
-            ],
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Center(
-            child: AnimatedOpacity(
-              opacity: !_isFlipped ? 0 : 1,
-              duration: const Duration(seconds: 1),
-              child: Image.asset(
-                'assets/images/Person back.png',
-                width: width * 0.8,
-                height: height * 0.8,
-              ),
-            ),
-          ),
-          Center(
-            child: AnimatedOpacity(
-              opacity: !_isFlipped ? 1 : 0,
-              duration: const Duration(seconds: 1),
-              child: Image.asset(
-                'assets/images/Person.jpeg',
-                width: width * 0.8,
-                height: height * 0.8,
-              ),
-            ),
-          ),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .185,
                   right: width * .205,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d2';
+                      '67399428c913a95d941668d2';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -162,15 +162,15 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : SizedBox(),
-          !_isFlipped
-              ? Positioned(
+                  : SizedBox(),
+              !_isFlipped
+                  ? Positioned(
                   top: height * .21,
                   left: width * .0925,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d3';
+                      '67399428c913a95d941668d3';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -201,7 +201,7 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .19,
                   left: width * .125,
                   child: GestureDetector(
@@ -234,14 +234,14 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   )),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .225,
                   right: width * .0925,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d0';
+                      '67399428c913a95d941668d0';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -272,7 +272,7 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .285,
                   left: width * .093,
                   child: Column(
@@ -298,14 +298,14 @@ class _PersonViewState extends State<PersonView>
                       ),
                     ],
                   )),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .26,
                   left: width * .075,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '673a542bc913a95d94166edf';
+                      '673a542bc913a95d94166edf';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -336,13 +336,13 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .26,
                   right: width * .08,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d9';
+                      '67399428c913a95d941668d9';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -373,14 +373,14 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   )),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .32,
                   left: width * .025,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d7';
+                      '67399428c913a95d941668d7';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -411,15 +411,15 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : SizedBox(),
-          !_isFlipped
-              ? Positioned(
+                  : SizedBox(),
+              !_isFlipped
+                  ? Positioned(
                   top: height * .29,
                   right: width * .125,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668dc';
+                      '67399428c913a95d941668dc';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -450,13 +450,13 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .33,
                   right: width * .08,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '674078d89f0d1eedab574aae';
+                      '674078d89f0d1eedab574aae';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -487,14 +487,14 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   )),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .385,
                   left: width * .235,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '674078d89f0d1eedab574aae';
+                      '674078d89f0d1eedab574aae';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -525,13 +525,13 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .385,
                   left: width * .225,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '674078d89f0d1eedab574aaa';
+                      '674078d89f0d1eedab574aaa';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -562,14 +562,14 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   )),
-          !_isFlipped
-              ? Positioned(
+              !_isFlipped
+                  ? Positioned(
                   top: height * .425,
                   right: width * .15,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d5';
+                      '67399428c913a95d941668d5';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -600,13 +600,13 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : Positioned(
+                  : Positioned(
                   top: height * .45,
                   right: width * .15,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668d8';
+                      '67399428c913a95d941668d8';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
@@ -637,19 +637,20 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   )),
-          _isFlipped
-              ? Positioned(
+              _isFlipped
+                  ? Positioned(
                   top: height * .55,
                   left: width * .2,
                   child: GestureDetector(
                     onTap: () {
                       ExerciseCubit.get(context).result2 =
-                          '67399428c913a95d941668db';
+                      '67399428c913a95d941668db';
                       ExerciseCubit.get(context).generateFilterMap(page: 1);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => WorkoutScreen(bodyPartID: '67399428c913a95d941668db',)));
+                      ////////
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -675,9 +676,9 @@ class _PersonViewState extends State<PersonView>
                       ],
                     ),
                   ))
-              : SizedBox(),
-        ],
-      ),
-    );
-  }
+                  : SizedBox(),
+            ],
+            ),
+        );
+    }
 }
