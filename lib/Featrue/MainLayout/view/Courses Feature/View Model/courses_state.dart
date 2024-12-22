@@ -21,3 +21,7 @@ final class GetSpecificCoursesFailed extends CoursesState {}
 final class GetSpecificLessonLoading extends CoursesState {}
 final class GetSpecificLessonSuccess extends CoursesState {}
 final class GetSpecificLessonFailed extends CoursesState {}
+
+final class CoursesCategoriesSuccess extends CoursesState{}
+final class CoursesCategoriesError extends CoursesState{}
+final class CoursesCategoriesLoading extends CoursesState{}
