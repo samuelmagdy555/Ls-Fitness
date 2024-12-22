@@ -329,74 +329,34 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../Model/Courses Model/Courses Model.dart';
+import '../View Model/courses_cubit.dart';
 
-class CoursePage extends StatelessWidget {
-  final List<Map<String, String>> coreWorkouts = [
-    {
-      'title': 'Complete Core Band Training',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/12.jpg',
-    },
+class CoursePage extends StatefulWidget {
+  @override
+  State<CoursePage> createState() => _CoursePageState();
+}
 
-    {
-      'title': 'Cable Core Strength Workout',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/12.jpg',
-    },
-    {
-      'title': 'Dumbbell Core Strength ',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/9.jpg',
-    },
-    {
-      'title': 'Dumbbell Core Strength ',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/9.jpg',
-    },
-  ];
-  /////
-  /////////////
-
-  final List<Map<String, String>> chestWorkouts = [
-    {
-      'title': 'Band Chest Workout',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/12.jpg',
-    },
-    {
-      'title': 'Lever Chest Equipment Workout',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/17.jpg',
-    },
-    {
-      'title': 'Dumbbell Chest Press Seri',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/17.jpg',
-    },
-    {
-      'title': 'Dumbbell Chest Press Seri',
-      'price': '250',
-      'price after Discount': '200',
-      'image': 'assets/images/17.jpg',
-    },
-  ];
+class _CoursePageState extends State<CoursePage> {
+  @override
+  void initState() {
+    super.initState();
+    CoursesCubit.get(context).CoursesCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Row(
           children: [
             Text(
-              'COURSE',
+              'COURSES',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
@@ -411,134 +371,159 @@ class CoursePage extends StatelessWidget {
         elevation: 0,
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              sectionTitle('Core Strength Gym Workouts'),
-              workoutGrid(coreWorkouts, context),
-              sectionTitle('Gym Chest Workout Series'),
-              workoutGrid(chestWorkouts, context),
-            ],
-          ),
-        ),
+      body: BlocConsumer<CoursesCubit, CoursesState>(
+        listener: (context, state) {
+          if (state is CoursesCategoriesError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error loading courses')),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is CoursesCategoriesLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is CoursesCategoriesSuccess) {
+            final categories = context.read<CoursesCubit>().coursesCategoriesModel!.data;
+
+            return ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              itemCount: categories!.length,
+              itemBuilder: (context, index) {
+                final category = categories[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
+                          Positioned(
+                            top: 20.5,
+                            child: Container(
+                              height: 10, // Height of the yellow bar
+                              width: 60, // Adjust this to match the text width
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.orangeAccent,
+                                    Colors.orangeAccent.withOpacity(0.6),
+                                    Colors.white30
+                                  ])),
+                              margin: const EdgeInsets.only(
+                                  bottom: 5), // Adjust position if needed
+                            ),
+                          ),
+                          Text(
+                            category.title ?? 'No Category Name',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                        ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      height: screenHeight * 0.35,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: category.courses?.length ?? 0,
+                        itemBuilder: (context, courseIndex) {
+                          final course = category.courses![courseIndex];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: workoutCard(course, screenWidth, screenHeight),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                );
+              },
+            );
+          } else {
+            return Center(child: Text('No data available'));
+          }
+        },
       ),
     );
   }
 
-  Widget sectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
-      child: Row(
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget workoutGrid(List<Map<String, String>> workouts, BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.8,
-      ),
-      itemCount: workouts.length,
-      itemBuilder: (context, index) {
-        final workout = workouts[index];
-        return workoutCard(workout);
-      },
-    );
-  }
-
-  Widget workoutCard(Map<String, String> workout) {
+  Widget workoutCard(Courses course, double screenWidth, double screenHeight) {
     return Card(
       clipBehavior: Clip.antiAlias,
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Image.asset(
-              workout['image']!,
-              fit: BoxFit.cover,
+      child: SizedBox(
+        width: screenWidth * 0.6,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.network(
+              course.image ?? 'https://via.placeholder.com/200',
+              height: screenHeight * 0.2,
               width: double.infinity,
+              fit: BoxFit.cover,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  workout['title']!,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Text(
-                      'Price: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    course.title ?? 'No Title',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth * 0.04,
                     ),
-                    SizedBox(width: 4),
-                    Text(
-                      '${workout['price']}',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        decoration: TextDecoration.lineThrough,
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Text(
+                        'Price: ',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.035,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 8),
-
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Price after Discount: ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
+                      Text(
+                        '${course.price ?? 0}',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: screenWidth * 0.035,
+                          decoration: TextDecoration.lineThrough,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      '${workout['price after Discount']}',
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Price After Discount: ',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.035,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-
-              ],
+                      Text(
+                        '${course.priceAfterDiscount ?? 0}',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.04,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

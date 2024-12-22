@@ -17,26 +17,32 @@ class CoursesCubit extends Cubit<CoursesState> {
 
   static CoursesCubit get(context) => BlocProvider.of(context);
 
-  AllCoursesModel? allCoursesModel;
+  CoursesCategoriesModel? coursesCategoriesModel;
   MyCourses? myCourses;
   SpecificCourseLessonModel? specificCourseLessonModel;
   SpecificLesson ? specificLesson;
 
-  Future<void> getAllCourses() async {
-    emit(GetAllCoursesLoading());
-    try {
+
+
+  Future<void> CoursesCategories() async{
+    emit(CoursesCategoriesLoading());
+    try{
       final response = await DioHelper.get(
-          end_ponit: EndPoints.courses,
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+          end_ponit: EndPoints.CategoryCourses,
+          token: LoginCubit.loginModel?.token?? LoginCubit.token);
 
-      allCoursesModel = AllCoursesModel.fromJson(response.data);
-      emit(GetAllCoursesSuccess());
 
-    } catch (e) {
-      emit(GetAllCoursesFailed());
+      coursesCategoriesModel = CoursesCategoriesModel.fromJson(response.data);
+      emit(CoursesCategoriesSuccess());
+    }catch(e){
+      emit(CoursesCategoriesError());
       print(e.toString());
     }
   }
+
+
+
+
 
   Future<void> getMyCourses() async {
     emit(GetMyCoursesLoading());

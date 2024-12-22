@@ -230,7 +230,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.black),
         home: CashHelper.getFromCash(key: 'token') == ''
             ? const SplashScreen()
-            : LoginView(),
+            : MainLayout(),
       ),
     );
   }
