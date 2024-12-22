@@ -16,6 +16,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model%20View/vitamin_cubit.dart';
 import 'package:lsfitness/generated/l10n.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
@@ -213,6 +214,8 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => CoursesCubit(),
+        ), BlocProvider(
+          create: (context) => VitaminScreenCubit()..getAllVitamins()..getAllSupplements(),
         ),
       ],
       child: GetMaterialApp(
@@ -230,7 +233,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.black),
         home: CashHelper.getFromCash(key: 'token') == ''
             ? const SplashScreen()
-            : LoginView(),
+            : MainLayout(),
       ),
     );
   }
