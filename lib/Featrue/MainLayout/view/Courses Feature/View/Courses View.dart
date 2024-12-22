@@ -330,6 +330,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
 
@@ -373,96 +375,101 @@ class _CoursePageState extends State<CoursePage> {
       ),
       body: BlocConsumer<CoursesCubit, CoursesState>(
         listener: (context, state) {
-          if (state is CoursesCategoriesError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Error loading courses')),
-            );
-          }
+
         },
         builder: (context, state) {
-          if (state is CoursesCategoriesLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else if (state is CoursesCategoriesSuccess) {
-            final categories = context.read<CoursesCubit>().coursesCategoriesModel!.data;
+          final categories =
+              CoursesCubit.get(context).coursesCategoriesModel!.data;
 
-            return ListView.builder(
-              padding: const EdgeInsets.all(16.0),
-              itemCount: categories!.length,
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                        alignment: Alignment.centerLeft,
-                        children: [
-                          Positioned(
-                            top: 20.5,
-                            child: Container(
-                              height: 10, // Height of the yellow bar
-                              width: 60, // Adjust this to match the text width
-                              decoration: BoxDecoration(
-                                  gradient: LinearGradient(colors: [
-                                    Colors.orangeAccent,
-                                    Colors.orangeAccent.withOpacity(0.6),
-                                    Colors.white30
-                                  ])),
-                              margin: const EdgeInsets.only(
-                                  bottom: 5), // Adjust position if needed
+          return CoursesCubit.get(context).coursesCategoriesModel == null
+              ? Center(
+                  child: MyLoadingIndicator(height: screenHeight *.3, color: kSecondColor),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: categories!.length,
+                  itemBuilder: (context, index) {
+                    final category = categories[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          alignment: Alignment.centerLeft,
+                          children: [
+                            Positioned(
+                              top: 20.5,
+                              child: Container(
+                                height: 10,
+                                width:
+                                    60,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [
+                                  Colors.orangeAccent,
+                                  Colors.orangeAccent.withOpacity(0.6),
+                                  Colors.white30
+                                ])),
+                                margin: const EdgeInsets.only(
+                                    bottom: 5),
+                              ),
                             ),
-                          ),
-                          Text(
-                            category.title ?? 'No Category Name',
-                            style: TextStyle(
-                              fontSize: screenWidth * 0.05,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              category.title ?? 'No Category Name',
+                              style: TextStyle(
+                                fontSize: screenWidth * 0.05,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
                         ),
-                    SizedBox(height: 10),
-                    SizedBox(
-                      height: screenHeight * 0.35,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: category.courses?.length ?? 0,
-                        itemBuilder: (context, courseIndex) {
-                          final course = category.courses![courseIndex];
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: workoutCard(course, screenWidth, screenHeight),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                  ],
+                        SizedBox(height: 10),
+                        SizedBox(
+                          width: screenWidth,
+                          height: screenHeight * 0.4,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: category.courses?.length ?? 0,
+                            itemBuilder: (context, courseIndex) {
+                              final course = category.courses![courseIndex];
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 16.0),
+                                child: workoutCard(
+                                    course, screenWidth, screenHeight),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    );
+                  },
                 );
-              },
-            );
-          } else {
-            return Center(child: Text('No data available'));
-          }
         },
       ),
     );
   }
 
   Widget workoutCard(Courses course, double screenWidth, double screenHeight) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 6,
+          ),
+        ],
       ),
       child: SizedBox(
-        width: screenWidth * 0.6,
+        width: screenWidth * 0.35,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
               course.image ?? 'https://via.placeholder.com/200',
-              height: screenHeight * 0.2,
+              height: screenHeight * 0.135,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -471,15 +478,18 @@ class _CoursePageState extends State<CoursePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    course.title ?? 'No Title',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.04,
+                  SizedBox(
+                    width: screenWidth * 0.3,
+                    child: Text(
+                      course.title ?? 'No Title',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth * 0.04,
+                      ),
                     ),
                   ),
                   SizedBox(height: 5),
-                  Row(
+                  Wrap(
                     children: [
                       Text(
                         'Price: ',
@@ -499,7 +509,7 @@ class _CoursePageState extends State<CoursePage> {
                       ),
                     ],
                   ),
-                  Row(
+                  Wrap(
                     children: [
                       Text(
                         'Price After Discount: ',
