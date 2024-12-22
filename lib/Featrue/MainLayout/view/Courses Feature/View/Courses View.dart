@@ -378,8 +378,6 @@ class _CoursePageState extends State<CoursePage> {
 
         },
         builder: (context, state) {
-          final categories =
-              CoursesCubit.get(context).coursesCategoriesModel!.data;
 
           return CoursesCubit.get(context).coursesCategoriesModel == null
               ? Center(
@@ -387,9 +385,9 @@ class _CoursePageState extends State<CoursePage> {
                 )
               : ListView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  itemCount: categories!.length,
+                  itemCount: CoursesCubit.get(context).coursesCategoriesModel!.data!.length,
                   itemBuilder: (context, index) {
-                    final category = categories[index];
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -413,7 +411,7 @@ class _CoursePageState extends State<CoursePage> {
                               ),
                             ),
                             Text(
-                              category.title ?? 'No Category Name',
+                              CoursesCubit.get(context).coursesCategoriesModel!.data![index].title ?? 'No Category Name',
                               style: TextStyle(
                                 fontSize: screenWidth * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -428,9 +426,9 @@ class _CoursePageState extends State<CoursePage> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: category.courses?.length ?? 0,
+                            itemCount: CoursesCubit.get(context).coursesCategoriesModel!.data![index].courses?.length ?? 0,
                             itemBuilder: (context, courseIndex) {
-                              final course = category.courses![courseIndex];
+                              final course = CoursesCubit.get(context).coursesCategoriesModel!.data![index].courses![courseIndex];
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: workoutCard(

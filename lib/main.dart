@@ -226,6 +226,10 @@ class _MyAppState extends State<MyApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
+        routes: {
+          "/paymentSuccess": (context) =>  PaymentSuccessPage(),
+          "/paymentFailed": (context) =>  PaymentFailedPage(),
+        },
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -233,7 +237,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.black),
         home: CashHelper.getFromCash(key: 'token') == ''
             ? const SplashScreen()
-            : MainLayout(),
+            : PaymentPage(paymentId: '6758a28948823bb94d447dc0',),
       ),
     );
   }
