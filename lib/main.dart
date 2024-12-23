@@ -237,7 +237,7 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Colors.black),
         home: CashHelper.getFromCash(key: 'token') == ''
             ? const SplashScreen()
-            : PaymentPage(paymentId: '6758a28948823bb94d447dc0',),
+            : MainLayout(),
       ),
     );
   }
