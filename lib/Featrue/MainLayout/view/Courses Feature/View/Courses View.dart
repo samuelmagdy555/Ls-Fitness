@@ -332,6 +332,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Widget/Course%20Widget/Course%20Widget.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
 
@@ -441,8 +442,11 @@ class _CoursePageState extends State<CoursePage> {
                                   .courses![courseIndex];
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16.0),
-                                child: workoutCard(
-                                    course, screenWidth, screenHeight),
+                                child: CourseWidget(
+                                  screenWidth: screenWidth,
+                                  screenHeight: screenHeight,
+                                  course: course,
+                                ),
                               );
                             },
                           ),
@@ -457,121 +461,4 @@ class _CoursePageState extends State<CoursePage> {
     );
   }
 
-  Widget workoutCard(Courses course, double screenWidth, double screenHeight) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 6,
-          ),
-        ],
-      ),
-      child: SizedBox(
-        width: screenWidth * 0.45,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-              ),
-              child: Image.network(
-                course.image ?? 'https://via.placeholder.com/200',
-                height: screenHeight * 0.135,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: screenWidth * 0.425,
-                    height: screenHeight * 0.02,
-                    child: Text(
-                      course.title ?? 'No Titleeeeeeeeeee',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: screenWidth * 0.04,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: screenWidth * .12,
-                        child: Text(
-                          'Price: ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.035,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * .25,
-                        child: Text(
-                          '${course.price ?? 0}',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: screenWidth * 0.035,
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: screenWidth * .2,
-
-                        child: Text(
-                          'Price After Discount: ',
-                          maxLines: 2,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.035,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: screenWidth * .2,
-
-                        child: Text(
-                          '${course.priceAfterDiscount ?? 0}',
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: screenWidth * 0.04,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
