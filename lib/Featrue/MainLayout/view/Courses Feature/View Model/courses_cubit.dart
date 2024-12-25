@@ -65,9 +65,9 @@ class CoursesCubit extends Cubit<CoursesState> {
       specificCourseLessonModel =
           SpecificCourseLessonModel.fromJson(response.data);
 
-      print(specificCourseLessonModel!.data![1].video!.publicId);
-      print(specificCourseLessonModel!.data![1].video!.thumbnail);
-      print(specificCourseLessonModel!.data![1].video!.url);
+      print(specificCourseLessonModel!.data[1].video!.publicId);
+      print(specificCourseLessonModel!.data[1].video!.thumbnail);
+      print(specificCourseLessonModel!.data[1].video!.url);
       emit(GetSpecificCoursesSuccess());
     } catch (e) {
       emit(GetSpecificCoursesFailed());

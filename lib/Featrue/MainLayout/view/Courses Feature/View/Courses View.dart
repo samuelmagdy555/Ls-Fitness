@@ -353,7 +353,7 @@ class _CoursePageState extends State<CoursePage> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white.withOpacity(.95),
       appBar: AppBar(
         title: Row(
           children: [
@@ -369,25 +369,25 @@ class _CoursePageState extends State<CoursePage> {
             Icon(Icons.fitness_center, color: Colors.black),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white30,
         elevation: 0,
         centerTitle: false,
       ),
       body: BlocConsumer<CoursesCubit, CoursesState>(
-        listener: (context, state) {
-
-        },
+        listener: (context, state) {},
         builder: (context, state) {
-
           return CoursesCubit.get(context).coursesCategoriesModel == null
               ? Center(
-                  child: MyLoadingIndicator(height: screenHeight *.3, color: kSecondColor),
+                  child: MyLoadingIndicator(
+                      height: screenHeight * .3, color: kSecondColor),
                 )
               : ListView.builder(
                   padding: const EdgeInsets.all(16.0),
-                  itemCount: CoursesCubit.get(context).coursesCategoriesModel!.data!.length,
+                  itemCount: CoursesCubit.get(context)
+                      .coursesCategoriesModel!
+                      .data!
+                      .length,
                   itemBuilder: (context, index) {
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -398,20 +398,22 @@ class _CoursePageState extends State<CoursePage> {
                               top: 20.5,
                               child: Container(
                                 height: 10,
-                                width:
-                                    60,
+                                width: 60,
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(colors: [
                                   Colors.orangeAccent,
                                   Colors.orangeAccent.withOpacity(0.6),
                                   Colors.white30
                                 ])),
-                                margin: const EdgeInsets.only(
-                                    bottom: 5),
+                                margin: const EdgeInsets.only(bottom: 5),
                               ),
                             ),
                             Text(
-                              CoursesCubit.get(context).coursesCategoriesModel!.data![index].title ?? 'No Category Name',
+                              CoursesCubit.get(context)
+                                      .coursesCategoriesModel!
+                                      .data![index]
+                                      .title ??
+                                  'No Category Name',
                               style: TextStyle(
                                 fontSize: screenWidth * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -422,13 +424,21 @@ class _CoursePageState extends State<CoursePage> {
                         SizedBox(height: 10),
                         SizedBox(
                           width: screenWidth,
-                          height: screenHeight * 0.4,
+                          height: screenHeight * 0.3,
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
-                            itemCount: CoursesCubit.get(context).coursesCategoriesModel!.data![index].courses?.length ?? 0,
+                            itemCount: CoursesCubit.get(context)
+                                    .coursesCategoriesModel!
+                                    .data![index]
+                                    .courses
+                                    ?.length ??
+                                0,
                             itemBuilder: (context, courseIndex) {
-                              final course = CoursesCubit.get(context).coursesCategoriesModel!.data![index].courses![courseIndex];
+                              final course = CoursesCubit.get(context)
+                                  .coursesCategoriesModel!
+                                  .data![index]
+                                  .courses![courseIndex];
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: workoutCard(
@@ -461,15 +471,21 @@ class _CoursePageState extends State<CoursePage> {
         ],
       ),
       child: SizedBox(
-        width: screenWidth * 0.35,
+        width: screenWidth * 0.45,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              course.image ?? 'https://via.placeholder.com/200',
-              height: screenHeight * 0.135,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Image.network(
+                course.image ?? 'https://via.placeholder.com/200',
+                height: screenHeight * 0.135,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -477,52 +493,75 @@ class _CoursePageState extends State<CoursePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: screenWidth * 0.3,
+                    width: screenWidth * 0.425,
+                    height: screenHeight * 0.02,
                     child: Text(
-                      course.title ?? 'No Title',
+                      course.title ?? 'No Titleeeeeeeeeee',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: screenWidth * 0.04,
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Wrap(
+                  SizedBox(height: 15),
+                  Row(
                     children: [
-                      Text(
-                        'Price: ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.035,
+                      SizedBox(
+                        width: screenWidth * .12,
+                        child: Text(
+                          'Price: ',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.035,
+                          ),
                         ),
                       ),
-                      Text(
-                        '${course.price ?? 0}',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: screenWidth * 0.035,
-                          decoration: TextDecoration.lineThrough,
+                      SizedBox(
+                        width: screenWidth * .25,
+                        child: Text(
+                          '${course.price ?? 0}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: screenWidth * 0.035,
+                            decoration: TextDecoration.lineThrough,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Wrap(
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        'Price After Discount: ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.035,
+                      SizedBox(
+                        width: screenWidth * .2,
+
+                        child: Text(
+                          'Price After Discount: ',
+                          maxLines: 2,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.035,
+                          ),
                         ),
                       ),
-                      Text(
-                        '${course.priceAfterDiscount ?? 0}',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.04,
+                      SizedBox(
+                        width: screenWidth * .2,
+
+                        child: Text(
+                          '${course.priceAfterDiscount ?? 0}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.04,
+                          ),
                         ),
                       ),
                     ],
