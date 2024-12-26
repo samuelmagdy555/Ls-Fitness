@@ -435,6 +435,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hand": MessageLookupByLibrary.simpleMessage("hand"),
         "height_info": MessageLookupByLibrary.simpleMessage(
             "Height information helps us calculate your BMI more accurately"),
+        "home_Discover": MessageLookupByLibrary.simpleMessage("Discover"),
         "home_Find": MessageLookupByLibrary.simpleMessage("Find"),
         "home_Hey": MessageLookupByLibrary.simpleMessage("Hey,"),
         "home_Nutrition": MessageLookupByLibrary.simpleMessage("Nutrition"),

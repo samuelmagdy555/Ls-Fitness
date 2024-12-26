@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
-import 'FoodCalculator/view/FoodCalculator.dart';
+import '../View Model/home_cubit.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'Nutrition Feature/View/Nutrition View.dart';
 import 'Progress Feature/View Model/progress_cubit.dart';
 import 'Progress Feature/View/Progress Screen/Progress Screen.dart';
@@ -41,276 +43,395 @@ class _HomeViewState extends State<HomeView> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: height * 0.3,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/home background.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.transparent, Colors.black],
-                        ).createShader(bounds);
-                      },
-                      blendMode: BlendMode.dstIn,
-                      child: Container(
-                        color: Colors.black87.withOpacity(.8),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 10,
-                    top: 10,
-                    child: Row(
-                      children: [
-                        Text(
-                          S.of(context).home_Hey,
-                          style: GoogleFonts.bebasNeue(
-                            fontSize: width * 0.08,
-                            color: Colors.white,
-                            letterSpacing: 1.8,
-                          ),
-                        ),
-                        BlocConsumer<ProfileCubit, ProfileState>(
-                          listener: (context, state) {
-                            // TODO: implement listener
-                          },
-                          builder: (context, state) {
-                            return Text(
-                              ProfileCubit.get(context)
-                                      .profileModel
-                                      ?.data
-                                      .username ??
-                                  '',
-                              style: GoogleFonts.bebasNeue(
-                                fontSize: width * 0.08,
-                                color: Colors.white,
-                                letterSpacing: 1.8,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                      right: width * .2,
-                      left: width * .2,
-                      top: height * .135,
-                      child: CircleAvatar(
-                        radius: width * .075,
-                        backgroundColor: kSecondColor,
-                        child: Center(
-                          child: Icon(
-                            Icons.play_arrow,
-                            size: width * 0.1,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.05, vertical: height * 0.01),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocProvider(
+      create: (context) => HomeCubit()..getAdvertise(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
                   children: [
-                    Text(
-                      S.of(context).home_Today_Plan,
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.055,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    Container(
+                      width: double.infinity,
+                      height: height * 0.3,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage("assets/images/home background.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, Colors.black],
+                          ).createShader(bounds);
+                        },
+                        blendMode: BlendMode.dstIn,
+                        child: Container(
+                          color: Colors.black87.withOpacity(.8),
+                        ),
                       ),
                     ),
-                    Text(
-                      S.of(context).home_See_more,
-                      style: GoogleFonts.lato(
-                          fontSize: width * 0.03,
+                    Positioned(
+                      left: 10,
+                      top: 10,
+                      child: Row(
+                        children: [
+                          Text(
+                            S.of(context).home_Hey,
+                            style: GoogleFonts.bebasNeue(
+                              fontSize: width * 0.08,
+                              color: Colors.white,
+                              letterSpacing: 1.8,
+                            ),
+                          ),
+                          BlocConsumer<ProfileCubit, ProfileState>(
+                            listener: (context, state) {
+                              // TODO: implement listener
+                            },
+                            builder: (context, state) {
+                              return Text(
+                                ProfileCubit.get(context)
+                                        .profileModel
+                                        ?.data
+                                        .username ??
+                                    '',
+                                style: GoogleFonts.bebasNeue(
+                                  fontSize: width * 0.08,
+                                  color: Colors.white,
+                                  letterSpacing: 1.8,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                        right: width * .2,
+                        left: width * .2,
+                        top: height * .135,
+                        child: CircleAvatar(
+                          radius: width * .075,
+                          backgroundColor: kSecondColor,
+                          child: Center(
+                            child: Icon(
+                              Icons.play_arrow,
+                              size: width * 0.1,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.05, vertical: height * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        S.of(context).home_Today_Plan,
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.055,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white),
-                    ),
-                  ],
+                        ),
+                      ),
+                      Text(
+                        S.of(context).home_See_more,
+                        style: GoogleFonts.lato(
+                            fontSize: width * 0.03,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
 
-              // Padding(
-              //   padding: EdgeInsets.only(top: 10),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //     children: [
-              //       TextButton(
-              //         onPressed: () {
-              //           Navigator.push(context,
-              //               MaterialPageRoute(builder: (context)=> VitaminView())
-              //           );
-              //         },
-              //         child: Text(
-              //           "Vitamins",
-              //           style: GoogleFonts.lato(
-              //             fontSize: width * 0.04,
-              //             color: Colors.white,
-              //             fontWeight: FontWeight.bold
-              //           ),
-              //         ),
-              //       ),
-              //       TextButton(
-              //         onPressed: () {
-              //           Navigator.push(context,
-              //             MaterialPageRoute(builder: (context)=> FoodCalculator(mealCategory: '',))
-              //           );
-              //         },
-              //         child: Text(
-              //           "Food Calculator",
-              //           style: GoogleFonts.lato(
-              //             fontSize: width * 0.04,
-              //             color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //         ),
-              //       ),
-              //       TextButton(
-              //         onPressed: () {
-              //           Navigator.push(context,
-              //               MaterialPageRoute(builder: (context)=> NutritionView())
-              //           );
-              //         },
-              //         child: Text(
-              //           "Nutrition",
-              //           style: GoogleFonts.lato(
-              //             fontSize: width * 0.04,
-              //             color: Colors.white,
-              //               fontWeight: FontWeight.bold
-              //
-              //           ),
-              //         ),
-              //       ),
-              //
-              //
-              //     ],
-              //   ),
-              // ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 10),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //     children: [
+                //       TextButton(
+                //         onPressed: () {
+                //           Navigator.push(context,
+                //               MaterialPageRoute(builder: (context)=> VitaminView())
+                //           );
+                //         },
+                //         child: Text(
+                //           "Vitamins",
+                //           style: GoogleFonts.lato(
+                //             fontSize: width * 0.04,
+                //             color: Colors.white,
+                //             fontWeight: FontWeight.bold
+                //           ),
+                //         ),
+                //       ),
+                //       TextButton(
+                //         onPressed: () {
+                //           Navigator.push(context,
+                //             MaterialPageRoute(builder: (context)=> FoodCalculator(mealCategory: '',))
+                //           );
+                //         },
+                //         child: Text(
+                //           "Food Calculator",
+                //           style: GoogleFonts.lato(
+                //             fontSize: width * 0.04,
+                //             color: Colors.white,
+                //               fontWeight: FontWeight.bold),
+                //         ),
+                //       ),
+                //       TextButton(
+                //         onPressed: () {
+                //           Navigator.push(context,
+                //               MaterialPageRoute(builder: (context)=> NutritionView())
+                //           );
+                //         },
+                //         child: Text(
+                //           "Nutrition",
+                //           style: GoogleFonts.lato(
+                //             fontSize: width * 0.04,
+                //             color: Colors.white,
+                //               fontWeight: FontWeight.bold
+                //
+                //           ),
+                //         ),
+                //       ),
+                //
+                //
+                //     ],
+                //   ),
+                // ),
 
-              SizedBox(
-                height: height * .25,
-                width: width,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: images.length,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => TodayWorkOutView(),));
-                      },
-                      child: Container(
-                          height: height * .25,
-                          width: width * .425,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  images[index],
+                SizedBox(
+                  height: height * .25,
+                  width: width,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: images.length,
+                      itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TodayWorkOutView(),
+                                  ));
+                            },
+                            child: Container(
+                                height: height * .25,
+                                width: width * .425,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        images[index],
+                                      ),
+                                      fit: BoxFit.cover,
+                                      opacity: .5),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
                                 ),
-                                fit: BoxFit.cover,
-                                opacity: .5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                offset: Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          margin: EdgeInsets.symmetric(
-                              horizontal: width * 0.05, vertical: height * 0.01),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  plan[index],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: width * 0.04,
-                                    fontWeight: FontWeight.bold,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: width * 0.05,
+                                    vertical: height * 0.01),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        plan[index],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: width * 0.04,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        number[index],
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: width * 0.03,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                ),
-                                Text(
-                                  number[index],
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: width * 0.03,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              ],
-                            ),
+                                )),
                           )),
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 25, left: width * 0.05),
-                child: Row(
-                  children: [
-                    Text(
-                      "${S.of(context).home_Your} ",
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.07,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      S.of(context).home_Progress,
-                      style: GoogleFonts.lato(
-                        fontSize: width * 0.08,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              SizedBox(
-                height: height * 0.025,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  await ExerciseCubit.get(context).getExercise(page: 1);
-                  await ProgressCubit.get(context).getExercisesProgress(
-                      id: ExerciseCubit.get(context)
-                          .exercisesModel!
-                          .data[0]
-                          .id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProgressScreen()),
-                  );
-                },
-                child: Image(
-                  image: AssetImage('assets/images/Progress.jpg'),
-                  width: width * 0.9,
+                Padding(
+                  padding: EdgeInsets.only(top: 25, left: width * 0.05),
+                  child: Text(
+                    "${S.of(context).home_Discover} ",
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.lato(
+                      fontSize: width * 0.07,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                BlocConsumer<HomeCubit, HomeState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return SizedBox(
+                      height: height * .25,
+                      width: width,
+                      child: HomeCubit.get(context).advertiseModel != null
+                          ? ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: HomeCubit.get(context)
+                                  .advertiseModel!
+                                  .data
+                                  .length,
+                              itemBuilder: (context, index) {
+                                DateTime dateTime = DateTime.parse(
+                                    HomeCubit.get(context)
+                                        .advertiseModel!
+                                        .data[index]
+                                        .createdAt);
+                                String timeAgo = timeago.format(dateTime);
+
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              TodayWorkOutView(),
+                                        ));
+                                  },
+                                  child: Container(
+                                      height: height * .25,
+                                      width: width * .425,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                              HomeCubit.get(context)
+                                                  .advertiseModel!
+                                                  .data[index]
+                                                  .image,
+                                            ),
+                                            fit: BoxFit.cover,
+                                            opacity: .5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: width * 0.05,
+                                          vertical: height * 0.01),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              HomeCubit.get(context)
+                                                  .advertiseModel!
+                                                  .data[index]
+                                                  .title,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.04,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              timeAgo,
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: width * 0.03,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )),
+                                );
+                              })
+                          : Center(
+                              child: MyLoadingIndicator(
+                                  height: height * .3, color: kSecondColor),
+                            ),
+                    );
+                  },
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 25, left: width * 0.05),
+                  child: Row(
+                    children: [
+                      Text(
+                        "${S.of(context).home_Your} ",
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.07,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        S.of(context).home_Progress,
+                        style: GoogleFonts.lato(
+                          fontSize: width * 0.08,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.025,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    await ExerciseCubit.get(context).getExercise(page: 1);
+                    await ProgressCubit.get(context).getExercisesProgress(
+                        id: ExerciseCubit.get(context)
+                            .exercisesModel!
+                            .data[0]
+                            .id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProgressScreen()),
+                    );
+                  },
+                  child: Image(
+                    image: AssetImage('assets/images/Progress.jpg'),
+                    width: width * 0.9,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -42,6 +42,7 @@ class CourseWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -134,7 +135,11 @@ class CourseWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(onPressed: (){}, child: Text(course.description ?? '',))
+              ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    course.description ?? '',
+                  ))
             ],
           ),
         ),

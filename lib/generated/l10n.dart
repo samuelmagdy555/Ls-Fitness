@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Discover`
+  String get home_Discover {
+    return Intl.message(
+      'Discover',
+      name: 'home_Discover',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `See more`
   String get home_See_more {
     return Intl.message(
