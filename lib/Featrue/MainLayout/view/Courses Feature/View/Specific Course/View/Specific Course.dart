@@ -6,13 +6,19 @@ import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/View/Course%20Video%20Screen.dart';
 
 class SpecificCourse extends StatefulWidget {
-  const SpecificCourse({super.key});
+  final String courseId;
+  const SpecificCourse({super.key,  required this.courseId});
 
   @override
   State<SpecificCourse> createState() => _SpecificCourseState();
 }
 
 class _SpecificCourseState extends State<SpecificCourse> {
+  void initState() {
+    super.initState();
+    // استدعاء بيانات الكورس باستخدام الـ ID
+    CoursesCubit.get(context).getSpecificCoursesLesson(id: widget.courseId.toString());
+  }
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;

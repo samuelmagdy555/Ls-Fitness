@@ -5,6 +5,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View/Nutrition%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Person/View/PersonView.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import 'Courses Feature/View/Courses View.dart';
@@ -26,15 +27,15 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _pages = [
     HomeView(),
     PersonView(),
-    NutritionView(),
-    NotificationsPage(),
-    FoodListPage(),
+    VitaminView(),
+    CoursePage(),
     TimerScreen(
       value: false,
     ),
+    ProfilePage(),
+    FoodListPage(),
     FoodCalculator(mealCategory: ''),
-    CoursePage(),
-    VitaminView(),
+    NutritionView(),
     SettingsPage(),
   ];
 
@@ -62,116 +63,132 @@ class _MainLayoutState extends State<MainLayout> {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: _pages[_currentIndex],
-      bottomNavigationBar: Container(
-        color: Colors.black,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 10,
+      bottomNavigationBar: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.12, // ارتفاع الـ Navigation Bar
+            decoration: BoxDecoration(
+              image: DecorationImage(
+
+                image: AssetImage('assets/images/7.jpg'), // المسار إلى صورة الخلفية
+                fit: BoxFit.cover, // ملء الخلفية
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTabItem(
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildTabItem(
                     index: 0,
                     label: 'Home',
                     path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image:
-                            AssetImage('assets/images/muscle Home.png')))),
-                _buildTabItem(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/home.png')),
+                    ),
+                  ),
+                  _buildTabItem(
                     index: 1,
                     label: 'exercise',
                     path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/dumbbell home.png')))),
-                _buildTabItem(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/dumbbell.png')),
+                    ),
+                  ),
+                  _buildTabItem(
                     index: 2,
-                    label: 'nutrition',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage('assets/images/nutrition.png')))),
-                _buildTabItem(
-                    index: 3,
-                    label: 'Notification',
-                    path: Icon(
-                      Icons.notifications_active_outlined,
-                      color: kSecondColor,
-                      size: height * .03,
-                    )),
-                _buildTabItem(
-                    index: 4,
-                    label: 'Alarms',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/food-safety home.png')))),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTabItem(
-                    index: 5,
-                    label: 'Remider',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/reminder home.png')))),
-                _buildTabItem(
-                    index: 6,
-                    label: 'Calculator',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image:
-                            AssetImage('assets/images/calculator.png')))),
-                _buildTabItem(
-                    index: 7,
-                    label: 'Courses',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage('assets/images/courses.png')))),
-                _buildTabItem(
-                    index: 8,
                     label: 'Vitamins',
                     path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage('assets/images/Vitamis.png')))),
-                _buildTabItem(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/protein (1).png')),
+                    ),
+                  ),
+                  _buildTabItem(
+                    index: 3,
+                    label: 'Courses',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/notebook.png')),
+                    ),
+                  ),
+                  _buildTabItem(
+                    index: 4,
+                    label: 'Reminder',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/alarm.png')),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildTabItem(
+                    index: 5,
+                    label: 'Notification',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/woman.png')),
+                    ),
+                  ),
+                  _buildTabItem(
+                    index: 6,
+                    label: 'Meals',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/food.png')),
+                    ),
+                  ),
+                  _buildTabItem(
+                    index: 7,
+                    label: 'Calculator',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/calculator.png')),
+                    ),
+                  ),
+                  _buildTabItem(
+                    index: 8,
+                    label: 'Nutrition',
+                    path: SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/camera.png')),
+                    ),
+                  ),
+                  _buildTabItem(
                     index: 9,
                     label: 'Settings',
                     path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: const Image(
-                            image: AssetImage(
-                                'assets/images/settings home.png')))),
-              ],
-            ),
-          ],
-        ),
+                      height: height * .03,
+                      width: width * .11,
+                      child: const Image(image: AssetImage('assets/images/setting.png')),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
+
     );
   }
 

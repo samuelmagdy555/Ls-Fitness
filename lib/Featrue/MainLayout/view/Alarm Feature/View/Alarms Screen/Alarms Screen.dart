@@ -45,6 +45,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
+
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text(
