@@ -335,6 +335,7 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Widget/Course%20Widget/Course%20Widget.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
+import 'Specific Course/View/Specific Course.dart';
 
 class CoursePage extends StatefulWidget {
   @override
@@ -362,12 +363,13 @@ class _CoursePageState extends State<CoursePage> {
               'COURSES',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 24,
+                fontSize: screenWidth * 0.06,
                 color: Colors.black,
               ),
             ),
-            SizedBox(width: 8),
-            Icon(Icons.fitness_center, color: Colors.black),
+            SizedBox(width: screenWidth * 0.02),
+            Icon(Icons.fitness_center,
+                color: Colors.black, size: screenWidth * 0.07),
           ],
         ),
         backgroundColor: Colors.white30,
@@ -383,7 +385,10 @@ class _CoursePageState extends State<CoursePage> {
                       height: screenHeight * .3, color: kSecondColor),
                 )
               : ListView.builder(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.04,
+                    vertical: screenHeight * 0.03,
+                  ),
                   itemCount: CoursesCubit.get(context)
                       .coursesCategoriesModel!
                       .data!
@@ -396,17 +401,18 @@ class _CoursePageState extends State<CoursePage> {
                           alignment: Alignment.centerLeft,
                           children: [
                             Positioned(
-                              top: 20.5,
+                              top: screenHeight * 0.025,
                               child: Container(
-                                height: 10,
-                                width: 60,
+                                height: screenHeight * 0.01,
+                                width: screenWidth * 0.15,
                                 decoration: BoxDecoration(
                                     gradient: LinearGradient(colors: [
                                   Colors.orangeAccent,
                                   Colors.orangeAccent.withOpacity(0.6),
                                   Colors.white30
                                 ])),
-                                margin: const EdgeInsets.only(bottom: 5),
+                                margin: EdgeInsets.only(
+                                    bottom: screenHeight * 0.01),
                               ),
                             ),
                             Text(
@@ -422,36 +428,48 @@ class _CoursePageState extends State<CoursePage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: screenHeight * 0.04),
                         SizedBox(
                           width: screenWidth,
-                          height: screenHeight * 0.3,
+                          height: screenHeight * 0.4,
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: CoursesCubit.get(context)
-                                    .coursesCategoriesModel!
-                                    .data![index]
-                                    .courses
-                                    ?.length ??
+                                .coursesCategoriesModel!
+                                .data![index]
+                                .courses
+                                ?.length ??
                                 0,
                             itemBuilder: (context, courseIndex) {
                               final course = CoursesCubit.get(context)
                                   .coursesCategoriesModel!
                                   .data![index]
                                   .courses![courseIndex];
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 16.0),
-                                child: CourseWidget(
-                                  screenWidth: screenWidth,
-                                  screenHeight: screenHeight,
-                                  course: course,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SpecificCourse(courseId: course.id.toString()
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: screenWidth * 0.04),
+                                  child: CourseWidget(
+                                    screenWidth: screenWidth,
+                                    screenHeight: screenHeight,
+                                    course: course,
+                                  ),
                                 ),
                               );
                             },
                           ),
                         ),
-                        SizedBox(height: 20),
+
+                        SizedBox(height: screenHeight * 0.02),
                       ],
                     );
                   },
@@ -460,5 +478,4 @@ class _CoursePageState extends State<CoursePage> {
       ),
     );
   }
-
 }

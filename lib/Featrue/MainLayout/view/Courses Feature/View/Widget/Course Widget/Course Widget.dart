@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../Model/Courses Model/Courses Model.dart';
+import '../../Specific Course/View/Specific Course.dart';
 import '../Courses Details Dialog/Courses Details Dialog.dart';
 
 class CourseWidget extends StatelessWidget {
@@ -20,8 +21,8 @@ class CourseWidget extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (context) => CoursesDetailsDialog(
-            course: course,
+          builder: (context) => SpecificCourse(
+             courseId: course.id.toString(),
           ),
         );
       },
