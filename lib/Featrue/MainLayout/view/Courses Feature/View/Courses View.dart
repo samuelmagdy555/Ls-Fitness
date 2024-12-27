@@ -336,6 +336,8 @@ import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Widget/
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
+import 'My Courses/view/My Courses View.dart';
+import 'SeeMoreCourses/View/SeeMorePage.dart';
 import 'Specific Course/View/Specific Course.dart';
 
 class CoursePage extends StatefulWidget {
@@ -368,9 +370,28 @@ class _CoursePageState extends State<CoursePage> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(width: screenWidth * 0.02),
+            SizedBox(width: screenWidth * 0.01),
             Icon(Icons.fitness_center,
                 color: Colors.black, size: screenWidth * 0.07),
+            SizedBox( width: screenWidth*0.3,),
+
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyCoursesView()
+                  ),
+                );
+              },
+              child: Text(
+                'My Courses',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: screenWidth * 0.04,
+                ),
+              ),
+            ),
           ],
         ),
         backgroundColor: Colors.white30,
@@ -382,96 +403,110 @@ class _CoursePageState extends State<CoursePage> {
         builder: (context, state) {
           return CoursesCubit.get(context).coursesCategoriesModel == null
               ? Center(
-                  child: Column(
-                    children: [
-                      MyLoadingIndicator(
-                          height: screenHeight * .3, color: kSecondColor),
-                    ],
-                  ),
-                )
+            child: Column(
+              children: [
+                MyLoadingIndicator(
+                    height: screenHeight * .3, color: kSecondColor),
+              ],
+            ),
+          )
               : ListView.builder(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.04,
+              vertical: screenHeight * 0.03,
+            ),
+            itemCount: CoursesCubit.get(context)
+                .coursesCategoriesModel!
+                .data!
+                .length,
+            itemBuilder: (context, index) {
+              final category = CoursesCubit.get(context)
+                  .coursesCategoriesModel!
+                  .data![index];
 
-
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.04,
-                    vertical: screenHeight * 0.03,
-                  ),
-                  itemCount: CoursesCubit.get(context)
-                      .coursesCategoriesModel!
-                      .data!
-                      .length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          alignment: Alignment.centerLeft,
-                          children: [
-                            Positioned(
-                              top: screenHeight * 0.025,
-                              child: Container(
-                                height: screenHeight * 0.01,
-                                width: screenWidth * 0.15,
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(colors: [
-                                  Colors.orangeAccent,
-                                  Colors.orangeAccent.withOpacity(0.6),
-                                  Colors.white30
-                                ])),
-                                margin: EdgeInsets.only(
-                                    bottom: screenHeight * 0.01),
-                              ),
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Stack(
+                        alignment: Alignment.centerLeft,
+                        children: [
+                          Positioned(
+                            top: screenHeight * 0.025,
+                            child: Container(
+                              height: screenHeight * 0.01,
+                              width: screenWidth * 0.15,
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.orangeAccent,
+                                    Colors.orangeAccent.withOpacity(0.6),
+                                    Colors.white30
+                                  ])),
+                              margin: EdgeInsets.only(
+                                  bottom: screenHeight * 0.01),
                             ),
-                            Text(
-                              CoursesCubit.get(context)
-                                      .coursesCategoriesModel!
-                                      .data![index]
-                                      .title ??
-                                  '',
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.05,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          ),
+                          Text(
+                            category.title ?? '',
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
-                        SizedBox(height: screenHeight * 0.04),
-                        SizedBox(
-                          width: screenWidth,
-                          height: screenHeight * 0.35,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: CoursesCubit.get(context)
-                                    .coursesCategoriesModel!
-                                    .data![index]
-                                    .courses
-                                    ?.length ??
-                                0,
-                            itemBuilder: (context, courseIndex) {
-                              final course = CoursesCubit.get(context)
-                                  .coursesCategoriesModel!
-                                  .data![index]
-                                  .courses![courseIndex];
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    right: screenWidth * 0.04),
-                                child: CourseWidget(
-                                  screenWidth: screenWidth,
-                                  screenHeight: screenHeight,
-                                  course: course, isEnrolled: course.users!.contains(LoginCubit.id),
-                                ),
-                              );
-                            },
+                          ),
+                        ],
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SeeMoreCourses(categoryId: category.id.toString(), categoryName: category.title.toString(),)
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'See More',
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: screenWidth * 0.04,
                           ),
                         ),
-                        SizedBox(height: screenHeight * 0.02),
-                      ],
-                    );
-                  },
-                );
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.04),
+                  SizedBox(
+                    width: screenWidth,
+                    height: screenHeight * 0.35,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: category.courses?.length ?? 0,
+                      itemBuilder: (context, courseIndex) {
+                        final course = category.courses![courseIndex];
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              right: screenWidth * 0.04),
+                          child: CourseWidget(
+                            screenWidth: screenWidth,
+                            screenHeight: screenHeight,
+                            course: course,
+                            isEnrolled: course.users!.contains(LoginCubit.id),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.02),
+                ],
+              );
+            },
+          );
         },
       ),
     );
   }
 }
+

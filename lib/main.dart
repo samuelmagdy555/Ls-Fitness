@@ -12,6 +12,7 @@ import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart
 import 'package:lsfitness/Featrue/MainLayout/View%20Model/main_layout_model_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model/courses_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/SeeMoreCourses/ViewModel/more_courses_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
@@ -217,6 +218,7 @@ class _MyAppState extends State<MyApp> {
         ), BlocProvider(
           create: (context) => VitaminScreenCubit()..getAllVitamins()..getAllSupplements(),
         ),
+        BlocProvider(create: (context)=>MoreCoursesCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

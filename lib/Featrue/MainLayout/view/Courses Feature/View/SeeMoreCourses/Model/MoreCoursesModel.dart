@@ -1,5 +1,5 @@
-class SeeMoreCourses {
-  SeeMoreCourses({
+class SeeMoreCoursesModel {
+  SeeMoreCoursesModel({
     required this.results,
     required this.totalCount,
     required this.paginationResult,
@@ -10,11 +10,20 @@ class SeeMoreCourses {
   late final PaginationResult paginationResult;
   late final List<Data> data;
 
-  SeeMoreCourses.fromJson(Map<String, dynamic> json){
-    results = json['results'];
-    totalCount = json['totalCount'];
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+  SeeMoreCoursesModel.fromJson(Map<String, dynamic> json) {
+    results = json['results'] ?? 0;
+    totalCount = json['totalCount'] ?? 0;
+    paginationResult = json['paginationResult'] != null
+        ? PaginationResult.fromJson(json['paginationResult'])
+        : PaginationResult(
+      currentPage: 0,
+      limit: 0,
+      numberOfPages: 0,
+      nextPage: 0,
+    );
+    data = (json['data'] as List<dynamic>? ?? [])
+        .map((e) => Data.fromJson(e))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +31,7 @@ class SeeMoreCourses {
     _data['results'] = results;
     _data['totalCount'] = totalCount;
     _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -39,11 +48,11 @@ class PaginationResult {
   late final int numberOfPages;
   late final int nextPage;
 
-  PaginationResult.fromJson(Map<String, dynamic> json){
-    currentPage = json['currentPage'];
-    limit = json['limit'];
-    numberOfPages = json['numberOfPages'];
-    nextPage = json['nextPage'];
+  PaginationResult.fromJson(Map<String, dynamic> json) {
+    currentPage = json['currentPage'] ?? 0;
+    limit = json['limit'] ?? 0;
+    numberOfPages = json['numberOfPages'] ?? 0;
+    nextPage = json['nextPage'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -80,17 +89,19 @@ class Data {
   late final String createdAt;
   late final String updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
-    description = json['description'];
-    image = json['image'];
-    users = List.castFrom<dynamic, String>(json['users']);
-    price = json['price'];
-    category = Category.fromJson(json['category']);
-    priceAfterDiscount = json['priceAfterDiscount'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['_id'] ?? '';
+    title = json['title'] ?? '';
+    description = json['description'] ?? '';
+    image = json['image'] ?? '';
+    users = List<String>.from(json['users'] ?? []);
+    price = json['price'] ?? 0;
+    category = json['category'] != null
+        ? Category.fromJson(json['category'])
+        : Category(id: '', title: '');
+    priceAfterDiscount = json['priceAfterDiscount'] ?? 0;
+    createdAt = json['createdAt'] ?? '';
+    updatedAt = json['updatedAt'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -117,9 +128,9 @@ class Category {
   late final String id;
   late final String title;
 
-  Category.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['_id'] ?? '';
+    title = json['title'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
