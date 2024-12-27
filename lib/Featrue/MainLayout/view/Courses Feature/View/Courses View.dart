@@ -373,7 +373,7 @@ class _CoursePageState extends State<CoursePage> {
             SizedBox(width: screenWidth * 0.01),
             Icon(Icons.fitness_center,
                 color: Colors.black, size: screenWidth * 0.07),
-            SizedBox( width: screenWidth*0.3,),
+            SizedBox( width: screenWidth*0.2,),
 
             TextButton(
               onPressed: () {
@@ -392,6 +392,8 @@ class _CoursePageState extends State<CoursePage> {
                 ),
               ),
             ),
+            Icon(Icons.list_alt_outlined,
+                color: Colors.blue, size: screenWidth * 0.07),
           ],
         ),
         backgroundColor: Colors.white30,
