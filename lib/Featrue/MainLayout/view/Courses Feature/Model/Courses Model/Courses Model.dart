@@ -68,8 +68,9 @@ class Courses {
   String? image;
   int? price;
   int? priceAfterDiscount;
+  List? users;
 
-  Courses({this.id, this.title, this.description, this.image, this.price, this.priceAfterDiscount});
+  Courses({this.id, this.title, this.description, this.image, this.price, this.priceAfterDiscount , this.users});
 
   Courses.fromJson(Map<String, dynamic> json) {
     id = json["_id"];
@@ -78,6 +79,7 @@ class Courses {
     image = json["image"];
     price = json["price"];
     priceAfterDiscount = json["priceAfterDiscount"];
+    users = json["users"];
   }
 
   Map<String, dynamic> toJson() {
@@ -88,6 +90,7 @@ class Courses {
     _data["image"] = image;
     _data["price"] = price;
     _data["priceAfterDiscount"] = priceAfterDiscount;
+    _data["users"] = users;
     return _data;
   }
 }

@@ -333,6 +333,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Widget/Course%20Widget/Course%20Widget.dart';
+import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
 import 'Specific Course/View/Specific Course.dart';
@@ -381,10 +382,16 @@ class _CoursePageState extends State<CoursePage> {
         builder: (context, state) {
           return CoursesCubit.get(context).coursesCategoriesModel == null
               ? Center(
-                  child: MyLoadingIndicator(
-                      height: screenHeight * .3, color: kSecondColor),
+                  child: Column(
+                    children: [
+                      MyLoadingIndicator(
+                          height: screenHeight * .3, color: kSecondColor),
+                    ],
+                  ),
                 )
               : ListView.builder(
+
+
                   padding: EdgeInsets.symmetric(
                     horizontal: screenWidth * 0.04,
                     vertical: screenHeight * 0.03,
@@ -420,7 +427,7 @@ class _CoursePageState extends State<CoursePage> {
                                       .coursesCategoriesModel!
                                       .data![index]
                                       .title ??
-                                  'No Category Name',
+                                  '',
                               style: TextStyle(
                                 fontSize: screenWidth * 0.05,
                                 fontWeight: FontWeight.bold,
@@ -431,44 +438,33 @@ class _CoursePageState extends State<CoursePage> {
                         SizedBox(height: screenHeight * 0.04),
                         SizedBox(
                           width: screenWidth,
-                          height: screenHeight * 0.4,
+                          height: screenHeight * 0.35,
                           child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: CoursesCubit.get(context)
-                                .coursesCategoriesModel!
-                                .data![index]
-                                .courses
-                                ?.length ??
+                                    .coursesCategoriesModel!
+                                    .data![index]
+                                    .courses
+                                    ?.length ??
                                 0,
                             itemBuilder: (context, courseIndex) {
                               final course = CoursesCubit.get(context)
                                   .coursesCategoriesModel!
                                   .data![index]
                                   .courses![courseIndex];
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SpecificCourse(courseId: course.id.toString()
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: screenWidth * 0.04),
-                                  child: CourseWidget(
-                                    screenWidth: screenWidth,
-                                    screenHeight: screenHeight,
-                                    course: course,
-                                  ),
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    right: screenWidth * 0.04),
+                                child: CourseWidget(
+                                  screenWidth: screenWidth,
+                                  screenHeight: screenHeight,
+                                  course: course, isEnrolled: course.users!.contains(LoginCubit.id),
                                 ),
                               );
                             },
                           ),
                         ),
-
                         SizedBox(height: screenHeight * 0.02),
                       ],
                     );

@@ -54,6 +54,25 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
+
+
+  Future<void> getSpecificCourse({required String id}) async {
+    emit(GetMyCoursesLoading());
+    try {
+      final response = await DioHelper.get(
+          end_ponit: '${EndPoints.courses}/${id}',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+
+      myCourses = MyCourses.fromJson(response.data);
+      emit(GetMyCoursesSuccess());
+    } catch (e) {
+      emit(GetMyCoursesFailed());
+      print(e.toString());
+    }
+  }
+
+
+
   Future<void> getSpecificCoursesLesson({required String id}) async {
     specificCourseLessonModel = null;
     emit(GetSpecificCoursesLoading());
@@ -65,9 +84,6 @@ class CoursesCubit extends Cubit<CoursesState> {
       specificCourseLessonModel =
           SpecificCourseLessonModel.fromJson(response.data);
 
-      print(specificCourseLessonModel!.data[1].video!.publicId);
-      print(specificCourseLessonModel!.data[1].video!.thumbnail);
-      print(specificCourseLessonModel!.data[1].video!.url);
       emit(GetSpecificCoursesSuccess());
     } catch (e) {
       emit(GetSpecificCoursesFailed());

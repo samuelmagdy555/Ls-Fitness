@@ -314,12 +314,17 @@ class _HomeViewState extends State<HomeView> {
 
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              TodayWorkOutView(),
-                                        ));
+                                    HomeCubit.get(context).useAdvertiseFunction(
+                                      title: HomeCubit.get(context)
+                                          .advertiseModel!
+                                          .data[index]
+                                          .targetModel,
+                                      id: HomeCubit.get(context)
+                                          .advertiseModel!
+                                          .data[index]
+                                          .targetModelId,
+                                      context: context,
+                                    );
                                   },
                                   child: Container(
                                       height: height * .25,

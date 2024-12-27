@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/Model/Specific%20Model.dart';
 
+import '../../../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../../../Model/Courses Model/Courses Model.dart';
+import '../../../View Model/courses_cubit.dart';
 import '../../Specific Course/View/Specific Course.dart';
 import '../Courses Details Dialog/Courses Details Dialog.dart';
 
@@ -8,23 +11,42 @@ class CourseWidget extends StatelessWidget {
   final Courses course;
   final double screenWidth;
   final double screenHeight;
+  final bool isEnrolled;
 
   const CourseWidget(
       {super.key,
       required this.screenWidth,
       required this.screenHeight,
-      required this.course});
+      required this.course,
+      required this.isEnrolled});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => SpecificCourse(
-             courseId: course.id.toString(),
-          ),
-        );
+        if (!isEnrolled) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SpecificCourse(
+                courseId: course.id.toString(),
+                isEnrolled: isEnrolled,
+              ),
+            ),
+          );
+        } else {
+          CoursesCubit.get(context)
+              .getSpecificCoursesLesson(id: course.id.toString());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SpecificCourse(
+                courseId: course.id.toString(),
+                isEnrolled: isEnrolled,
+              ),
+            ),
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -43,7 +65,6 @@ class CourseWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -65,7 +86,7 @@ class CourseWidget extends StatelessWidget {
                       width: screenWidth * 0.425,
                       height: screenHeight * 0.02,
                       child: Text(
-                        course.title ?? 'No Titleeeeeeeeeee',
+                        course.title ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -81,6 +102,7 @@ class CourseWidget extends StatelessWidget {
                           width: screenWidth * .12,
                           child: Text(
                             'Price: ',
+                            maxLines: 1,
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -136,11 +158,15 @@ class CourseWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    course.description ?? '',
-                  ))
+              SizedBox(height: 7.5),
+
+              isEnrolled ? SizedBox() : Center(
+                child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Enroll Now',
+                    )),
+              )
             ],
           ),
         ),
