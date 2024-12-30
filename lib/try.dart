@@ -1,105 +1,77 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/services.dart';
+void main() => runApp(MaterialApp(home: MyHomePage()));
 
-class PaymentPage extends StatefulWidget {
-  final String paymentId;
-
-  const PaymentPage({Key? key, required this.paymentId}) : super(key: key);
-
+class MyHomePage extends StatefulWidget {
   @override
-  _PaymentPageState createState() => _PaymentPageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _PaymentPageState extends State<PaymentPage> {
-  late StreamSubscription _deepLinkSubscription;
+class _MyHomePageState extends State<MyHomePage> {
+  String _latestLink = 'Waiting for an initial link...';
+  final String paypalLink = 'https://www.sandbox.paypal.com/checkoutnow?token=851475793A4233631';
 
   @override
   void initState() {
     super.initState();
-    _listenToDeepLink();
-    
+    initUniLinks();
   }
 
-  @override
-  void dispose() {
-    _deepLinkSubscription.cancel();
-    super.dispose();
-  }
-
-  Future<void> _startPayment() async {
-    final paymentUrl =
-        "https://www.sandbox.paypal.com/checkoutnow?token=4D2904852A860613Y";
-
-    await launchUrl(Uri.parse(paymentUrl));
-  }
-
-  void _listenToDeepLink() {
-    const deepLinkChannel = MethodChannel('deep_link');
-    deepLinkChannel.setMethodCallHandler((MethodCall call) async {
-      if (call.method == 'onDeepLink') {
-        final String? deepLink = call.arguments as String?;
-        if (deepLink != null) {
-          if (deepLink.startsWith("lsfitness://payment/complete")) {
-            Navigator.pushReplacementNamed(context, "/paymentSuccess");
-          } else if (deepLink.startsWith("lsfitness://payment/cancel")) {
-            Navigator.pushReplacementNamed(context, "/paymentFailed");
-          }
-        }
+  Future<void> initUniLinks() async {
+    // ... (راجع توثيق الحزمة لمعرفة كيفية الإعداد بالتفصيل)
+    getInitialLink().then((value) {
+      if (value != null) {
+        setState(() {
+          _latestLink = value;
+        });
+        _handleDeepLink(value);
       }
+    }).catchError((error) {
+      print('error: $error');
     });
   }
 
+  void _handleDeepLink(String link) {
+    if (link.contains('payment/complete')) {
+      // عملية الدفع تمت بنجاح
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('تمت العملية بنجاح'),
+            content: Text('شكراً لك'),
+          );
+        },
+      );
+    } else if (link.contains('payment/cancel')) {
+      // تم إلغاء عملية الدفع
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('لم تتم'),
+            content: Text('شكراً لك'),
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Payment"),
+        title: Text('MyApp'),
       ),
-      body:  Center(
-        child: ElevatedButton(onPressed: (){_startPayment();}, child: Text('f;ka')),
-      ),
-    );
-  }
-}
-
-
-
-
-class PaymentSuccessPage extends StatelessWidget {
-  const PaymentSuccessPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Payment Successful"),
-      ),
-      body: const Center(
-        child: Text("Thank you! Your payment was successful."),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            launch(paypalLink);
+          },
+          child: Text('ادفع الآن'),
+        ),
       ),
     );
   }
 }
-
-
-
-class PaymentFailedPage extends StatelessWidget {
-  const PaymentFailedPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Payment Failed"),
-      ),
-      body: const Center(
-        child: Text("Payment was cancelled or failed. Please try again."),
-      ),
-    );
-  }
-}
-
-

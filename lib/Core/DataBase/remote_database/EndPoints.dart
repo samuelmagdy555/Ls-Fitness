@@ -29,6 +29,7 @@ class EndPoints{
   static String CategoryCourses = 'categories';
   static String buyCourse = 'orders/pay';
   static String advertise = 'advertise';
+  static String capturePayment = 'orders/capture-payment';
 
 
 

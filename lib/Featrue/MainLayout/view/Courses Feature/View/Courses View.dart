@@ -328,11 +328,14 @@
 // ];
 //
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Widget/Course%20Widget/Course%20Widget.dart';
+import 'package:uni_links/uni_links.dart';
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/Courses Model/Courses Model.dart';
 import '../View Model/courses_cubit.dart';
@@ -346,8 +349,47 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  StreamSubscription? sub;
+
+  void _initDeepLinkListener() async {
+    print('initDeepLinkListener');
+    sub = uriLinkStream.listen((Uri? uri) {
+
+      print('got uri: $uri');
+      print('===============================================>>>>>>>>>>>>>>>>>>>>');
+      print('===============================================>>>>>>>>>>>>>>>>>>>>');
+      print('===============================================>>>>>>>>>>>>>>>>>>>>');
+      print('===============================================>>>>>>>>>>>>>>>>>>>>');
+      print('===============================================>>>>>>>>>>>>>>>>>>>>');
+      if (uri != null) {
+        uri.pathSegments.contains('complete') ? 'Payment Complete' : 'Payment Canceled';
+        if (uri.pathSegments.contains('complete')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Complete'),
+            ),
+          );
+          String? token = RegExp(r'token=([^&]+)')
+              .firstMatch(CoursesCubit.get(context).buyCourseModel!.approvalUrl)
+              ?.group(1);
+          print('token =>>>>>>>>>>>>>>>>>>>> $token');
+          CoursesCubit.get(context).CapturePayment(token:token! );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Canceled'),
+            ),
+          );
+        }
+      }
+    }, onError: (err) {
+      print(err);
+
+    });
+  }
   @override
   void initState() {
+    _initDeepLinkListener();
     super.initState();
     CoursesCubit.get(context).CoursesCategories();
   }

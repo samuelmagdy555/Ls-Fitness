@@ -18,6 +18,14 @@ class SpecificCourse extends StatefulWidget {
 
 class _SpecificCourseState extends State<SpecificCourse> {
   @override
+  void initState() {
+    if (widget.isEnrolled == true){
+      CoursesCubit.get(context).getSpecificCoursesLesson(id: widget.courseId);
+
+    }
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;

@@ -159,14 +159,18 @@ class CourseWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 7.5),
-
-              isEnrolled ? SizedBox() : Center(
-                child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Enroll Now',
-                    )),
-              )
+              isEnrolled
+                  ? SizedBox()
+                  : Center(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            CoursesCubit.get(context).buyCourse(
+                                ID: course.id.toString(), context: context);
+                          },
+                          child: Text(
+                            'Enroll Now',
+                          )),
+                    )
             ],
           ),
         ),

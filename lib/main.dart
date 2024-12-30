@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -34,6 +36,8 @@ import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Fetu
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Supplement Meals/View Model/supplements_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View Model/workout_cubit.dart';
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'Featrue/MainLayout/view/Exercise/view/DetailsExercise/View Model/exercises_details_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
@@ -77,10 +81,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  StreamSubscription? sub;
+
+
   @override
   void initState() {
     super.initState();
-    // _secureScreen();
+    // _secureScreen();.
     final now = DateTime.now();
     Alarm.ringStream.stream.listen((_) async {
       await Alarm.set(
@@ -91,61 +98,7 @@ class _MyAppState extends State<MyApp> {
             assetAudioPath: _.assetAudioPath,
             notificationSettings: _.notificationSettings),
       );
-      // if (_.id == 7) {
-      //   await CreatineCubit.get(context).getWakeUpTime();
-      //   await CreatineCubit.get(context).getSleepTime();
-      //   if (now.isBefore(CreatineCubit.get(context).sleepTime!) &&
-      //       now.isAfter(CreatineCubit.get(context).wakeUpTime!)) {
-      //     if ((now.hour >= CreatineCubit.get(context).sleepTime!.hour - 1 &&
-      //         now.hour <= CreatineCubit.get(context).sleepTime!.hour)) {
-      //       await Alarm.set(
-      //           alarmSettings: AlarmSettings(
-      //               id: 7,
-      //               dateTime: DateTime(
-      //                   now.year,
-      //                   now.month,
-      //                   now.day + 1,
-      //                   CreatineCubit.get(context).wakeUpTime!.hour + 1,
-      //                   CreatineCubit.get(context).wakeUpTime!.minute),
-      //               assetAudioPath: _.assetAudioPath,
-      //               notificationSettings: _.notificationSettings));
-      //     } else {
-      //       final alarmSettings = AlarmSettings(
-      //         id: 7,
-      //         dateTime: DateTime(now.year, now.month, now.day, now.hour + 2),
-      //         assetAudioPath: 'assets/alarm.mp3',
-      //         loopAudio: true,
-      //         vibrate: true,
-      //         volume: 0.8,
-      //         fadeDuration: 3.0,
-      //         warningNotificationOnKill: Platform.isIOS,
-      //         notificationSettings: NotificationSettings(
-      //           body: "Time for Water",
-      //           title: "Alarm",
-      //           stopButton: 'stop',
-      //         ),
-      //       );
-      //       Alarm.set(
-      //         alarmSettings: alarmSettings,
-      //       );
-      //     }
-      //   } else {
-      //     await Alarm.set(
-      //         alarmSettings: AlarmSettings(
-      //             id: 7,
-      //             dateTime: DateTime(
-      //                 now.year,
-      //                 now.month,
-      //                 now.day + 1,
-      //                 CreatineCubit.get(context).wakeUpTime!.hour + 1,
-      //                 CreatineCubit.get(context).wakeUpTime!.minute),
-      //             assetAudioPath: _.assetAudioPath,
-      //             notificationSettings: _.notificationSettings));
-      //   }
-      // } else {
-      //
-      //
-      // }
+
     });
   }
 
@@ -228,10 +181,9 @@ class _MyAppState extends State<MyApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        routes: {
-          "/paymentSuccess": (context) =>  PaymentSuccessPage(),
-          "/paymentFailed": (context) =>  PaymentFailedPage(),
-        },
+
+
+
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

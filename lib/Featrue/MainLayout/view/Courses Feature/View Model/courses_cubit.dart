@@ -1,15 +1,20 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/Model/Courses%20Model/Courses%20Model.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/Model/Specific%20Model.dart';
 import 'package:meta/meta.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/Buy Course Model/Buy Course Model.dart';
+import '../View/Courses View.dart';
 import '../View/My Courses/Model/My Courses Model.dart';
 import '../View/Specific Course/Model/SpecificCourseLessonModel.dart';
+import '../View/Specific Course/View/Specific Course.dart';
 
 part 'courses_state.dart';
 
@@ -54,8 +59,6 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
-
-
   Future<void> getSpecificCourse({required String id}) async {
     emit(GetMyCoursesLoading());
     try {
@@ -70,8 +73,6 @@ class CoursesCubit extends Cubit<CoursesState> {
       print(e.toString());
     }
   }
-
-
 
   Future<void> getSpecificCoursesLesson({required String id}) async {
     specificCourseLessonModel = null;
@@ -106,20 +107,57 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
-
-  Future<void>buyCourse({required String ID}) async{
+  Future<void> buyCourse(
+      {required String ID, required BuildContext context}) async {
     emit(BuyCourseLoading());
-    try{
+    try {
       final response = await DioHelper.post(
-          end_ponit: '${EndPoints.buyCourse}/$ID',
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        end_ponit: '${EndPoints.buyCourse}/$ID',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
       );
       buyCourseModel = BuyCourseModel.fromJson(response.data);
+
       emit(BuyCourseSuccess());
-    }catch(e){
+      if (buyCourseModel?.approvalUrl != null) {
+
+
+        _startPayment(
+            url: buyCourseModel!.approvalUrl,
+            context: context,
+            ID: ID);
+      }
+    } catch (e) {
       emit(BuyCourseError());
       print(e.toString());
     }
-
   }
+
+
+  void _startPayment(
+      {required String url,
+      required BuildContext context,
+      required String ID}) async {
+
+
+    await launchUrl(Uri.parse(url));  }
+
+  Future<void> CapturePayment({required String token}) async {
+    print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccapture payment');
+    emit(BuyCourseLoading());
+    try {
+      await DioHelper.post(
+        end_ponit: '${EndPoints.capturePayment}',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {
+          'token': token,
+        },
+      );
+      emit(BuyCourseSuccess());
+      await CoursesCategories();
+    } catch (e) {
+      emit(BuyCourseError());
+      print(e.toString());
+    }
+  }
+
 }

@@ -1,245 +1,281 @@
-// File: lib/main.dart
+import 'dart:async';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:flutter/services.dart';
+import 'package:uni_links/uni_links.dart';
 
-class LearningCoursesScreen extends StatelessWidget {
-  const LearningCoursesScreen({Key? key}) : super(key: key);
+bool _initialUriIsHandled = false;
+
+void main() => runApp(MaterialApp(home: MyApp()));
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  Uri? _initialUri;
+  Uri? _latestUri;
+  Object? _err;
+
+  StreamSubscription? _sub;
+
+  final _scaffoldKey = GlobalKey();
+  final _cmds = getCmds();
+  final _cmdStyle = const TextStyle(
+      fontFamily: 'Courier', fontSize: 12.0, fontWeight: FontWeight.w700);
+
+  @override
+  void initState() {
+    super.initState();
+    _handleIncomingLinks();
+    _handleInitialUri();
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  /// Handle incoming links - the ones that the app will recieve from the OS
+  /// while already started.
+  void _handleIncomingLinks() {
+    if (!kIsWeb) {
+      // It will handle app links while the app is already started - be it in
+      // the foreground or in the background.
+      _sub = uriLinkStream.listen((Uri? uri) {
+        if (!mounted) return;
+        print('got uri: $uri');
+        setState(() {
+          _latestUri = uri;
+          _err = null;
+        });
+      }, onError: (Object err) {
+        if (!mounted) return;
+        print('got err: $err');
+        setState(() {
+          _latestUri = null;
+          if (err is FormatException) {
+            _err = err;
+          } else {
+            _err = null;
+          }
+        });
+      });
+    }
+  }
+
+  /// Handle the initial Uri - the one the app was started with
+  ///
+  /// **ATTENTION**: `getInitialLink`/`getInitialUri` should be handled
+  /// ONLY ONCE in your app's lifetime, since it is not meant to change
+  /// throughout your app's life.
+  ///
+  /// We handle all exceptions, since it is called from initState.
+  Future<void> _handleInitialUri() async {
+    // In this example app this is an almost useless guard, but it is here to
+    // show we are not going to call getInitialUri multiple times, even if this
+    // was a weidget that will be disposed of (ex. a navigation route change).
+    if (!_initialUriIsHandled) {
+      _initialUriIsHandled = true;
+      _showSnackBar('_handleInitialUri called');
+      try {
+        final uri = await getInitialUri();
+        if (uri == null) {
+          print('no initial uri');
+        } else {
+          print('got initial uri: $uri');
+        }
+        if (!mounted) return;
+        setState(() => _initialUri = uri);
+      } on PlatformException {
+        // Platform messages may fail but we ignore the exception
+        print('falied to get initial uri');
+      } on FormatException catch (err) {
+        if (!mounted) return;
+        print('malformed initial uri');
+        setState(() => _err = err);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
+    final queryParams = _latestUri?.queryParametersAll.entries.toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FC),
+      key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
-        title: const Text(
-          'Our Courses',
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        actions: const [
-          Icon(Icons.notifications_outlined, color: Colors.black),
-          SizedBox(width: 16),
-        ],
+        title: const Text('uni_links example app'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            // Banner
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF785EF0),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: width * 0.8,
-                        height: height * .075,
-                        child: Text(
-                          'Gain More Skills With L.S Fitness Courses',
-                          maxLines: 2,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      CategoryChip(label: 'My Courses', isActive: false),
-                    ],
-                  ),
-                ],
-              ),
+      body: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(8.0),
+        children: [
+          if (_err != null)
+            ListTile(
+              title: const Text('Error', style: TextStyle(color: Colors.red)),
+              subtitle: Text('$_err'),
             ),
-            const SizedBox(height: 24),
-            // Categories
-
-            Text('Available Courses',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 24),
-            // Courses
-            Expanded(
-              child: MasonryGridView.count(
-                itemCount: courses.length,
-                itemBuilder: (context, index) {
-                  final course = courses[index];
-                  return CourseCard(
-                    title: course['title'],
-                    subtitle: course['subtitle'],
-                    duration: course['duration'],
-                    rating: course['rating'],
-                    image: course['image'],
-                  );
-                },
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
+          ListTile(
+            title: const Text('Initial Uri'),
+            subtitle: Text('$_initialUri'),
+          ),
+          if (!kIsWeb) ...[
+            ListTile(
+              title: const Text('Latest Uri'),
+              subtitle: Text('$_latestUri'),
+            ),
+            ListTile(
+              title: const Text('Latest Uri (path)'),
+              subtitle: Text('${_latestUri?.path}'),
+            ),
+            ExpansionTile(
+              initiallyExpanded: true,
+              title: const Text('Latest Uri (query parameters)'),
+              children: queryParams == null
+                  ? const [ListTile(dense: true, title: Text('null'))]
+                  : [
+                for (final item in queryParams)
+                  ListTile(
+                    title: Text(item.key),
+                    trailing: Text(item.value.join(', ')),
+                  )
+              ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CategoryChip extends StatelessWidget {
-  final String label;
-  final bool isActive;
-  final VoidCallback? onTap;
-
-  const CategoryChip({
-    Key? key,
-    required this.label,
-    this.isActive = false,
-    this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF785EF0) : Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-              color: isActive ? Colors.transparent : const Color(0xFFD3D3D3)),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: isActive ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CourseCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String duration;
-  final double rating;
-  final String image;
-
-  const CourseCard({
-    Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.duration,
-    required this.rating,
-    required this.image,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final height = MediaQuery.sizeOf(context).height;
-
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 2,
-            blurRadius: 6,
-          ),
+          _cmdsCard(_cmds),
+          const Divider(),
+          if (!kIsWeb)
+            ListTile(
+              leading: const Icon(Icons.error, color: Colors.red),
+              title: const Text(
+                'Force quit this example app',
+                style: TextStyle(color: Colors.red),
+              ),
+              onTap: () {
+                // WARNING: DO NOT USE this in production !!!
+                //          Your app will (most probably) be rejected !!!
+                if (Platform.isIOS) {
+                  exit(0);
+                } else {
+                  SystemNavigator.pop();
+                }
+              },
+            ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    );
+  }
+
+  Widget _cmdsCard(List<String>? commands) {
+    Widget platformCmds;
+
+    if (commands == null) {
+      platformCmds = const Center(child: Text('Unsupported platform'));
+    } else {
+      platformCmds = Column(
         children: [
-          Image(
-            image: NetworkImage(image),
-            height: height * .08,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: width * .275,
-                child: Text(
-                  subtitle,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ),
-              Icon(
-                Iconsax.arrow_circle_right4,
-                color: Colors.deepPurpleAccent,
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-        ],
+          const [
+            if (kIsWeb)
+              Text('Append this path to the Web app\'s URL, replacing `#/`:\n')
+            else
+              Text('To populate above fields open a terminal shell and run:\n'),
+          ],
+          intersperse(
+              commands.map<Widget>((cmd) => InkWell(
+                onTap: () => _printAndCopy(cmd),
+                child: Text('\n$cmd\n', style: _cmdStyle),
+              )),
+              const Text('or')),
+          [
+            Text(
+              '(tap on any of the above commands to print it to'
+                  ' the console/logger and copy to the device clipboard.)',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme!.bodyLarge,
+            ),
+          ]
+        ].expand((el) => el).toList(),
+      );
+    }
+
+    return Card(
+      margin: const EdgeInsets.only(top: 20.0),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: platformCmds,
       ),
     );
   }
+
+  Future<void> _printAndCopy(String cmd) async {
+    print(cmd);
+
+    await Clipboard.setData(ClipboardData(text: cmd));
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Copied to Clipboard')),
+    );
+  }
+
+  void _showSnackBar(String msg) {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final context = _scaffoldKey.currentContext;
+      if (context != null) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(msg),
+        ));
+      }
+    });
+  }
 }
 
-List<Map<String, dynamic>> courses = [
-  {
-    'title': 'Horse Riding',
-    'subtitle': 'Become a professional horse rider ',
-    'duration': '5h 30min',
-    'rating': 4.9,
-    'image':
-        'https://img.freepik.com/free-photo/fashion-model-white-dress-walking-with-horse_114579-8549.jpg?t=st=1732927408~exp=1732931008~hmac=fa96dadb3fc02c7972cb7eccb0abc5c385db14fe08bfede7d6e4c5418b8b1232&w=900'
-  },
-  {
-    'title': 'Boxing course',
-    'subtitle': 'Learning is empowerment.',
-    'duration': '5h 30min',
-    'rating': 4.9,
-    'image':
-        'https://img.freepik.com/free-vector/sport-landing-page-template-with-photo_23-2148212576.jpg?t=st=1732928081~exp=1732931681~hmac=8770f777e98ae57809ecbf3faf985dad3f0fc67d6691b3bc757cb650d74f62fb&w=900'
-  },
-  {
-    'title': 'Judo',
-    'subtitle': 'Basic Judo Techniques.',
-    'duration': '5h 30min',
-    'rating': 4.9,
-    "image":
-        'https://img.freepik.com/free-psd/taekwondo-practice-landing-page_23-2149999092.jpg?t=st=1732928342~exp=1732931942~hmac=b099aea488a76ac91ab73a62f356c047ae0161ceddc92902c8d7f2219a7bc247&w=1060'
-  },
-  {
-    'title': 'Dance course',
-    'subtitle': 'A Journey to Excellence.',
-    'duration': '5h 30min',
-    'rating': 4.9,
-    'image':
-        'https://img.freepik.com/free-vector/hand-drawn-dance-school-sale-banner_23-2149416106.jpg?t=st=1732928261~exp=1732931861~hmac=03aa491642e794939d22e7786bd66392c5d96403461bd73343205a5b9f694cda&w=1060'
-  },
-];
+List<String>? getCmds() {
+  late final String cmd;
+  var cmdSuffix = '';
+
+  const plainPath = 'path/subpath';
+  const args = 'path/portion/?uid=123&token=abc';
+  const emojiArgs =
+      '?arr%5b%5d=123&arr%5b%5d=abc&addr=1%20Nowhere%20Rd&addr=Rand%20City%F0%9F%98%82';
+
+  if (kIsWeb) {
+    return [
+      plainPath,
+      args,
+      emojiArgs,
+      // Cannot create malformed url, since the browser will ensure it is valid
+    ];
+  }
+
+  if (Platform.isIOS) {
+    cmd = '/usr/bin/xcrun simctl openurl booted';
+  } else if (Platform.isAndroid) {
+    cmd = '\$ANDROID_HOME/platform-tools/adb shell \'am start'
+        ' -a android.intent.action.VIEW'
+        ' -c android.intent.category.BROWSABLE -d';
+    cmdSuffix = "'";
+  } else {
+    return null;
+  }
+
+  // https://orchid-forgery.glitch.me/mobile/redirect/
+  return [
+    '$cmd "unilinks://host/$plainPath"$cmdSuffix',
+    '$cmd "unilinks://example.com/$args"$cmdSuffix',
+    '$cmd "unilinks://example.com/$emojiArgs"$cmdSuffix',
+    '$cmd "unilinks://@@malformed.invalid.url/path?"$cmdSuffix',
+  ];
+}
+
+List<Widget> intersperse(Iterable<Widget> list, Widget item) {
+  final initialValue = <Widget>[];
+  return list.fold(initialValue, (all, el) {
+    if (all.isNotEmpty) all.add(item);
+    all.add(el);
+    return all;
+  });
+}

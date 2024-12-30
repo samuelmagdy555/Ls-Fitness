@@ -54,7 +54,7 @@ class _MainLayoutState extends State<MainLayout> {
     super.initState();
     print('sseUrl $sseUrl');
     print('headers $headers');
-    NotificationCubit.get(context).connectToServer(sseUrl, headers);
+    // NotificationCubit.get(context).connectToServer(sseUrl, headers);
   }
 
   @override
