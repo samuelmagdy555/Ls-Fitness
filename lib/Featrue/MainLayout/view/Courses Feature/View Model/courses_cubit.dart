@@ -119,12 +119,8 @@ class CoursesCubit extends Cubit<CoursesState> {
 
       emit(BuyCourseSuccess());
       if (buyCourseModel?.approvalUrl != null) {
-
-
         _startPayment(
-            url: buyCourseModel!.approvalUrl,
-            context: context,
-            ID: ID);
+            url: buyCourseModel!.approvalUrl, context: context, ID: ID);
       }
     } catch (e) {
       emit(BuyCourseError());
@@ -132,17 +128,14 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
-
   void _startPayment(
       {required String url,
       required BuildContext context,
       required String ID}) async {
-
-
-    await launchUrl(Uri.parse(url));  }
+    await launchUrl(Uri.parse(url));
+  }
 
   Future<void> CapturePayment({required String token}) async {
-    print('cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccapture payment');
     emit(BuyCourseLoading());
     try {
       await DioHelper.post(
@@ -159,5 +152,4 @@ class CoursesCubit extends Cubit<CoursesState> {
       print(e.toString());
     }
   }
-
 }

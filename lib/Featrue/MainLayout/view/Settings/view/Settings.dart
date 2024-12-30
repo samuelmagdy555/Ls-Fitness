@@ -24,7 +24,6 @@ class _SettingsPageState extends State<SettingsPage> {
           image: DecorationImage(
             image: AssetImage('assets/images/7.jpg'), // تأكد من مسار الصورة
             fit: BoxFit.cover,
-
           ),
         ),
         child: Padding(
@@ -34,13 +33,24 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           child: ListView(
             children: [
-              Text("Settings",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 22.5,
-                  fontWeight: FontWeight.w600
-                ),
 
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                  )
+                  ,
+                  Text(
+                    "    Settings",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22.5, fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 10,
@@ -103,7 +113,10 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: Icon(icon, color: Colors.deepPurpleAccent, size: width * 0.08),
         title: Text(
           label,
-          style: TextStyle(color: Colors.black, fontSize: width * 0.05 , fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black,
+              fontSize: width * 0.05,
+              fontWeight: FontWeight.bold),
         ),
         trailing: Icon(Icons.arrow_forward_ios,
             color: Colors.black, size: width * 0.05),
@@ -116,10 +129,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildSettingsItemWithButton(BuildContext context,
       {required IconData icon,
-        required String label,
-        String? description,
-        String? buttonLabel,
-        VoidCallback? onTap}) {
+      required String label,
+      String? description,
+      String? buttonLabel,
+      VoidCallback? onTap}) {
     final width = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
@@ -127,13 +140,16 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: Icon(icon, color: Colors.deepPurpleAccent, size: width * 0.08),
         title: Text(
           label,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: width * 0.05),
+          style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: width * 0.05),
         ),
         subtitle: description != null
             ? Text(
-          description,
-          style: TextStyle(color: Colors.black, fontSize: width * 0.04),
-        )
+                description,
+                style: TextStyle(color: Colors.black, fontSize: width * 0.04),
+              )
             : null,
         trailing: ElevatedButton(
           onPressed: onTap,
@@ -141,7 +157,7 @@ class _SettingsPageState extends State<SettingsPage> {
             backgroundColor: Colors.transparent,
             side: BorderSide(color: Colors.black),
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
           child: Text(
             buttonLabel!,

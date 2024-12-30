@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cubit.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../Settings/view/Settings.dart';
 import '../View Model/home_cubit.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'Nutrition Feature/View/Nutrition View.dart';
@@ -79,8 +81,8 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     Positioned(
-                      left: 10,
-                      top: 10,
+                      left: width * .02,
+                      top: height * .01,
                       child: Row(
                         children: [
                           Text(
@@ -128,6 +130,23 @@ class _HomeViewState extends State<HomeView> {
                             ),
                           ),
                         )),
+                    Positioned(
+                        right: width * .065,
+                        top: height * .015,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SettingsPage(),
+                                ));
+                          },
+                          child: Icon(
+                            Iconsax.setting_25,
+                            color: Colors.white,
+                            size: width*.075,
+                          ),
+                        )),
                   ],
                 ),
                 Padding(
@@ -156,63 +175,6 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
-
-                // Padding(
-                //   padding: EdgeInsets.only(top: 10),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //     children: [
-                //       TextButton(
-                //         onPressed: () {
-                //           Navigator.push(context,
-                //               MaterialPageRoute(builder: (context)=> VitaminView())
-                //           );
-                //         },
-                //         child: Text(
-                //           "Vitamins",
-                //           style: GoogleFonts.lato(
-                //             fontSize: width * 0.04,
-                //             color: Colors.white,
-                //             fontWeight: FontWeight.bold
-                //           ),
-                //         ),
-                //       ),
-                //       TextButton(
-                //         onPressed: () {
-                //           Navigator.push(context,
-                //             MaterialPageRoute(builder: (context)=> FoodCalculator(mealCategory: '',))
-                //           );
-                //         },
-                //         child: Text(
-                //           "Food Calculator",
-                //           style: GoogleFonts.lato(
-                //             fontSize: width * 0.04,
-                //             color: Colors.white,
-                //               fontWeight: FontWeight.bold),
-                //         ),
-                //       ),
-                //       TextButton(
-                //         onPressed: () {
-                //           Navigator.push(context,
-                //               MaterialPageRoute(builder: (context)=> NutritionView())
-                //           );
-                //         },
-                //         child: Text(
-                //           "Nutrition",
-                //           style: GoogleFonts.lato(
-                //             fontSize: width * 0.04,
-                //             color: Colors.white,
-                //               fontWeight: FontWeight.bold
-                //
-                //           ),
-                //         ),
-                //       ),
-                //
-                //
-                //     ],
-                //   ),
-                // ),
-
                 SizedBox(
                   height: height * .25,
                   width: width,
@@ -390,7 +352,6 @@ class _HomeViewState extends State<HomeView> {
                     );
                   },
                 ),
-
                 Padding(
                   padding: EdgeInsets.only(top: 25, left: width * 0.05),
                   child: Row(
