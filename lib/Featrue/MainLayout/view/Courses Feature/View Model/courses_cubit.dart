@@ -107,6 +107,8 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
+
+
   Future<void> buyCourse(
       {required String ID, required BuildContext context}) async {
     emit(BuyCourseLoading());

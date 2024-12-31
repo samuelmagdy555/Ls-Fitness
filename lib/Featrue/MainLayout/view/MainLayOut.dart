@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View/chat%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View/Nutrition%20View.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
@@ -29,14 +31,15 @@ class _MainLayoutState extends State<MainLayout> {
     PersonView(),
     VitaminView(),
     CoursePage(),
-    TimerScreen(
-      value: false,
-    ),
+    ChatView(),
+
     ProfilePage(),
     FoodListPage(),
     FoodCalculator(mealCategory: ''),
     NutritionView(),
-    SettingsPage(),
+    TimerScreen(
+      value: false,
+    ),
   ];
 
   final String sseUrl =
@@ -44,7 +47,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   final Map<String, String> headers = {
     'Authorization':
-    'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
+        'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
     'Accept': 'text/event-stream',
     'Cache-Control': 'no-cache',
   };
@@ -66,11 +69,12 @@ class _MainLayoutState extends State<MainLayout> {
       bottomNavigationBar: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.12, // ارتفاع الـ Navigation Bar
+            height: MediaQuery.of(context).size.height *
+                0.12, // ارتفاع الـ Navigation Bar
             decoration: BoxDecoration(
               image: DecorationImage(
-
-                image: AssetImage('assets/images/7.jpg'), // المسار إلى صورة الخلفية
+                image: AssetImage('assets/images/7.jpg'),
+                // المسار إلى صورة الخلفية
                 fit: BoxFit.cover, // ملء الخلفية
               ),
             ),
@@ -90,7 +94,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/home.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/home.png')),
                     ),
                   ),
                   _buildTabItem(
@@ -99,7 +104,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/dumbbell.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/dumbbell.png')),
                     ),
                   ),
                   _buildTabItem(
@@ -108,7 +114,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/protein (1).png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/protein (1).png')),
                     ),
                   ),
                   _buildTabItem(
@@ -117,17 +124,21 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/notebook.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/notebook.png')),
                     ),
                   ),
                   _buildTabItem(
                     index: 4,
-                    label: 'Reminder',
+                    label: 'Chat',
                     path: SizedBox(
-                      height: height * .03,
-                      width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/alarm.png')),
-                    ),
+                        height: height * .03,
+                        width: width * .11,
+                        child: Icon(
+                          Iconsax.message5,
+                          size: width * .075,
+                          color: Colors.redAccent,
+                        )),
                   ),
                 ],
               ),
@@ -143,7 +154,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/woman.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/woman.png')),
                     ),
                   ),
                   _buildTabItem(
@@ -152,7 +164,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/food.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/food.png')),
                     ),
                   ),
                   _buildTabItem(
@@ -161,7 +174,8 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/calculator.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/calculator.png')),
                     ),
                   ),
                   _buildTabItem(
@@ -170,16 +184,18 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/camera.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/camera.png')),
                     ),
                   ),
                   _buildTabItem(
                     index: 9,
-                    label: 'Settings',
+                    label: 'Reminder',
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(image: AssetImage('assets/images/setting.png')),
+                      child: const Image(
+                          image: AssetImage('assets/images/alarm.png')),
                     ),
                   ),
                 ],
@@ -188,14 +204,13 @@ class _MainLayoutState extends State<MainLayout> {
           ),
         ],
       ),
-
     );
   }
 
   Widget _buildTabItem(
       {required int index,
-        required final String label,
-        required final Widget path}) {
+      required final String label,
+      required final Widget path}) {
     final isSelected = _currentIndex == index;
     return GestureDetector(
       onTap: () {

@@ -38,6 +38,7 @@ import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Fetu
 import 'Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/view/DetailsExercise/View Model/exercises_details_cubit.dart';
 import 'Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart';
 import 'Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorDetails/viewmodel/food_calculator_Details_cubit.dart';
@@ -171,7 +172,8 @@ class _MyAppState extends State<MyApp> {
         ), BlocProvider(
           create: (context) => VitaminScreenCubit()..getAllVitamins()..getAllSupplements(),
         ),
-        BlocProvider(create: (context)=>MoreCoursesCubit())
+        BlocProvider(create: (context)=>MoreCoursesCubit()),
+        BlocProvider(create: (context)=>ChatCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
