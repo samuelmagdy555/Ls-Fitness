@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -11,19 +12,48 @@ import 'package:timeago/timeago.dart' as timeago;
 class ChatRoom extends StatefulWidget {
   final String id;
   final String name;
-  final String image;
 
-  ChatRoom({required this.name, required this.image, required this.id});
+  ChatRoom({required this.name, required this.id});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  final ScrollController _scrollController = ScrollController();
+  int currentPage = 1;
+
   @override
   void initState() {
     super.initState();
-    ChatCubit.get(context).getSpecificChatMessages(ID: widget.id);
+    ChatCubit.get(context).getSpecificChatMessages(
+        ID: widget.id, pageNum: currentPage.toString());
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+          currentPage++;
+          ChatCubit.get(context).getSpecificChatMessages(
+              ID: widget.id, pageNum: currentPage.toString());
+        }
+      }
+    });
+
+
+  }
+
+  @override
+  void deactivate() {
+    print('chat room dispose');
+    ChatCubit.get(context).specificChatMessages = null;
+    ChatCubit.get(context).myChats = [];
+
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose(); // تنظيف الـ ScrollController
+    super.dispose();
   }
 
   @override
@@ -48,7 +78,8 @@ class _ChatRoomState extends State<ChatRoom> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundImage: NetworkImage(widget.image),
+              backgroundImage: NetworkImage(
+                  'https://img.freepik.com/free-photo/half-length-close-up-portrait-young-hindoo-man-white-shirt-blue-space_155003-26772.jpg?t=st=1735759637~exp=1735763237~hmac=2df5ba350ac04b076137753a0b7ed6b487d3a81a585d75bd76f5b974e3c767a0&w=900'),
             ),
             SizedBox(width: 10),
             Text(
@@ -68,32 +99,33 @@ class _ChatRoomState extends State<ChatRoom> {
               return ChatCubit.get(context).specificChatMessages != null
                   ? Expanded(
                       child: ListView.builder(
-                        padding:  EdgeInsets.all(16),
-                          itemCount: ChatCubit.get(context)
-                              .specificChatMessages!
-                              .data
-                              .length,
+                        controller: _scrollController,
+                          reverse: true,
+                          scrollDirection: Axis.vertical,
+                          physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+
+                          shrinkWrap: true,
+                          padding: EdgeInsets.all(16),
+                          itemCount: ChatCubit.get(context).myChats!.length,
                           itemBuilder: (context, index) {
                             DateTime dateTime = DateTime.parse(
                                 ChatCubit.get(context)
-                                    .specificChatMessages!
-                                    .data[index]
-                                    .createdAt!);
+                                    .myChats[index]
+                                    .createdAt);
                             String timeAgo = timeago.format(dateTime);
                             return ChatBubble(
-                                message: ChatCubit.get(context)
-                                    .specificChatMessages!
-                                    .data[index]
-                                    .text,
+                                message:
+                                    ChatCubit.get(context).myChats[index].text,
                                 isSentByMe: ChatCubit.get(context)
-                                        .specificChatMessages!
-                                        .data[index]
+                                        .myChats[index]
                                         .sender
                                         .id ==
                                     LoginCubit.id,
                                 time: timeAgo);
                           }))
-                  : Expanded(child: MyLoadingIndicator(height: height * .3, color: Colors.red));
+                  : Expanded(
+                      child: MyLoadingIndicator(
+                          height: height * .3, color: Colors.red));
             },
           ),
           ChatInputField(),

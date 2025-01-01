@@ -13,3 +13,8 @@ final class GetHomeChatError  extends ChatState {}
 final class GetSpecificChatMessagesLoading extends ChatState {}
 final class GetSpecificChatMessagesSuccess extends ChatState {}
 final class GetSpecificChatMessagesError  extends ChatState {}
+
+
+final class SendMessageLoading extends ChatState {}
+final class SendMessageSuccess extends ChatState {}
+final class SendMessageError  extends ChatState {}

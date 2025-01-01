@@ -17,6 +17,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   MyChatsModel? myChatsModel;
   SpecificChatMessages? specificChatMessages;
+  List<Chats> myChats = [];
 
   Future<void> getHomeChats() async {
     emit(GetHomeChatLoading());
@@ -27,22 +28,50 @@ class ChatCubit extends Cubit<ChatState> {
       myChatsModel = MyChatsModel.fromJson(response.data);
       emit(GetHomeChatSuccess());
     } catch (e) {
-
       emit(GetHomeChatError());
     }
   }
-  Future<void> getSpecificChatMessages({required String ID}) async {
-    specificChatMessages = null;
+
+  Future<void> getSpecificChatMessages({required String ID , required String pageNum,}) async {
     emit(GetSpecificChatMessagesLoading());
     try {
       final response = await DioHelper.get(
           end_ponit: '${EndPoints.messages}/$ID',
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {
+          'page' : pageNum
+        }
+      );
       specificChatMessages = SpecificChatMessages.fromJson(response.data);
+      for( var element in specificChatMessages!.chats){
+        myChats.insert(0,element);
+      }
       emit(GetSpecificChatMessagesSuccess());
     } catch (e) {
       print(e.toString());
       emit(GetSpecificChatMessagesError());
     }
   }
+
+
+
+  Future<void> sendMessages({required String ID , required String message}) async {
+
+    try {
+      final response = await DioHelper.post(
+          end_ponit: '${EndPoints.messages}/$ID',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          data: {
+            'text' : message
+          }
+      );
+      emit(SendMessageSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(SendMessageError());
+    }
+  }
+
+
+
 }

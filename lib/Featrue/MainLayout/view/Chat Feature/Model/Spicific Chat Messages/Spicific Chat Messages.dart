@@ -3,18 +3,18 @@ class SpecificChatMessages {
     required this.results,
     required this.totalCount,
     required this.paginationResult,
-    required this.data,
+    required this.chats,
   });
   late final int results;
   late final int totalCount;
   late final PaginationResult paginationResult;
-  late final List<Data> data;
+  late final List<Chats> chats;
 
   SpecificChatMessages.fromJson(Map<String, dynamic> json){
     results = json['results'];
     totalCount = json['totalCount'];
     paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    chats = List.from(json['data']).map((e)=>Chats.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class SpecificChatMessages {
     _data['results'] = results;
     _data['totalCount'] = totalCount;
     _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['data'] = chats.map((e)=>e.toJson()).toList();
     return _data;
   }
 }
@@ -52,8 +52,8 @@ class PaginationResult {
   }
 }
 
-class Data {
-  Data({
+class Chats {
+  Chats({
     required this.id,
     required this.chat,
     required this.sender,
@@ -76,7 +76,7 @@ class Data {
   late final String createdAt;
   late final String updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Chats.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     chat = json['chat'];
     sender = Sender.fromJson(json['sender']);
@@ -113,12 +113,12 @@ class Sender {
   });
   late final String id;
   late final String username;
-  late final Null profileImg;
+   String?   profileImg;
 
   Sender.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     username = json['username'];
-    profileImg = null;
+    profileImg =  json['profileImg'];
   }
 
   Map<String, dynamic> toJson() {

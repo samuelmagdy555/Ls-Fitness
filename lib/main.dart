@@ -173,7 +173,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => VitaminScreenCubit()..getAllVitamins()..getAllSupplements(),
         ),
         BlocProvider(create: (context)=>MoreCoursesCubit()),
-        BlocProvider(create: (context)=>ChatCubit())
+        BlocProvider(create: (context)=> ChatCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

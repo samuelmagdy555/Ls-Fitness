@@ -98,7 +98,7 @@ class _ChatViewState extends State<ChatView> {
 
 class ChatTile extends StatelessWidget {
   final String name;
-  final String image;
+  final String? image;
   final String message;
   final String time;
   final String unreadCount;
@@ -110,7 +110,7 @@ class ChatTile extends StatelessWidget {
     required this.time,
     required this.unreadCount,
     super.key,
-    required this.image, required this.id,
+     this.image, required this.id,
   });
 
   @override
@@ -126,7 +126,7 @@ class ChatTile extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChatRoom(name: name, image: image, id: id,),
+                  builder: (context) => ChatRoom(name: name,  id: id,),
                 ));
           },
           child: SizedBox(
@@ -137,7 +137,7 @@ class ChatTile extends StatelessWidget {
                 CircleAvatar(
                   radius: 28,
                   backgroundImage:
-                      NetworkImage(image), // Replace with your asset path
+                      NetworkImage(image ?? ''), // Replace with your asset path
                 ),
                 const SizedBox(width: 12),
                 SizedBox(
