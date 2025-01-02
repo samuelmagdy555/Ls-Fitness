@@ -10,6 +10,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
+import 'Chat Feature/View Model/chat_cubit.dart';
 import 'Courses Feature/View/Courses View.dart';
 import 'Home/View/HomeScreen.dart';
 import 'Notification/View Model/notification_cubit.dart';
@@ -55,9 +56,16 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
     super.initState();
-    print('sseUrl $sseUrl');
-    print('headers $headers');
+
+    print('before connect ${LoginCubit.id}');
+    ChatCubit.get(context).connect(LoginCubit.id );
+    print('after connect ${LoginCubit.id}');
+
+
+    // print('sseUrl $sseUrl');
+    // print('headers $headers');
     // NotificationCubit.get(context).connectToServer(sseUrl, headers);
+
   }
 
   @override

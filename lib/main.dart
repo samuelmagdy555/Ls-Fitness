@@ -84,7 +84,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   StreamSubscription? sub;
 
-
   @override
   void initState() {
     super.initState();
@@ -99,8 +98,8 @@ class _MyAppState extends State<MyApp> {
             assetAudioPath: _.assetAudioPath,
             notificationSettings: _.notificationSettings),
       );
-
     });
+
   }
 
   // Future<void> _secureScreen() async {
@@ -109,14 +108,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
-        BlocProvider(
-            create: (context) {
-              print('notification cubit');
-              return  NotificationCubit();
-            }),
+        BlocProvider(create: (context) {
+          print('notification cubit');
+          return NotificationCubit();
+        }),
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ForgetPasswordCubit()),
@@ -169,11 +166,14 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => CoursesCubit(),
-        ), BlocProvider(
-          create: (context) => VitaminScreenCubit()..getAllVitamins()..getAllSupplements(),
         ),
-        BlocProvider(create: (context)=>MoreCoursesCubit()),
-        BlocProvider(create: (context)=> ChatCubit())
+        BlocProvider(
+          create: (context) => VitaminScreenCubit()
+            ..getAllVitamins()
+            ..getAllSupplements(),
+        ),
+        BlocProvider(create: (context) => MoreCoursesCubit()),
+        BlocProvider(create: (context) => ChatCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -183,9 +183,6 @@ class _MyAppState extends State<MyApp> {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-
-
-
         supportedLocales: S.delegate.supportedLocales,
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

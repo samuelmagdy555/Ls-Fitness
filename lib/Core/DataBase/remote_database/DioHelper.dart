@@ -161,7 +161,7 @@ class DioHelper{
   }
   static Future<Response> putEditProfile({
     required String end_ponit,
-    Map<String, dynamic>? data,
+    Map<String, dynamic>? data,//
     Map<String, dynamic>? query,
     String? token,
   }) async {

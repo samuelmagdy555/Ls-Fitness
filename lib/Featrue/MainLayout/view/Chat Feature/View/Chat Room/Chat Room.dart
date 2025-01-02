@@ -11,9 +11,10 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class ChatRoom extends StatefulWidget {
   final String id;
+  final String roomId;
   final String name;
 
-  ChatRoom({required this.name, required this.id});
+  ChatRoom({required this.name, required this.id, required this.roomId});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -27,18 +28,23 @@ class _ChatRoomState extends State<ChatRoom> {
   void initState() {
     super.initState();
     ChatCubit.get(context).getSpecificChatMessages(
-        ID: widget.id, pageNum: currentPage.toString());
+        ID: widget.roomId, pageNum: currentPage.toString());
+
     _scrollController.addListener(() {
+      print(
+          '_scrollController.position.minScrollExtent is ${_scrollController.position.minScrollExtent - 010}');
+      print(
+          '_scrollController.position.pixels is ${_scrollController.position.pixels}');
+
       if (_scrollController.position.atEdge) {
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.minScrollExtent) {
           currentPage++;
           ChatCubit.get(context).getSpecificChatMessages(
-              ID: widget.id, pageNum: currentPage.toString());
+              ID: widget.roomId, pageNum: currentPage.toString());
         }
       }
     });
-
-
   }
 
   @override
@@ -62,6 +68,7 @@ class _ChatRoomState extends State<ChatRoom> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -99,11 +106,11 @@ class _ChatRoomState extends State<ChatRoom> {
               return ChatCubit.get(context).specificChatMessages != null
                   ? Expanded(
                       child: ListView.builder(
-                        controller: _scrollController,
-                          reverse: true,
+                          controller: _scrollController,
+                          reverse: false,
                           scrollDirection: Axis.vertical,
-                          physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-
+                          physics: AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
                           shrinkWrap: true,
                           padding: EdgeInsets.all(16),
                           itemCount: ChatCubit.get(context).myChats!.length,
@@ -128,7 +135,10 @@ class _ChatRoomState extends State<ChatRoom> {
                           height: height * .3, color: Colors.red));
             },
           ),
-          ChatInputField(),
+          ChatInputField(
+            roomID: widget.roomId,
+            receiverId: '674715885fb31f7806d196c9',
+          ),
         ],
       ),
     );
@@ -181,7 +191,25 @@ class ChatBubble extends StatelessWidget {
   }
 }
 
-class ChatInputField extends StatelessWidget {
+class ChatInputField extends StatefulWidget {
+  final String roomID;
+  final String receiverId;
+
+  ChatInputField({required this.roomID, required this.receiverId});
+
+  @override
+  State<ChatInputField> createState() => _ChatInputFieldState();
+}
+
+class _ChatInputFieldState extends State<ChatInputField> {
+  late TextEditingController message;
+
+  @override
+  void initState() {
+    super.initState();
+    message = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -194,6 +222,8 @@ class ChatInputField extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              controller: message,
+              cursorColor: Colors.red,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Type a message...',
@@ -208,7 +238,13 @@ class ChatInputField extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Iconsax.send_1, color: Colors.red),
-            onPressed: () {},
+            onPressed: () {
+              ChatCubit.get(context).sendTextMessages(
+                  ChatID: widget.roomID,
+                  message: message.text,
+                  receiverId: widget.receiverId,
+                  controller: message);
+            },
           ),
         ],
       ),
