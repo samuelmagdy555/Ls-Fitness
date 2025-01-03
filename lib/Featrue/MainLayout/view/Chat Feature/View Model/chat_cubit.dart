@@ -70,13 +70,10 @@ class ChatCubit extends Cubit<ChatState> {
       required String receiverId,
       required TextEditingController controller}) async {
     try {
-
       Chats chat = Chats(
           id: '',
           chat: '',
-          sender: Sender(
-              id: LoginCubit.id,
-              username: LoginCubit.name),
+          sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
           text: message,
           media: [],
           isRead: false,
@@ -86,16 +83,13 @@ class ChatCubit extends Cubit<ChatState> {
           updatedAt: DateTime.now().toString());
       myChats.add(chat);
 
-        DioHelper.post(
+      DioHelper.post(
           end_ponit: '${EndPoints.messages}/$ChatID',
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           data: {'text': message});
 
-
-
       sendPrivateMessage(LoginCubit.id, receiverId, message);
-
-
+      getHomeChats();
       controller.clear();
       emit(SendMessageSuccess());
     } catch (e) {
@@ -159,6 +153,8 @@ class ChatCubit extends Cubit<ChatState> {
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
       myChats.add(chat);
+      getHomeChats();
+
       emit(GetSpecificChatMessagesSuccess());
     });
 
