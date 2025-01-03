@@ -142,22 +142,19 @@ class ChatCubit extends Cubit<ChatState> {
     _socket.on('receiveMessage', (data) {
       print('New message received: $data');
 
-      if(data['senderId'] != LoginCubit.id) {
-        Chats chat = Chats(
-            id: '',
-            chat: '',
-            sender: Sender(id: data['senderId'], username: ''),
-            text: data['text'],
-            media: [],
-            isRead: false,
-            seendBy: [],
-            reactions: [],
-            createdAt: DateTime.now().toString(),
-            updatedAt: DateTime.now().toString());
-        myChats.add(chat);
-        getHomeChats();
-      }
-
+      Chats chat = Chats(
+          id: '',
+          chat: '',
+          sender: Sender(id: data['senderId'], username: ''),
+          text: data['text'],
+          media: [],
+          isRead: false,
+          seendBy: [],
+          reactions: [],
+          createdAt: DateTime.now().toString(),
+          updatedAt: DateTime.now().toString());
+      myChats.add(chat);
+      getHomeChats();
 
       emit(GetSpecificChatMessagesSuccess());
     });

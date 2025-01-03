@@ -60,38 +60,38 @@ class _ChatViewState extends State<ChatView> {
                     String NameID = '';
                     for (var element in ChatCubit.get(context)
                         .myChatsModel!
-                        .data![index]
+                        .data[index]
                         .participants) {
-                      if (element.userDetails!.id != LoginCubit.id) {
-                        SenderID = element.userDetails!.id;
+                      if (element.userDetails.id != LoginCubit.id) {
+                        SenderID = element.userDetails.id;
                       }
-                      if (element.userDetails!.username != LoginCubit.name) {
-                        NameID = element.userDetails!.username;
+                      if (element.userDetails.username != LoginCubit.name) {
+                        NameID = element.userDetails.username;
                       }
                     }
                     return ChatTile(
                       name: NameID,
                       message: ChatCubit.get(context)
                           .myChatsModel!
-                          .data![index]
+                          .data[index]
                           .lastMessage[0]
                           .text,
                       time: 'time',
                       unreadCount: ChatCubit.get(context)
                               .myChatsModel!
-                              .data![index]
+                              .data[index]
                               .lastMessage
                               .isEmpty
                           ? ''
                           : ChatCubit.get(context)
                               .myChatsModel!
-                              .data![index]
+                              .data[index]
                               .lastMessage
                               .length
                               .toString(),
                       image: ChatCubit.get(context)
                               .myChatsModel!
-                              .data![index]
+                              .data[index]
                               .image ??
                           '',
                       id: SenderID,

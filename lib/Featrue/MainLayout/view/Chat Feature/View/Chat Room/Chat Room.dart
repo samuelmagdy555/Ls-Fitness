@@ -120,7 +120,8 @@ class _ChatRoomState extends State<ChatRoom> {
                                     .myChats[index]
                                     .createdAt);
                             String timeAgo = timeago.format(dateTime);
-                            return ChatBubble(
+                            return
+                              ChatBubble(
                                 message:
                                     ChatCubit.get(context).myChats[index].text,
                                 isSentByMe: ChatCubit.get(context)
@@ -137,7 +138,7 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
           ChatInputField(
             roomID: widget.roomId,
-            receiverId: '674715885fb31f7806d196c9',
+            receiverId: widget.id,
           ),
         ],
       ),
