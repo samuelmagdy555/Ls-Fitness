@@ -30,12 +30,15 @@ class Data {
     required this.archived,
     required this.lastMessage,
     this.image,
+    required this.isGroup,
+
   });
   late final String id;
   late final List<Participants> participants;
   late final bool archived;
-  late final List<LastMessage> lastMessage;
+   List<LastMessage>? lastMessage;
    String? image;
+   late final bool isGroup;
 
   Data.fromJson(Map<String, dynamic> json){
     id = json['_id'];
@@ -43,6 +46,7 @@ class Data {
     archived = json['archived'];
     lastMessage = List.from(json['lastMessage']).map((e)=>LastMessage.fromJson(e)).toList();
     image = json['image'];
+    isGroup = json['isGroupChat'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,8 +54,9 @@ class Data {
     _data['_id'] = id;
     _data['participants'] = participants.map((e)=>e.toJson()).toList();
     _data['archived'] = archived;
-    _data['lastMessage'] = lastMessage.map((e)=>e.toJson()).toList();
+    _data['lastMessage'] = lastMessage?.map((e)=>e.toJson()).toList();
     _data['image'] = image;
+    _data['isGroupChat'] = isGroup;
     return _data;
   }
 }

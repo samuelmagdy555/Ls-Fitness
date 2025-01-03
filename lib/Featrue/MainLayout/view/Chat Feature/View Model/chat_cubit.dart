@@ -54,7 +54,7 @@ class ChatCubit extends Cubit<ChatState> {
           query: {'page': pageNum});
       specificChatMessages = SpecificChatMessages.fromJson(response.data);
       print(specificChatMessages);
-      for (var element in specificChatMessages!.chats) {
+      for (var element in specificChatMessages!.chats!) {
         myChats.insert(0, element);
       }
       emit(GetSpecificChatMessagesSuccess());
@@ -68,8 +68,9 @@ class ChatCubit extends Cubit<ChatState> {
       {required String ChatID,
       required String message,
       required String receiverId,
-      required TextEditingController controller}) async {
+      required TextEditingController controller , required bool isGroub, List<Participants>? participants}) async {
     try {
+      print(isGroub);
       Chats chat = Chats(
           id: '',
           chat: '',
@@ -88,7 +89,25 @@ class ChatCubit extends Cubit<ChatState> {
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           data: {'text': message});
 
-      sendPrivateMessage(LoginCubit.id, receiverId, message);
+      if(!isGroub){
+        sendPrivateMessage(LoginCubit.id, receiverId, message);
+
+      }
+      else{
+        int num = 0;
+        joinRoom(LoginCubit.id, ChatID);
+
+        for(var element in participants!){
+
+          joinRoom(element.userDetails.id, ChatID);
+          print('id isssssssssssssssssssssssssssssssssssssss');
+          print(element.userDetails!.id);
+
+
+        }
+        sendGroupMessage(LoginCubit.id, ChatID, message, '');
+      }
+
       getHomeChats();
       controller.clear();
       emit(SendMessageSuccess());
@@ -97,6 +116,8 @@ class ChatCubit extends Cubit<ChatState> {
       emit(SendMessageError());
     }
   }
+
+
 
   void handleIncomingMessage(String rawMessage) {
     String cleanedMessage = rawMessage
@@ -145,7 +166,7 @@ class ChatCubit extends Cubit<ChatState> {
       Chats chat = Chats(
           id: '',
           chat: '',
-          sender: Sender(id: data['senderId'], username: ''),
+           sender: Sender(id: data['senderId'], username: ''),
           text: data['text'],
           media: [],
           isRead: false,
@@ -166,12 +187,11 @@ class ChatCubit extends Cubit<ChatState> {
     // Connect to the server
   }
 
-  void addUser(String userId) {
-    _socket.emit('addUser', {'userId': userId});
-  }
+
 
   // Join a room
   void joinRoom(String userId, String roomId) {
+    print('joinRoom doneeeeeeeeeeee');
     _socket.emit('joinRoom', {'userId': userId, 'roomId': roomId});
   }
 
@@ -191,13 +211,14 @@ class ChatCubit extends Cubit<ChatState> {
 
   // Send a group message
   void sendGroupMessage(String senderId, String roomId,
-      Map<String, dynamic> payload, String action) {
+      String payload, String action) {
     _socket.emit('sendMessage', {
       'senderId': senderId,
       'roomId': roomId,
       'payload': payload,
       'action': action,
     });
+    print('sendGroupMessage doneeeeeeeeeeee');
   }
 
   // Disconnect from the server

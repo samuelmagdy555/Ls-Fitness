@@ -9,12 +9,16 @@ import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/ch
 
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../Model/My Chats Model/My Chats Model.dart';
+
 class ChatRoom extends StatefulWidget {
   final String id;
   final String roomId;
   final String name;
+  final bool isGroup;
+  final List<Participants>participants;
 
-  ChatRoom({required this.name, required this.id, required this.roomId});
+  ChatRoom({required this.name, required this.id, required this.roomId, required this.isGroup, required this.participants});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -104,33 +108,41 @@ class _ChatRoomState extends State<ChatRoom> {
             },
             builder: (context, state) {
               return ChatCubit.get(context).specificChatMessages != null
-                  ? Expanded(
-                      child: ListView.builder(
-                          controller: _scrollController,
-                          reverse: false,
-                          scrollDirection: Axis.vertical,
-                          physics: AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(16),
-                          itemCount: ChatCubit.get(context).myChats!.length,
-                          itemBuilder: (context, index) {
-                            DateTime dateTime = DateTime.parse(
-                                ChatCubit.get(context)
-                                    .myChats[index]
-                                    .createdAt);
-                            String timeAgo = timeago.format(dateTime);
-                            return
-                              ChatBubble(
-                                message:
-                                    ChatCubit.get(context).myChats[index].text,
-                                isSentByMe: ChatCubit.get(context)
+                  ? ChatCubit.get(context).myChats.isNotEmpty
+                      ? Expanded(
+                          child: ListView.builder(
+                              controller: _scrollController,
+                              reverse: false,
+                              scrollDirection: Axis.vertical,
+                              physics: AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.all(16),
+                              itemCount: ChatCubit.get(context).myChats!.length,
+                              itemBuilder: (context, index) {
+                                DateTime dateTime = DateTime.parse(
+                                    ChatCubit.get(context)
                                         .myChats[index]
-                                        .sender
-                                        .id ==
-                                    LoginCubit.id,
-                                time: timeAgo);
-                          }))
+                                        .createdAt!);
+                                String timeAgo = timeago.format(dateTime);
+                                return ChatBubble(
+                                    message: ChatCubit.get(context)
+                                        .myChats[index]
+                                        .text!,
+                                    isSentByMe: ChatCubit.get(context)
+                                            .myChats[index]
+                                            .sender!
+                                            .id ==
+                                        LoginCubit.id,
+                                    time: timeAgo,   );
+                              }))
+                      : Expanded(
+                        child: Center(
+                            child: Text(
+                            'No messages yet ...',
+                            style: TextStyle(color: Colors.red , fontSize: 20),
+                          )),
+                      )
                   : Expanded(
                       child: MyLoadingIndicator(
                           height: height * .3, color: Colors.red));
@@ -138,8 +150,10 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
           ChatInputField(
             roomID: widget.roomId,
-            receiverId: widget.id,
-          ),
+            receiverId: widget.id, isGroup: widget.isGroup,
+
+
+            participants: widget.isGroup ? widget.participants : null,),
         ],
       ),
     );
@@ -195,8 +209,10 @@ class ChatBubble extends StatelessWidget {
 class ChatInputField extends StatefulWidget {
   final String roomID;
   final String receiverId;
+  final bool isGroup;
+  List<Participants>? participants;
 
-  ChatInputField({required this.roomID, required this.receiverId});
+  ChatInputField({required this.roomID, required this.receiverId, required this.isGroup , this.participants});
 
   @override
   State<ChatInputField> createState() => _ChatInputFieldState();
@@ -244,7 +260,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   ChatID: widget.roomID,
                   message: message.text,
                   receiverId: widget.receiverId,
-                  controller: message);
+                  controller: message, isGroub: widget.isGroup ,
+              participants: widget.isGroup ? widget.participants : null);
             },
           ),
         ],
