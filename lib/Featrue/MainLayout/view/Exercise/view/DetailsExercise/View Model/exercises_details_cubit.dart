@@ -15,27 +15,27 @@ part 'exercises_details_state.dart';
 class ExercisesDetailsCubit extends Cubit<ExercisesDetailsState> {
   ExercisesDetailsCubit() : super(ExercisesDetailsInitial());
 
-
   ExerciseDetailsModel? exerciseDetailsModel;
-
 
   static ExercisesDetailsCubit get(context) => BlocProvider.of(context);
 
-
-  Future<void> getExercisesDetails({required String id , required bool isAdvertise  , required BuildContext context}) async {
-
+  Future<void> getExercisesDetails(
+      {required String id,
+      required bool isAdvertise,
+      required BuildContext context}) async {
     emit(ExercisesDetailsLoading());
     try {
-
       final response = await DioHelper.get(
-          end_ponit: '${EndPoints.GetExercise}/$id',
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
-          );
+        end_ponit: '${EndPoints.GetExercise}/$id',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+      );
       exerciseDetailsModel = ExerciseDetailsModel.fromJson(response.data);
-
+      print('=============================');
+      print(exerciseDetailsModel);
 
       emit(ExercisesDetailsSuccess());
     } catch (e) {
+      print(e.toString());
       emit(ExercisesDetailsError());
     }
   }

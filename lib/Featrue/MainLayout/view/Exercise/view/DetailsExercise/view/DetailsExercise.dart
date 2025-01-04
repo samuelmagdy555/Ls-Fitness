@@ -19,24 +19,17 @@ class ExercisePage extends StatefulWidget {
 
 class _ExercisePageState extends State<ExercisePage> {
   String selectedTab = 'Progress';
-  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
 
     ExercisesDetailsCubit.get(context).getExercisesDetails(
-        id: widget.ID, context: context, isAdvertise: false);
+        id: widget.ID, context: context, isAdvertise: false).then((_){
 
-    _controller = VideoPlayerController.network(
-        ExercisesDetailsCubit.get(context)
-            .exerciseDetailsModel!
-            .data
-            .video!
-            .url)
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    });
+
+
   }
 
   @override
@@ -44,11 +37,6 @@ class _ExercisePageState extends State<ExercisePage> {
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +97,8 @@ class _ExercisePageState extends State<ExercisePage> {
                                 child: VideoWidget(
                                   id: ExercisesDetailsCubit.get(context)
                                       .exerciseDetailsModel!
-                                      .data!
-                                      .video!
+                                      .data
+                                      .video
                                       .url,
                                 ))),
                         SizedBox(height: 20),
@@ -140,22 +128,7 @@ class _ExercisePageState extends State<ExercisePage> {
                     ),
                   ),
                 ),
-                floatingActionButton: FloatingActionButton(
-                  backgroundColor: kSecondColor,
-                  onPressed: () {
-                    setState(() {
-                      _controller.value.isPlaying
-                          ? _controller.pause()
-                          : _controller.play();
-                    });
-                  },
-                  child: Icon(
-                    _controller.value.isPlaying
-                        ? Icons.pause
-                        : Icons.play_arrow,
-                    color: Colors.white,
-                  ),
-                ),
+
               );
       },
     );
@@ -192,7 +165,7 @@ class _ExercisePageState extends State<ExercisePage> {
   Widget _buildContent() {
     if (selectedTab == 'Progress') {
       return ProgressWidget(
-        id: ExercisesDetailsCubit.get(context).exerciseDetailsModel!.data!.id,
+        id: ExercisesDetailsCubit.get(context).exerciseDetailsModel!.data.id,
       );
     } else if (selectedTab == 'Muscle') {
       return Column(

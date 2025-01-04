@@ -18,7 +18,7 @@ class ExerciseDetailsModel {
 class Data {
   Data({
     required this.bodyPart,
-    required this.toolOrMachine,
+    this.toolOrMachine,
     required this.Cardio,
     required this.Warmup,
     required this.recoveryAndStretching,
@@ -26,33 +26,39 @@ class Data {
     required this.video,
     this.Description,
     this.instructions,
+    required this.createdAt,
+    required this.updatedAt,
     required this.id,
     required this.title,
     required this.targetGender,
   });
   late final BodyPart bodyPart;
-  late final ToolOrMachine toolOrMachine;
+  late final Null toolOrMachine;
   late final bool Cardio;
   late final bool Warmup;
   late final bool recoveryAndStretching;
-  late final List<DeepAnatomy> deepAnatomy;
+  late final List<dynamic> deepAnatomy;
   late final Video video;
   late final Null Description;
   late final Null instructions;
+  late final String createdAt;
+  late final String updatedAt;
   late final String id;
   late final String title;
   late final String targetGender;
 
   Data.fromJson(Map<String, dynamic> json){
     bodyPart = BodyPart.fromJson(json['bodyPart']);
-    toolOrMachine = ToolOrMachine.fromJson(json['toolOrMachine']);
+    toolOrMachine = null;
     Cardio = json['Cardio'];
     Warmup = json['Warmup'];
     recoveryAndStretching = json['recoveryAndStretching'];
-    deepAnatomy = List.from(json['deepAnatomy']).map((e)=>DeepAnatomy.fromJson(e)).toList();
+    deepAnatomy = List.castFrom<dynamic, dynamic>(json['deepAnatomy']);
     video = Video.fromJson(json['video']);
     Description = null;
     instructions = null;
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
     id = json['_id'];
     title = json['title'];
     targetGender = json['targetGender'];
@@ -61,14 +67,16 @@ class Data {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['bodyPart'] = bodyPart.toJson();
-    _data['toolOrMachine'] = toolOrMachine.toJson();
+    _data['toolOrMachine'] = toolOrMachine;
     _data['Cardio'] = Cardio;
     _data['Warmup'] = Warmup;
     _data['recoveryAndStretching'] = recoveryAndStretching;
-    _data['deepAnatomy'] = deepAnatomy.map((e)=>e.toJson()).toList();
+    _data['deepAnatomy'] = deepAnatomy;
     _data['video'] = video.toJson();
     _data['Description'] = Description;
     _data['instructions'] = instructions;
+    _data['createdAt'] = createdAt;
+    _data['updatedAt'] = updatedAt;
     _data['_id'] = id;
     _data['title'] = title;
     _data['targetGender'] = targetGender;
@@ -85,48 +93,6 @@ class BodyPart {
   late final String title;
 
   BodyPart.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['title'] = title;
-    return _data;
-  }
-}
-
-class ToolOrMachine {
-  ToolOrMachine({
-    required this.id,
-    required this.title,
-  });
-  late final String id;
-  late final String title;
-
-  ToolOrMachine.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['title'] = title;
-    return _data;
-  }
-}
-
-class DeepAnatomy {
-  DeepAnatomy({
-    required this.id,
-    required this.title,
-  });
-  late final String id;
-  late final String title;
-
-  DeepAnatomy.fromJson(Map<String, dynamic> json){
     id = json['_id'];
     title = json['title'];
   }
