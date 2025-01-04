@@ -7,10 +7,11 @@ import 'package:video_player/video_player.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
 class ExercisePage extends StatefulWidget {
-  final String videoPath;
-  final String title;
+  final String ID;
 
-  ExercisePage({required this.videoPath, required this.title});
+  // final String videoPath;
+
+  ExercisePage({required this.ID});
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
@@ -23,10 +24,24 @@ class _ExercisePageState extends State<ExercisePage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.videoPath)
+
+    ExercisesDetailsCubit.get(context).getExercisesDetails(
+        id: widget.ID, context: context, isAdvertise: false);
+
+    _controller = VideoPlayerController.network(
+        ExercisesDetailsCubit.get(context)
+            .exerciseDetailsModel!
+            .data
+            .video!
+            .url)
       ..initialize().then((_) {
         setState(() {});
       });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
@@ -50,7 +65,7 @@ class _ExercisePageState extends State<ExercisePage> {
                 backgroundColor: kThirdColor,
                 body: Center(
                   child: CircularProgressIndicator(
-                    color: kSecondColor,
+                    color: Colors.red,
                   ),
                 ),
               )
@@ -89,11 +104,15 @@ class _ExercisePageState extends State<ExercisePage> {
                               color: Colors.grey[200],
                             ),
                             child: SizedBox(
-                              height: height*.2,
+                                height: height * .2,
                                 width: width,
                                 child: VideoWidget(
-                              id: widget.videoPath,
-                            ))),
+                                  id: ExercisesDetailsCubit.get(context)
+                                      .exerciseDetailsModel!
+                                      .data!
+                                      .video!
+                                      .url,
+                                ))),
                         SizedBox(height: 20),
                         Container(
                           decoration: BoxDecoration(

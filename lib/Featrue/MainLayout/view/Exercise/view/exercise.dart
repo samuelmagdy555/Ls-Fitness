@@ -173,13 +173,12 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   ExerciseCubit.get(context).changePage(
                                       controller: controller, index: 0);
                                 }
-                              }
-
-                              else  if (index == 3) {
+                              } else if (index == 3) {
                                 if (ExerciseCubit.get(context).filter[index] ==
                                     index) {
                                   await ExerciseCubit.get(context)
-                                      .getDeepAnatomyForSpecificBodyPart(id: widget.bodyPartID!);
+                                      .getDeepAnatomyForSpecificBodyPart(
+                                          id: widget.bodyPartID!);
                                   final tapPosition = details.globalPosition;
 
                                   showMenu(
@@ -215,7 +214,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       String value = selected['value'];
                                       int itemIndex = selected['itemIndex'];
 
-
                                       print('filterDetails');
                                       ExerciseCubit.get(context)
                                           .filterDetails[index] = value;
@@ -225,15 +223,14 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       print(buttons);
                                       print('print 3');
 
-
                                       ExerciseCubit.get(context)
                                           .updateTitleByIndex(
-                                          index, itemIndex, buttons);
+                                              index, itemIndex, buttons);
                                       print('generateFilterMap');
 
                                       ExerciseCubit.get(context)
                                           .generateFilterMap(
-                                          page: 1, controller: controller);
+                                              page: 1, controller: controller);
                                       controller.navigateToPage(0);
                                     }
                                   });
@@ -243,10 +240,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   ExerciseCubit.get(context).changePage(
                                       controller: controller, index: 0);
                                 }
-                              }
-
-
-                              else {
+                              } else {
                                 ExerciseCubit.get(context)
                                     .updateTitleByIndex(index, index, buttons);
                                 ExerciseCubit.get(context).generateFilterMap(
@@ -350,9 +344,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                           child: ExerciseTile(
                                             title: exercise.title,
                                             onPressed: () async {
-                                              ExercisesDetailsCubit.get(context)
-                                                  .getExercisesDetails(
-                                                      id: exercise.id);
                                               ProgressCubit.get(context)
                                                   .getExercisesProgress(
                                                       id: exercise.id);
@@ -361,10 +352,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         ExercisePage(
-                                                      videoPath: exercise
-                                                          .video.publicId
-                                                          .toString(),
-                                                      title: exercise.title,
+                                                      ID: exercise.id,
+
                                                     ),
                                                   ));
                                             },

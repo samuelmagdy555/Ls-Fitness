@@ -99,7 +99,6 @@ class _MyAppState extends State<MyApp> {
             notificationSettings: _.notificationSettings),
       );
     });
-
   }
 
   // Future<void> _secureScreen() async {

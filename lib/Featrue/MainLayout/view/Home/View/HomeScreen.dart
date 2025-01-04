@@ -285,7 +285,7 @@ class _HomeViewState extends State<HomeView> {
                                           .advertiseModel!
                                           .data[index]
                                           .targetModelId,
-                                      context: context,
+                                      context: context, index: index,
                                     );
                                   },
                                   child: Container(
