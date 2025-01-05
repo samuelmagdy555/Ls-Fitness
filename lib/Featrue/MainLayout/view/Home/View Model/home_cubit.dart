@@ -68,11 +68,10 @@ class HomeCubit extends Cubit<HomeState> {
         VitaminScreenCubit.get(context).getSpecificSupplements(id: id);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => SupplementDetails()));
-      }
-      else if (title == 'Vitamin') {
+      } else if (title == 'Vitamin') {
         VitaminScreenCubit.get(context).getSpecificVitamin(id: id);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VitaminDetails()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => VitaminDetails()));
       }
     } catch (e) {}
   }

@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View%20Model/courses_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/View/Course%20Video%20Screen.dart';
+import 'package:uni_links/uni_links.dart';
 
 class SpecificCourse extends StatefulWidget {
-  final bool isEnrolled;
+   bool isEnrolled;
   final String courseId;
 
-  const SpecificCourse(
+   SpecificCourse(
       {super.key, required this.courseId, required this.isEnrolled});
 
   @override
@@ -17,14 +20,49 @@ class SpecificCourse extends StatefulWidget {
 }
 
 class _SpecificCourseState extends State<SpecificCourse> {
+
+  StreamSubscription? sub;
+
+  void _initDeepLinkListener() async {
+    print('initDeepLinkListener');
+    sub = uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
+        uri.pathSegments.contains('complete') ? 'Payment Complete' : 'Payment Canceled';
+        if (uri.pathSegments.contains('complete')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Complete'),
+            ),
+          );
+          String? token = RegExp(r'token=([^&]+)')
+              .firstMatch(CoursesCubit.get(context).buyCourseModel!.approvalUrl)
+              ?.group(1);
+          print('token =>>>>>>>>>>>>>>>>>>>> $token');
+          CoursesCubit.get(context).CapturePaymentForLessonScreen(token:token!, Id: widget.courseId, isEnrolled: widget.isEnrolled ,  );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Canceled'),
+            ),
+          );
+        }
+      }
+    }, onError: (err) {
+      print(err);
+
+    });
+  }
   @override
   void initState() {
+    _initDeepLinkListener();
+    super.initState();
     if (widget.isEnrolled == true){
       CoursesCubit.get(context).getSpecificCoursesLesson(id: widget.courseId);
 
     }
-    super.initState();
   }
+  
+ 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -304,7 +342,11 @@ class _SpecificCourseState extends State<SpecificCourse> {
                           style: ButtonStyle(
                               backgroundColor: WidgetStatePropertyAll(
                                   Colors.deepPurpleAccent)),
-                          onPressed: () {},
+                          onPressed: () {
+                            CoursesCubit.get(context).buyCourse(
+                                ID: widget.courseId, context: context);
+                          },
+                          //9KA80247WN3486405
                           child: Text(
                             'Enroll Now',
                             style: TextStyle(color: Colors.white),

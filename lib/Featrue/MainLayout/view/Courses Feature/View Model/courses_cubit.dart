@@ -29,7 +29,7 @@ class CoursesCubit extends Cubit<CoursesState> {
   SpecificLesson? specificLesson;
   BuyCourseModel? buyCourseModel;
 
-  Future<void> CoursesCategories() async {
+  Future<void> getCoursesCategories() async {
     emit(CoursesCategoriesLoading());
     try {
       final response = await DioHelper.get(
@@ -107,8 +107,6 @@ class CoursesCubit extends Cubit<CoursesState> {
     }
   }
 
-
-
   Future<void> buyCourse(
       {required String ID, required BuildContext context}) async {
     emit(BuyCourseLoading());
@@ -148,7 +146,31 @@ class CoursesCubit extends Cubit<CoursesState> {
         },
       );
       emit(BuyCourseSuccess());
-      await CoursesCategories();
+      await getCoursesCategories();
+    } catch (e) {
+      emit(BuyCourseError());
+      print(e.toString());
+    }
+  }
+
+  Future<void> CapturePaymentForLessonScreen(
+      {required String token,
+      required String Id,
+      required bool isEnrolled}) async {
+    emit(BuyCourseLoading());
+    try {
+      await DioHelper.post(
+        end_ponit: '${EndPoints.capturePayment}',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {
+          'token': token,
+        },
+      );
+      isEnrolled = true;
+      emit(BuyCourseSuccess());
+      await getSpecificCoursesLesson(id: Id);
+      await getCoursesCategories();
+
     } catch (e) {
       emit(BuyCourseError());
       print(e.toString());
