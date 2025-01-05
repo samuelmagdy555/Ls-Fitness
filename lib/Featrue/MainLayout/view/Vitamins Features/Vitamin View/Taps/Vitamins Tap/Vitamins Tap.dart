@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model%20View/vitamin_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Vitamin%20View/Vitamin%20Details/Vitamin%20Details.dart';
 
 import '../../../../Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 
@@ -22,7 +24,8 @@ class VitaminsTap extends StatelessWidget {
 
         return VitaminScreenCubit.get(context).vitaminsModel == null
             ? Center(
-                child: MyLoadingIndicator(height: height*.3, color: kSecondColor),
+                child: MyLoadingIndicator(
+                    height: height * .3, color: kSecondColor),
               )
             : ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -30,7 +33,18 @@ class VitaminsTap extends StatelessWidget {
                     VitaminScreenCubit.get(context).vitaminsModel!.data.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      VitaminScreenCubit.get(context).getSpecificVitamin(
+                          id: VitaminScreenCubit.get(context)
+                              .vitaminsModel!
+                              .data[index]
+                              .id);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VitaminDetails(),
+                          ));
+                    },
                     child: Container(
                       margin: EdgeInsets.all(15),
                       height: height * .3,
@@ -54,7 +68,7 @@ class VitaminsTap extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(125),
                                 ),
                                 child: Image(
-                                  image: AssetImage(
+                                  image: NetworkImage(
                                       VitaminScreenCubit.get(context)
                                           .vitaminsModel!
                                           .data[index]
@@ -78,14 +92,6 @@ class VitaminsTap extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Text(
-                                    '500 ml',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * .04,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],
@@ -93,12 +99,15 @@ class VitaminsTap extends StatelessWidget {
                           SizedBox(
                             width: width * .575,
                             child: Text(
-                              'meat , eggs , dairy products , and whole grains',
-                              textAlign: TextAlign.center,
+                              VitaminScreenCubit.get(context)
+                                  .vitaminsModel!
+                                  .data[index]
+                                  .description,
+                              maxLines: 3,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: width * .045,
-                                fontWeight: FontWeight.w500,
+                                fontSize: width * .04,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

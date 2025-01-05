@@ -26,6 +26,7 @@ class EndPoints{
   static String notifications = 'notifications';
   static String specificCourseLesson = 'lessons/courseLessons';
   static String vitamins = 'vitamins';
+  static String supplements = 'supplements';
   static String CategoryCourses = 'categories';
   static String buyCourse = 'orders/pay';
   static String advertise = 'advertise';

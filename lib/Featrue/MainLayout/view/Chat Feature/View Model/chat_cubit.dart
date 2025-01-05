@@ -201,11 +201,12 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   // Send a private message
-  void sendPrivateMessage(String senderId, String receiverId, String text) {
+  void sendPrivateMessage(String senderId, String receiverId, String text ) {
     _socket.emit('sendMessage', {
       'senderId': senderId,
       'receiverId': receiverId,
       'text': text,
+
     });
   }
 

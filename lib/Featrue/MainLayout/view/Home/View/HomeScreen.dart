@@ -144,7 +144,7 @@ class _HomeViewState extends State<HomeView> {
                           child: Icon(
                             Iconsax.setting_25,
                             color: Colors.white,
-                            size: width*.075,
+                            size: width * .075,
                           ),
                         )),
                   ],
@@ -285,7 +285,8 @@ class _HomeViewState extends State<HomeView> {
                                           .advertiseModel!
                                           .data[index]
                                           .targetModelId,
-                                      context: context, index: index,
+                                      context: context,
+                                      index: index,
                                     );
                                   },
                                   child: Container(

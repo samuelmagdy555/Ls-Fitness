@@ -7,18 +7,22 @@ import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model%20Vi
 import 'package:video_player/video_player.dart';
 import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 
-class VitaminDetails extends StatefulWidget {
-  const VitaminDetails({super.key});
+class SupplementDetails extends StatefulWidget {
+  const SupplementDetails({super.key, });
 
   @override
-  State<VitaminDetails> createState() => _VitaminDetailsState();
+  State<SupplementDetails> createState() => _SupplementDetailsState();
 }
 
-class _VitaminDetailsState extends State<VitaminDetails> {
+class _SupplementDetailsState extends State<SupplementDetails> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   void deactivate() {
-    VitaminScreenCubit.get(context).specificVitamin = null;
+    VitaminScreenCubit.get(context).specificSupplement = null;
     super.deactivate();
   }
 
@@ -32,13 +36,14 @@ class _VitaminDetailsState extends State<VitaminDetails> {
   },
   builder: (context, state) {
     return VitaminScreenCubit.get(context)
-        .specificVitamin != null ?Scaffold(
+        .specificSupplement != null ? Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 50,
           title: Text(
             VitaminScreenCubit.get(context)
-                .specificVitamin!.data!.title,
+                .specificSupplement!
+                .data.title ,
             style: TextStyle(
                 color: Colors.white,
                 fontSize: width * .05,
@@ -61,7 +66,7 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                 height: height * .7,
                 child: VimeoPlayer(
                     videoId: VitaminScreenCubit.get(context)
-                        .specificVitamin!
+                        .specificSupplement!
                         .data
                         .video
                         .publicId.toString())),
@@ -77,7 +82,7 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        VitaminScreenCubit.get(context).specificVitamin!.data.title,
+                        VitaminScreenCubit.get(context).specificSupplement!.data.title,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
@@ -98,7 +103,7 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    VitaminScreenCubit.get(context).specificVitamin!.data.description,
+                    VitaminScreenCubit.get(context).specificSupplement!.data.description,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: width * .04,
@@ -108,17 +113,17 @@ class _VitaminDetailsState extends State<VitaminDetails> {
                     height: height * .035,
                   ),
                   Image(image: NetworkImage(
-                    VitaminScreenCubit.get(context).specificVitamin!.data.image,
+                    VitaminScreenCubit.get(context).specificSupplement!.data.image,
                   ))
                 ],
               ),
             )
           ],
         ),
-      ),
+      )
     ): Center(
       child: MyLoadingIndicator(height: height*.3, color: Colors.red),
-    )  ;
+    );
   },
 );
   }
