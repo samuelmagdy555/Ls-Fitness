@@ -33,6 +33,7 @@ class EndPoints{
   static String capturePayment = 'orders/capture-payment';
   static String chats = 'chats/myChats';
   static String messages = 'messages';
+  static String reactions = 'reactions';
 
 
 

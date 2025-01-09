@@ -29,15 +29,14 @@ class ChatRoom extends StatefulWidget {
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
-class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin {
+class _ChatRoomState extends State<ChatRoom>
+    with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   int currentPage = 1;
 
   OverlayEntry? _emojiOverlay;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
-
 
   @override
   void dispose() {
@@ -47,7 +46,7 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  void _showEmojiPicker(BuildContext context, Offset offset) {
+  void _showEmojiPicker(BuildContext context, Offset offset, String messageID) {
     final overlay = Overlay.of(context);
     final screenSize = MediaQuery.of(context).size;
     print(screenSize.width);
@@ -62,7 +61,7 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
       builder: (context) {
         return Positioned(
           left: 0,
-          top: top+35,
+          top: top + 35,
           child: FadeTransition(
             opacity: _fadeAnimation,
             child: Material(
@@ -71,18 +70,17 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(17.5),
-                    color: Colors.white12
-                ),
+                    color: Colors.white12),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _emojiButton('👍'),
-                    _emojiButton('❤️'),
-                    _emojiButton('😂'),
-                    _emojiButton('😮'),
-                    _emojiButton('😢'),
-                    _emojiButton('💪🏻'),
-                    _emojiButton('🦍'),
+                    _emojiButton('👍', messageID),
+                    _emojiButton('❤️', messageID),
+                    _emojiButton('😂', messageID),
+                    _emojiButton('😮', messageID),
+                    _emojiButton('😢', messageID),
+                    _emojiButton('💪🏻', messageID),
+                    _emojiButton('🦍', messageID),
                   ],
                 ),
               ),
@@ -96,10 +94,11 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
     _animationController.forward(); // بدء الحركة
   }
 
-  Widget _emojiButton(String emoji) {
+  Widget _emojiButton(String emoji, String messageID) {
     return GestureDetector(
       onTap: () {
-        // تنفيذ إجراء عند اختيار الإيموجي
+        ChatCubit.get(context)
+            .sendEmoji(LoginCubit.id, widget.id, messageID, emoji);
         _animationController.reverse().then((_) {
           _emojiOverlay?.remove();
           _emojiOverlay = null;
@@ -158,7 +157,6 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
     super.deactivate();
   }
 
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -182,23 +180,24 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
         title: Row(
           children: [
             CircleAvatar(
+              radius: width * .047,
               backgroundImage: NetworkImage(
                   'https://img.freepik.com/free-photo/half-length-close-up-portrait-young-hindoo-man-white-shirt-blue-space_155003-26772.jpg?t=st=1735759637~exp=1735763237~hmac=2df5ba350ac04b076137753a0b7ed6b487d3a81a585d75bd76f5b974e3c767a0&w=900'),
             ),
             SizedBox(width: 10),
             Text(
               widget.name,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: width * .0435),
             ),
           ],
         ),
       ),
       body: GestureDetector(
-        onTap: (){
-
-      _animationController.reverse().then((_) {
-        _emojiOverlay?.remove();
-        _emojiOverlay = null;});
+        onTap: () {
+          _animationController.reverse().then((_) {
+            _emojiOverlay?.remove();
+            _emojiOverlay = null;
+          });
         },
         child: Column(
           children: [
@@ -218,7 +217,8 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
                                     parent: BouncingScrollPhysics()),
                                 shrinkWrap: true,
                                 padding: EdgeInsets.all(16),
-                                itemCount: ChatCubit.get(context).myChats!.length,
+                                itemCount:
+                                    ChatCubit.get(context).myChats!.length,
                                 itemBuilder: (context, index) {
                                   DateTime dateTime = DateTime.parse(
                                       ChatCubit.get(context)
@@ -227,7 +227,13 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
                                   String timeAgo = timeago.format(dateTime);
                                   return GestureDetector(
                                     onLongPressStart: (details) {
-                                      _showEmojiPicker(context, details.globalPosition);
+                                      _showEmojiPicker(
+                                          context,
+                                          details.globalPosition,
+                                          ChatCubit.get(context)
+                                              .myChats[index]
+                                              .id
+                                              .toString());
                                     },
                                     child: ChatBubble(
                                       message: ChatCubit.get(context)
@@ -246,19 +252,24 @@ class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin
                                           ? true
                                           : false,
                                       isReplayedName: ChatCubit.get(context)
-                                          .myChats[index]
-                                          .repliedTo !=
-                                          null
+                                                  .myChats[index]
+                                                  .repliedTo !=
+                                              null
                                           ? ChatCubit.get(context)
-                                          .myChats[index]
-                                          .repliedTo!.sender!.username : 'null',
+                                              .myChats[index]
+                                              .repliedTo!
+                                              .sender!
+                                              .username
+                                          : 'null',
                                       isReplayedText: ChatCubit.get(context)
-                                          .myChats[index]
-                                          .repliedTo !=
-                                          null
+                                                  .myChats[index]
+                                                  .repliedTo !=
+                                              null
                                           ? ChatCubit.get(context)
-                                          .myChats[index]
-                                          .repliedTo!.text : 'null',
+                                              .myChats[index]
+                                              .repliedTo!
+                                              .text
+                                          : 'null',
                                     ),
                                   );
                                 }))
@@ -300,8 +311,8 @@ class ChatBubble extends StatelessWidget {
     required this.isSentByMe,
     required this.time,
     required this.isReplayed,
-     this.isReplayedName,
-     this.isReplayedText,
+    this.isReplayedName,
+    this.isReplayedText,
   });
 
   @override
@@ -316,9 +327,7 @@ class ChatBubble extends StatelessWidget {
             isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: width*.7
-            ),
+            constraints: BoxConstraints(maxWidth: width * .5),
             child: Container(
               margin: EdgeInsets.symmetric(vertical: 5),
               padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 10),
@@ -333,11 +342,11 @@ class ChatBubble extends StatelessWidget {
               ),
               child: !isReplayed
                   ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               color: Colors.white38,
                               borderRadius: BorderRadius.circular(8)),
@@ -345,16 +354,18 @@ class ChatBubble extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(isReplayedName! , style: TextStyle(
-                                fontSize: width*.04,
-                                fontWeight: FontWeight.w500
-                              ),),
-                              Text(isReplayedText!, style: TextStyle(
-                                  fontSize: width*.04,
-                                  fontWeight: FontWeight.w500
-                              ),)
-
-
+                              Text(
+                                isReplayedName!,
+                                style: TextStyle(
+                                    fontSize: width * .035,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                isReplayedText!,
+                                style: TextStyle(
+                                    fontSize: width * .035,
+                                    fontWeight: FontWeight.w500),
+                              )
                             ],
                           ),
                         ),
@@ -363,14 +374,18 @@ class ChatBubble extends StatelessWidget {
                         ),
                         Text(
                           message,
-                          style: TextStyle(color: Colors.white,fontSize: width*.04,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: width * .035,
                               fontWeight: FontWeight.w400),
                         ),
                       ],
                     )
                   : Text(
                       message,
-                      style: TextStyle(color: Colors.white,fontSize: width*.04,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: width * .035,
                           fontWeight: FontWeight.w400),
                     ),
             ),

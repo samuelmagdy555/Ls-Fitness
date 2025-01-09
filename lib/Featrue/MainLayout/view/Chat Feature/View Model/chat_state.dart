@@ -18,3 +18,7 @@ final class GetSpecificChatMessagesError  extends ChatState {}
 final class SendMessageLoading extends ChatState {}
 final class SendMessageSuccess extends ChatState {}
 final class SendMessageError  extends ChatState {}
+
+final class AddReactionToMessageLoading extends ChatState {}
+final class AddReactionToMessageSuccess extends ChatState {}
+final class AddReactionToMessageError  extends ChatState {}

@@ -209,14 +209,14 @@ class Media {
 class Reactions {
   User? user;
   String? emoji;
-  String? sId;
+  String? id;
 
-  Reactions({this.user, this.emoji, this.sId});
+  Reactions({this.user, this.emoji, this.id});
 
   Reactions.fromJson(Map<String, dynamic> json) {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     emoji = json['emoji'];
-    sId = json['_id'];
+    id = json['_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -225,7 +225,7 @@ class Reactions {
       data['user'] = this.user!.toJson();
     }
     data['emoji'] = this.emoji;
-    data['_id'] = this.sId;
+    data['_id'] = this.id;
     return data;
   }
 }

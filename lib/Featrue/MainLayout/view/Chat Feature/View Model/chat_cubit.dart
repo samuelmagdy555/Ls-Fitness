@@ -68,7 +68,9 @@ class ChatCubit extends Cubit<ChatState> {
       {required String ChatID,
       required String message,
       required String receiverId,
-      required TextEditingController controller , required bool isGroub, List<Participants>? participants}) async {
+      required TextEditingController controller,
+      required bool isGroub,
+      List<Participants>? participants}) async {
     try {
       print(isGroub);
       Chats chat = Chats(
@@ -77,7 +79,6 @@ class ChatCubit extends Cubit<ChatState> {
           sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
           text: message,
           media: [],
-
           reactions: [],
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
@@ -88,21 +89,16 @@ class ChatCubit extends Cubit<ChatState> {
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           data: {'text': message});
 
-      if(!isGroub){
+      if (!isGroub) {
         sendPrivateMessage(LoginCubit.id, receiverId, message);
-
-      }
-      else{
+      } else {
         int num = 0;
         joinRoom(LoginCubit.id, ChatID);
 
-        for(var element in participants!){
-
+        for (var element in participants!) {
           joinRoom(element.userDetails.id, ChatID);
           print('id isssssssssssssssssssssssssssssssssssssss');
           print(element.userDetails!.id);
-
-
         }
         sendGroupMessage(LoginCubit.id, ChatID, message, '');
       }
@@ -116,7 +112,27 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-
+  Future<void> addReactionToMessage(
+      {required String senderId,
+      required String receiverId,
+      required String messageId,
+      required String emoji , required int index}) async {
+    emit(AddReactionToMessageLoading());
+    try {
+      sendEmoji(senderId, receiverId, messageId, emoji);
+      Reactions reaction = Reactions(
+          user: User(sId: LoginCubit.id, username: LoginCubit.name),
+          emoji: emoji,
+          id: '');
+      final response = await DioHelper.put(
+          end_ponit: '${EndPoints.messages}/$messageId/${EndPoints.reactions}',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          data: {'emoji': emoji});
+      emit(AddReactionToMessageSuccess());
+    } catch (e) {
+      emit(AddReactionToMessageError());
+    }
+  }
 
   void handleIncomingMessage(String rawMessage) {
     String cleanedMessage = rawMessage
@@ -165,10 +181,9 @@ class ChatCubit extends Cubit<ChatState> {
       Chats chat = Chats(
           id: '',
           chat: '',
-           sender: Sender(id: data['senderId'], username: ''),
+          sender: Sender(id: data['senderId'], username: ''),
           text: data['text'],
           media: [],
-
           reactions: [],
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
@@ -185,8 +200,6 @@ class ChatCubit extends Cubit<ChatState> {
     // Connect to the server
   }
 
-
-
   // Join a room
   void joinRoom(String userId, String roomId) {
     print('joinRoom doneeeeeeeeeeee');
@@ -199,18 +212,29 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   // Send a private message
-  void sendPrivateMessage(String senderId, String receiverId, String text ) {
+  void sendPrivateMessage(String senderId, String receiverId, String text) {
     _socket.emit('sendMessage', {
       'senderId': senderId,
       'receiverId': receiverId,
       'text': text,
-
     });
   }
 
+  void sendEmoji(
+      String senderId, String receiverId, String messageId, String emoji) {
+    _socket.emit('toggleReaction', {
+      'senderId': senderId,
+      'receiverId': receiverId,
+      'messageId': messageId,
+      'emoji': emoji
+    });
+
+    print('sendEmoji doneeeeeeeeeeee');
+  }
+
   // Send a group message
-  void sendGroupMessage(String senderId, String roomId,
-      String payload, String action) {
+  void sendGroupMessage(
+      String senderId, String roomId, String payload, String action) {
     _socket.emit('sendMessage', {
       'senderId': senderId,
       'roomId': roomId,
