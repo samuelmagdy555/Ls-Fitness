@@ -77,8 +77,7 @@ class ChatCubit extends Cubit<ChatState> {
           sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
           text: message,
           media: [],
-          isRead: false,
-          seendBy: [],
+
           reactions: [],
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
@@ -169,8 +168,7 @@ class ChatCubit extends Cubit<ChatState> {
            sender: Sender(id: data['senderId'], username: ''),
           text: data['text'],
           media: [],
-          isRead: false,
-          seendBy: [],
+
           reactions: [],
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());

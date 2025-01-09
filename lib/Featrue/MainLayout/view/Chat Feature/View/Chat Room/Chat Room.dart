@@ -16,9 +16,14 @@ class ChatRoom extends StatefulWidget {
   final String roomId;
   final String name;
   final bool isGroup;
-  final List<Participants>participants;
+  final List<Participants> participants;
 
-  ChatRoom({required this.name, required this.id, required this.roomId, required this.isGroup, required this.participants});
+  ChatRoom(
+      {required this.name,
+      required this.id,
+      required this.roomId,
+      required this.isGroup,
+      required this.participants});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -126,23 +131,44 @@ class _ChatRoomState extends State<ChatRoom> {
                                         .createdAt!);
                                 String timeAgo = timeago.format(dateTime);
                                 return ChatBubble(
-                                    message: ChatCubit.get(context)
-                                        .myChats[index]
-                                        .text!,
-                                    isSentByMe: ChatCubit.get(context)
-                                            .myChats[index]
-                                            .sender!
-                                            .id ==
-                                        LoginCubit.id,
-                                    time: timeAgo,   );
+                                  message: ChatCubit.get(context)
+                                      .myChats[index]
+                                      .text!,
+                                  isSentByMe: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .sender!
+                                          .id ==
+                                      LoginCubit.id,
+                                  time: timeAgo,
+                                  isReplayed: ChatCubit.get(context)
+                                              .myChats[index]
+                                              .repliedTo ==
+                                          null
+                                      ? true
+                                      : false,
+                                  isReplayedName: ChatCubit.get(context)
+                                      .myChats[index]
+                                      .repliedTo !=
+                                      null
+                                      ? ChatCubit.get(context)
+                                      .myChats[index]
+                                      .repliedTo!.sender!.username : 'null',
+                                  isReplayedText: ChatCubit.get(context)
+                                      .myChats[index]
+                                      .repliedTo !=
+                                      null
+                                      ? ChatCubit.get(context)
+                                      .myChats[index]
+                                      .repliedTo!.text : 'null',
+                                );
                               }))
                       : Expanded(
-                        child: Center(
-                            child: Text(
+                          child: Center(
+                              child: Text(
                             'No messages yet ...',
-                            style: TextStyle(color: Colors.red , fontSize: 20),
+                            style: TextStyle(color: Colors.red, fontSize: 20),
                           )),
-                      )
+                        )
                   : Expanded(
                       child: MyLoadingIndicator(
                           height: height * .3, color: Colors.red));
@@ -150,10 +176,10 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
           ChatInputField(
             roomID: widget.roomId,
-            receiverId: widget.id, isGroup: widget.isGroup,
-
-
-            participants: widget.isGroup ? widget.participants : null,),
+            receiverId: widget.id,
+            isGroup: widget.isGroup,
+            participants: widget.isGroup ? widget.participants : null,
+          ),
         ],
       ),
     );
@@ -164,36 +190,87 @@ class ChatBubble extends StatelessWidget {
   final String message;
   final bool isSentByMe;
   final String time;
+  final bool isReplayed;
+  final String? isReplayedName;
+  final String? isReplayedText;
 
   const ChatBubble({
     required this.message,
     required this.isSentByMe,
     required this.time,
+    required this.isReplayed,
+     this.isReplayedName,
+     this.isReplayedText,
   });
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     return Align(
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
         crossAxisAlignment:
             isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 5),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-              color: isSentByMe ? Colors.red : Colors.grey[800],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-                bottomLeft: isSentByMe ? Radius.circular(12) : Radius.zero,
-                bottomRight: isSentByMe ? Radius.zero : Radius.circular(12),
-              ),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: width*.7
             ),
-            child: Text(
-              message,
-              style: TextStyle(color: Colors.white),
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                  bottomLeft: isSentByMe ? Radius.circular(12) : Radius.zero,
+                  bottomRight: isSentByMe ? Radius.zero : Radius.circular(12),
+                ),
+              ),
+              child: !isReplayed
+                  ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.white38,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(isReplayedName! , style: TextStyle(
+                                fontSize: width*.04,
+                                fontWeight: FontWeight.w500
+                              ),),
+                              Text(isReplayedText!, style: TextStyle(
+                                  fontSize: width*.04,
+                                  fontWeight: FontWeight.w500
+                              ),)
+
+
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '515151qqqqqqqqqqqqqqqqqqqqqqq',
+                          style: TextStyle(color: Colors.white,fontSize: width*.04,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      message,
+                      style: TextStyle(color: Colors.white),
+                    ),
             ),
           ),
           Text(
@@ -212,7 +289,11 @@ class ChatInputField extends StatefulWidget {
   final bool isGroup;
   List<Participants>? participants;
 
-  ChatInputField({required this.roomID, required this.receiverId, required this.isGroup , this.participants});
+  ChatInputField(
+      {required this.roomID,
+      required this.receiverId,
+      required this.isGroup,
+      this.participants});
 
   @override
   State<ChatInputField> createState() => _ChatInputFieldState();
@@ -260,8 +341,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   ChatID: widget.roomID,
                   message: message.text,
                   receiverId: widget.receiverId,
-                  controller: message, isGroub: widget.isGroup ,
-              participants: widget.isGroup ? widget.participants : null);
+                  controller: message,
+                  isGroub: widget.isGroup,
+                  participants: widget.isGroup ? widget.participants : null);
             },
           ),
         ],

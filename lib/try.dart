@@ -8,54 +8,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ScrollEndDemo(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('WhatsApp Clone'),
+        ),
+        body: ChatScreen(),
+      ),
     );
   }
 }
 
-class ScrollEndDemo extends StatefulWidget {
-  @override
-  _ScrollEndDemoState createState() => _ScrollEndDemoState();
-}
-
-class _ScrollEndDemoState extends State<ScrollEndDemo> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Listen for scroll events
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        bool isAtBottom = _scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent;
-        if (isAtBottom) {
-          print('Reached the end of the list');
-        }
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose(); // Clean up the controller
-    super.dispose();
-  }
+class ChatScreen extends StatelessWidget {
+  final List<String> messages = [
+    "استة بيتكلم",
+    "واللغتهمامتاممةاحمحاحاخحاحاحاحل الالا",
+    "10:54 pm",
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('ListView Scroll End')),
-      body: ListView.builder(
-        controller: _scrollController, // Attach the controller
-        itemCount: 50, // Example item count
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Item $index'),
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: messages.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: AssetImage('assets/samuel_magdy.jpg'), // تأكد من إضافة الصورة إلى مجلد assets
+          ),
+          title: Text('Samuel Magdy'),
+          subtitle: Text(messages[index]),
+          trailing: Text('10:54 pm'),
+        );
+      },
     );
   }
 }

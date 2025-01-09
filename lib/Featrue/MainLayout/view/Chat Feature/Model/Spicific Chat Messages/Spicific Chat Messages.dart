@@ -1,49 +1,46 @@
 class SpecificChatMessages {
-  SpecificChatMessages({
-    this.results,
-    this.totalCount,
-    this.paginationResult,
-    this.chats,
-  });
-  late final int? results;
-  late final int? totalCount;
-  late final PaginationResult? paginationResult;
-  late final List<Chats>? chats;
+  int? results;
+  int? totalCount;
+  PaginationResult? paginationResult;
+  List<Chats>? chats;
+
+  SpecificChatMessages(
+      {this.results, this.totalCount, this.paginationResult, this.chats});
 
   SpecificChatMessages.fromJson(Map<String, dynamic> json) {
     results = json['results'];
     totalCount = json['totalCount'];
     paginationResult = json['paginationResult'] != null
-        ? PaginationResult.fromJson(json['paginationResult'])
+        ? new PaginationResult.fromJson(json['paginationResult'])
         : null;
-    chats = json['data'] != null
-        ? List.from(json['data']).map((e) => Chats.fromJson(e)).toList()
-        : null;
+    if (json['data'] != null) {
+      chats = <Chats>[];
+      json['data'].forEach((v) {
+        chats!.add(new Chats.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['results'] = results;
-    _data['totalCount'] = totalCount;
-    if (paginationResult != null) {
-      _data['paginationResult'] = paginationResult!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['results'] = this.results;
+    data['totalCount'] = this.totalCount;
+    if (this.paginationResult != null) {
+      data['paginationResult'] = this.paginationResult!.toJson();
     }
-    if (chats != null) {
-      _data['data'] = chats!.map((e) => e.toJson()).toList();
+    if (this.chats != null) {
+      data['data'] = this.chats!.map((v) => v.toJson()).toList();
     }
-    return _data;
+    return data;
   }
 }
 
 class PaginationResult {
-  PaginationResult({
-    this.currentPage,
-    this.limit,
-    this.numberOfPages,
-  });
-  late final int? currentPage;
-  late final int? limit;
-  late final int? numberOfPages;
+  int? currentPage;
+  int? limit;
+  int? numberOfPages;
+
+  PaginationResult({this.currentPage, this.limit, this.numberOfPages});
 
   PaginationResult.fromJson(Map<String, dynamic> json) {
     currentPage = json['currentPage'];
@@ -52,78 +49,93 @@ class PaginationResult {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['currentPage'] = currentPage;
-    _data['limit'] = limit;
-    _data['numberOfPages'] = numberOfPages;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['currentPage'] = this.currentPage;
+    data['limit'] = this.limit;
+    data['numberOfPages'] = this.numberOfPages;
+    return data;
   }
 }
 
 class Chats {
-  Chats({
-    this.id,
-    this.chat,
-    this.sender,
-    this.text,
-    this.media,
-    this.isRead,
-    this.seendBy,
-    this.reactions,
-    this.createdAt,
-    this.updatedAt,
-  });
-  late final String? id;
-  late final String? chat;
-  late final Sender? sender;
-  late final String? text;
-  late final List<dynamic>? media;
-  late final bool? isRead;
-  late final List<dynamic>? seendBy;
-  late final List<dynamic>? reactions;
-  late final String? createdAt;
-  late final String? updatedAt;
+  String? id;
+  String? chat;
+  Sender? sender;
+  String? text;
+  RepliedTo? repliedTo;
+  List<Media>? media;
+  List<Reactions>? reactions;
+  String? createdAt;
+  String? updatedAt;
+
+  Chats(
+      {this.id,
+        this.chat,
+        this.sender,
+        this.text,
+        this.repliedTo,
+        this.media,
+        this.reactions,
+        this.createdAt,
+        this.updatedAt});
 
   Chats.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     chat = json['chat'];
-    sender = json['sender'] != null ? Sender.fromJson(json['sender']) : null;
+    sender =
+    json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
     text = json['text'];
-    media = json['media'] != null ? List.castFrom<dynamic, dynamic>(json['media']) : null;
-    isRead = json['isRead'];
-    seendBy = json['seendBy'] != null ? List.castFrom<dynamic, dynamic>(json['seendBy']) : null;
-    reactions = json['reactions'] != null ? List.castFrom<dynamic, dynamic>(json['reactions']) : null;
+
+    repliedTo = json['repliedTo'] != null
+        ? new RepliedTo.fromJson(json['repliedTo'])
+        : null;
+    if (json['media'] != null) {
+      media = <Media>[];
+      json['media'].forEach((v) {
+        media!.add(new Media.fromJson(v));
+      });
+    }
+    if (json['reactions'] != null) {
+      reactions = <Reactions>[];
+      json['reactions'].forEach((v) {
+        reactions!.add(new Reactions.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['chat'] = chat;
-    if (sender != null) {
-      _data['sender'] = sender!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.id;
+    data['chat'] = this.chat;
+    if (this.sender != null) {
+      data['sender'] = this.sender!.toJson();
     }
-    _data['text'] = text;
-    _data['media'] = media;
-    _data['isRead'] = isRead;
-    _data['seendBy'] = seendBy;
-    _data['reactions'] = reactions;
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
-    return _data;
+    data['text'] = this.text;
+
+
+    if (this.repliedTo != null) {
+      data['repliedTo'] = this.repliedTo!.toJson();
+    }
+    if (this.media != null) {
+      data['media'] = this.media!.map((v) => v.toJson()).toList();
+    }
+    if (this.reactions != null) {
+      data['reactions'] = this.reactions!.map((v) => v.toJson()).toList();
+    }
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    return data;
   }
 }
 
 class Sender {
-  Sender({
-    this.id,
-    this.username,
-    this.profileImg,
-  });
-  late final String? id;
-  late final String? username;
-  late final String? profileImg;
+  String? id;
+  String? username;
+  String? profileImg;
+
+  Sender({this.id, this.username, this.profileImg});
 
   Sender.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
@@ -132,10 +144,107 @@ class Sender {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['username'] = username;
-    _data['profileImg'] = profileImg;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.id;
+    data['username'] = this.username;
+    data['profileImg'] = this.profileImg;
+    return data;
+  }
+}
+
+class RepliedTo {
+  String? sId;
+  Sender? sender;
+  String? text;
+  List<Media>? media;
+
+  RepliedTo({this.sId, this.sender, this.text, this.media});
+
+  RepliedTo.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    sender =
+    json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
+    text = json['text'];
+    if (json['media'] != null) {
+      media = <Media>[];
+      json['media'].forEach((v) {
+        media!.add(new Media.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    if (this.sender != null) {
+      data['sender'] = this.sender!.toJson();
+    }
+    data['text'] = this.text;
+    if (this.media != null) {
+      data['media'] = this.media!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Media {
+  String? url;
+  String? type;
+
+  Media({this.url, this.type});
+
+  Media.fromJson(Map<String, dynamic> json) {
+    url = json['url'];
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['url'] = this.url;
+    data['type'] = this.type;
+    return data;
+  }
+}
+
+class Reactions {
+  User? user;
+  String? emoji;
+  String? sId;
+
+  Reactions({this.user, this.emoji, this.sId});
+
+  Reactions.fromJson(Map<String, dynamic> json) {
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    emoji = json['emoji'];
+    sId = json['_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    data['emoji'] = this.emoji;
+    data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class User {
+  String? sId;
+  String? username;
+
+  User({this.sId, this.username});
+
+  User.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    username = json['username'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['username'] = this.username;
+    return data;
   }
 }
