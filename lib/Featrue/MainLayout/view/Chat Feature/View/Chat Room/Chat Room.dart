@@ -29,9 +29,94 @@ class ChatRoom extends StatefulWidget {
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
-class _ChatRoomState extends State<ChatRoom> {
+class _ChatRoomState extends State<ChatRoom> with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   int currentPage = 1;
+
+  OverlayEntry? _emojiOverlay;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+
+
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _scrollController.dispose(); // تنظيف الـ ScrollController
+
+    super.dispose();
+  }
+
+  void _showEmojiPicker(BuildContext context, Offset offset) {
+    final overlay = Overlay.of(context);
+    final screenSize = MediaQuery.of(context).size;
+    print(screenSize.width);
+
+    // احسب المواضع بشكل ديناميكي
+    double left = offset.dx; // الموضع الأفقي
+    double top = offset.dy; // الموضع العمودي
+
+    print(left);
+
+    _emojiOverlay = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          left: 0,
+          top: top+35,
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(17.5),
+                    color: Colors.white12
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _emojiButton('👍'),
+                    _emojiButton('❤️'),
+                    _emojiButton('😂'),
+                    _emojiButton('😮'),
+                    _emojiButton('😢'),
+                    _emojiButton('💪🏻'),
+                    _emojiButton('🦍'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    overlay.insert(_emojiOverlay!);
+    _animationController.forward(); // بدء الحركة
+  }
+
+  Widget _emojiButton(String emoji) {
+    return GestureDetector(
+      onTap: () {
+        // تنفيذ إجراء عند اختيار الإيموجي
+        _animationController.reverse().then((_) {
+          _emojiOverlay?.remove();
+          _emojiOverlay = null;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('You selected $emoji')),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          emoji,
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -54,6 +139,14 @@ class _ChatRoomState extends State<ChatRoom> {
         }
       }
     });
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 300),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -65,11 +158,6 @@ class _ChatRoomState extends State<ChatRoom> {
     super.deactivate();
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose(); // تنظيف الـ ScrollController
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,82 +193,95 @@ class _ChatRoomState extends State<ChatRoom> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          BlocConsumer<ChatCubit, ChatState>(
-            listener: (context, state) {
-              // TODO: implement listener
-            },
-            builder: (context, state) {
-              return ChatCubit.get(context).specificChatMessages != null
-                  ? ChatCubit.get(context).myChats.isNotEmpty
-                      ? Expanded(
-                          child: ListView.builder(
-                              controller: _scrollController,
-                              reverse: false,
-                              scrollDirection: Axis.vertical,
-                              physics: AlwaysScrollableScrollPhysics(
-                                  parent: BouncingScrollPhysics()),
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(16),
-                              itemCount: ChatCubit.get(context).myChats!.length,
-                              itemBuilder: (context, index) {
-                                DateTime dateTime = DateTime.parse(
-                                    ChatCubit.get(context)
-                                        .myChats[index]
-                                        .createdAt!);
-                                String timeAgo = timeago.format(dateTime);
-                                return ChatBubble(
-                                  message: ChatCubit.get(context)
-                                      .myChats[index]
-                                      .text!,
-                                  isSentByMe: ChatCubit.get(context)
+      body: GestureDetector(
+        onTap: (){
+
+      _animationController.reverse().then((_) {
+        _emojiOverlay?.remove();
+        _emojiOverlay = null;});
+        },
+        child: Column(
+          children: [
+            BlocConsumer<ChatCubit, ChatState>(
+              listener: (context, state) {
+                // TODO: implement listener
+              },
+              builder: (context, state) {
+                return ChatCubit.get(context).specificChatMessages != null
+                    ? ChatCubit.get(context).myChats.isNotEmpty
+                        ? Expanded(
+                            child: ListView.builder(
+                                controller: _scrollController,
+                                reverse: false,
+                                scrollDirection: Axis.vertical,
+                                physics: AlwaysScrollableScrollPhysics(
+                                    parent: BouncingScrollPhysics()),
+                                shrinkWrap: true,
+                                padding: EdgeInsets.all(16),
+                                itemCount: ChatCubit.get(context).myChats!.length,
+                                itemBuilder: (context, index) {
+                                  DateTime dateTime = DateTime.parse(
+                                      ChatCubit.get(context)
                                           .myChats[index]
-                                          .sender!
-                                          .id ==
-                                      LoginCubit.id,
-                                  time: timeAgo,
-                                  isReplayed: ChatCubit.get(context)
+                                          .createdAt!);
+                                  String timeAgo = timeago.format(dateTime);
+                                  return GestureDetector(
+                                    onLongPressStart: (details) {
+                                      _showEmojiPicker(context, details.globalPosition);
+                                    },
+                                    child: ChatBubble(
+                                      message: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .text!,
+                                      isSentByMe: ChatCubit.get(context)
                                               .myChats[index]
-                                              .repliedTo ==
+                                              .sender!
+                                              .id ==
+                                          LoginCubit.id,
+                                      time: timeAgo,
+                                      isReplayed: ChatCubit.get(context)
+                                                  .myChats[index]
+                                                  .repliedTo ==
+                                              null
+                                          ? true
+                                          : false,
+                                      isReplayedName: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .repliedTo !=
                                           null
-                                      ? true
-                                      : false,
-                                  isReplayedName: ChatCubit.get(context)
-                                      .myChats[index]
-                                      .repliedTo !=
-                                      null
-                                      ? ChatCubit.get(context)
-                                      .myChats[index]
-                                      .repliedTo!.sender!.username : 'null',
-                                  isReplayedText: ChatCubit.get(context)
-                                      .myChats[index]
-                                      .repliedTo !=
-                                      null
-                                      ? ChatCubit.get(context)
-                                      .myChats[index]
-                                      .repliedTo!.text : 'null',
-                                );
-                              }))
-                      : Expanded(
-                          child: Center(
-                              child: Text(
-                            'No messages yet ...',
-                            style: TextStyle(color: Colors.red, fontSize: 20),
-                          )),
-                        )
-                  : Expanded(
-                      child: MyLoadingIndicator(
-                          height: height * .3, color: Colors.red));
-            },
-          ),
-          ChatInputField(
-            roomID: widget.roomId,
-            receiverId: widget.id,
-            isGroup: widget.isGroup,
-            participants: widget.isGroup ? widget.participants : null,
-          ),
-        ],
+                                          ? ChatCubit.get(context)
+                                          .myChats[index]
+                                          .repliedTo!.sender!.username : 'null',
+                                      isReplayedText: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .repliedTo !=
+                                          null
+                                          ? ChatCubit.get(context)
+                                          .myChats[index]
+                                          .repliedTo!.text : 'null',
+                                    ),
+                                  );
+                                }))
+                        : Expanded(
+                            child: Center(
+                                child: Text(
+                              'No messages yet ...',
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            )),
+                          )
+                    : Expanded(
+                        child: MyLoadingIndicator(
+                            height: height * .3, color: Colors.red));
+              },
+            ),
+            ChatInputField(
+              roomID: widget.roomId,
+              receiverId: widget.id,
+              isGroup: widget.isGroup,
+              participants: widget.isGroup ? widget.participants : null,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -220,7 +321,7 @@ class ChatBubble extends StatelessWidget {
             ),
             child: Container(
               margin: EdgeInsets.symmetric(vertical: 5),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 10),
               decoration: BoxDecoration(
                 color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
                 borderRadius: BorderRadius.only(
@@ -261,7 +362,7 @@ class ChatBubble extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          '515151qqqqqqqqqqqqqqqqqqqqqqq',
+                          message,
                           style: TextStyle(color: Colors.white,fontSize: width*.04,
                               fontWeight: FontWeight.w400),
                         ),
@@ -269,7 +370,8 @@ class ChatBubble extends StatelessWidget {
                     )
                   : Text(
                       message,
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,fontSize: width*.04,
+                          fontWeight: FontWeight.w400),
                     ),
             ),
           ),
