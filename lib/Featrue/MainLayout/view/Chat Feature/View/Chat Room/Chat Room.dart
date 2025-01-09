@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/Model/Spicific%20Chat%20Messages/Spicific%20Chat%20Messages.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/chat_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/chat_cubit.dart';
 
@@ -41,19 +42,19 @@ class _ChatRoomState extends State<ChatRoom>
   @override
   void dispose() {
     _animationController.dispose();
-    _scrollController.dispose(); // تنظيف الـ ScrollController
+    _scrollController.dispose();
 
     super.dispose();
   }
 
-  void _showEmojiPicker(BuildContext context, Offset offset, String messageID) {
+  void _showEmojiPicker(
+      BuildContext context, Offset offset, String messageID, int index) {
     final overlay = Overlay.of(context);
     final screenSize = MediaQuery.of(context).size;
     print(screenSize.width);
 
-    // احسب المواضع بشكل ديناميكي
-    double left = offset.dx; // الموضع الأفقي
-    double top = offset.dy; // الموضع العمودي
+    double left = offset.dx;
+    double top = offset.dy;
 
     print(left);
 
@@ -74,13 +75,13 @@ class _ChatRoomState extends State<ChatRoom>
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _emojiButton('👍', messageID),
-                    _emojiButton('❤️', messageID),
-                    _emojiButton('😂', messageID),
-                    _emojiButton('😮', messageID),
-                    _emojiButton('😢', messageID),
-                    _emojiButton('💪🏻', messageID),
-                    _emojiButton('🦍', messageID),
+                    _emojiButton('👍', messageID, index),
+                    _emojiButton('❤️', messageID, index),
+                    _emojiButton('😂', messageID, index),
+                    _emojiButton('😮', messageID, index),
+                    _emojiButton('😢', messageID, index),
+                    _emojiButton('💪🏻', messageID, index),
+                    _emojiButton('🦍', messageID, index),
                   ],
                 ),
               ),
@@ -94,11 +95,15 @@ class _ChatRoomState extends State<ChatRoom>
     _animationController.forward(); // بدء الحركة
   }
 
-  Widget _emojiButton(String emoji, String messageID) {
+  Widget _emojiButton(String emoji, String messageID, int index) {
     return GestureDetector(
       onTap: () {
-        ChatCubit.get(context)
-            .sendEmoji(LoginCubit.id, widget.id, messageID, emoji);
+        ChatCubit.get(context).addReactionToMessage(
+            senderId: LoginCubit.id,
+            receiverId: widget.id,
+            messageId: messageID,
+            emoji: emoji,
+            index: index);
         _animationController.reverse().then((_) {
           _emojiOverlay?.remove();
           _emojiOverlay = null;
@@ -226,6 +231,10 @@ class _ChatRoomState extends State<ChatRoom>
                                           .createdAt!);
                                   String timeAgo = timeago.format(dateTime);
                                   return GestureDetector(
+                                    onTap: (){
+                                      print(index);
+
+                                    },
                                     onLongPressStart: (details) {
                                       _showEmojiPicker(
                                           context,
@@ -233,7 +242,8 @@ class _ChatRoomState extends State<ChatRoom>
                                           ChatCubit.get(context)
                                               .myChats[index]
                                               .id
-                                              .toString());
+                                              .toString(),
+                                          index);
                                     },
                                     child: ChatBubble(
                                       message: ChatCubit.get(context)
@@ -270,6 +280,9 @@ class _ChatRoomState extends State<ChatRoom>
                                               .repliedTo!
                                               .text
                                           : 'null',
+                                      reactions: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .reactions,
                                     ),
                                   );
                                 }))
@@ -305,6 +318,7 @@ class ChatBubble extends StatelessWidget {
   final bool isReplayed;
   final String? isReplayedName;
   final String? isReplayedText;
+  final List<Reactions>? reactions;
 
   const ChatBubble({
     required this.message,
@@ -313,6 +327,7 @@ class ChatBubble extends StatelessWidget {
     required this.isReplayed,
     this.isReplayedName,
     this.isReplayedText,
+    this.reactions,
   });
 
   @override
@@ -326,69 +341,105 @@ class ChatBubble extends StatelessWidget {
         crossAxisAlignment:
             isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: width * .5),
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 5),
-              padding: EdgeInsets.symmetric(horizontal: 7.5, vertical: 10),
-              decoration: BoxDecoration(
-                color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                  bottomLeft: isSentByMe ? Radius.circular(12) : Radius.zero,
-                  bottomRight: isSentByMe ? Radius.zero : Radius.circular(12),
-                ),
-              ),
-              child: !isReplayed
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: Colors.white38,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                isReplayedName!,
-                                style: TextStyle(
-                                    fontSize: width * .035,
-                                    fontWeight: FontWeight.w500),
+          Stack(
+            children: [
+
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: width * .5),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 10.5, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                      bottomLeft:
+                          isSentByMe ? Radius.circular(12) : Radius.zero,
+                      bottomRight:
+                          isSentByMe ? Radius.zero : Radius.circular(12),
+                    ),
+                  ),
+                  child: !isReplayed
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                  color: Colors.white38,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    isReplayedName!,
+                                    style: TextStyle(
+                                        fontSize: width * .035,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    isReplayedText!,
+                                    style: TextStyle(
+                                        fontSize: width * .035,
+                                        fontWeight: FontWeight.w500),
+                                  )
+                                ],
                               ),
-                              Text(
-                                isReplayedText!,
-                                style: TextStyle(
-                                    fontSize: width * .035,
-                                    fontWeight: FontWeight.w500),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              message,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * .035,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        )
+                      : Text(
                           message,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: width * .035,
                               fontWeight: FontWeight.w400),
                         ),
-                      ],
-                    )
-                  : Text(
-                      message,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * .035,
-                          fontWeight: FontWeight.w400),
+                ),
+              ),
+              if (reactions != null && reactions!.isNotEmpty)
+                Positioned(
+                  bottom: -height * .001,
+                  right: isSentByMe ? 5 : null,
+                  left: isSentByMe ? null : 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff850101),
+                      borderRadius: BorderRadius.circular(15),
+
                     ),
-            ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: reactions!
+                          .map(
+                            (reaction) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Text(
+                                reaction.emoji!,
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                )
+            ],
           ),
           Text(
             time,

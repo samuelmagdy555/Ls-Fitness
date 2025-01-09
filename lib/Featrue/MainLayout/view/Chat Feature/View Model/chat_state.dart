@@ -21,4 +21,5 @@ final class SendMessageError  extends ChatState {}
 
 final class AddReactionToMessageLoading extends ChatState {}
 final class AddReactionToMessageSuccess extends ChatState {}
+final class ChangeReactionId extends ChatState {}
 final class AddReactionToMessageError  extends ChatState {}

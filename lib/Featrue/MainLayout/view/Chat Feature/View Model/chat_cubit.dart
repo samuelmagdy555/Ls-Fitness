@@ -8,6 +8,7 @@ import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
+import '../Model/Add Reaction Model/Add Reaction Model.dart';
 import '../Model/My Chats Model/My Chats Model.dart';
 import '../Model/Send Message Model/Send Message Model.dart';
 import '../Model/Spicific Chat Messages/Spicific Chat Messages.dart';
@@ -27,7 +28,9 @@ class ChatCubit extends Cubit<ChatState> {
   MyChatsModel? myChatsModel;
   SpecificChatMessages? specificChatMessages;
   SendMessageModel? sendMessageModel;
+  AddReactionModel? addReactionModel;
   List<Chats> myChats = [];
+
 
   Future<void> getHomeChats() async {
     emit(GetHomeChatLoading());
@@ -112,6 +115,29 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+  void updateReactionIfExists({
+    required List<Chats> myChats,
+    required int index,
+    required Reactions newReaction,
+    required String userIdToCheck,
+  }) {
+    // تحقق من وجود الرياكشنات
+    if (myChats[index].reactions == null) {
+      myChats[index].reactions = [];
+    }
+
+    // ابحث عن الرياكشن الخاص بالمستخدم المطلوب
+    int existingReactionIndex = myChats[index].reactions!.indexWhere((reaction) =>
+    reaction.user != null && reaction.user!.sId == userIdToCheck);
+
+    if (existingReactionIndex != -1) {
+      // إذا وُجد، قم بتحديث الرياكشن
+      myChats[index].reactions![existingReactionIndex] = newReaction;
+    } else {
+      // إذا لم يُوجد، أضف الرياكشن الجديد
+      myChats[index].reactions!.add(newReaction);
+    }
+  }
   Future<void> addReactionToMessage(
       {required String senderId,
       required String receiverId,
@@ -119,17 +145,35 @@ class ChatCubit extends Cubit<ChatState> {
       required String emoji , required int index}) async {
     emit(AddReactionToMessageLoading());
     try {
+      print(index);
+      print(messageId);
       sendEmoji(senderId, receiverId, messageId, emoji);
-      Reactions reaction = Reactions(
-          user: User(sId: LoginCubit.id, username: LoginCubit.name),
-          emoji: emoji,
-          id: '');
-      final response = await DioHelper.put(
+      Reactions newReaction = Reactions(
+        user: User(sId: LoginCubit.id, username: LoginCubit.name),
+        emoji: emoji,
+        id: '',
+      );
+      updateReactionIfExists(
+        myChats: myChats,
+        index: index,
+        newReaction: newReaction,
+        userIdToCheck: LoginCubit.id,
+      );
+
+      print(specificChatMessages!.chats![index].text);
+      emit(ChangeReactionId());
+
+      final response = await DioHelper.post(
           end_ponit: '${EndPoints.messages}/$messageId/${EndPoints.reactions}',
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           data: {'emoji': emoji});
+      addReactionModel = AddReactionModel.fromJson(response.data);
+      myChats[index].reactions!.last.id = addReactionModel!.data!.id;
+
+
       emit(AddReactionToMessageSuccess());
     } catch (e) {
+      print(e.toString());
       emit(AddReactionToMessageError());
     }
   }
@@ -166,7 +210,7 @@ class ChatCubit extends Cubit<ChatState> {
 
     // Handle connection events
     _socket.onConnect((_) {
-      _socket.emit('addUser', {'userId': userId});
+      _socket.emit('addUser', {"userId": userId});
       print('Connected to Socket.IO server');
     });
 
@@ -218,6 +262,7 @@ class ChatCubit extends Cubit<ChatState> {
       'receiverId': receiverId,
       'text': text,
     });
+    print('sendPrivateMessage doneeeeeeeeeeee to id ${receiverId}');
   }
 
   void sendEmoji(
