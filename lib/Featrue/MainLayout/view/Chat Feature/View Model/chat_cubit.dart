@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -115,6 +116,87 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+  Future<void> sendFileMessages({
+    required String chatID,
+    String? message,
+    required String receiverId,
+    required TextEditingController controller,
+    required bool isGroup,
+    required List<File> files, // List of files (images, PDFs, Word documents)
+    List<Participants>? participants,
+  }) async {
+    try {
+      // Create media data
+      List<Map<String, dynamic>> mediaData = [];
+
+      for (var file in files) {
+        String fileName = file.path.split('/').last;
+
+        // Simulating file upload (e.g., API call to upload the file)
+        // Replace this with your actual file upload logic
+        String fileUrl = await uploadFile(file); // Implement this function for uploading
+
+        mediaData.add({
+          'fileName': fileName,
+          'url': fileUrl,
+        });
+      }
+
+      // Construct chat message
+      Chats chat = Chats(
+        id: '',
+        chat: '',
+        sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
+        text: message ?? '',
+        media: mediaData,
+        reactions: [],
+        createdAt: DateTime.now().toString(),
+        updatedAt: DateTime.now().toString(),
+      );
+
+      myChats.add(chat);
+
+      // Send message with text and media
+      await DioHelper.post(
+        end_ponit: '${EndPoints.messages}/$chatID',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        data: {
+          'text': message ?? '',
+          'media': mediaData,
+        },
+      );
+
+      // Handle group or private message logic
+      if (!isGroup) {
+        sendPrivateMessage(LoginCubit.id, receiverId, message ?? '');
+      } else {
+        joinRoom(LoginCubit.id, chatID);
+
+        for (var element in participants!) {
+          joinRoom(element.userDetails.id, chatID);
+        }
+
+        sendGroupMessage(LoginCubit.id, chatID, message ?? '', mediaData);
+      }
+
+      getHomeChats();
+      controller.clear();
+      emit(SendMessageSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(SendMessageError());
+    }
+  }
+
+// Helper function for uploading files (stub for demonstration purposes)
+  Future<String> uploadFile(File file) async {
+    // Replace this logic with actual file upload (e.g., Firebase, AWS S3, etc.)
+    // Simulate upload and return file URL
+    await Future.delayed(Duration(seconds: 2)); // Simulate delay
+    return 'https://example.com/uploads/${file.path.split('/').last}';
+  }
+
+
   void updateReactionIfExists({
     required List<Chats> myChats,
     required int index,
@@ -178,6 +260,8 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+
+
   void handleIncomingMessage(String rawMessage) {
     String cleanedMessage = rawMessage
         .replaceAll("{", '{"')
@@ -222,6 +306,7 @@ class ChatCubit extends Cubit<ChatState> {
     _socket.on('receiveMessage', (data) {
       print('New message received: $data');
 
+
       Chats chat = Chats(
           id: '',
           chat: '',
@@ -236,6 +321,35 @@ class ChatCubit extends Cubit<ChatState> {
 
       emit(GetSpecificChatMessagesSuccess());
     });
+
+    _socket.on('receiveReactionToMessage', (data) {
+      print('New Reaction received: $data');
+
+      Reactions newReaction = Reactions(
+        user: User(sId: data["senderId"], username: ''),
+        emoji: data["emoji"],
+        id: '',
+      );
+      for (var element in myChats) {
+        if (element.id == data["messageId"]) {
+          updateReactionIfExists(
+            myChats: myChats,
+            index: myChats.indexOf(element),
+            newReaction: newReaction,
+            userIdToCheck: data["senderId"],
+          );
+        }
+      }
+
+
+
+
+      getHomeChats();
+
+      emit(GetSpecificChatMessagesSuccess());
+    });
+
+
 
     _socket.on('errorMessage', (error) {
       print('Error: $error');
@@ -288,6 +402,7 @@ class ChatCubit extends Cubit<ChatState> {
     });
     print('sendGroupMessage doneeeeeeeeeeee');
   }
+
 
   // Disconnect from the server
   void disconnect() {

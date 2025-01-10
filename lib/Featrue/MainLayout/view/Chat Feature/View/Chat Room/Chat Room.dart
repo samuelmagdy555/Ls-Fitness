@@ -348,7 +348,7 @@ class ChatBubble extends StatelessWidget {
                 constraints: BoxConstraints(maxWidth: width * .5),
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 5),
-                  padding: EdgeInsets.symmetric(horizontal: 10.5, vertical: 12),
+                  padding: EdgeInsets.symmetric(horizontal: 17.5, vertical: 12),
                   decoration: BoxDecoration(
                     color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
                     borderRadius: BorderRadius.only(
@@ -378,7 +378,7 @@ class ChatBubble extends StatelessWidget {
                                     isReplayedName!,
                                     style: TextStyle(
                                         fontSize: width * .035,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   Text(
                                     isReplayedText!,
@@ -397,7 +397,7 @@ class ChatBubble extends StatelessWidget {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: width * .035,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w500),
                             ),
                           ],
                         )
@@ -406,7 +406,7 @@ class ChatBubble extends StatelessWidget {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: width * .035,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w500),
                         ),
                 ),
               ),
@@ -417,7 +417,7 @@ class ChatBubble extends StatelessWidget {
                   left: isSentByMe ? null : 5,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xff850101),
+                      color: isSentByMe ? Color(0xff850101) : Colors.grey[900],
                       borderRadius: BorderRadius.circular(15),
 
                     ),
@@ -427,7 +427,7 @@ class ChatBubble extends StatelessWidget {
                           .map(
                             (reaction) => Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  const EdgeInsets.symmetric(horizontal: 5.0 , vertical: 1.5),
                               child: Text(
                                 reaction.emoji!,
                                 style: TextStyle(
