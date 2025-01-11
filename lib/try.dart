@@ -1,140 +1,218 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
+class ChatBubble extends StatefulWidget {
+  final bool isSentByMe;
+  final String message;
+  final String time;
+  final String? isReplayedName;
+  final String? isReplayedText;
+  final List<Reaction>? reactions;
+  final List<Media>? media;
+  final double width;
+
+  const ChatBubble({
+    Key? key,
+    required this.isSentByMe,
+    required this.message,
+    required this.time,
+    this.isReplayedName,
+    this.isReplayedText,
+    this.reactions,
+    this.media,
+    required this.width,
+  }) : super(key: key);
+
+  @override
+  State<ChatBubble> createState() => _ChatBubbleState();
 }
 
-class MyApp extends StatelessWidget {
+class _ChatBubbleState extends State<ChatBubble> {
+  double offsetX = 0.0;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MessageScreen(),
-    );
-  }
-}
-
-class MessageScreen extends StatefulWidget {
-  @override
-  _MessageScreenState createState() => _MessageScreenState();
-}
-
-class _MessageScreenState extends State<MessageScreen>
-    with SingleTickerProviderStateMixin {
-  OverlayEntry? _emojiOverlay;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _showEmojiPicker(BuildContext context, Offset offset) {
-    final overlay = Overlay.of(context);
-    final screenSize = MediaQuery.of(context).size;
-    print(screenSize.width);
-
-    // احسب المواضع بشكل ديناميكي
-    double left = offset.dx; // الموضع الأفقي
-    double top = offset.dy; // الموضع العمودي
-
-    print(left);
-    // منع القائمة من الخروج عن حواف الشاشة
-
-
-    _emojiOverlay = OverlayEntry(
-      builder: (context) {
-        return Positioned(
-          left: 0,
-          top: top+35,
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: Material(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+    return GestureDetector(
+      onHorizontalDragUpdate: (details) {
+        setState(() {
+          offsetX += details.delta.dx;
+        });
+      },
+      onHorizontalDragEnd: (details) {
+        setState(() {
+          offsetX = 0.0; // Reset position with animation
+        });
+      },
+      child: Transform.translate(
+        offset: Offset(offsetX, 0),
+        child: Align(
+          alignment:
+          widget.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: widget.isSentByMe
+                ? CrossAxisAlignment.end
+                : CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  _emojiButton('👍'),
-                  _emojiButton('❤️'),
-                  _emojiButton('😂'),
-                  _emojiButton('😮'),
-                  _emojiButton('😢'),
-                  _emojiButton('💪🏻'),
-                  _emojiButton('🦍'),
+                  ConstrainedBox(
+                    constraints:
+                    BoxConstraints(maxWidth: widget.width * .5),
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 17.5, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: widget.isSentByMe
+                            ? const Color(0xff850101)
+                            : Colors.grey[800],
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(12),
+                          topRight: const Radius.circular(12),
+                          bottomLeft: widget.isSentByMe
+                              ? const Radius.circular(12)
+                              : Radius.zero,
+                          bottomRight: widget.isSentByMe
+                              ? Radius.zero
+                              : const Radius.circular(12),
+                        ),
+                      ),
+                      child: widget.isReplayedName != null
+                          ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.white38,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.isReplayedName!,
+                                  style: TextStyle(
+                                    fontSize: widget.width * .035,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  widget.isReplayedText!,
+                                  style: TextStyle(
+                                    fontSize: widget.width * .035,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            widget.message,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: widget.width * .035,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          if (widget.media != null &&
+                              widget.media!.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  widget.media!.first.url!,
+                                  fit: BoxFit.cover,
+                                  width: widget.width * 0.5,
+                                ),
+                              ),
+                            ),
+                        ],
+                      )
+                          : Column(
+                        children: [
+                          Text(
+                            widget.message,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: widget.width * .035,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          if (widget.media != null &&
+                              widget.media!.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  widget.media!.first.url!,
+                                  fit: BoxFit.cover,
+                                  width: widget.width * 0.5,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (widget.reactions != null && widget.reactions!.isNotEmpty)
+                    Positioned(
+                      bottom: -2,
+                      right: widget.isSentByMe ? 5 : null,
+                      left: widget.isSentByMe ? null : 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: widget.isSentByMe
+                              ? const Color(0xff850101)
+                              : Colors.grey[900],
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: widget.reactions!
+                              .map(
+                                (reaction) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 1.5),
+                              child: Text(
+                                reaction.emoji!,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                    ),
                 ],
               ),
-            ),
-          ),
-        );
-      },
-    );
-
-    overlay.insert(_emojiOverlay!);
-    _animationController.forward(); // بدء الحركة
-  }
-
-  Widget _emojiButton(String emoji) {
-    return GestureDetector(
-      onTap: () {
-        // تنفيذ إجراء عند اختيار الإيموجي
-        _animationController.reverse().then((_) {
-          _emojiOverlay?.remove();
-          _emojiOverlay = null;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('You selected $emoji')),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          emoji,
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Message Screen'),
-      ),
-      body: Center(
-        child: GestureDetector(
-          onLongPressStart: (details) {
-            _showEmojiPicker(context, details.globalPosition);
-          },
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.blue[100],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              'اضغط ضغطة طويلة هنا',
-              style: TextStyle(fontSize: 16),
-            ),
+              Text(
+                widget.time,
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+class Reaction {
+  final String emoji;
+
+  Reaction(this.emoji);
+}
+
+class Media {
+  final String url;
+
+  Media(this.url);
 }

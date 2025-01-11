@@ -1,5 +1,5 @@
 class EndPoints{
-  static String baseUrL ="https://ls-fitness.koyeb.app/api/v1/";
+  static String baseUrL ="https://api.ls-fitnes.com/api/v1/";
   static String Register ="auth/signup";
   static String Login = "auth/login/userLogin";
   static String ForgetPassword ="auth/forgotpassword";

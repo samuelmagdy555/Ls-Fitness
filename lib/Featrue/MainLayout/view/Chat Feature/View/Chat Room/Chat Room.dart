@@ -231,8 +231,11 @@ class _ChatRoomState extends State<ChatRoom>
                                           .createdAt!);
                                   String timeAgo = timeago.format(dateTime);
                                   return GestureDetector(
-                                    onTap: (){
+                                    onHorizontalDragEnd: (_){
+                                      print('drag');
                                       print(index);
+                                      print(ChatCubit.get(context)
+                                          .myChats[index].media?[0]);
 
                                     },
                                     onLongPressStart: (details) {
@@ -283,6 +286,8 @@ class _ChatRoomState extends State<ChatRoom>
                                       reactions: ChatCubit.get(context)
                                           .myChats[index]
                                           .reactions,
+                                      media:ChatCubit.get(context)
+                                          .myChats[index].media ?? null, index: index ,
                                     ),
                                   );
                                 }))
@@ -311,7 +316,7 @@ class _ChatRoomState extends State<ChatRoom>
   }
 }
 
-class ChatBubble extends StatelessWidget {
+class ChatBubble extends StatefulWidget {
   final String message;
   final bool isSentByMe;
   final String time;
@@ -319,6 +324,8 @@ class ChatBubble extends StatelessWidget {
   final String? isReplayedName;
   final String? isReplayedText;
   final List<Reactions>? reactions;
+  final List<Media>? media;
+  final int index;
 
   const ChatBubble({
     required this.message,
@@ -327,125 +334,188 @@ class ChatBubble extends StatelessWidget {
     required this.isReplayed,
     this.isReplayedName,
     this.isReplayedText,
-    this.reactions,
+    this.reactions, this.media, required this.index,
   });
 
+  @override
+  State<ChatBubble> createState() => _ChatBubbleState();
+}
+
+class _ChatBubbleState extends State<ChatBubble> {
+  double offsetX = 0.0;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
-    return Align(
-      alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment:
-            isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          Stack(
+    return GestureDetector(
+
+      onHorizontalDragUpdate: (details) {
+        setState(() {
+          offsetX += details.delta.dx;
+
+          if (offsetX < 0 && widget.isSentByMe == false) {
+            offsetX = 0;
+          }
+
+          if (offsetX > 0 && widget.isSentByMe == true) {
+            offsetX = 0;
+          }
+
+
+
+
+        });
+      },
+      onHorizontalDragEnd: (details) {
+        setState(() {
+          offsetX = 0.0;
+        });
+      },
+      child: Transform.translate(
+        offset: Offset(offsetX, 0),
+        child: Align(
+          alignment: widget.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment:
+                widget.isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
+              Stack(
+                children: [
 
-              ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: width * .5),
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  padding: EdgeInsets.symmetric(horizontal: 17.5, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: isSentByMe ? Color(0xff850101) : Colors.grey[800],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                      bottomLeft:
-                          isSentByMe ? Radius.circular(12) : Radius.zero,
-                      bottomRight:
-                          isSentByMe ? Radius.zero : Radius.circular(12),
-                    ),
-                  ),
-                  child: !isReplayed
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: Colors.white38,
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    isReplayedName!,
-                                    style: TextStyle(
-                                        fontSize: width * .035,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Text(
-                                    isReplayedText!,
-                                    style: TextStyle(
-                                        fontSize: width * .035,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              message,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: width * .035,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        )
-                      : Text(
-                          message,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * .035,
-                              fontWeight: FontWeight.w500),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: width * .5),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 17.5, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: widget.isSentByMe ? Color(0xff850101) : Colors.grey[800],
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
+                          bottomLeft:
+                              widget.isSentByMe ? Radius.circular(12) : Radius.zero,
+                          bottomRight:
+                              widget.isSentByMe ? Radius.zero : Radius.circular(12),
                         ),
-                ),
-              ),
-              if (reactions != null && reactions!.isNotEmpty)
-                Positioned(
-                  bottom: -height * .001,
-                  right: isSentByMe ? 5 : null,
-                  left: isSentByMe ? null : 5,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isSentByMe ? Color(0xff850101) : Colors.grey[900],
-                      borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: !widget.isReplayed
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white38,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        widget.isReplayedName!,
+                                        style: TextStyle(
+                                            fontSize: width * .035,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                        widget.isReplayedText!,
+                                        style: TextStyle(
+                                            fontSize: width * .035,
+                                            fontWeight: FontWeight.w500),
+                                      )
+                                    ],
+                                  ),
+                                ),
 
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: reactions!
-                          .map(
-                            (reaction) => Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0 , vertical: 1.5),
-                              child: Text(
-                                reaction.emoji!,
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.white),
+
+                                Text(
+                                  widget.message,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * .035,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                if (widget.media != null && widget.media!.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      widget.media!.first.url!,
+                                      fit: BoxFit.cover,
+                                      width: width * 0.5,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                            children: [
+                              Text(
+                                  widget.message,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * .035,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              if (widget.media != null && widget.media!.isNotEmpty)
+
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    widget.media!.first.url!,
+
+                                    fit: BoxFit.cover,
+                                    width: width * 0.5,
+                                  ),
+                                ),
                               ),
-                            ),
-                          )
-                          .toList(),
+                            ],
+                          ),
                     ),
                   ),
-                )
+                  if (widget.reactions != null && widget.reactions!.isNotEmpty)
+                    Positioned(
+                      bottom: -height * .001,
+                      right: widget.isSentByMe ? 5 : null,
+                      left: widget.isSentByMe ? null : 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: widget.isSentByMe ? Color(0xff850101) : Colors.grey[900],
+                          borderRadius: BorderRadius.circular(15),
+
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: widget.reactions!
+                              .map(
+                                (reaction) => Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5.0 , vertical: 1.5),
+                                  child: Text(
+                                    reaction.emoji!,
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.white),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    )
+                ],
+              ),
+              Text(
+                widget.time,
+                style: TextStyle(color: Colors.grey, fontSize: 12),
+              ),
             ],
           ),
-          Text(
-            time,
-            style: TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -500,7 +570,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
           ),
           IconButton(
             icon: Icon(Icons.attach_file, color: Colors.grey),
-            onPressed: () {},
+            onPressed: () {
+              ChatCubit.get(context).handleSendMessage();
+            },
           ),
           IconButton(
             icon: Icon(Iconsax.send_1, color: Colors.red),
