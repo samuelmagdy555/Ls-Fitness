@@ -4,6 +4,8 @@ part of 'chat_cubit.dart';
 sealed class ChatState {}
 
 final class ChatInitial extends ChatState {}
+final class CancelReplay extends ChatState {}
+final class AddReplay extends ChatState {}
 
 
 final class GetHomeChatLoading extends ChatState {}

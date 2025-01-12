@@ -34,6 +34,19 @@ class ChatCubit extends Cubit<ChatState> {
   AddReactionModel? addReactionModel;
   List<Chats> myChats = [];
 
+  void cancelReplay() {
+    repliedTo = null;
+    emit(CancelReplay());
+  }
+
+  void addReplay(RepliedTo replayMessage) {
+    repliedTo = replayMessage;
+
+    emit(AddReplay());
+  }
+
+  RepliedTo? repliedTo;
+
   Future<void> getHomeChats() async {
     emit(GetHomeChatLoading());
     try {
@@ -95,7 +108,8 @@ class ChatCubit extends Cubit<ChatState> {
           data: {'text': message});
 
       if (!isGroub) {
-        sendPrivateMessage(senderId: LoginCubit.id, receiverId: receiverId, text:message );
+        sendPrivateMessage(
+            senderId: LoginCubit.id, receiverId: receiverId, text: message);
       } else {
         int num = 0;
         joinRoom(LoginCubit.id, ChatID);
@@ -163,14 +177,17 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  Future<void> ReplayTextMessages(
-      {required String ChatID,
-        required String message,
-        required String receiverId,
-        required TextEditingController controller,
-        required bool isGroub,
-        required String ReplyMessage,
-        List<Participants>? participants}) async {
+  Future<void> ReplayTextMessages({
+    required String MessageID,
+    required String ChatID,
+    required String message,
+    required String receiverId,
+    required TextEditingController controller,
+    required bool isGroub,
+    required String ReplyMessage,
+    List<Participants>? participants,
+    required String ReplyMessageId,
+  }) async {
     try {
       print(isGroub);
       Chats chat = Chats(
@@ -180,7 +197,7 @@ class ChatCubit extends Cubit<ChatState> {
           text: message,
           media: [],
           repliedTo: RepliedTo(
-            sId: LoginCubit.id ,
+            Id: MessageID,
             text: ReplyMessage,
             sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
           ),
@@ -190,12 +207,18 @@ class ChatCubit extends Cubit<ChatState> {
       myChats.add(chat);
 
       DioHelper.post(
-          end_ponit: '${EndPoints.messages}/$ChatID',
+          end_ponit: '${EndPoints.messages}/$MessageID/${EndPoints.reply}',
           token: LoginCubit.loginModel?.token ?? LoginCubit.token,
           data: {'text': message});
 
       if (!isGroub) {
-        sendPrivateMessage(senderId: LoginCubit.id, receiverId: receiverId, text:message );
+        sendReplayPrivateMessage(
+            senderId: LoginCubit.id,
+            receiverId: receiverId,
+            text: message,
+            ownMessageName: LoginCubit.name,
+            repliedToMessageData: ReplyMessage,
+            repliedToMessageId: MessageID);
       } else {
         int num = 0;
         joinRoom(LoginCubit.id, ChatID);
@@ -210,6 +233,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       getHomeChats();
       controller.clear();
+      repliedTo = null;
       emit(SendMessageSuccess());
     } catch (e) {
       print(e.toString());
@@ -332,24 +356,6 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  void handleIncomingMessage(String rawMessage) {
-    String cleanedMessage = rawMessage
-        .replaceAll("{", '{"')
-        .replaceAll("}", '"}')
-        .replaceAll(": ", '": "')
-        .replaceAll(", ", '", "');
-
-    Map<String, dynamic> message = json.decode(cleanedMessage);
-
-    String senderId = message['senderId'];
-    String text = message['text'];
-    bool isPrivate = message['private'] == "true";
-
-    print('Sender ID: $senderId');
-    print('Text: $text');
-    print('Private: $isPrivate');
-  }
-
   late IO.Socket _socket;
 
   // Initialize the connection
@@ -397,23 +403,16 @@ class ChatCubit extends Cubit<ChatState> {
       Chats chat = Chats(
           id: data['repliedToMessageId'],
           chat: '',
-          sender: Sender(id: data['senderId'], username: data['ownMessageName']),
+          sender:
+              Sender(id: data['senderId'], username: data['ownMessageName']),
           text: data['text'],
-          media: [
-            Media(
-                type: data['repliedToMessageId']
-            )
-          ],
+          media: [],
           repliedTo: RepliedTo(
             text: data['repliedToMessageData'],
-            sender: Sender(id: data['senderId'], username: data['ownMessageName']),
-            media: [
-              Media(
-                type: data['repliedToMessageId']
-              )
-            ],
-
-
+            sender:
+                Sender(id: data['senderId'], username: data['ownMessageName']),
+            Id: data['repliedToMessageId'],
+            media: [],
           ),
           reactions: [],
           createdAt: DateTime.now().toString(),
@@ -423,8 +422,6 @@ class ChatCubit extends Cubit<ChatState> {
 
       emit(GetSpecificChatMessagesSuccess());
     });
-
-
 
     _socket.on('receiveReactionToMessage', (data) {
       print('New Reaction received: $data');
@@ -474,19 +471,13 @@ class ChatCubit extends Cubit<ChatState> {
     required String receiverId,
     required String text,
     String? ownMessageName,
-    String? repliedToMessageData,
-    String? repliedToMessageId,
-    List<String> ? media,
-
-
+    List<String>? media,
   }) {
     _socket.emit('sendMessage', {
       'senderId': senderId,
       'receiverId': receiverId,
       'text': text,
       'ownMessageName': ownMessageName,
-      'repliedToMessageData': repliedToMessageData,
-      'repliedToMessageId': repliedToMessageId,
       'media': media
     });
     print('sendPrivateMessage doneeeeeeeeeeee to id ${receiverId}');
@@ -496,14 +487,12 @@ class ChatCubit extends Cubit<ChatState> {
     required String senderId,
     required String receiverId,
     required String text,
-    String? ownMessageName,
-    String? repliedToMessageData,
-    String? repliedToMessageId,
-    List<String> ? media,
-
-
+    required String ownMessageName,
+    required String repliedToMessageData,
+    required String repliedToMessageId,
+    List<String>? media,
   }) {
-    _socket.emit('receiveRepliedMessage', {
+    _socket.emit('sendMessage', {
       'senderId': senderId,
       'receiverId': receiverId,
       'text': text,
@@ -511,12 +500,9 @@ class ChatCubit extends Cubit<ChatState> {
       'repliedToMessageData': repliedToMessageData,
       'repliedToMessageId': repliedToMessageId,
       'media': media,
-      'private': true
     });
     print('sendReplayPrivateMessage doneeeeeeeeeeee to id ${receiverId}');
   }
-
-
 
   void sendEmoji(
       String senderId, String receiverId, String messageId, String emoji) {

@@ -34,6 +34,7 @@ class EndPoints{
   static String chats = 'chats/myChats';
   static String messages = 'messages';
   static String reactions = 'reactions';
+  static String reply = 'reply';
 
 
 

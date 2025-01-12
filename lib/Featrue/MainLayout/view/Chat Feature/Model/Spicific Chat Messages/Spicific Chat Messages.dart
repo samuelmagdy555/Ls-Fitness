@@ -153,15 +153,15 @@ class Sender {
 }
 
 class RepliedTo {
-  String? sId;
+  String? Id;
   Sender? sender;
   String? text;
   List<Media>? media;
 
-  RepliedTo({this.sId, this.sender, this.text, this.media});
+  RepliedTo({this.Id, this.sender, this.text, this.media});
 
   RepliedTo.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+    Id = json['_id'];
     sender =
     json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
     text = json['text'];
@@ -175,7 +175,7 @@ class RepliedTo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
+    data['_id'] = this.Id;
     if (this.sender != null) {
       data['sender'] = this.sender!.toJson();
     }
