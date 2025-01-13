@@ -131,51 +131,7 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  Future<void> sendFileMessages({
-    required String chatID,
-    String? message,
-    required String receiverId,
-    required TextEditingController controller,
-    required bool isGroup,
-    required List<File> files, // List of files (images, PDFs, Word documents)
-    List<Participants>? participants,
-  }) async {
-    try {
-      // Create media data
-      List<Map<String, dynamic>> mediaData = [];
 
-      for (var file in files) {
-        String fileName = file.path.split('/').last;
-
-        // Simulating file upload (e.g., API call to upload the file)
-        // Replace this with your actual file upload logic
-        String fileUrl =
-            await uploadFile(file); // Implement this function for uploading
-
-        mediaData.add({
-          'fileName': fileName,
-          'url': fileUrl,
-        });
-      }
-
-      // Send message with text and media
-      await DioHelper.post(
-        end_ponit: '${EndPoints.messages}/$chatID',
-        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
-        data: {
-          'text': message ?? '',
-          'media': mediaData,
-        },
-      );
-
-      getHomeChats();
-      controller.clear();
-      emit(SendMessageSuccess());
-    } catch (e) {
-      print(e.toString());
-      emit(SendMessageError());
-    }
-  }
 
   Future<void> ReplayTextMessages({
     required String MessageID,
@@ -241,14 +197,95 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+
+  // Send File Section
+
+  Future<void> sendFileMessages({
+    required String chatID,
+    String? message,
+    required String receiverId,
+    required bool isGroup,
+    required List<File> files, // List of files (images, PDFs, Word documents)
+    List<Participants>? participants,
+  }) async {
+    try {
+      // Create media data
+      List<Map<String, dynamic>> mediaData = [];
+
+      for (var file in files) {
+        String fileName = file.path.split('/').last;
+
+        String fileUrl =
+        await uploadFile(file); // Implement this function for uploading
+
+        mediaData.add({
+          'fileName': fileName,
+          'url': fileUrl,
+        });
+      }
+
+      // Send message with text and media
+      final response = await DioHelper.post(
+        end_ponit: '${EndPoints.messages}/$chatID',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        data: {
+          'text': message ?? '',
+          'media': mediaData,
+        },
+      );
+
+      print('=========================>Api Request Sent Successfully');
+      sendMessageModel = SendMessageModel.fromJson(response.data);
+
+      print('=========================>model Stored Successfully');
+
+      Chats chat = Chats(
+          id: '',
+          chat: '',
+          sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
+          text: message ?? '',
+          media: sendMessageModel?.media!,
+          reactions: [],
+          createdAt: DateTime.now().toString(),
+          updatedAt: DateTime.now().toString());
+
+      print('Chat is =========================> $chat');
+      myChats.add(chat);
+      print('=========================> Chat Added Successfully');
+      emit(AddImageToChat());
+      List<String> media = [];
+      for (var element in sendMessageModel!.media!) {
+        media.add(element.url!);
+      }
+      print('=========================> before sendPrivateMessage by socket');
+      sendPrivateMessage(
+          senderId: LoginCubit.id,
+          receiverId: receiverId,
+          text: '',
+          media: media,
+          ownMessageName: LoginCubit.name
+      );
+
+      print('=========================> after sendPrivateMessage by socket');
+
+
+      getHomeChats();
+
+      emit(SendMessageSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(SendMessageError());
+    }
+  }
   Future<String> uploadFile(File file) async {
     // Replace this logic with actual file upload (e.g., Firebase, AWS S3, etc.)
     // Simulate upload and return file URL
     await Future.delayed(Duration(seconds: 2)); // Simulate delay
-    return 'https://example.com/uploads/${file.path.split('/').last}';
+    print(file.path.split('/').last);
+    return 'https://L.s_fitness/uploads/${file.path.split('/').last}';
   }
 
-// Function to pick files
+
   Future<List<File>> pickFiles() async {
     List<File> pickedFiles = [];
 
@@ -261,7 +298,14 @@ class ChatCubit extends Cubit<ChatState> {
           'pdf',
           'doc',
           'docx',
-          'png'
+          'png',
+          'jpeg',
+          'gif',
+          'mp4',
+          'mp3',
+          'audio',
+          'zip',
+          'rar',
         ], // Add allowed extensions
       );
 
@@ -275,14 +319,15 @@ class ChatCubit extends Cubit<ChatState> {
     return pickedFiles;
   }
 
-  Future<void> handleSendMessage() async {
+  Future<void> handleSendMessage({required String chatID , required String receiverId}) async {
+    print("handleSendMessage");
     List<File> selectedFiles = await pickFiles(); // استدعاء دالة اختيار الملفات
+    print("Selected files: $selectedFiles");
     if (selectedFiles.isNotEmpty) {
       await sendFileMessages(
-        chatID: "677344893acc03f69929812b",
-        message: "Here are the files",
-        receiverId: "674715885fb31f7806d196c9",
-        controller: TextEditingController(),
+        chatID: chatID,
+        message: "",
+        receiverId: receiverId,
         isGroup: false,
         files: selectedFiles,
       );
@@ -291,6 +336,11 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
+
+
+  // End Send File Section
+
+  //SendReaction
   void updateReactionIfExists({
     required List<Chats> myChats,
     required int index,
@@ -324,7 +374,6 @@ class ChatCubit extends Cubit<ChatState> {
       required int index}) async {
     emit(AddReactionToMessageLoading());
     try {
-      print(index);
       print(messageId);
       sendEmoji(senderId, receiverId, messageId, emoji);
       Reactions newReaction = Reactions(
@@ -387,7 +436,7 @@ class ChatCubit extends Cubit<ChatState> {
           chat: '',
           sender: Sender(id: data['senderId'], username: ''),
           text: data['text'],
-          media: [],
+          media: data['media'],
           reactions: [],
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
@@ -406,7 +455,8 @@ class ChatCubit extends Cubit<ChatState> {
           sender:
               Sender(id: data['senderId'], username: data['ownMessageName']),
           text: data['text'],
-          media: [],
+          media: [
+            data['media']??null          ],
           repliedTo: RepliedTo(
             text: data['repliedToMessageData'],
             sender:

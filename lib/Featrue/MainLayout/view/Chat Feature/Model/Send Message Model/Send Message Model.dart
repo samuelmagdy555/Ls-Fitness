@@ -1,3 +1,5 @@
+import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/Model/Spicific%20Chat%20Messages/Spicific%20Chat%20Messages.dart';
+
 class SendMessageModel {
   SendMessageModel({
     required this.id,
@@ -16,7 +18,7 @@ class SendMessageModel {
   late final String chat;
   late final TheSender sender;
   late final String text;
-  late final List<dynamic> media;
+  late final List<Media> media;
   late final bool isRead;
   late final List<dynamic> seendBy;
   late final List<dynamic> reactions;
@@ -29,7 +31,7 @@ class SendMessageModel {
     chat = json['chat'];
     sender = TheSender.fromJson(json['sender']);
     text = json['text'];
-    media = List.castFrom<dynamic, dynamic>(json['media']);
+    media = List.from(json['media']).map((e)=>Media.fromJson(e)).toList();
     isRead = json['isRead'];
     seendBy = List.castFrom<dynamic, dynamic>(json['seendBy']);
     reactions = List.castFrom<dynamic, dynamic>(json['reactions']);
@@ -44,7 +46,7 @@ class SendMessageModel {
     _data['chat'] = chat;
     _data['sender'] = sender.toJson();
     _data['text'] = text;
-    _data['media'] = media;
+    _data['media'] = media.map((e)=>e.toJson()).toList();
     _data['isRead'] = isRead;
     _data['seendBy'] = seendBy;
     _data['reactions'] = reactions;
@@ -79,3 +81,4 @@ class TheSender {
     return _data;
   }
 }
+

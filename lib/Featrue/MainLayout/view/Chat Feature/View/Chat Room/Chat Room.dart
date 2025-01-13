@@ -725,7 +725,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           IconButton(
             icon: Icon(Icons.attach_file, color: Colors.grey),
             onPressed: () {
-              ChatCubit.get(context).handleSendMessage();
+              ChatCubit.get(context).handleSendMessage(chatID: widget.roomID, receiverId: widget.receiverId);
             },
           ),
           IconButton(
