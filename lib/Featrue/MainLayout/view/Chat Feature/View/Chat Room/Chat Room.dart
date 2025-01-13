@@ -125,6 +125,8 @@ class _ChatRoomState extends State<ChatRoom>
 
   @override
   void initState() {
+    ChatCubit.get(context).connect(LoginCubit.id, widget.roomId );
+
     super.initState();
     ChatCubit.get(context).getSpecificChatMessages(
         ID: widget.roomId, pageNum: currentPage.toString());

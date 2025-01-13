@@ -67,6 +67,7 @@ class Chats {
   List<Reactions>? reactions;
   String? createdAt;
   String? updatedAt;
+  bool? isRead;
 
   Chats(
       {this.id,
@@ -77,7 +78,7 @@ class Chats {
         this.media,
         this.reactions,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt , this.isRead = true});
 
   Chats.fromJson(Map<String, dynamic> json) {
     id = json['_id'];

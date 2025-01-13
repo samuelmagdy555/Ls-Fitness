@@ -16,6 +16,7 @@ import '../Model/Spicific Chat Messages/Spicific Chat Messages.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:uuid/uuid.dart';
 
 part 'chat_state.dart';
 
@@ -30,6 +31,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   MyChatsModel? myChatsModel;
   SpecificChatMessages? specificChatMessages;
+  SpecificChatMessages? receiveMessageModel;
   SendMessageModel? sendMessageModel;
   AddReactionModel? addReactionModel;
   List<Chats> myChats = [];
@@ -91,25 +93,30 @@ class ChatCubit extends Cubit<ChatState> {
       List<Participants>? participants}) async {
     try {
       print(isGroub);
+      var uuid = Uuid();
+      String uid = uuid.v1();
+
       Chats chat = Chats(
-          id: '',
+          id: uid,
           chat: '',
           sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
           text: message,
           media: [],
           reactions: [],
+          isRead: false,
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
       myChats.add(chat);
+      controller.clear();
 
-      DioHelper.post(
-          end_ponit: '${EndPoints.messages}/$ChatID',
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
-          data: {'text': message});
+      emit(AddMessageToChat());
 
       if (!isGroub) {
         sendPrivateMessage(
-            senderId: LoginCubit.id, receiverId: receiverId, text: message);
+            senderId: LoginCubit.id,
+            receiverId: receiverId,
+            text: message,
+            ownMessageName: LoginCubit.name);
       } else {
         int num = 0;
         joinRoom(LoginCubit.id, ChatID);
@@ -121,17 +128,30 @@ class ChatCubit extends Cubit<ChatState> {
         }
         sendGroupMessage(LoginCubit.id, ChatID, message, '');
       }
+      final response = await DioHelper.post(
+          end_ponit: '${EndPoints.messages}/$ChatID',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          data: {'text': message});
+      sendMessageModel = SendMessageModel.fromJson(response.data);
+      //
+      for (var element in myChats) {
+        if (element.text == message &&
+            element.isRead == false &&
+            element.id == uid) {
+          element.id = sendMessageModel!.id;
+          print('OLD Message ID is ${uid}');
+
+          print('New Message ID is ${sendMessageModel!.id}');
+        }
+      }
 
       getHomeChats();
-      controller.clear();
       emit(SendMessageSuccess());
     } catch (e) {
       print(e.toString());
       emit(SendMessageError());
     }
   }
-
-
 
   Future<void> ReplayTextMessages({
     required String MessageID,
@@ -197,7 +217,6 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-
   // Send File Section
 
   Future<void> sendFileMessages({
@@ -216,7 +235,7 @@ class ChatCubit extends Cubit<ChatState> {
         String fileName = file.path.split('/').last;
 
         String fileUrl =
-        await uploadFile(file); // Implement this function for uploading
+            await uploadFile(file); // Implement this function for uploading
 
         mediaData.add({
           'fileName': fileName,
@@ -263,11 +282,9 @@ class ChatCubit extends Cubit<ChatState> {
           receiverId: receiverId,
           text: '',
           media: media,
-          ownMessageName: LoginCubit.name
-      );
+          ownMessageName: LoginCubit.name);
 
       print('=========================> after sendPrivateMessage by socket');
-
 
       getHomeChats();
 
@@ -277,6 +294,7 @@ class ChatCubit extends Cubit<ChatState> {
       emit(SendMessageError());
     }
   }
+
   Future<String> uploadFile(File file) async {
     // Replace this logic with actual file upload (e.g., Firebase, AWS S3, etc.)
     // Simulate upload and return file URL
@@ -284,7 +302,6 @@ class ChatCubit extends Cubit<ChatState> {
     print(file.path.split('/').last);
     return 'https://L.s_fitness/uploads/${file.path.split('/').last}';
   }
-
 
   Future<List<File>> pickFiles() async {
     List<File> pickedFiles = [];
@@ -319,7 +336,8 @@ class ChatCubit extends Cubit<ChatState> {
     return pickedFiles;
   }
 
-  Future<void> handleSendMessage({required String chatID , required String receiverId}) async {
+  Future<void> handleSendMessage(
+      {required String chatID, required String receiverId}) async {
     print("handleSendMessage");
     List<File> selectedFiles = await pickFiles(); // استدعاء دالة اختيار الملفات
     print("Selected files: $selectedFiles");
@@ -335,8 +353,6 @@ class ChatCubit extends Cubit<ChatState> {
       print("No files selected.");
     }
   }
-
-
 
   // End Send File Section
 
@@ -408,7 +424,7 @@ class ChatCubit extends Cubit<ChatState> {
   late IO.Socket _socket;
 
   // Initialize the connection
-  void connect(String userId) {
+  void connect(String userId, String roomId) {
     print('begain connect');
     _socket = IO.io('https://ls-fitness.koyeb.app', <String, dynamic>{
       'transports': ['websocket'],
@@ -428,35 +444,63 @@ class ChatCubit extends Cubit<ChatState> {
     });
 
     // Handle incoming messages
-    _socket.on('receiveMessage', (data) {
+    _socket.on('receiveMessage', (data) async {
+      DateTime dateTime = DateTime.now();
+      print(dateTime);
       print('New message received: $data');
+      var uuid = Uuid();
+      String uid = uuid.v1();
 
       Chats chat = Chats(
-          id: '',
+          id: uid,
           chat: '',
           sender: Sender(id: data['senderId'], username: ''),
           text: data['text'],
-          media: data['media'],
+          media: data['media'] != null ? [Media.fromJson(data['media'])] : [],
           reactions: [],
+          isRead: false,
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString());
       myChats.add(chat);
-      getHomeChats();
 
       emit(GetSpecificChatMessagesSuccess());
+      await DioHelper.get(
+          end_ponit: '${EndPoints.messages}/$roomId',
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          query: {'page': 1}).then((_) {
+        print(_.data);
+        receiveMessageModel = SpecificChatMessages.fromJson(_.data);
+        print('===============>receiveMessageModel');
+        print(receiveMessageModel!.chats);
+      });
+
+      for (var element in myChats) {
+        if (element.text == data['text'] &&
+            element.isRead == false &&
+            element.id == uid) {
+          if (receiveMessageModel!.chats!.first.text == data['text']) {
+            element.id = receiveMessageModel!.chats!.first.id;
+
+          }
+          print('OLD Message ID is ${uid}');
+
+          print('New Message ID is ${element.id}');
+        }
+      }
+
+      getHomeChats();
     });
 
     _socket.on('receiveRepliedMessage', (data) {
       print('New receiveRepliedMessage received: $data');
 
       Chats chat = Chats(
-          id: data['repliedToMessageId'],
+          id: '',
           chat: '',
           sender:
               Sender(id: data['senderId'], username: data['ownMessageName']),
           text: data['text'],
-          media: [
-            data['media']??null          ],
+          media: data['media'] != null ? data['media'] : [],
           repliedTo: RepliedTo(
             text: data['repliedToMessageData'],
             sender:
@@ -520,7 +564,7 @@ class ChatCubit extends Cubit<ChatState> {
     required String senderId,
     required String receiverId,
     required String text,
-    String? ownMessageName,
+    required String ownMessageName,
     List<String>? media,
   }) {
     _socket.emit('sendMessage', {

@@ -19,6 +19,7 @@ final class GetSpecificChatMessagesError  extends ChatState {}
 
 final class SendMessageLoading extends ChatState {}
 final class AddImageToChat extends ChatState {}
+final class AddMessageToChat extends ChatState {}
 final class SendMessageSuccess extends ChatState {}
 final class SendMessageError  extends ChatState {}
 

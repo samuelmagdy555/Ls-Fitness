@@ -58,13 +58,12 @@ class _MainLayoutState extends State<MainLayout> {
     super.initState();
 
     print('before connect ${LoginCubit.id}');
-    ChatCubit.get(context).connect(LoginCubit.id );
     print('after connect ${LoginCubit.id}');
 
 
-    // print('sseUrl $sseUrl');
-    // print('headers $headers');
-    // NotificationCubit.get(context).connectToServer(sseUrl, headers);
+    print('sseUrl $sseUrl');
+    print('headers $headers');
+    NotificationCubit.get(context).connectToServer(sseUrl, headers);
 
   }
 
