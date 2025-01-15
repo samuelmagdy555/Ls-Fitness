@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:meta/meta.dart';
@@ -27,6 +28,11 @@ class ChatCubit extends Cubit<ChatState> {
   // Added room : 677344893acc03f69929812b
   // Added user with ID: 670149bd8862beddfe6ca45c
   // Added room : 677344893acc03f69929812b
+
+
+  // 676eeaa59e5aa749202a82d4
+
+  // chat id : 6783171ba85c61cca7c90728
   static ChatCubit get(context) => BlocProvider.of(context);
 
   MyChatsModel? myChatsModel;
@@ -422,131 +428,165 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   late IO.Socket _socket;
+  static FlutterLocalNotificationsPlugin localNotifications =
+  FlutterLocalNotificationsPlugin();
+  var initSettings = InitializationSettings(
+      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      iOS: DarwinInitializationSettings());
 
+
+
+  Future<void> showNotification(String title, String body) async {
+    const androidDetails = AndroidNotificationDetails(
+      'channelId',
+      'channelName',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+    const iosDetails = DarwinNotificationDetails();
+    const platformDetails =
+    NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotifications.show(
+      DateTime.now().millisecond,
+      title,
+      body,
+      platformDetails,
+    );
+  }
   // Initialize the connection
+
+
   void connect(String userId, String roomId) {
+    localNotifications.initialize(initSettings);
+
     print('begain connect');
-    _socket = IO.io('https://ls-fitness.koyeb.app', <String, dynamic>{
-      'transports': ['websocket'],
-      'autoConnect': true,
-    });
-
-    _socket.connect();
-
-    // Handle connection events
-    _socket.onConnect((_) {
-      _socket.emit('addUser', {"userId": userId});
-      print('Connected to Socket.IO server');
-    });
-
-    _socket.onDisconnect((_) {
-      print('Disconnected from Socket.IO server');
-    });
-
-    // Handle incoming messages
-    _socket.on('receiveMessage', (data) async {
-      DateTime dateTime = DateTime.now();
-      print(dateTime);
-      print('New message received: $data');
-      var uuid = Uuid();
-      String uid = uuid.v1();
-
-      Chats chat = Chats(
-          id: uid,
-          chat: '',
-          sender: Sender(id: data['senderId'], username: ''),
-          text: data['text'],
-          media: data['media'] != null ? [Media.fromJson(data['media'])] : [],
-          reactions: [],
-          isRead: false,
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString());
-      myChats.add(chat);
-
-      emit(GetSpecificChatMessagesSuccess());
-      await DioHelper.get(
-          end_ponit: '${EndPoints.messages}/$roomId',
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
-          query: {'page': 1}).then((_) {
-        print(_.data);
-        receiveMessageModel = SpecificChatMessages.fromJson(_.data);
-        print('===============>receiveMessageModel');
-        print(receiveMessageModel!.chats);
+      _socket = IO.io('https://ls-fitness.koyeb.app', <String, dynamic>{
+        'transports': ['websocket'],
+        'autoConnect': true,
       });
 
-      for (var element in myChats) {
-        if (element.text == data['text'] &&
-            element.isRead == false &&
-            element.id == uid) {
-          if (receiveMessageModel!.chats!.first.text == data['text']) {
-            element.id = receiveMessageModel!.chats!.first.id;
+      _socket.connect();
 
+      // Handle connection events
+      _socket.onConnect((_) {
+        _socket.emit('addUser', {"userId": userId});
+        print('Connected to Socket.IO server');
+      });
+
+      _socket.onDisconnect((_) {
+        print('Disconnected from Socket.IO server');
+      });
+
+      // Handle incoming messages
+      _socket.on('receiveMessage', (data) async {
+        showNotification( data['senderName'], data['text']);
+        DateTime dateTime = DateTime.now();
+        print(dateTime);
+        print('New message received: $data');
+        var uuid = Uuid();
+        String uid = uuid.v1();
+
+        Chats chat = Chats(
+            id: uid,
+            chat: '',
+            sender: Sender(id: data['senderId'], username: ''),
+            text: data['text'],
+            media: data['media'] != null ? [Media.fromJson(data['media'])] : [],
+            reactions: [],
+            isRead: false,
+            createdAt: DateTime.now().toString(),
+            updatedAt: DateTime.now().toString());
+        myChats.add(chat);
+
+        emit(GetSpecificChatMessagesSuccess());
+        await DioHelper.get(
+            end_ponit: '${EndPoints.messages}/$roomId',
+            token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+            query: {'page': 1}).then((_) {
+          print(_.data);
+          receiveMessageModel = SpecificChatMessages.fromJson(_.data);
+          print('===============>receiveMessageModel');
+          print(receiveMessageModel!.chats);
+        });
+
+        for (var element in myChats) {
+          if (element.text == data['text'] &&
+              element.isRead == false &&
+              element.id == uid) {
+            if (receiveMessageModel!.chats!.first.text == data['text']) {
+              element.id = receiveMessageModel!.chats!.first.id;
+
+            }
+            print('OLD Message ID is ${uid}');
+
+            print('New Message ID is ${element.id}');
           }
-          print('OLD Message ID is ${uid}');
-
-          print('New Message ID is ${element.id}');
         }
-      }
 
-      getHomeChats();
-    });
+        getHomeChats();
+      });
 
-    _socket.on('receiveRepliedMessage', (data) {
-      print('New receiveRepliedMessage received: $data');
+      _socket.on('receiveRepliedMessage', (data) {
+        print('New receiveRepliedMessage received: $data');
 
-      Chats chat = Chats(
-          id: '',
-          chat: '',
-          sender:
-              Sender(id: data['senderId'], username: data['ownMessageName']),
-          text: data['text'],
-          media: data['media'] != null ? data['media'] : [],
-          repliedTo: RepliedTo(
-            text: data['repliedToMessageData'],
+        Chats chat = Chats(
+            id: '',
+            chat: '',
             sender:
-                Sender(id: data['senderId'], username: data['ownMessageName']),
-            Id: data['repliedToMessageId'],
-            media: [],
-          ),
-          reactions: [],
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString());
-      myChats.add(chat);
-      getHomeChats();
+            Sender(id: data['senderId'], username: data['ownMessageName']),
+            text: data['text'],
+            media: data['media'] != null ? data['media'] : [],
+            repliedTo: RepliedTo(
+              text: data['repliedToMessageData'],
+              sender:
+              Sender(id: data['senderId'], username: data['ownMessageName']),
+              Id: data['repliedToMessageId'],
+              media: [],
+            ),
+            reactions: [],
+            createdAt: DateTime.now().toString(),
+            updatedAt: DateTime.now().toString());
+        myChats.add(chat);
+        getHomeChats();
 
-      emit(GetSpecificChatMessagesSuccess());
-    });
+        emit(GetSpecificChatMessagesSuccess());
+      });
 
-    _socket.on('receiveReactionToMessage', (data) {
-      print('New Reaction received: $data');
+      _socket.on('receiveReactionToMessage', (data) {
+        print('New Reaction received: $data');
 
-      Reactions newReaction = Reactions(
-        user: User(sId: data["senderId"], username: ''),
-        emoji: data["emoji"],
-        id: '',
-      );
-      for (var element in myChats) {
-        if (element.id == data["messageId"]) {
-          updateReactionIfExists(
-            myChats: myChats,
-            index: myChats.indexOf(element),
-            newReaction: newReaction,
-            userIdToCheck: data["senderId"],
-          );
+        Reactions newReaction = Reactions(
+          user: User(sId: data["senderId"], username: ''),
+          emoji: data["emoji"],
+          id: '',
+        );
+        for (var element in myChats) {
+          if (element.id == data["messageId"]) {
+            updateReactionIfExists(
+              myChats: myChats,
+              index: myChats.indexOf(element),
+              newReaction: newReaction,
+              userIdToCheck: data["senderId"],
+            );
+          }
         }
-      }
 
-      getHomeChats();
+        getHomeChats();
 
-      emit(GetSpecificChatMessagesSuccess());
-    });
+        emit(GetSpecificChatMessagesSuccess());
+      });
 
-    _socket.on('errorMessage', (error) {
-      print('Error: $error');
-    });
+      _socket.on('errorMessage', (error) {
+        print('Error: $error');
+      });
+
+
 
     // Connect to the server
   }
+
+
 
   // Join a room
   void joinRoom(String userId, String roomId) {

@@ -1,88 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client_sse/flutter_client_sse.dart';
+import 'package:flutter_client_sse/constants/sse_request_type_enum.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: DynamicContainer(),
-        ),
-      ),
+      title: 'SSE Notifications',
+      home: NotificationScreen(),
     );
   }
 }
 
-class DynamicContainer extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // النصوص للـContainers
-        final topText = "Top Containeeeeeeeeeeeeer";
-        final bottomText = "Bottom Container .";
+  _NotificationScreenState createState() => _NotificationScreenState();
+}
 
-        // Widget العلوي
-        final topChild = Container(
-          padding: const EdgeInsets.all(8.0),
-          color: Colors.red,
-          child: Text(
-            topText,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white),
-          ),
-        );
+class _NotificationScreenState extends State<NotificationScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _listenToNotifications();
+  }
 
-        // Widget السفلي
-        final bottomChild = Container(
-          padding: const EdgeInsets.all(8.0),
-          color: Colors.green,
-          child: Text(
-            bottomText,
-            textAlign: bottomText.length > topText.length ? TextAlign.left : TextAlign.center,
-            style: const TextStyle(color: Colors.white),
-          ),
-        );
+  void _listenToNotifications() {
+    // استبدل هذا بـ URL الخاص بك
+    String url = 'https://api.ls-fitnes.com/api/v1/notifications/event';
 
-        // حساب الحجم الافتراضي للـContainers
-        final topHeight = calculateTextHeight(topText, constraints.maxWidth);
-        final bottomHeight = calculateTextHeight(bottomText, constraints.maxWidth);
-
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.blue),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                height: bottomHeight > topHeight ? bottomHeight : null,
-                child: topChild,
-              ),
-              Container(
-                height: bottomHeight > topHeight ? null : topHeight,
-                child: bottomChild,
-              ),
-            ],
-          ),
-        );
+    // إعداد الاستماع للإشعارات
+    SSEClient.subscribeToSSE(
+      method: SSERequestType.GET,
+      url: url,
+      header: {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzAxNDliZDg4NjJiZWRkZmU2Y2E0NWMiLCJpYXQiOjE3MzY4MTU2MTMsImV4cCI6MTc0NDU5MTYxM30.V83qgku6t-mbbnxxPKl9puEApqaXDjYtTWBfUtGnePg", // Replace YOUR_JWT_TOKEN with the actual token
+        "Accept": "text/event-stream",
+        "Cache-Control": "no-cache",
+      },
+    ).listen(
+          (event) {
+        // معالجة البيانات المستلمة
+        print('Id: ${event.id}');
+        print('Event: ${event.event}');
+        print('Data: ${event.data}');
+      },
+      onError: (error) {
+        print('Error: $error');
+      },
+      onDone: () {
+        print('Connection closed');
       },
     );
   }
 
-  // دالة لحساب ارتفاع النص بناءً على عرضه
-  double calculateTextHeight(String text, double maxWidth) {
-    final textPainter = TextPainter(
-      text: TextSpan(text: text, style: const TextStyle(fontSize: 14)),
-      maxLines: null,
-      textDirection: TextDirection.ltr,
-    )..layout(maxWidth: maxWidth);
-    return textPainter.size.height + 16; // إضافة الـPadding
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SSE Notifications'),
+      ),
+      body: Center(
+        child: Text('Listening for notifications...'),
+      ),
+    );
   }
 }

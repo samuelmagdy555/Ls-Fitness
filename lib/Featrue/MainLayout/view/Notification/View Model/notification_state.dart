@@ -6,8 +6,8 @@ sealed class NotificationState {}
 final class NotificationInitial extends NotificationState {}
 
 class NotificationLoading extends NotificationState {}
-
 class NotificationConnected extends NotificationState {}
+
 
 class RequestPermissionState extends NotificationState {}
 

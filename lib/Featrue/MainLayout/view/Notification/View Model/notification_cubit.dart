@@ -32,7 +32,6 @@ class NotificationCubit extends Cubit<NotificationState> {
   var initSettings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       iOS: DarwinInitializationSettings());
-
   Future<void> getAllNotifications() async {
     emit(GetAllNotificationLoading());
     try {
@@ -62,19 +61,20 @@ class NotificationCubit extends Cubit<NotificationState> {
       }
     }
   }
-
   Future<void> connectToServer(String url, Map<String, String> headers) async {
-    print("Connecting to $url============================>>>>");
     emit(NotificationLoading());
-    print("Connecting to $url============================>>>>");
     try {
       localNotifications.initialize(initSettings);
       await requestPermission();
 
       await SSEClient.subscribeToSSE(
         method: SSERequestType.GET,
-        url: url,
-        header: headers,
+        url: "https://ls-fitness.koyeb.app/api/v1/notifications/event",
+        header: {
+          "Accept": "text/event-stream",
+          "Cache-Control": "no-cache",
+          "Authorization": "Bearer ${LoginCubit.token}", // Replace YOUR_JWT_TOKEN with the actual token
+        },
       ).listen(
         (event) {
           if (event.data != null &&
@@ -118,7 +118,6 @@ class NotificationCubit extends Cubit<NotificationState> {
     }
     emit(RequestPermissionState());
   }
-
   Future<void> showNotification(String title, String body) async {
     const androidDetails = AndroidNotificationDetails(
       'channelId',
@@ -139,7 +138,6 @@ class NotificationCubit extends Cubit<NotificationState> {
 
     emit(ShowNotificationState());
   }
-
   Future<void> MarkNotificationAsRead({required String id , required bool isRead}) async {
     isRead = true;
     emit(MarkNotificationAsReadLoading());

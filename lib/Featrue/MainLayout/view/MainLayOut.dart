@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View/chat%20View.dart';
@@ -44,13 +45,14 @@ class _MainLayoutState extends State<MainLayout> {
   ];
 
   final String sseUrl =
-      'https://ls-fitness.koyeb.app/api/v1/notifications/event';
+      '${EndPoints.baseUrL}notifications/event';
 
   final Map<String, String> headers = {
     'Authorization':
         'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
     'Accept': 'text/event-stream',
     'Cache-Control': 'no-cache',
+    'Connection' : 'keep-alive'
   };
 
   @override
@@ -64,6 +66,7 @@ class _MainLayoutState extends State<MainLayout> {
     print('sseUrl $sseUrl');
     print('headers $headers');
     NotificationCubit.get(context).connectToServer(sseUrl, headers);
+
 
   }
 
