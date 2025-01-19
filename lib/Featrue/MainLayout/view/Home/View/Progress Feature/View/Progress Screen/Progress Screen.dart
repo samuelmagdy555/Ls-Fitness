@@ -71,12 +71,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     });
                     await ProgressCubit.get(context)
                         .getExercisesProgress(id: selectedExercise.id!);
-                    ProgressCubit.get(context).generateSpots(
-                        ProgressCubit.get(context)
-                                .progressModel
-                                ?.data!
-                                .volumes ??
-                            []);
+                    if (ProgressCubit.get(context)
+                        .progressModel!
+                        .data!
+                        .isNotEmpty) {
+                      ProgressCubit.get(context).generateSpots(
+                          ProgressCubit.get(context).progressModel!);
+                    }
+                    else {
+                      ProgressCubit.get(context).clearSpots();
+
+                    }
                   },
                 ),
               ),
@@ -97,9 +102,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     },
                     builder: (context, state) {
                       return LineChart(
+                        curve: Curves.slowMiddle,
                         LineChartData(
                           baselineX: 0,
                           baselineY: 0,
+                          clipData:  FlClipData.horizontal(),
+
+                          rangeAnnotations:  RangeAnnotations(
+                            horizontalRangeAnnotations: [
+                              HorizontalRangeAnnotation(y1:   2  , y2: .5)
+                            ]
+                          ),
                           gridData: FlGridData(
                             show: false,
                           ),
@@ -109,13 +122,15 @@ class _ProgressScreenState extends State<ProgressScreen> {
                               belowBarData: BarAreaData(
                                 show: true,
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFF40D876), Colors.white],
+                                  colors: [kSecondColor, Colors.white],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                 ),
                               ),
                               dotData: FlDotData(show: false),
-                              spots: ProgressCubit.get(context).spots,
+                              spots: ProgressCubit.get(context).spots == [
+                                FlSpot(0, 5)
+                              ] ? [] : ProgressCubit.get(context).spots,
                               isCurved: true,
                               barWidth: 2,
                             )
@@ -126,10 +141,10 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           titlesData: FlTitlesData(
                             leftTitles: AxisTitles(
                               sideTitles: SideTitles(
-                                interval: 25,
-                                reservedSize: width * .075,
+                                interval: 50,
+                                reservedSize: width * .07,
                                 showTitles: true,
-                                minIncluded: true,
+                                minIncluded: false,
                                 maxIncluded: false,
                                 getTitlesWidget: (value, meta) {
                                   return Text(
@@ -141,9 +156,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             ),
                             bottomTitles: AxisTitles(
                               sideTitles: SideTitles(
-                                reservedSize: 50,
                                 showTitles: true,
-                                interval: 20,
+                                interval: 10,
                                 minIncluded: false,
                                 getTitlesWidget: (value, meta) {
                                   return Text(

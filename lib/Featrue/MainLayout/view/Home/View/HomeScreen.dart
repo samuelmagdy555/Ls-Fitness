@@ -382,11 +382,11 @@ class _HomeViewState extends State<HomeView> {
                 GestureDetector(
                   onTap: () async {
                     await ExerciseCubit.get(context).getExercise(page: 1);
-                    await ProgressCubit.get(context).getExercisesProgress(
-                        id: ExerciseCubit.get(context)
-                            .exercisesModel!
-                            .data[0]
-                            .id);
+                    //  ProgressCubit.get(context).getExercisesProgress(
+                    //     id: ExerciseCubit.get(context)
+                    //         .exercisesModel!
+                    //         .data[0]
+                    //         .id);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ProgressScreen()),

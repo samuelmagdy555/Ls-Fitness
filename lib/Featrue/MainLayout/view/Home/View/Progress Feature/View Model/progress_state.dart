@@ -14,5 +14,6 @@ final class AddProgressSuccess extends ProgressState {}
 final class AddProgressError extends ProgressState {}
 
 final class ListOfChartsDone extends ProgressState {}
+final class ListOfChartsDeleteDone extends ProgressState {}
 
 

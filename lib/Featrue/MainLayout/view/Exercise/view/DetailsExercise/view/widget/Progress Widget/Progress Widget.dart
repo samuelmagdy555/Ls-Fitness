@@ -16,7 +16,6 @@ class ProgressWidget extends StatefulWidget {
 }
 
 class _ProgressWidgetState extends State<ProgressWidget> {
-  final List<int> volume = [130, 250, 320, 300, 350, 400];
   TextEditingController? repsController;
 
   TextEditingController? weightController;
@@ -61,6 +60,7 @@ class _ProgressWidgetState extends State<ProgressWidget> {
     return ProgressCubit.get(context).progressModel != null ? SizedBox(
                   height: height * .3,
                   child: LineChart(
+                    curve:  Curves.ease,
                     LineChartData(
                       baselineX: 0,
                       baselineY: 0,

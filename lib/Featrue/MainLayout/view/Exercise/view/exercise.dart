@@ -358,7 +358,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                                   ));
                                             },
                                             imagePath:
-                                                exercise.video.thumbnail ?? '',
+                                                exercise.video?.thumbnail ?? '',
                                           ),
                                         );
                                       },

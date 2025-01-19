@@ -35,8 +35,4 @@ class EndPoints{
   static String messages = 'messages';
   static String reactions = 'reactions';
   static String reply = 'reply';
-
-
-
-
 }

@@ -29,6 +29,7 @@ class ProgressCubit extends Cubit<ProgressState> {
       progressModel = ProgressModel.fromJson(response.data);
       emit(GetProgressSuccess());
     } catch (e) {
+      print(e);
       emit(GetProgressError());
     }
   }
@@ -45,34 +46,46 @@ class ProgressCubit extends Cubit<ProgressState> {
       emit(AddProgressSuccess());
      await getExercisesProgress(id: id);
      spots.clear();
-    generateSpots(progressModel!.data!.volumes!);
+    generateSpots(progressModel!);
     } catch (e) {
       print(e);
       emit(AddProgressError());
     }
   }
 
-  void generateSpots(List<int> volumes) {
-    spots.clear();
+void clearSpots(){
+  spots.clear();
+  print('spots is $spots');
+  emit(ListOfChartsDeleteDone());
+}
 
-    if (volumes.isEmpty) {
+  void generateSpots(ProgressModel progressModel) {
+    print('generateSpots');
+    clearSpots();
+
+    if (progressModel.data!.isEmpty) {
       print("The volumes list is empty, no spots generated.");
       return;
     }
+    else{
+      print('spots');
+      // int firstVolume = volumes.first.volume - 10;
+      // spots.add(FlSpot(0, firstVolume.toDouble()));
+      //
+      // int lastVolume = volumes.last.volume + 10;
+      // spots.add(FlSpot(volumes.length * 10.0, lastVolume.toDouble()));
 
-    int firstVolume = volumes.first - 10;
-    volumes.insert(0, firstVolume);
+      for (int i = 0; i < progressModel.data!.first.volumes.length; i++) {
+        print(i);
+        spots.add(FlSpot(i*10, progressModel.data!.first.volumes[i].volume.toDouble()));
+      }
 
-    int lastVolume = volumes.last + 10;
-    volumes.add(lastVolume);
+      print(spots);
 
-    for (int i = 0; i < volumes.length; i++) {
-      spots.add(FlSpot(i * 10.0, volumes[i].toDouble()));
+      print('spots done');
+      emit(ListOfChartsDone());
     }
 
-    print(spots);
 
-    emit(ListOfChartsDone());
-    volumes.clear();
   }
 }

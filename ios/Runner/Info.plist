@@ -45,5 +45,37 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Permissions -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى مكتبة الصور.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى الكاميرا.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى الميكروفون.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى الموقع أثناء الاستخدام.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى الموقع دائماً وفي أثناء الاستخدام.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>تحتاج هذه الميزة لاكتشاف الحركة.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>تحتاج هذه الميزة لمشاركة بيانات الصحة.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>تحتاج هذه الميزة لتحديث بيانات الصحة.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>تحتاج هذه الميزة للوصول إلى البلوتوث.</string>
+
+	<!-- Background Modes -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>fetch</string>
+	</array>
 </dict>
 </plist>
