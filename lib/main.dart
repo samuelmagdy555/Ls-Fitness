@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +59,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Alarm.init();
+  // await Alarm.init();
   await DioHelper.init();
   await CashHelper.init();
   await CashHelper.getUserInfo();
@@ -89,16 +88,16 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     // _secureScreen();.
     final now = DateTime.now();
-    Alarm.ringStream.stream.listen((_) async {
-      await Alarm.set(
-        alarmSettings: AlarmSettings(
-            id: _.id,
-            dateTime: DateTime(now.year, now.month, now.day + 1,
-                _.dateTime.hour, _.dateTime.minute),
-            assetAudioPath: _.assetAudioPath,
-            notificationSettings: _.notificationSettings),
-      );
-    });
+    // Alarm.ringStream.stream.listen((_) async {
+    //   await Alarm.set(
+    //     alarmSettings: AlarmSettings(
+    //         id: _.id,
+    //         dateTime: DateTime(now.year, now.month, now.day + 1,
+    //             _.dateTime.hour, _.dateTime.minute),
+    //         assetAudioPath: _.assetAudioPath,
+    //         notificationSettings: _.notificationSettings),
+    //   );
+    // });
   }
 
   // Future<void> _secureScreen() async {

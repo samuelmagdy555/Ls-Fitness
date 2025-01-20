@@ -2,12 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "alarm",
-      "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/alarm-4.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "archive",
       "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/archive-4.0.2",
       "packageUri": "lib/",
@@ -304,12 +298,6 @@
     {
       "name": "flutter_client_sse",
       "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_client_sse-2.0.3",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "flutter_fgbg",
-      "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_fgbg-0.6.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -1130,7 +1118,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2025-01-20T18:54:41.832897Z",
+  "generated": "2025-01-20T19:53:20.841201Z",
   "generator": "pub",
   "generatorVersion": "3.6.1",
   "flutterRoot": "file:///C:/src/flutter",

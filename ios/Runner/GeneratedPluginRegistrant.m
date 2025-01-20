@@ -6,12 +6,6 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<alarm/AlarmPlugin.h>)
-#import <alarm/AlarmPlugin.h>
-#else
-@import alarm;
-#endif
-
 #if __has_include(<audioplayers_darwin/AudioplayersDarwinPlugin.h>)
 #import <audioplayers_darwin/AudioplayersDarwinPlugin.h>
 #else
@@ -28,12 +22,6 @@
 #import <file_picker/FilePickerPlugin.h>
 #else
 @import file_picker;
-#endif
-
-#if __has_include(<flutter_fgbg/FlutterFGBGPlugin.h>)
-#import <flutter_fgbg/FlutterFGBGPlugin.h>
-#else
-@import flutter_fgbg;
 #endif
 
 #if __has_include(<flutter_local_notifications/FlutterLocalNotificationsPlugin.h>)
@@ -129,11 +117,9 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [AlarmPlugin registerWithRegistrar:[registry registrarForPlugin:@"AlarmPlugin"]];
   [AudioplayersDarwinPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersDarwinPlugin"]];
   [FPPDeviceInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FPPDeviceInfoPlusPlugin"]];
   [FilePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FilePickerPlugin"]];
-  [FlutterFGBGPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterFGBGPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
   [FlutterLocalizationPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalizationPlugin"]];
   [HealthPlugin registerWithRegistrar:[registry registrarForPlugin:@"HealthPlugin"]];

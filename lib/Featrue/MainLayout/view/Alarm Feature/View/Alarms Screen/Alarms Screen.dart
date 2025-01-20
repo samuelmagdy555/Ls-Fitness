@@ -55,8 +55,8 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
           actions: [
             num == 5 ? const SizedBox() : GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddAlarm(index: num,)));
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => AddAlarm(index: num,)));
               },
               child: Center(
                 child: Container(
@@ -127,15 +127,15 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             SizedBox(
               height: height * 0.01,
             ),
-            Expanded(
-                child: TabBarView(controller: tabController, children: [
-              MealsAlarms(),
-              SupplementsAlarms(),
-              SleepAlarms(),
-              WorkoutAlarms(),
-              VitaminAlarms(),
-              CreatineTab()
-            ]))
+            // Expanded(
+            //     child: TabBarView(controller: tabController, children: [
+            //   MealsAlarms(),
+            //   SupplementsAlarms(),
+            //   SleepAlarms(),
+            //   WorkoutAlarms(),
+            //   VitaminAlarms(),
+            //   CreatineTab()
+            // ]))
           ],
         ));
   }
