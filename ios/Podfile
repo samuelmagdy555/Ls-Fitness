@@ -6,7 +6,7 @@ target 'Runner' do
   use_frameworks!
 
   # Pods for Runner
-  pod 'alarm', :path => '../.symlinks/plugins/alarm/ios'
+
 
   target 'RunnerTests' do
     inherit! :search_paths
