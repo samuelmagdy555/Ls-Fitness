@@ -13,11 +13,18 @@ An alarm manager for iOS and Android.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.dependency 'Flutter'
-  s.platform = :ios, '9.0'
+  s.source_files     = 'ios/Classes/**/*.swift', 'ios/Classes/**/*.h', 'ios/Classes/**/*.m' # حدد الملفات المصدرية بشكل أكثر دقة
+  s.resources        = 'ios/Assets/**/*' # تأكد من تحديد الملفات داخل مجلد Assets
+  s.dependency       'Flutter'
+  s.platform         = :ios, '13.0' # قم برفع الحد الأدنى من iOS إلى 11.0 لتجنب مشاكل التوافق
+  s.module_name = 'alarm'
+  s.static_framework = true
 
-  # Flutter.framework does not contain a i386 slice.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
-  s.swift_version = '5.0'
+
+  # إعدادات لمعالجة مشكلة المحاكيات القديمة
+  s.pod_target_xcconfig = {
+    'DEFINES_MODULE' => 'YES',
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386'
+  }
+  s.swift_version    = '5.0'
 end
