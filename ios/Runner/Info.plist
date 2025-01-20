@@ -66,6 +66,11 @@
 	<string>تحتاج هذه الميزة لاكتشاف الحركة.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>تحتاج هذه الميزة لمشاركة بيانات الصحة.</string>
+	<key>Permitted background task scheduler identifiers</key>
+    <array>
+        <string>com.gdelataillade.fetch</string>
+    </array>
+
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
     	<array>
     		<string>com.gdelataillade.fetch</string>
