@@ -5,7 +5,7 @@ target 'Runner' do
   use_modular_headers!
 
   # إضافة مكتبة alarm
-    pod 'alarm', :path => '../.symlinks/plugins/alarm/ios/alarm.podspec'
+    pod 'alarm', :path => './.symlinks/plugins/alarm/ios/'
 
   target 'RunnerTests' do
     inherit! :search_paths
