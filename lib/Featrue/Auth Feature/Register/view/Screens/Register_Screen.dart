@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/AgeSelection.dart';
 
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
+import '../../../AuthType/View/AuthType.dart';
 import '../../../goals/View/First_Goal_Screen.dart';
 import '../../../login/view/Screens/login_screen.dart';
 import '../../view_model/regester_cubit.dart';
@@ -208,7 +209,7 @@ class _RegisterViewState extends State<RegisterView> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  AgeSelectionPage()),
+                        builder: (context) =>  AuthType()),
                         (Route<dynamic> route) => false);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text('Account successfully created')),
