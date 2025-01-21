@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/AlarmConfiguration.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/AlarmPlugin.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/AlarmPlugin.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/SwiftAlarmPlugin.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/api/AlarmApiImpl.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/generated/FlutterBindings.g.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/models/AlarmSettings.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/models/NotificationSettings.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/services/AlarmStorage.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/Classes/services/NotificationManager.swift" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.symlinks/plugins/alarm/ios/alarm.podspec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,38 +107,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00005" summary="handel Specific deep anatomy logic and UI">
-      <option name="closed" value="true" />
-      <created>1734823168373</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1734823168373</updated>
-    </task>
-    <task id="LOCAL-00006" summary="handel Specific deep anatomy logic and UI">
-      <option name="closed" value="true" />
-      <created>1734823886176</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1734823886176</updated>
-    </task>
-    <task id="LOCAL-00007" summary="handel Supplements &amp; vitamins Feature">
-      <option name="closed" value="true" />
-      <created>1734880471010</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1734880471010</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Handel Deep Link Callback">
-      <option name="closed" value="true" />
-      <created>1734907172657</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1734907172657</updated>
     </task>
     <task id="LOCAL-00009" summary="handel buy course function">
       <option name="closed" value="true" />
@@ -513,7 +468,39 @@
       <option name="project" value="LOCAL" />
       <updated>1737403330711</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="add ios">
+      <option name="closed" value="true" />
+      <created>1737430128013</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1737430128014</updated>
+    </task>
+    <task id="LOCAL-00055" summary="add ios">
+      <option name="closed" value="true" />
+      <created>1737430256583</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1737430256583</updated>
+    </task>
+    <task id="LOCAL-00056" summary="add ios">
+      <option name="closed" value="true" />
+      <created>1737430266470</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1737430266470</updated>
+    </task>
+    <task id="LOCAL-00057" summary="add ios">
+      <option name="closed" value="true" />
+      <created>1737430402597</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1737430402597</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
