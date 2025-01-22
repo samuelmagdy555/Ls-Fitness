@@ -14,10 +14,24 @@ class WorkoutCubit extends Cubit<WorkoutState> {
   WorkoutCubit() : super(WorkoutInitial());
 
   List<Workout> workout = [
-    Workout(name: 'MorningWorkout', time: '00:00', id: 61, status: false),
-    Workout(name: 'NightWorkout', time: '00:00', id: 62, status: false),
-    Workout(name: 'GymWorkout', time: '00:00', id: 63, status: false),
-    Workout(name: 'HomeWorkout', time: '00:00', id: 64, status: false),
+    Workout(name: 'Morning Exercise', time: '00:00', id: 61, status: false),
+    Workout(name: 'Day Exercise', time: '00:00', id: 62, status: false),
+    Workout(name: 'Night Exercise', time: '00:00', id: 73, status: false),
+    Workout(name: 'Gym Exercise', time: '00:00', id: 74, status: false),
+    Workout(name: 'Home Exercise', time: '00:00', id: 75, status: false),
+    Workout(name: 'Cardio', time: '00:00', id: 80, status: false),
+    Workout(name: 'Football', time: '00:00', id: 76, status: false),
+    Workout(name: 'Basketball', time: '00:00', id: 77, status: false),
+    Workout(name: 'Baseball', time: '00:00', id: 78, status: false),
+    Workout(name: 'Swimming', time: '00:00', id: 79, status: false),
+    Workout(name: 'Volleyball', time: '00:00', id: 81, status: false),
+    Workout(name: 'Handball', time: '00:00', id: 82, status: false),
+    Workout(name: 'paddle ', time: '00:00', id: 83, status: false),
+    Workout(name: 'Tennis', time: '00:00', id: 84, status: false),
+    Workout(name: 'Boxing', time: '00:00', id: 85, status: false),
+    Workout(name: 'Squash', time: '00:00', id: 86, status: false),
+    Workout(name: 'Diving', time: '00:00', id: 87, status: false),
+
   ];
 
 

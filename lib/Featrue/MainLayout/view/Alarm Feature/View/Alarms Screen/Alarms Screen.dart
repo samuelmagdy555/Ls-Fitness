@@ -10,6 +10,7 @@ import 'Tabs/Creatine Feature/View/Creatine Tab.dart';
 
 class TimerScreen extends StatefulWidget {
   final bool value;
+
   TimerScreen({super.key, required this.value});
 
   @override
@@ -23,10 +24,10 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   List<String> c = [
     'Meals',
     'Supplement',
-    'Sleep',
-    'Workout',
-    'Vitamin',
-    'Creatine',
+    'Wake Up &\nSleep',
+    'Water',
+    'Vitamin &\nMinerals',
+    'Exercise',
   ];
   late int num;
   String? selectedValue;
@@ -44,8 +45,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.black,
-
+        backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: const Text(
@@ -53,22 +53,31 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             style: TextStyle(color: Colors.white),
           ),
           actions: [
-            num == 5 ? const SizedBox() : GestureDetector(
-              onTap: () {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => AddAlarm(index: num,)));
-              },
-              child: Center(
-                child: Container(
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(Icons.add , color: Colors.black,),
-                    )),
-              ),
-            ),
+            num == 5
+                ? const SizedBox()
+                : GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddAlarm(
+                                    index: num,
+                                  )));
+                    },
+                    child: Center(
+                      child: Container(
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          )),
+                    ),
+                  ),
           ],
           centerTitle: true,
           leading: widget.value
@@ -89,7 +98,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(top: 15),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 2.75,
+                  childAspectRatio: 2.1,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
@@ -107,7 +116,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                         color: num == index ? Colors.white : Colors.black,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color:  Colors.grey,
+                          color: Colors.grey,
                           width: 1,
                         ),
                       ),
@@ -117,7 +126,9 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                       child: Text(
                         c[index],
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 14, color: num == index  ? Colors.black :Colors.white),
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: num == index ? Colors.black : Colors.white),
                       ),
                     ),
                   );
@@ -127,15 +138,15 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
             SizedBox(
               height: height * 0.01,
             ),
-            // Expanded(
-            //     child: TabBarView(controller: tabController, children: [
-            //   MealsAlarms(),
-            //   SupplementsAlarms(),
-            //   SleepAlarms(),
-            //   WorkoutAlarms(),
-            //   VitaminAlarms(),
-            //   CreatineTab()
-            // ]))
+            Expanded(
+                child: TabBarView(controller: tabController, children: [
+              MealsAlarms(),
+              SupplementsAlarms(),
+              SleepAlarms(),
+              CreatineTab(),
+              VitaminAlarms(),
+              WorkoutAlarms(),
+            ]))
           ],
         ));
   }

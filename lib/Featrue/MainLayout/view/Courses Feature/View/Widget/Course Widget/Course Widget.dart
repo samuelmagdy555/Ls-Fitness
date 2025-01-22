@@ -71,10 +71,10 @@ class CourseWidget extends StatelessWidget {
                   topRight: Radius.circular(16),
                 ),
                 child: Image.network(
-                  course.image ?? 'https://via.placeholder.com/200',
+                  'https://img.freepik.com/free-photo/portrait-muscle-man-posing-grey-background_613910-7496.jpg?t=st=1737531896~exp=1737535496~hmac=056061919a4f8fe11b338b7d41c598c275e46f4feca908a0d89f168339dd0047&w=360',
                   height: screenHeight * 0.135,
                   width: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               Padding(

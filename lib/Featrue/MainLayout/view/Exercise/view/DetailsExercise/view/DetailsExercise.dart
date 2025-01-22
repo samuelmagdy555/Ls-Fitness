@@ -99,7 +99,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                       .exerciseDetailsModel!
                                       .data
                                       .video
-                                      .url,
+                                      .publicId.toString(),
                                 ))),
                         SizedBox(height: 20),
                         Container(
@@ -219,8 +219,9 @@ class _ExercisePageState extends State<ExercisePage> {
           ),
           SizedBox(height: 10),
           Text(
-            'Start in the regular push-up position but with your hands spread wider than your shoulders.\n\n'
-            'Then push your body up and down. Remember to keep your body straight.',
+            ExercisesDetailsCubit.get(context)
+                .exerciseDetailsModel!
+                .data.Description??'',
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
@@ -236,6 +237,24 @@ class _ExercisePageState extends State<ExercisePage> {
             ),
           ),
           SizedBox(height: 10),
+          Text(
+            ExercisesDetailsCubit.get(context)
+                .exerciseDetailsModel!
+                .data.bodyPart.title??'',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
+          Text(
+            ExercisesDetailsCubit.get(context)
+                .exerciseDetailsModel!
+                .data.deepAnatomy[0]??'',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
         ],
       );
     } else if (selectedTab == 'How to do') {

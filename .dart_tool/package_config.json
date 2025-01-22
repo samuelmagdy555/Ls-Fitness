@@ -176,6 +176,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "custom_sliding_segmented_control",
+      "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/custom_sliding_segmented_control-1.8.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "dbus",
       "rootUri": "file:///C:/Users/kerollos/AppData/Local/Pub/Cache/hosted/pub.dev/dbus-0.7.11",
       "packageUri": "lib/",
@@ -1130,7 +1136,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2025-01-21T04:50:16.484914Z",
+  "generated": "2025-01-22T05:58:30.452119Z",
   "generator": "pub",
   "generatorVersion": "3.6.1",
   "flutterRoot": "file:///C:/src/flutter",

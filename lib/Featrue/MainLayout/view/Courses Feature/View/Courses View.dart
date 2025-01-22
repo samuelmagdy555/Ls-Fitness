@@ -112,6 +112,8 @@ class _CoursePageState extends State<CoursePage> {
           return CoursesCubit.get(context).coursesCategoriesModel == null
               ? Center(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       MyLoadingIndicator(
                           height: screenHeight * .3, color: kSecondColor),

@@ -25,7 +25,10 @@ class SleepCubit extends Cubit<SleepState> {
   List<Sleep> sleep = [
     Sleep(name: 'Wake Up', time: '00:00', id: 52, status: false),
     Sleep(name: 'Sleep', time: '00:00', id: 53, status: false),
-    Sleep(name: 'Nap', time: '00:00', id: 54, status: false),
+    Sleep(name: 'Nap 1', time: '00:00', id: 54, status: false),
+    Sleep(name: 'Nap 2', time: '00:00', id: 73, status: false),
+    Sleep(name: 'Wake UP From Nap 1', time: '00:00', id: 74, status: false),
+    Sleep(name: 'Wake UP From Nap 2', time: '00:00', id: 75, status: false),
   ];
 
 

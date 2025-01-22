@@ -75,25 +75,10 @@ class VitaminsTap extends StatelessWidget {
                                           .image),
                                   width: width * .4,
                                   height: height * .09,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
-                              SizedBox(height: height * .02),
-                              Column(
-                                children: [
-                                  Text(
-                                    VitaminScreenCubit.get(context)
-                                        .vitaminsModel!
-                                        .data[index]
-                                        .title,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * .065,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
+
                             ],
                           ),
                           SizedBox(
@@ -103,7 +88,8 @@ class VitaminsTap extends StatelessWidget {
                                   .vitaminsModel!
                                   .data[index]
                                   .description,
-                              maxLines: 3,
+                              maxLines: 7,
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: width * .04,

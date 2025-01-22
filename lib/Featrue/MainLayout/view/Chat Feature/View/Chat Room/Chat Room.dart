@@ -10,7 +10,8 @@ import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/ch
 
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../Model/My Chats Model/My Chats Model.dart';
+import '../../Model/My Chats Model/My Chats Model.dart';import 'package:intl/intl.dart';
+
 
 class ChatRoom extends StatefulWidget {
   final String id;
@@ -248,12 +249,15 @@ class _ChatRoomState extends State<ChatRoom>
                             .myChats
                             .length,
                         itemBuilder: (context, index) {
+                          DateTime now = DateTime.now();
                           DateTime dateTime = DateTime.parse(
                               ChatCubit
                                   .get(context)
                                   .myChats[index]
                                   .createdAt!);
-                          String timeAgo = timeago.format(dateTime);
+                          String formattedTime = DateFormat('hh:mm a').format(
+                              dateTime);
+
                           return GestureDetector(
                             onHorizontalDragEnd: (_) {
                               print('drag');
@@ -285,7 +289,7 @@ class _ChatRoomState extends State<ChatRoom>
                                   .sender!
                                   .id ==
                                   LoginCubit.id,
-                              time: timeAgo,
+                              time: formattedTime,
                               isReplayed: ChatCubit
                                   .get(context)
                                   .myChats[index]
@@ -304,7 +308,7 @@ class _ChatRoomState extends State<ChatRoom>
                                   .repliedTo!
                                   .sender!
                                   .username
-                                  : 'null',
+                                  : '',
                               isReplayedText: ChatCubit
                                   .get(context)
                                   .myChats[index]
@@ -730,7 +734,41 @@ class _ChatInputFieldState extends State<ChatInputField> {
               ChatCubit.get(context).handleSendMessage(chatID: widget.roomID, receiverId: widget.receiverId);
             },
           ),
-          IconButton(
+          message.text.isEmpty? IconButton(
+            icon: Icon(Iconsax.microphone_2, color: Colors.red),
+            onPressed: () {
+              if (message.text.isNotEmpty && ChatCubit
+                  .get(context)
+                  .repliedTo == null) {
+                ChatCubit.get(context).sendTextMessages(
+                    ChatID: widget.roomID,
+                    message: message.text,
+                    receiverId: widget.receiverId,
+                    controller: message,
+                    isGroub: widget.isGroup,
+                    participants: widget.isGroup ? widget.participants : null);
+              }
+              else if (message.text.isNotEmpty && ChatCubit
+                  .get(context)
+                  .repliedTo != null) {
+                print(ChatCubit
+                    .get(context)
+                    .repliedTo!.Id!);
+                ChatCubit.get(context).ReplayTextMessages(ChatID: widget.roomID,
+                  message: message.text,
+                  receiverId: widget.receiverId,
+                  controller: message,
+                  isGroub: widget.isGroup,
+                  ReplyMessage: ChatCubit
+                      .get(context)
+                      .repliedTo!.text!,
+                  ReplyMessageId: ChatCubit
+                      .get(context)
+                      .repliedTo!.Id!, MessageID: ChatCubit
+                      .get(context).repliedTo!.Id!,);
+              }
+            },
+          ):IconButton(
             icon: Icon(Iconsax.send_1, color: Colors.red),
             onPressed: () {
               if (message.text.isNotEmpty && ChatCubit
@@ -751,17 +789,17 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     .get(context)
                     .repliedTo!.Id!);
                 ChatCubit.get(context).ReplayTextMessages(ChatID: widget.roomID,
-                    message: message.text,
-                    receiverId: widget.receiverId,
-                    controller: message,
-                    isGroub: widget.isGroup,
-                    ReplyMessage: ChatCubit
-                        .get(context)
-                        .repliedTo!.text!,
-                    ReplyMessageId: ChatCubit
-                        .get(context)
-                        .repliedTo!.Id!, MessageID: ChatCubit
-                    .get(context).repliedTo!.Id!,);
+                  message: message.text,
+                  receiverId: widget.receiverId,
+                  controller: message,
+                  isGroub: widget.isGroup,
+                  ReplyMessage: ChatCubit
+                      .get(context)
+                      .repliedTo!.text!,
+                  ReplyMessageId: ChatCubit
+                      .get(context)
+                      .repliedTo!.Id!, MessageID: ChatCubit
+                      .get(context).repliedTo!.Id!,);
               }
             },
           ),

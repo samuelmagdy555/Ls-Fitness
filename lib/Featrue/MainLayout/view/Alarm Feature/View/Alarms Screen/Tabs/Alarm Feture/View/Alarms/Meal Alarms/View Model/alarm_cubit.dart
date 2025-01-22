@@ -22,11 +22,19 @@ class AlarmCubit extends Cubit<AlarmState> {
 
 
   List<Meal> meals = [
-    Meal(name: 'Before Exercise', time: '00:00' , id: 1, status: false),
-    Meal(name: 'After Exercise', time: '00:00',id: 2, status: false),
-    Meal(name: 'Snack 3', time: '00:00',id: 3, status: false),
+    Meal(name: 'Breakfast', time: '00:00',id: 1, status: false),
+    Meal(name: 'Lunch', time: '00:00',id: 2, status: false),
+    Meal(name: 'Dinner', time: '00:00',id: 3, status: false),
+    Meal(name: 'Before Exercise', time: '00:00' , id: 65, status: false),
+    Meal(name: 'After Exercise', time: '00:00',id: 66, status: false),
     Meal(name: 'Ramadan Breakfast', time: '00:00',id: 4, status: false),
     Meal(name: 'Ramadan Suhoor', time: '00:00',id: 5, status: false),
+    Meal(name: 'Snack 1', time: '00:00',id: 67, status: false),
+    Meal(name: 'Snack 2', time: '00:00',id: 68, status: false),
+    Meal(name: 'Snack 3', time: '00:00',id: 69, status: false),
+    Meal(name: 'Sweet 1', time: '00:00',id: 70, status: false),
+    Meal(name: 'Sweet 2', time: '00:00',id: 71, status: false),
+    Meal(name: 'Sweet 3', time: '00:00',id: 72, status: false),
   ];
 
   List<String> listofstring = [];

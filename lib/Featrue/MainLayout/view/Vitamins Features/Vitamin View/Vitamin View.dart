@@ -18,64 +18,7 @@ class VitaminView extends StatefulWidget {
 }
 
 class _VitaminViewState extends State<VitaminView> {
-  final List<String> vitamins = const [
-    'Vitamin A',
-    'Vitamin B',
-    'Vitamin C',
-    'Vitamin D',
-    'Vitamin E',
-    'Vitamin K',
-    'Omega 3',
-  ];
 
-  final List<String> supplements = const [
-    'Protein Powder',
-    'Creatine',
-    'Fish Oil',
-    'BCAA',
-    'Multivitamin',
-    'Iron',
-  ];
-
-  final List<String> images = const [
-    'assets/images/Vitamin A.png',
-    'assets/images/Vitamin B.png',
-    'assets/images/Vitamin C.png',
-    'assets/images/Vitamin D.png',
-    'assets/images/Vitamin E.png',
-    'assets/images/Vitamin K.png',
-    'assets/images/omega 3.png',
-  ];
-
-  final List<String> locations = const [
-    'carrots , sweet potatoes, and spinach',
-    'meat , eggs , dairy products , and whole grains',
-    'citrus fruits , strawberries , and oranges',
-    'sunlight , fatty fish , and dairy products',
-    'nuts , seeds , and vegetable oils',
-    'leafy greens , broccoli , and Brussels sprouts',
-    'fatty fish like salmon and tuna , and walnuts',
-  ];
-
-  final List<String> benefits = const [
-    'Helps maintain eye health and strengthens immunity',
-    'Supports energy production and nervous system health',
-    'Boosts immunity and maintains skin health',
-    'Supports bone health and calcium absorption',
-    'Protects cells from damage as an antioxidant',
-    'Supports blood clotting and bone health',
-    'Promotes heart health and reduces inflammation',
-  ];
-
-  final List<String> dailyAmounts = const [
-    '700-900 mcg',
-    '1 to 3 mg',
-    '75-90 mg',
-    '600-800 IU',
-    '15 mg',
-    '90-120 mcg',
-    '90-120 mcg',
-  ];
 
   @override
   void initState() {
@@ -98,15 +41,7 @@ class _VitaminViewState extends State<VitaminView> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
-          leading: IconButton(
-            icon: Icon(
-              Iconsax.arrow_left,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+
           title: Text(
             S
                 .of(context)

@@ -80,7 +80,7 @@ class _MyCoursesViewState extends State<MyCoursesView> {
               final course =
               CoursesCubit.get(context).myCourses!.data[index];
               return CourseCard(
-                image: course.image,
+                image: 'https://img.freepik.com/free-photo/portrait-muscle-man-posing-grey-background_613910-7496.jpg?t=st=1737531896~exp=1737535496~hmac=056061919a4f8fe11b338b7d41c598c275e46f4feca908a0d89f168339dd0047&w=360',
                 title: course.title,
                 description: course.description,
                 price: course.price, // Assuming price field exists

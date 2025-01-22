@@ -27,6 +27,7 @@ class SupplementsTap extends StatelessWidget {
                     height: height * .3, color: kSecondColor),
               )
             : ListView.builder(
+                padding: EdgeInsets.all(20),
                 scrollDirection: Axis.horizontal,
                 itemCount: VitaminScreenCubit.get(context)
                     .supplementModel!
@@ -34,115 +35,101 @@ class SupplementsTap extends StatelessWidget {
                     .length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
-                      VitaminScreenCubit.get(context).getSpecificSupplements(
-                          id: VitaminScreenCubit.get(context)
-                              .supplementModel!
-                              .data[index]
-                              .id
-                              .toString());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SupplementDetails(
-                                  )));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.all(15),
-                      height: height * .3,
-                      width: width * .65,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(125),
-                        border: Border.all(
-                            color: Colors.white, width: width * 0.01),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      onTap: () {
+                        VitaminScreenCubit.get(context).getSpecificSupplements(
+                            id: VitaminScreenCubit.get(context)
+                                .supplementModel!
+                                .data[index]
+                                .id
+                                .toString());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SupplementDetails()));
+                      },
+                      child: Stack(
                         children: [
-                          Column(
-                            children: [
-                              Container(
-                                width: width * .42,
+                          Image(
+                            image: AssetImage(
+                                'assets/images/Supplement Shape.png'),
+                            height: height * .65,
+                            width: width * .75,
+                            fit: BoxFit.cover,
+                          ),
+                          Positioned(
+                            top: height*.17,
+                            right: width*.18,
+                            left: width*.18,
+                            child: Container(
+                              width: width * .45,
+                              height: height * .08,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(125),
+                              ),
+                              child: Image(
+                                image: NetworkImage(
+                                    'https://api.ls-fitnes.com/vitamins/1.webp'),
+                                width: width * .4,
                                 height: height * .09,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: height*.36,
+                            right: width*.2,
+                            left: width*.2,
+                            child: SizedBox(
+                              width: width * .575,
+                              child: Text(
+                                VitaminScreenCubit.get(context)
+                                    .supplementModel!
+                                    .data[index]
+                                    .description,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * .045,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+
+                            top: height*.515,
+                            right: width*.065,
+                            left: width*.065,
+                            child:  InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TimerScreen(
+                                          value: false,
+                                        )));
+                              },
+                              child: Container(
+                                height: height*.08,
+                                width: width*.5,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(125),
+                                  borderRadius:  BorderRadius.circular(25),
                                 ),
-                                child: Image(
-                                  image: NetworkImage(
-                                      VitaminScreenCubit.get(context)
-                                          .supplementModel!
-                                          .data[index]
-                                          .image),
-                                  width: width * .4,
-                                  height: height * .09,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(height: height * .02),
-                              Column(
-                                children: [
-                                  Text(
-                                    VitaminScreenCubit.get(context)
-                                        .supplementModel!
-                                        .data[index]
-                                        .title,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * .065,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                child: Center(
+                                  child: Icon(
+                                    Iconsax.alarm,
+                                    color: Colors.black,
+                                    size: 35,
                                   ),
-                                  Text(
-                                    '500 ml',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * .04,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: width * .575,
-                            child: Text(
-                              'meat , eggs , dairy products , and whole grains',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: width * .045,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TimerScreen(
-                                            value: false,
-                                          )));
-                            },
-                            child: CircleAvatar(
-                              radius: 35,
-                              backgroundColor: Colors.white,
-                              child: Center(
-                                child: Icon(
-                                  Iconsax.alarm,
-                                  color: Colors.black,
-                                  size: 35,
                                 ),
-                              ),
+                              )
                             ),
-                          ),
+                          )
+
                         ],
-                      ),
-                    ),
-                  );
+                      ));
                 },
               );
       },
