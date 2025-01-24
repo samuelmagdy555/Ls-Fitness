@@ -8,6 +8,8 @@ import 'package:lsfitness/Featrue/MainLayout/view/Profile/view_model/profile_cub
 import '../../../../../generated/l10n.dart';
 import '../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../Settings/view/Settings.dart';
+import '../../trainer Feature/View Model/trainer_cubit.dart';
+import '../../trainer Feature/View/All Trainer VView.dart';
 import '../View Model/home_cubit.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'Nutrition Feature/View/Nutrition View.dart';
@@ -147,6 +149,25 @@ class _HomeViewState extends State<HomeView> {
                             size: width * .075,
                           ),
                         )),
+            Positioned(
+                right: width * .15,
+                top: height * .015,
+                child: InkWell(
+                  onTap: () async{
+                    await TrainerCubit.get(context).getTrainersData();
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TrainerPage(),
+                        ));
+                  },
+                  child: Icon(
+                    Iconsax.personalcard,
+                    color: Colors.white,
+                    size: width * .075,
+                  ),
+                ))
                   ],
                 ),
                 Padding(

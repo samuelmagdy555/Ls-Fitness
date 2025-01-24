@@ -36,4 +36,5 @@ class EndPoints{
   static String reactions = 'reactions';
   static String reply = 'reply';
   static String trainerRequests = 'trainerRequests';
+  static String trainerProfiles = 'trainerProfiles';
 }

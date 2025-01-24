@@ -56,6 +56,8 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart';
+
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
@@ -175,7 +177,8 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(create: (context) => MoreCoursesCubit()),
         BlocProvider(create: (context) => ChatCubit()),
-        BlocProvider(create: (context) => TrainerRequestCubit())
+        BlocProvider(create: (context) => TrainerRequestCubit()),
+        BlocProvider(create: (context) => TrainerCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

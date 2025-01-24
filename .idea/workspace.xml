@@ -4,30 +4,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="add ios">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View Model/trainer_request_cubit.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View Model/trainer_request_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/Certificatie View.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/request Done.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/request Not Done.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
+    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/Model/All Trainer Model/All Trainer Model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/Model/Trainer Details/Trainer Details.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachLive.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachLive.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachNationality..dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachNationality..dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestAge.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestAge.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestEmail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestEmail.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestName.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestName.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestPhone.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/CoachRequestPhone.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/NumberOfTrainee.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/NumberOfTrainee.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/YearsOfExeprince.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/YearsOfExeprince.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/introduceYourSelf.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/CoachRequest/View/introduceYourSelf.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/Widgets/View/ProgressIndicator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/Widgets/View/ProgressIndicator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
@@ -133,14 +123,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00015" summary="change settings icon position">
-      <option name="closed" value="true" />
-      <created>1735575373508</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1735575373508</updated>
     </task>
     <task id="LOCAL-00016" summary="handel get all chat and get specific chat">
       <option name="closed" value="true" />
@@ -526,7 +508,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737433837576</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="add Trainer request logic">
+      <option name="closed" value="true" />
+      <created>1737700325070</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1737700325071</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -541,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel get vitamin function" />
     <MESSAGE value="handel Specific deep anatomy logic and UI" />
     <MESSAGE value="handel Supplements &amp; vitamins Feature" />
     <MESSAGE value="handel deep link callback" />
@@ -566,7 +555,8 @@
     <MESSAGE value="handel send File" />
     <MESSAGE value="handel change Message ID" />
     <MESSAGE value="add ios" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ios" />
+    <MESSAGE value="add Trainer request logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Trainer request logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -578,17 +568,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart</url>
-          <line>118</line>
+          <line>120</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart</url>
-          <line>82</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart</url>
-          <line>133</line>
+          <line>135</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">

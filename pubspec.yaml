@@ -83,6 +83,7 @@ dependencies:
   alarm: ^4.1.1
   custom_sliding_segmented_control: ^1.8.5
   mime: ^2.0.0
+  cached_network_image: ^3.4.1
 
 
 
