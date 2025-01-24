@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View/CoachRequestAge.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
@@ -51,13 +53,10 @@ class _CoachRequestPhoneState extends State<CoachRequestPhone> {
             SizedBox(height: size.height*0.05 ,),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
-                currentStep: 0,
-                totalSteps: 5,
-                currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+              child:  ProgressSingleIndicatorWidget(
+                currentStep: 2,
+                totalSteps: 10,
+
               ),
             ),
             Stack(
@@ -114,6 +113,8 @@ class _CoachRequestPhoneState extends State<CoachRequestPhone> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide.none,
+
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[100],
@@ -124,6 +125,7 @@ class _CoachRequestPhoneState extends State<CoachRequestPhone> {
                             ElevatedButton(
                               onPressed: isButtonEnabled
                                   ? () {
+                                TrainerRequestCubit.get(context).trainerPhone = PhoneController.text;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

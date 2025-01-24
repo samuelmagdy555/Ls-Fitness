@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/live.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
+import '../View Model/trainer_request_cubit.dart';
 import 'CoachLive.dart';
 
 class CoachNationality extends StatefulWidget {
@@ -222,13 +224,10 @@ class _CoachNationalityState extends State<CoachNationality> {
             SizedBox(height: size.height*0.05 ,),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
-                currentStep: 0,
-                totalSteps: 5,
-                currentPage: 3, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+              child:  ProgressSingleIndicatorWidget(
+                currentStep: 4,
+                totalSteps: 10,
+
               ),
             ),
             // Stack for Background Image and Content
@@ -323,6 +322,7 @@ class _CoachNationalityState extends State<CoachNationality> {
                             onPressed: selectedNationality == null
                                 ? null
                                 : () {
+                              TrainerRequestCubit.get(context).trainerNationality = selectedNationality!;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

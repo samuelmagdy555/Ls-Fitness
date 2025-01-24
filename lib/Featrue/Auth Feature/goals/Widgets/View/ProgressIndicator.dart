@@ -80,3 +80,67 @@ class ProgressIndicatorWidget extends StatelessWidget {
     );
   }
 }
+
+
+class ProgressSingleIndicatorWidget extends StatelessWidget {
+  final int currentStep;
+  final int totalSteps;
+  final Color activeColor;
+  final Color inactiveColor;
+
+  const ProgressSingleIndicatorWidget({
+    Key? key,
+    required this.currentStep,
+    required this.totalSteps,
+    this.activeColor = Colors.green,
+    this.inactiveColor = Colors.grey,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    // Calculate circle and line sizes dynamically
+    final circleRadius = screenWidth / (totalSteps * 3);
+    final lineWidth = screenWidth / (totalSteps * 2);
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(totalSteps, (index) {
+          bool isCompleted = index < currentStep;
+          bool isActive = index == currentStep;
+
+          return Row(
+            children: [
+              // Circle for step
+              CircleAvatar(
+                radius: circleRadius,
+                backgroundColor: isCompleted ? activeColor : inactiveColor,
+                child: isCompleted
+                    ? Icon(Icons.check, color: Colors.white, size: circleRadius * 1.5)
+                    : Text(
+                  "${index + 1}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: circleRadius,
+                  ),
+                ),
+              ),
+
+              // Line between steps (except for the last step)
+              if (index < totalSteps - 1)
+                Container(
+                  width: lineWidth,
+                  height: 2,
+                  color: isCompleted ? activeColor : inactiveColor,
+                ),
+            ],
+          );
+        }),
+      ),
+    );
+  }
+}

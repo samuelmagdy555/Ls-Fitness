@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
+import '../View Model/trainer_request_cubit.dart';
 import 'CoachRequestEmail.dart';
 import 'CoachRequestPhone.dart';
 
@@ -42,7 +44,7 @@ class _CoachRequestEmailState extends State<CoachRequestEmail> {
     var screenWidth = MediaQuery.of(context).size.width;
 
 
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
 
@@ -51,13 +53,10 @@ class _CoachRequestEmailState extends State<CoachRequestEmail> {
             SizedBox(height: size.height*0.05 ,),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
-                currentStep: 0,
-                totalSteps: 5,
-                currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+              child:  ProgressSingleIndicatorWidget(
+                currentStep: 1,
+                totalSteps: 10,
+
               ),
             ),
             Stack(
@@ -113,6 +112,8 @@ class _CoachRequestEmailState extends State<CoachRequestEmail> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide.none,
+
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[100],
@@ -123,6 +124,9 @@ class _CoachRequestEmailState extends State<CoachRequestEmail> {
                             ElevatedButton(
                               onPressed: isButtonEnabled
                                   ? () {
+                                TrainerRequestCubit.get(context).trainerEmail = EmailController.text;
+                                print(
+                                    TrainerRequestCubit.get(context).trainerName);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

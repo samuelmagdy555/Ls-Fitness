@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 import 'CoachRequestEmail.dart';
 
-
 class CoachName extends StatefulWidget {
   const CoachName({super.key});
-
 
   @override
   State<CoachName> createState() => _CoachNameState();
 }
 
-
 class _CoachNameState extends State<CoachName> {
   final TextEditingController NameController = TextEditingController();
   bool isButtonEnabled = false;
-
 
   @override
   void initState() {
@@ -40,23 +38,19 @@ class _CoachNameState extends State<CoachName> {
     final size = MediaQuery.of(context).size;
     var screenWidth = MediaQuery.of(context).size.width;
 
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-
         child: Column(
           children: [
-            SizedBox(height: size.height*0.05 ,),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
+              child: ProgressSingleIndicatorWidget(
                 currentStep: 0,
-                totalSteps: 5,
-                currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+                totalSteps: 10,
               ),
             ),
             Stack(
@@ -72,14 +66,14 @@ class _CoachNameState extends State<CoachName> {
                     fit: BoxFit.cover,
                   ),
                 ),
-
                 SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.4),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.08, vertical: size.height * 0.05),
+                            horizontal: size.width * 0.08,
+                            vertical: size.height * 0.05),
                         width: size.width,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -112,32 +106,42 @@ class _CoachNameState extends State<CoachName> {
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide.none,
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[100],
-                                prefixIcon: Icon(Icons.person, color: Colors.blue),
+                                prefixIcon: Icon(Icons.person,
+                                    color: Colors.blue),
                               ),
                             ),
                             SizedBox(height: size.height * 0.2),
                             ElevatedButton(
                               onPressed: isButtonEnabled
                                   ? () {
+                                TrainerRequestCubit.get(context)
+                                    .trainerName =
+                                    NameController.text;
+                                print(
+                                    TrainerRequestCubit.get(context).trainerName);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => CoachRequestEmail(),
+                                    builder: (context) =>
+                                        CoachRequestEmail(),
                                   ),
                                 );
                               }
                                   : null,
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.3, vertical: 15),
+                                    horizontal: size.width * 0.3,
+                                    vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                backgroundColor:
-                                isButtonEnabled ? Colors.black : Colors.grey,
+                                backgroundColor: isButtonEnabled
+                                    ? Colors.black
+                                    : Colors.grey,
                               ),
                               child: Text(
                                 "Continue",

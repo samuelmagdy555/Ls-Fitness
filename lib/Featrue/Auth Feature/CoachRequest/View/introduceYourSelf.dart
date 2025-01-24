@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View/CoachRequestAge.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
+
+import '../View Model/trainer_request_cubit.dart';
+import 'Certificatie View.dart';
 
 class IntroduceYourSelf extends StatefulWidget {
   const IntroduceYourSelf({super.key});
@@ -10,7 +14,8 @@ class IntroduceYourSelf extends StatefulWidget {
 }
 
 class _IntroduceYourSelfState extends State<IntroduceYourSelf> {
-  final TextEditingController IntroduceYourSelfController = TextEditingController();
+  final TextEditingController IntroduceYourSelfController =
+      TextEditingController();
   bool isButtonEnabled = false;
   double textFieldHeight = 60; // Default height for the text field
 
@@ -42,13 +47,9 @@ class _IntroduceYourSelfState extends State<IntroduceYourSelf> {
           SizedBox(height: size.height * 0.05),
           Padding(
             padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-            child: ProgressIndicatorWidget(
-              currentStep: 0,
-              totalSteps: 5,
-              currentPage: 4,
-              totalPages: 6,
-              pagesPerStep: [5, 5, 5, 5, 5, 5, 5],
-              width: screenWidth * 0.33,
+            child: ProgressSingleIndicatorWidget(
+              currentStep: 8,
+              totalSteps: 10,
             ),
           ),
           Expanded(
@@ -69,10 +70,12 @@ class _IntroduceYourSelfState extends State<IntroduceYourSelf> {
                   initialChildSize: 0.4,
                   minChildSize: 0.4,
                   maxChildSize: 0.8,
-                  builder: (BuildContext context, ScrollController scrollController) {
+                  builder: (BuildContext context,
+                      ScrollController scrollController) {
                     return Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: size.width * 0.08, vertical: size.height * 0.04),
+                          horizontal: size.width * 0.08,
+                          vertical: size.height * 0.04),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.vertical(
@@ -104,7 +107,8 @@ class _IntroduceYourSelfState extends State<IntroduceYourSelf> {
                               setState(() {
                                 // Adjust the height based on vertical drag
                                 textFieldHeight += details.delta.dy;
-                                if (textFieldHeight < 60) textFieldHeight = 60; // Minimum height
+                                if (textFieldHeight < 60)
+                                  textFieldHeight = 60; // Minimum height
                               });
                             },
                             child: Container(
@@ -114,34 +118,42 @@ class _IntroduceYourSelfState extends State<IntroduceYourSelf> {
                                 keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                                      borderRadius:
+                                      BorderRadius.circular(12),
+                                      borderSide: BorderSide.none),
                                   filled: true,
                                   fillColor: Colors.grey[100],
-                                  prefixIcon: Icon(Icons.person_outline, color: Colors.blue),
+                                  prefixIcon: Icon(Icons.person_outline,
+                                      color: Colors.blue),
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: size.height * 0.2),
+                          SizedBox(height: size.height * 0.15),
                           ElevatedButton(
                             onPressed: isButtonEnabled
                                 ? () {
+                              TrainerRequestCubit.get(context)
+                                  .trainerAbout =
+                                  IntroduceYourSelfController.text;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CoachAge(),
+                                  builder: (context) => CertificatesPage(),
                                 ),
                               );
                             }
                                 : null,
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: size.width * 0.3, vertical: 15),
+                                  horizontal: size.width * 0.3,
+                                  vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               ),
-                              backgroundColor: isButtonEnabled ? Colors.black : Colors.grey,
+                              backgroundColor: isButtonEnabled
+                                  ? Colors.black
+                                  : Colors.grey,
                             ),
                             child: Text(
                               "Continue",

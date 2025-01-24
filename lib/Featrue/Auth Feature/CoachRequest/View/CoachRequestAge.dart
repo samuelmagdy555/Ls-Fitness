@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/gender.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:lsfitness/generated/l10n.dart';
 
 import '../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../goals/Widgets/View/ProgressIndicator.dart';
+import '../View Model/trainer_request_cubit.dart';
 import 'CoachNationality..dart';
 
 // Updated AgeSelectionPage
@@ -33,13 +35,13 @@ class _CoachAgeState extends State<CoachAge> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: screenHeight*0,),
-                ProgressIndicatorWidget(
-                  currentStep: 0,
-                  totalSteps: 5,
-                  currentPage: 1, // الصفحة الحالية داخل الخطوة
-                  totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                  pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                  width: screenWidth * 0.33,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
+                  child:  ProgressSingleIndicatorWidget(
+                    currentStep: 3,
+                    totalSteps: 10,
+
+                  ),
                 ),
 
                 SizedBox(height: screenHeight * 0.06),
@@ -119,6 +121,7 @@ class _CoachAgeState extends State<CoachAge> {
                 ElevatedButton(
                   onPressed: isAgeSelected
                       ? () {
+                    TrainerRequestCubit.get(context).trainerAge = selectedAge.toString();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

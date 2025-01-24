@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
 
 import 'YearsOfExeprince.dart';
 
-
 class WhereDidCoachLive extends StatefulWidget {
   const WhereDidCoachLive({super.key});
-
 
   @override
   State<WhereDidCoachLive> createState() => _WhereDidCoachLiveState();
 }
 
-
 class _WhereDidCoachLiveState extends State<WhereDidCoachLive> {
   final TextEditingController _nationalityController = TextEditingController();
   bool isButtonEnabled = false;
-
 
   @override
   void initState() {
@@ -40,23 +39,20 @@ class _WhereDidCoachLiveState extends State<WhereDidCoachLive> {
     final size = MediaQuery.of(context).size;
     var screenWidth = MediaQuery.of(context).size.width;
 
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-
         child: Column(
           children: [
-            SizedBox(height: size.height*0.05 ,),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
-                currentStep: 0,
-                totalSteps: 5,
-                currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+              child:  ProgressSingleIndicatorWidget(
+                currentStep: 5,
+                totalSteps: 10,
+
               ),
             ),
             Stack(
@@ -72,14 +68,14 @@ class _WhereDidCoachLiveState extends State<WhereDidCoachLive> {
                     fit: BoxFit.cover,
                   ),
                 ),
-
                 SingleChildScrollView(
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.4),
                       Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.08, vertical: size.height * 0.05),
+                            horizontal: size.width * 0.08,
+                            vertical: size.height * 0.05),
                         width: size.width,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -115,29 +111,36 @@ class _WhereDidCoachLiveState extends State<WhereDidCoachLive> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[100],
-                                prefixIcon: Icon(Icons.flag, color: Colors.blue),
+                                prefixIcon:
+                                Icon(Icons.flag, color: Colors.blue),
                               ),
                             ),
                             SizedBox(height: size.height * 0.2),
                             ElevatedButton(
                               onPressed: isButtonEnabled
                                   ? () {
+                                TrainerRequestCubit.get(context)
+                                    .trainerCurrentLocation =
+                                    _nationalityController.text;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => YearsOfExperience(),
+                                    builder: (context) =>
+                                        YearsOfExperience(),
                                   ),
                                 );
                               }
                                   : null,
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: size.width * 0.3, vertical: 15),
+                                    horizontal: size.width * 0.3,
+                                    vertical: 15),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
-                                backgroundColor:
-                                isButtonEnabled ? Colors.black : Colors.grey,
+                                backgroundColor: isButtonEnabled
+                                    ? Colors.black
+                                    : Colors.grey,
                               ),
                               child: Text(
                                 "Continue",

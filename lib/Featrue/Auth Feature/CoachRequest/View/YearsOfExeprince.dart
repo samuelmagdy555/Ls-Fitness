@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View/CoachRequestAge.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/Contact.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/Widgets/View/ProgressIndicator.dart';
@@ -49,16 +51,15 @@ class _YearsOfExperienceState extends State<YearsOfExperience> {
 
         child: Column(
           children: [
-            SizedBox(height: size.height*0.05 ,),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-              child:  ProgressIndicatorWidget(
-                currentStep: 0,
-                totalSteps: 5,
-                currentPage: 4, // الصفحة الحالية داخل الخطوة
-                totalPages: 6, // إجمالي صفحات الخطوة الحالية
-                pagesPerStep: [5, 5, 5, 5, 5,5,5], // عدد الصفحات لكل خطوة
-                width: screenWidth * 0.33,
+              child:  ProgressSingleIndicatorWidget(
+                currentStep: 6,
+                totalSteps: 10,
+
               ),
             ),
             Stack(
@@ -114,17 +115,31 @@ class _YearsOfExperienceState extends State<YearsOfExperience> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none
                                 ),
                                 filled: true,
                                 fillColor: Colors.grey[100],
                                 prefixIcon: Icon(Icons.numbers_outlined , color: Colors.blue),
                               ),
                             ),
-                            SizedBox(height: size.height * 0.2),
+                            SizedBox(height: size.height * 0.15),
                             ElevatedButton(
                               onPressed: isButtonEnabled
                                   ? () {
+                                TrainerRequestCubit.get(context).trainerExperience = YearsOfExperience.text;
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+                                print(TrainerRequestCubit.get(context).trainerExperience);
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

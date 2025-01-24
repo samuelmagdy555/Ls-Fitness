@@ -7,6 +7,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
+import 'package:lsfitness/Featrue/Auth%20Feature/CoachRequest/View%20Model/trainer_request_cubit.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/View/TraingTime.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/goals/viewModel/goals_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/Splash/View/Splash_Screen.dart';
@@ -23,6 +24,8 @@ import 'package:lsfitness/generated/l10n.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 import 'package:lsfitness/try3.dart';
+import 'Featrue/Auth Feature/CoachRequest/View/Certificatie View.dart';
+import 'Featrue/Auth Feature/CoachRequest/View/CoachRequestName.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/NewPassword_cubit/new_password_cubit.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/OTPScree_Cubit/otp_cubit.dart';
@@ -171,7 +174,8 @@ class _MyAppState extends State<MyApp> {
             ..getAllSupplements(),
         ),
         BlocProvider(create: (context) => MoreCoursesCubit()),
-        BlocProvider(create: (context) => ChatCubit())
+        BlocProvider(create: (context) => ChatCubit()),
+        BlocProvider(create: (context) => TrainerRequestCubit())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
