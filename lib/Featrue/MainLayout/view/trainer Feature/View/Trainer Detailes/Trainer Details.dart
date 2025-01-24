@@ -1,52 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/trainer%20Feature/View%20Model/trainer_cubit.dart';
 
+import '../../../../../Packages Feature/View/Packages Feature.dart';
 import '../../Model/Trainer Details/Trainer Details.dart';
+import '../Subscription Page/Subscription Page.dart';
 
-class TrainerProfilePage extends StatelessWidget {
+class TrainerProfilePage extends StatefulWidget {
   TrainerProfilePage({Key? key}) : super(key: key);
 
   @override
+  State<TrainerProfilePage> createState() => _TrainerProfilePageState();
+}
+
+class _TrainerProfilePageState extends State<TrainerProfilePage> {
+  @override
+  void deactivate() {
+    TrainerCubit.get(context).detailsTrainerProfile = null;
+    super.deactivate();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(TrainerCubit.get(context).detailsTrainerProfile!.name),
-        backgroundColor: Colors.blueGrey[800],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Section
-            _buildHeaderSection(context),
+    return BlocConsumer<TrainerCubit, TrainerState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return TrainerCubit.get(context).detailsTrainerProfile != null
+            ? Scaffold(
+                appBar: AppBar(
+                  toolbarHeight: 70,
+                  elevation: 0,
+                  title: Text(
+                    'LS Fitness',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  actions: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TrainerSubscriptionPage(plans: TrainerCubit.get(context).detailsTrainerProfile!.plans,)));
+                          },
+                          icon: Icon(
+                            Iconsax.wallet,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        Text(
+                          '   Subscription   ',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    )
+                  ],
+                  backgroundColor: Colors.blueGrey[700],
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Header Section
+                      _buildHeaderSection(context),
 
-            // Bio Section
-            _buildBioSection(context),
+                      // Bio Section
+                      _buildBioSection(context),
 
-            // Certificates Section
-            if (TrainerCubit.get(context)
-                .detailsTrainerProfile!
-                .certificates
-                .isNotEmpty)
-              _buildCertificatesSection(context),
+                      // Certificates Section
+                      if (TrainerCubit.get(context)
+                          .detailsTrainerProfile!
+                          .certificates
+                          .isNotEmpty)
+                        _buildCertificatesSection(context),
 
-            // Plans Section
-            if (TrainerCubit.get(context)
-                .detailsTrainerProfile!
-                .plans
-                .isNotEmpty)
-              _buildPlansSection(context),
+                      // Plans Section
+                      if (TrainerCubit.get(context)
+                          .detailsTrainerProfile!
+                          .plans
+                          .isNotEmpty)
+                        _buildPlansSection(context),
 
-            // Subscribers Section
-            if (TrainerCubit.get(context)
-                .detailsTrainerProfile!
-                .subscribers
-                .isNotEmpty)
-              _buildSubscribersSection(context),
-          ],
-        ),
-      ),
+                      // Subscribers Section
+                      if (TrainerCubit.get(context)
+                          .detailsTrainerProfile!
+                          .subscribers
+                          .isNotEmpty)
+                        _buildSubscribersSection(context),
+                    ],
+                  ),
+                ),
+              )
+            : MyLoadingIndicator(height: 100, color: Colors.red);
+      },
     );
   }
 
@@ -56,9 +114,13 @@ class TrainerProfilePage extends StatelessWidget {
       color: Colors.blueGrey[700],
       child: Row(
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage('assets/default_trainer.png'),
+            child: Icon(
+              Iconsax.user,
+              size: 50,
+              color: Colors.black,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -99,14 +161,12 @@ class TrainerProfilePage extends StatelessWidget {
           const Text(
             'About Me',
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const SizedBox(height: 8),
           Text(
             TrainerCubit.get(context).detailsTrainerProfile!.bio,
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ],
       ),
@@ -122,9 +182,7 @@ class TrainerProfilePage extends StatelessWidget {
           const Text(
             'Certificates',
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const SizedBox(height: 8),
           SizedBox(
@@ -168,9 +226,7 @@ class TrainerProfilePage extends StatelessWidget {
           const Text(
             'Training Plans',
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const SizedBox(height: 8),
           ...TrainerCubit.get(context)
@@ -186,7 +242,7 @@ class TrainerProfilePage extends StatelessWidget {
                       ),
                       subtitle: Text(plan.description),
                       trailing: Text(
-                        '${plan.price} EGP / ${plan.type}',
+                        '${plan.price} QAR / ${plan.type}',
                         style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -208,14 +264,12 @@ class TrainerProfilePage extends StatelessWidget {
           Text(
             'Subscribers (${TrainerCubit.get(context).detailsTrainerProfile!.totalTrainees})',
             style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const SizedBox(height: 8),
           Text(
             'Total Active Trainees: ${TrainerCubit.get(context).detailsTrainerProfile!.subscribers.length}',
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ],
       ),

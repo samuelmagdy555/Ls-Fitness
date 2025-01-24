@@ -12,3 +12,7 @@ final class GetTrainerDataError extends TrainerState {}
 final class GetDetailsTrainerDataLoading extends TrainerState {}
 final class GetDetailsTrainerDataSuccess extends TrainerState {}
 final class GetDetailsTrainerDataError extends TrainerState {}
+
+final class SubscribeTrainerLoading extends TrainerState {}
+final class SubscribeTrainerSuccess extends TrainerState {}
+final class SubscribeTrainerError extends TrainerState {}

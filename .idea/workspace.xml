@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/Model/All Trainer Model/All Trainer Model.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/Model/Trainer Details/Trainer Details.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,14 +113,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00016" summary="handel get all chat and get specific chat">
-      <option name="closed" value="true" />
-      <created>1735610845193</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1735610845194</updated>
     </task>
     <task id="LOCAL-00017" summary="handel chats">
       <option name="closed" value="true" />
@@ -516,7 +498,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737700325071</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="handel Trainer Details">
+      <option name="closed" value="true" />
+      <created>1737705495229</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1737705495230</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -531,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel Specific deep anatomy logic and UI" />
     <MESSAGE value="handel Supplements &amp; vitamins Feature" />
     <MESSAGE value="handel deep link callback" />
     <MESSAGE value="Handel Deep Link Callback" />
@@ -556,7 +545,8 @@
     <MESSAGE value="handel change Message ID" />
     <MESSAGE value="add ios" />
     <MESSAGE value="add Trainer request logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Trainer request logic" />
+    <MESSAGE value="handel Trainer Details" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Trainer Details" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

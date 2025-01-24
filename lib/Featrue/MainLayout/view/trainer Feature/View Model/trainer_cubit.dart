@@ -47,4 +47,29 @@ class TrainerCubit extends Cubit<TrainerState> {
       emit(GetDetailsTrainerDataError());
     }
   }
+
+  Future<void> subScribeTrainer(
+      {required String id,
+      required String planType,
+      required String planName,
+      String? coupon}) async {
+    emit(SubscribeTrainerLoading());
+    try {
+      Map<String, dynamic> data = {
+        'planType': planType,
+        'planName': planName,
+        'coupon': coupon ?? ''
+      };
+      final response = await DioHelper.post(
+        end_ponit:
+            '${EndPoints.trainerProfiles}/${id}/${EndPoints.subscribeToPlan}',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        data: data
+      );
+      emit(SubscribeTrainerSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(SubscribeTrainerError());
+    }
+  }
 }
