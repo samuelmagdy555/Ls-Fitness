@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 part 'themes_state.dart';
 
 class ThemesCubit extends Cubit<Map<String, dynamic>> {
-  ThemesCubit() : super({'theme': ThemesClass.manLightTheme, 'backgroundImage': 'assets/light_male.png'});
+  ThemesCubit() : super({'theme': ThemesClass.manDarkTheme, 'backgroundImage': 'assets/images/77.jpg'});
 
   static ThemesCubit get(context) => BlocProvider.of(context);
 }

@@ -49,10 +49,26 @@ class ThemesClass{
   );
 
   //dark theme
-  static final ThemeData darkTheme = ThemeData(
+  static final ThemeData manDarkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: Colors.black,
     scaffoldBackgroundColor: Colors.black,
+    iconTheme:  IconThemeData(color: Colors.white , size: 30),
+    navigationBarTheme:  NavigationBarThemeData(
+
+    ),
+    textTheme: TextTheme(
+      titleLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+      titleMedium: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
+      titleSmall: TextStyle(color: Colors.white, fontSize: 10,fontWeight: FontWeight.bold),
+      headlineLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+      headlineMedium: TextStyle(color: Colors.white, fontSize: 15),
+      headlineSmall: TextStyle(color: Colors.white, fontSize: 10),
+      labelLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+      bodyLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+      bodyMedium: TextStyle(color: Colors.white, fontSize: 15 , fontWeight: FontWeight.w600),
+      bodySmall: TextStyle(color: Colors.white, fontSize: 10),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
       titleTextStyle: TextStyle(

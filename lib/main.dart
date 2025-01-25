@@ -24,6 +24,7 @@ import 'package:lsfitness/generated/l10n.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 import 'package:lsfitness/try3.dart';
+import 'Core/Themes/Themes Cubit/themes_cubit.dart';
 import 'Featrue/Auth Feature/CoachRequest/View/Certificatie View.dart';
 import 'Featrue/Auth Feature/CoachRequest/View/CoachRequestName.dart';
 import 'Featrue/Auth Feature/ForgetPassword/View_model/ForgetPassword_Cubit/forget_password_cubit.dart';
@@ -178,9 +179,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => MoreCoursesCubit()),
         BlocProvider(create: (context) => ChatCubit()),
         BlocProvider(create: (context) => TrainerRequestCubit()),
-        BlocProvider(create: (context) => TrainerCubit())
+        BlocProvider(create: (context) => TrainerCubit()),
+        BlocProvider(create: (context) => ThemesCubit()),
       ],
-      child: GetMaterialApp(
+      child: BlocBuilder<ThemesCubit, Map<String, dynamic>>(
+  builder: (context, state) {
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           S.delegate,
@@ -189,14 +193,13 @@ class _MyAppState extends State<MyApp> {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-            scaffoldBackgroundColor: Colors.black),
+        theme: state['theme'],
         home: CashHelper.getFromCash(key: 'token') == ''
-            ? const SplashScreen()
+            ?  SplashScreen()
             : MainLayout(),
-      ),
+      );
+  },
+),
     );
   }
 }

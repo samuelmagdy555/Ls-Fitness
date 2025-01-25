@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View Model/courses_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View Model/courses_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View Model/notification_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View Model/notification_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/try.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/try.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +74,7 @@
       <recent name="C:\Users\kerollos\StudioProjects\Ls-Fitness\lib\Featrue\MainLayout\view\Home\View" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.try.dart">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="try.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/lib/try.dart" />
       <option name="workingDirectory" value="$PROJECT_DIR$" />
@@ -103,8 +98,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.try.dart" />
         <item itemvalue="Flutter.main.dart" />
+        <item itemvalue="Flutter.try.dart" />
         <item itemvalue="Flutter.try2.dart" />
         <item itemvalue="Dart Command Line App.try.dart" />
         <item itemvalue="Flutter.try3.dart" />
@@ -119,14 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00017" summary="handel chats">
-      <option name="closed" value="true" />
-      <created>1735775482175</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1735775482175</updated>
     </task>
     <task id="LOCAL-00018" summary="handel Socket.IO">
       <option name="closed" value="true" />
@@ -512,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737705495230</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="handel payment logic">
+      <option name="closed" value="true" />
+      <created>1737789351942</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1737789351943</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -527,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel Supplements &amp; vitamins Feature" />
     <MESSAGE value="handel deep link callback" />
     <MESSAGE value="Handel Deep Link Callback" />
     <MESSAGE value="handel buy course function" />
@@ -552,25 +546,16 @@
     <MESSAGE value="add ios" />
     <MESSAGE value="add Trainer request logic" />
     <MESSAGE value="handel Trainer Details" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Trainer Details" />
+    <MESSAGE value="handel payment logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel payment logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>45</line>
+          <line>46</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart</url>
-          <line>120</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart</url>
-          <line>135</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
