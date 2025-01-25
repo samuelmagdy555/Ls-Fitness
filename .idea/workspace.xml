@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View Model/courses_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View Model/courses_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View Model/notification_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View Model/notification_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View Model/trainer_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Trainer Detailes/Trainer Details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/try.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/try.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +79,7 @@
       <recent name="C:\Users\kerollos\StudioProjects\Ls-Fitness\lib\Featrue\MainLayout\view\Home\View" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter.main.dart">
+  <component name="RunManager" selected="Flutter.try.dart">
     <configuration name="try.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/lib/try.dart" />
       <option name="workingDirectory" value="$PROJECT_DIR$" />
@@ -97,8 +103,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter.main.dart" />
         <item itemvalue="Flutter.try.dart" />
+        <item itemvalue="Flutter.main.dart" />
         <item itemvalue="Flutter.try2.dart" />
         <item itemvalue="Dart Command Line App.try.dart" />
         <item itemvalue="Flutter.try3.dart" />
@@ -605,6 +611,16 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Supplements Tap/Supplements Tap.dart</url>
           <line>112</line>
           <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart</url>
+          <line>69</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart</url>
+          <line>177</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

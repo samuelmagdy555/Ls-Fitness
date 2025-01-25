@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class Themes{
+class ThemesClass{
   //lighte theme
-  static final ThemeData lightTheme = ThemeData(
+  static final ThemeData manLightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,

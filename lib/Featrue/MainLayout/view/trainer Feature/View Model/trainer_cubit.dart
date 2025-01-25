@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../Core/DataBase/remote_database/DioHelper.dart';
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
+import '../../Courses Feature/Model/Buy Course Model/Buy Course Model.dart';
 import '../Model/All Trainer Model/All Trainer Model.dart';
 import '../Model/Trainer Details/Trainer Details.dart';
 
@@ -17,6 +20,8 @@ class TrainerCubit extends Cubit<TrainerState> {
 
   TrainerResponse? trainerModel;
   DetailsTrainerProfile? detailsTrainerProfile;
+  BuyCourseModel? buyCourseModel;
+
 
   Future<void> getTrainersData() async {
     emit(GetTrainerDataLoading());
@@ -62,14 +67,66 @@ class TrainerCubit extends Cubit<TrainerState> {
       };
       final response = await DioHelper.post(
         end_ponit:
-            '${EndPoints.trainerProfiles}/${id}/${EndPoints.subscribeToPlan}',
+            '${EndPoints.buyCourse}/${id}/${EndPoints.subscribeToPlan}',
         token: LoginCubit.loginModel?.token ?? LoginCubit.token,
         data: data
       );
       emit(SubscribeTrainerSuccess());
+      buyCourseModel = BuyCourseModel.fromJson(response.data);
+
+      if (buyCourseModel?.approvalUrl != null) {
+        _startPayment(
+            url: buyCourseModel!.approvalUrl);
+      }
     } catch (e) {
       print(e.toString());
       emit(SubscribeTrainerError());
+    }
+  }
+
+  void _startPayment(
+      {required String url,
+        }) async {
+    await launchUrl(Uri.parse(url));
+  }
+
+  Future<void> CapturePayment({required String token}) async {
+    emit(BuyTrainerPlanLoading());
+    try {
+      await DioHelper.post(
+        end_ponit: '${EndPoints.capturePayment}',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {
+          'token': token,
+        },
+      );
+      emit(BuyTrainerPlanSuccess());
+
+    } catch (e) {
+      emit(BuyTrainerPlanError());
+      print(e.toString());
+    }
+  }
+
+  Future<void> CapturePaymentForLessonScreen(
+      {required String token,
+        required String Id,
+        }) async {
+    emit(BuyTrainerPlanLoading());
+    try {
+      await DioHelper.post(
+        end_ponit: '${EndPoints.capturePayment}',
+        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {
+          'token': token,
+        },
+      );
+
+      emit(BuyTrainerPlanSuccess());
+
+    } catch (e) {
+      emit(BuyTrainerPlanError());
+      print(e.toString());
     }
   }
 }

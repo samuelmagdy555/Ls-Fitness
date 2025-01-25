@@ -1,14 +1,21 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/trainer%20Feature/View%20Model/trainer_cubit.dart';
+import 'package:uni_links/uni_links.dart';
 
 import '../../Model/Trainer Details/Trainer Details.dart';
 
 class TrainerSubscriptionPage extends StatefulWidget {
   final List<Plan> plans; // List of plans>
+  final String ID;
 
   const TrainerSubscriptionPage({
     Key? key,
     required this.plans,
+    required this.ID,
   }) : super(key: key);
 
   @override
@@ -17,10 +24,48 @@ class TrainerSubscriptionPage extends StatefulWidget {
 }
 
 class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
-  final TextEditingController _couponController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
+  late TextEditingController _couponController;
+  late TextEditingController _nameController;
+
+  StreamSubscription? sub;
+
+  void _initDeepLinkListener() async {
+    print('initDeepLinkListener');
+    sub = uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
+        uri.pathSegments.contains('complete')
+            ? 'Payment Complete'
+            : 'Payment Canceled';
+        if (uri.pathSegments.contains('complete')) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Complete'),
+            ),
+          );
+          String? token = RegExp(r'token=([^&]+)')
+              .firstMatch(TrainerCubit.get(context).buyCourseModel!.approvalUrl)
+              ?.group(1);
+          print('token =>>>>>>>>>>>>>>>>>>>> $token');
+          TrainerCubit.get(context).CapturePaymentForLessonScreen(
+            token: token!,
+            Id: widget.ID,
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Payment Canceled'),
+            ),
+          );
+        }
+      }
+    }, onError: (err) {
+      print(err);
+    });
+  }
+
   bool _isLoading = false;
-  double _finalPrice = 0;
+  double _finalPrice = -1;
+  bool isApplyAdded = false;
 
   void _subscribe() {
     if (_nameController.text.isEmpty) {
@@ -36,25 +81,23 @@ class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
     setState(() {
       _isLoading = true;
     });
+  }
 
-    // Simulate API call
-    Future.delayed(Duration(seconds: 2), () {
+  int press = 0;
+  String couponCode = '';
+  String planType = '';
+  String planName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _initDeepLinkListener();
+    _couponController = TextEditingController();
+    _nameController = TextEditingController();
+    _couponController.addListener(() {
       setState(() {
-        _isLoading = false;
+        isApplyAdded = _couponController.text.isNotEmpty;
       });
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Subscription Successful'),
-          content: Text('Thank you, ${_nameController.text}!'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
-            )
-          ],
-        ),
-      );
     });
   }
 
@@ -65,7 +108,20 @@ class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subscription'),
+        title: const Text(
+          'Subscription',
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_left,
+            color: Colors.white,
+            size: 30,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Colors.blueGrey[800],
       ),
       body: SingleChildScrollView(
@@ -77,38 +133,42 @@ class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
               // Plan Details Card
 
               SizedBox(
-                height:height*.3 ,
                 child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: widget.plans.length,
-                    itemBuilder: (context, index) => Card(
-                          elevation: 3,
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: ListTile(
-                            title: Text(
-                              widget.plans[index].name.toUpperCase(),
-                              style: const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(widget.plans[index].description),
-                            trailing: Text(
-                              '${widget.plans[index].price} QAR / ${widget.plans[index].type}',
-                              style: const TextStyle(
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        )),
-              ),
-
-              SizedBox(height: 20),
-
-              // Name Input
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Full Name',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.person),
+                  itemBuilder: (context, index) => Card(
+                    elevation: 3,
+                    margin: const EdgeInsets.only(bottom: 8),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(
+                        color:
+                            press == index ? Colors.green : Colors.transparent,
+                        width: 2, // سماكة الـ border
+                      ),
+                      borderRadius: BorderRadius.circular(8), // شكل الزوايا
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        widget.plans[index].name.toUpperCase(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          press = index; // تحديث القيمة عند الضغط
+                          planType = widget.plans[index].type;
+                          planName = widget.plans[index].name;
+                        });
+                      },
+                      subtitle: Text(widget.plans[index].description),
+                      trailing: Text(
+                        '${widget.plans[index].price} QAR / ${widget.plans[index].type}',
+                        style: const TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
 
@@ -120,29 +180,43 @@ class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
                   Expanded(
                     flex: 3,
                     child: TextField(
+                      onChanged: (coupon) {
+                        setState(() {
+                          couponCode = coupon;
+                        });
+                      },
                       controller: _couponController,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
                       decoration: InputDecoration(
                         labelText: 'Coupon Code',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.local_offer),
+                        hintStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        labelStyle: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white, // اللون الافتراضي للحواف
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.white, // اللون عند التركيز
+                            width: 1, // زيادة سماكة الحواف عند التركيز
+                          ),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.local_offer,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueGrey[700],
-                        minimumSize: Size.fromHeight(55),
-                        textStyle: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      child: Text('Apply'),
-                    ),
-                  ),
                 ],
               ),
 
@@ -150,10 +224,16 @@ class _TrainerSubscriptionPageState extends State<TrainerSubscriptionPage> {
 
               // Subscribe Button
               ElevatedButton(
-                onPressed: _isLoading ? null : _subscribe,
+                onPressed: () {
+                  TrainerCubit.get(context).subScribeTrainer(
+                      id: widget.ID,
+                      planType: planType,
+                      planName: planName,
+                      coupon: couponCode);
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
                   minimumSize: Size.fromHeight(50),
                 ),
                 child: _isLoading

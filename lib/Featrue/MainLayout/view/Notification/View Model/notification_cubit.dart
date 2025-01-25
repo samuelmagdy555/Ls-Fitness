@@ -103,6 +103,48 @@ class NotificationCubit extends Cubit<NotificationState> {
       emit(NotificationError("Failed to connect: $e"));
     }
   }
+  Future<void> connectToChatServer(String url, Map<String, String> headers) async {
+    emit(NotificationLoading());
+    try {
+      localNotifications.initialize(initSettings);
+      await requestPermission();
+
+      await SSEClient.subscribeToSSE(
+        method: SSERequestType.GET,
+        url: "https://ls-fitness.koyeb.app/api/v1/notifications/event",
+        header: {
+          "Accept": "text/event-stream",
+          "Cache-Control": "no-cache",
+          "Authorization": "Bearer ${LoginCubit.token}", // Replace YOUR_JWT_TOKEN with the actual token
+        },
+      ).listen(
+            (event) {
+          if (event.data != null &&
+              event.data!.isNotEmpty &&
+              event.data != "Connection established") {
+            Map<String, dynamic> jsonMap = jsonDecode(event.data!);
+
+            showNotification('L.S Fitness', jsonMap['message']);
+            emit(NotificationReceived(jsonMap['message']));
+            getAllNotifications();
+          }
+        },
+        onError: (error) {
+          print('errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrror');
+          print("Error: $error");
+          emit(NotificationError("Error: $error"));
+        },
+        onDone: () {
+          print("Connection closed by server.");
+          emit(NotificationError("Connection closed by server."));
+        },
+      );
+
+      emit(NotificationConnected());
+    } catch (e) {
+      emit(NotificationError("Failed to connect: $e"));
+    }
+  }
 
   Future<void> requestPermission() async {
     var status = await Permission.notification.status;

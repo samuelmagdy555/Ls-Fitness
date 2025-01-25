@@ -16,3 +16,7 @@ final class GetDetailsTrainerDataError extends TrainerState {}
 final class SubscribeTrainerLoading extends TrainerState {}
 final class SubscribeTrainerSuccess extends TrainerState {}
 final class SubscribeTrainerError extends TrainerState {}
+
+final class BuyTrainerPlanSuccess extends TrainerState {}
+final class BuyTrainerPlanLoading extends TrainerState {}
+final class BuyTrainerPlanError extends TrainerState {}

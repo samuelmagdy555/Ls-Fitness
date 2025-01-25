@@ -33,7 +33,7 @@ class _TrainerProfilePageState extends State<TrainerProfilePage> {
         return TrainerCubit.get(context).detailsTrainerProfile != null
             ? Scaffold(
                 appBar: AppBar(
-                  toolbarHeight: 70,
+                  toolbarHeight: 75,
                   elevation: 0,
                   title: Text(
                     'LS Fitness',
@@ -41,6 +41,16 @@ class _TrainerProfilePageState extends State<TrainerProfilePage> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  leading: IconButton(
+                    icon: Icon(
+                      Iconsax.arrow_left,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
                   actions: [
                     Column(
@@ -52,7 +62,13 @@ class _TrainerProfilePageState extends State<TrainerProfilePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        TrainerSubscriptionPage(plans: TrainerCubit.get(context).detailsTrainerProfile!.plans,)));
+                                        TrainerSubscriptionPage(
+                                          plans: TrainerCubit.get(context)
+                                              .detailsTrainerProfile!
+                                              .plans,
+                                          ID: TrainerCubit.get(context)
+                                              .detailsTrainerProfile!.user,
+                                        )));
                           },
                           icon: Icon(
                             Iconsax.wallet,

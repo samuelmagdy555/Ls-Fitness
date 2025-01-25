@@ -120,7 +120,7 @@ class CoursesCubit extends Cubit<CoursesState> {
       emit(BuyCourseSuccess());
       if (buyCourseModel?.approvalUrl != null) {
         _startPayment(
-            url: buyCourseModel!.approvalUrl, context: context, ID: ID);
+            url: buyCourseModel!.approvalUrl, context: context, );
       }
     } catch (e) {
       emit(BuyCourseError());
@@ -131,7 +131,7 @@ class CoursesCubit extends Cubit<CoursesState> {
   void _startPayment(
       {required String url,
       required BuildContext context,
-      required String ID}) async {
+      }) async {
     await launchUrl(Uri.parse(url));
   }
 

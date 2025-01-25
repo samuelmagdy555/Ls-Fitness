@@ -1,63 +1,178 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client_sse/constants/sse_request_type_enum.dart';
-import 'package:flutter_client_sse/flutter_client_sse.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(MyApp());
+// Cubit لإدارة الثيم
+class ThemeCubit extends Cubit<ThemeData> {
+  ThemeCubit() : super(lightMaleTheme); // الثيم الافتراضي
+
+  void toggleTheme(bool isDark, String gender) {
+    if (isDark) {
+      emit(gender == 'male' ? darkMaleTheme : darkFemaleTheme);
+    } else {
+      emit(gender == 'male' ? lightMaleTheme : lightFemaleTheme);
+    }
+  }
 }
 
+// الثيمات الأربعة مع تغييرات واضحة
+final ThemeData lightMaleTheme = ThemeData(
+  brightness: Brightness.light,
+  primaryColor: Colors.blue,
+  scaffoldBackgroundColor: Colors.lightBlue[50],
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
+    titleLarge: TextStyle(color: Colors.blueAccent, fontSize: 20),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+    ),
+  ),
+);
+
+final ThemeData lightFemaleTheme = ThemeData(
+  brightness: Brightness.light,
+  primaryColor: Colors.pink,
+  scaffoldBackgroundColor: Colors.pink[50],
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.pink, fontSize: 18, fontWeight: FontWeight.bold),
+    titleLarge: TextStyle(color: Colors.pinkAccent, fontSize: 20),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.pink,
+      foregroundColor: Colors.white,
+    ),
+  ),
+);
+
+final ThemeData darkMaleTheme = ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: Colors.blueGrey,
+  scaffoldBackgroundColor: Colors.black,
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold),
+    titleLarge: TextStyle(color: Colors.blueAccent, fontSize: 20),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.blueGrey,
+      foregroundColor: Colors.white,
+    ),
+  ),
+);
+
+final ThemeData darkFemaleTheme = ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: Colors.purple,
+  scaffoldBackgroundColor: Colors.grey[900],
+  textTheme: TextTheme(
+    bodyLarge: TextStyle(color: Colors.purple, fontSize: 18, fontWeight: FontWeight.bold),
+    titleLarge: TextStyle(color: Colors.purpleAccent, fontSize: 20),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.purple,
+      foregroundColor: Colors.white,
+    ),
+  ),
+);
+
+// Main Function
+void main() {
+  runApp(BlocProvider(
+    create: (context) => ThemeCubit(),
+    child: MyApp(),
+  ));
+}
+
+// واجهة التطبيق
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: NotificationScreen(),
+    return BlocBuilder<ThemeCubit, ThemeData>(
+      builder: (context, theme) {
+        return MaterialApp(
+          theme: theme,
+          home: ThemeSwitcherPage(),
+        );
+      },
     );
   }
 }
 
-class NotificationScreen extends StatefulWidget {
+// الصفحة الرئيسية
+class ThemeSwitcherPage extends StatefulWidget {
   @override
-  _NotificationScreenState createState() => _NotificationScreenState();
+  _ThemeSwitcherPageState createState() => _ThemeSwitcherPageState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
-  List<String> notifications = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _subscribeToNotifications();
-  }
-
-  void _subscribeToNotifications() {
-    SSEClient.subscribeToSSE(
-      method: SSERequestType.GET,
-      url: 'https://ls-fitness.koyeb.app/api/v1/notifications/event',
-      header: {
-        "Accept": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzAxNDliZDg4NjJiZWRkZmU2Y2E0NWMiLCJpYXQiOjE3MzY4NzcyODMsImV4cCI6MTc0NDY1MzI4M30.Yq8Al3uvIq587Ma-ouTIzJIKw5Sg-VDdNmd0qKYf7yY", // Replace YOUR_JWT_TOKEN with the actual token
-      },
-    ).listen((event) {
-      setState(() {
-        notifications.add(event.data ?? "No data");
-      });
-    });
-  }
+class _ThemeSwitcherPageState extends State<ThemeSwitcherPage> {
+  bool isDark = false; // الوضع الافتراضي
+  String gender = 'male'; // الجنس الافتراضي
 
   @override
   Widget build(BuildContext context) {
+    final themeCubit = BlocProvider.of<ThemeCubit>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: Text('تبديل الثيمات'),
       ),
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(notifications[index]),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // اختيار الجنس
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('الجنس: ', style: Theme.of(context).textTheme.bodyLarge),
+                DropdownButton<String>(
+                  value: gender,
+                  items: [
+                    DropdownMenuItem(value: 'male', child: Text('رجال')),
+                    DropdownMenuItem(value: 'female', child: Text('ستات')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value!;
+                      themeCubit.toggleTheme(isDark, gender);
+                    });
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // تبديل الثيم (Light/Dark)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('الوضع الداكن', style: Theme.of(context).textTheme.bodyLarge),
+                Switch(
+                  value: isDark,
+                  onChanged: (value) {
+                    setState(() {
+                      isDark = value;
+                      themeCubit.toggleTheme(isDark, gender);
+                    });
+                  },
+                ),
+              ],
+            ),
+
+            SizedBox(height: 40),
+
+            // زر تجريبي يعكس تأثير الثيم
+            ElevatedButton(
+              onPressed: () {},
+              child: Text('زر تجريبي'),
+            ),
+          ],
+        ),
       ),
     );
   }
