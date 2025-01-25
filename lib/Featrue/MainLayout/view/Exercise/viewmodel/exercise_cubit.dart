@@ -98,6 +98,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
   Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
     emit(GetExerciseLoading());
     try {
+      print('getExercise');
       final response = await DioHelper.get(
           end_ponit: EndPoints.GetExercise,
           token: loginModel?.token ?? LoginCubit.token,
@@ -115,7 +116,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
   }
 
-  Future<void> getBodyParts(int index) async {
+  Future<void> getDeepAnatomyOrTool(int index) async {
     bodyPartsModel = null;
     emit(BodyPartsLoading());
     try {
@@ -133,6 +134,23 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
   }
 //hel
+
+  Future<void> getBodyParts() async {
+    bodyPartsModel = null;
+    emit(BodyPartsLoading());
+    try {
+      final response = await DioHelper.get(
+          end_ponit: EndPoints.BodyPart,
+          token: loginModel?.token ?? LoginCubit.token);
+      print(response.data);
+      bodyPartsModel = BodyPartsModel.fromJson(response.data);
+      emit(BodyPartsSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(BodyPartsError());
+    }
+  }
+
   Future<void> getDeepAnatomyForSpecificBodyPart({required String id}) async {
     emit(GetDeepAnatomyForBodyPartsSuccess());
     try {
@@ -185,4 +203,14 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     }
     return items;
   }
+
+  List<String> LoadBodyPartItems(int index) {
+    List<String> items = [];
+
+    for (var item in bodyPartsModel!.data) {
+      items.add(item.title);
+    }
+    return items;
+  }
+
 }

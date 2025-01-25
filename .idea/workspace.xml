@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Person back.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/Person back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Person.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/Person.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/model/ExerciseModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/model/ExerciseModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Person/View/PersonView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Person/View/PersonView.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,14 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00018" summary="handel Socket.IO">
-      <option name="closed" value="true" />
-      <created>1735839791937</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1735839791937</updated>
     </task>
     <task id="LOCAL-00019" summary="handel Socket.IO">
       <option name="closed" value="true" />
@@ -507,7 +502,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737789351943</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="handel home Theme">
+      <option name="closed" value="true" />
+      <created>1737794640743</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1737794640743</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -522,7 +525,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel deep link callback" />
     <MESSAGE value="Handel Deep Link Callback" />
     <MESSAGE value="handel buy course function" />
     <MESSAGE value="handel advertise UI" />
@@ -547,7 +549,8 @@
     <MESSAGE value="add Trainer request logic" />
     <MESSAGE value="handel Trainer Details" />
     <MESSAGE value="handel payment logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel payment logic" />
+    <MESSAGE value="handel home Theme" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel home Theme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -574,7 +577,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart</url>
-          <line>106</line>
+          <line>129</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -606,6 +609,11 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/Subscription Page/Subscription Page.dart</url>
           <line>177</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
+          <line>151</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

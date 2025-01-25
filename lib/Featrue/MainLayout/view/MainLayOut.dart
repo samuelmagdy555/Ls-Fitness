@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Meals/view/meals.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Person/View/PersonView.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Settings.dart';
+import '../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import 'Alarm Feature/View/Alarms Screen/Alarms Screen.dart';
 import 'Chat Feature/View Model/chat_cubit.dart';
 import 'Courses Feature/View/Courses View.dart';
@@ -74,18 +76,39 @@ class _MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final themeCubit = BlocProvider.of<ThemesCubit>(context);
+    final currentState = context.watch<ThemesCubit>().state;
+
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height *
-                0.12, // ارتفاع الـ Navigation Bar
+                0.14, // ارتفاع الـ Navigation Bar
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/7.jpg'),
-                // المسار إلى صورة الخلفية
-                fit: BoxFit.cover, // ملء الخلفية
+                image: AssetImage(currentState['backgroundImage'] , ),
+
+                fit: BoxFit.fitWidth, // ملء الخلفية
+
+              ),
+
+            ),
+            child: ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    kFirstColor.withOpacity(0.8)
+                  ],
+                ).createShader(bounds);
+              },
+              blendMode: BlendMode.dstOut,
+              child: Container(
+                color: kFirstColor.withOpacity(0.8),
               ),
             ),
           ),
@@ -111,6 +134,7 @@ class _MainLayoutState extends State<MainLayout> {
                   _buildTabItem(
                     index: 1,
                     label: 'exercise',
+
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
@@ -237,10 +261,11 @@ class _MainLayoutState extends State<MainLayout> {
           ),
           Text(
             label,
-            style: TextStyle(
-              color: isSelected ? Colors.white : Colors.black,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: isSelected ? Colors.white : Colors.white30,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            )
           ),
         ],
       ),

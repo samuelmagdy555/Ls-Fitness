@@ -51,12 +51,15 @@ class ThemesClass{
   //dark theme
   static final ThemeData manDarkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.black,
+    primaryColor: Colors.white,
+    secondaryHeaderColor: Colors.white30
+      ,
     scaffoldBackgroundColor: Colors.black,
     iconTheme:  IconThemeData(color: Colors.white , size: 30),
     navigationBarTheme:  NavigationBarThemeData(
 
     ),
+
     textTheme: TextTheme(
       titleLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
       titleMedium: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),

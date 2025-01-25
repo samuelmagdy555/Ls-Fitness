@@ -8,9 +8,10 @@ import '../../../../../Core/Constant/Loading Indicator/Loading indecator.dart';
 import 'DetailsExercise/view/DetailsExercise.dart';
 
 class WorkoutScreen extends StatefulWidget {
+  final bool? isWormUp ;
   final String? bodyPartID;
 
-  WorkoutScreen({this.bodyPartID});
+  WorkoutScreen({this.bodyPartID, this.isWormUp = false});
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
@@ -57,6 +58,31 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     tabController!.dispose();
     controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    final exerciseCubit = ExerciseCubit.get(context);
+    exerciseCubit.exercisesModel = null;
+    exerciseCubit.filter = [
+      6,
+      6,
+      6,
+      6,
+    ];
+    exerciseCubit.filterDetails = [
+      '',
+      '',
+      '',
+      '',
+    ];
+    exerciseCubit.buttons = [
+      'toolOrMachine',
+      'Cardio',
+      'recoveryAndStretching',
+      'deepAnatomy'
+    ];
   }
 
   String selectedTitle = '';
@@ -118,7 +144,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                 if (ExerciseCubit.get(context).filter[index] ==
                                     index) {
                                   await ExerciseCubit.get(context)
-                                      .getBodyParts(index);
+                                      .getDeepAnatomyOrTool(index);
                                   final tapPosition = details.globalPosition;
 
                                   showMenu(
@@ -167,18 +193,17 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       controller.navigateToPage(0);
                                     }
                                   });
-                                } else {
+                                }
+                                else {
                                   ExerciseCubit.get(context).generateFilterMap(
                                       page: 1, controller: controller);
                                   ExerciseCubit.get(context).changePage(
                                       controller: controller, index: 0);
                                 }
                               } else if (index == 3) {
-                                if (ExerciseCubit.get(context).filter[index] ==
-                                    index) {
+                                if (widget.isWormUp == true) {
                                   await ExerciseCubit.get(context)
-                                      .getDeepAnatomyForSpecificBodyPart(
-                                          id: widget.bodyPartID!);
+                                      .getBodyParts();
                                   final tapPosition = details.globalPosition;
 
                                   showMenu(
@@ -190,7 +215,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       tapPosition.dy,
                                     ),
                                     items: ExerciseCubit.get(context)
-                                        .LoadDeepAnatomyItems(index)
+                                        .LoadBodyPartItems(index)
                                         .asMap()
                                         .entries
                                         .map((entry) {
@@ -214,32 +239,90 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       String value = selected['value'];
                                       int itemIndex = selected['itemIndex'];
 
-                                      print('filterDetails');
                                       ExerciseCubit.get(context)
                                           .filterDetails[index] = value;
-                                      print('updateTitleByIndex');
-                                      print(index);
-                                      print(itemIndex);
-                                      print(buttons);
-                                      print('print 3');
 
                                       ExerciseCubit.get(context)
                                           .updateTitleByIndex(
-                                              index, itemIndex, buttons);
+                                          index, itemIndex, buttons);
                                       print('generateFilterMap');
 
                                       ExerciseCubit.get(context)
                                           .generateFilterMap(
-                                              page: 1, controller: controller);
+                                          page: 1, controller: controller);
                                       controller.navigateToPage(0);
                                     }
                                   });
-                                } else {
-                                  ExerciseCubit.get(context).generateFilterMap(
-                                      page: 1, controller: controller);
-                                  ExerciseCubit.get(context).changePage(
-                                      controller: controller, index: 0);
                                 }
+                                else{
+                                  if (ExerciseCubit.get(context).filter[index] ==
+                                      index) {
+                                    await ExerciseCubit.get(context)
+                                        .getDeepAnatomyForSpecificBodyPart(
+                                        id: widget.bodyPartID!);
+                                    final tapPosition = details.globalPosition;
+
+                                    showMenu(
+                                      context: context,
+                                      position: RelativeRect.fromLTRB(
+                                        tapPosition.dx,
+                                        tapPosition.dy,
+                                        tapPosition.dx,
+                                        tapPosition.dy,
+                                      ),
+                                      items: ExerciseCubit.get(context)
+                                          .LoadDeepAnatomyItems(index)
+                                          .asMap()
+                                          .entries
+                                          .map((entry) {
+                                        int itemIndex = entry.key;
+                                        String choice = entry.value;
+                                        return PopupMenuItem<
+                                            Map<String, dynamic>>(
+                                          value: {
+                                            'value': choice,
+                                            'itemIndex': itemIndex
+                                          },
+                                          child: Text(
+                                            choice,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ).then((selected) {
+                                      if (selected != null) {
+                                        ExerciseCubit.get(context).changePage(
+                                            controller: controller, index: 0);
+                                        String value = selected['value'];
+                                        int itemIndex = selected['itemIndex'];
+
+                                        print('filterDetails');
+                                        ExerciseCubit.get(context)
+                                            .filterDetails[index] = value;
+                                        print('updateTitleByIndex');
+                                        print(index);
+                                        print(itemIndex);
+                                        print(buttons);
+                                        print('print 3');
+
+                                        ExerciseCubit.get(context)
+                                            .updateTitleByIndex(
+                                            index, itemIndex, buttons);
+                                        print('generateFilterMap');
+
+                                        ExerciseCubit.get(context)
+                                            .generateFilterMap(
+                                            page: 1, controller: controller);
+                                        controller.navigateToPage(0);
+                                      }
+                                    });
+                                  } else {
+                                    ExerciseCubit.get(context).generateFilterMap(
+                                        page: 1, controller: controller);
+                                    ExerciseCubit.get(context).changePage(
+                                        controller: controller, index: 0);
+                                  }
+                                }
+
                               } else {
                                 ExerciseCubit.get(context)
                                     .updateTitleByIndex(index, index, buttons);
@@ -353,7 +436,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                                     builder: (context) =>
                                                         ExercisePage(
                                                       ID: exercise.id,
-
                                                     ),
                                                   ));
                                             },
