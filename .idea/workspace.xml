@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/Model/Specific Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/Model/Specific Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Courses View.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Courses View.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/SeeMoreCourses/View/SeeMorePage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/SeeMoreCourses/View/SeeMorePage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Specific Course/View/Specific Course.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Specific Course/View/Specific Course.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Widget/Course Widget/Course Widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Widget/Course Widget/Course Widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/chat View.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/chat View.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,14 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00022" summary="handel Socket.IO">
-      <option name="closed" value="true" />
-      <created>1735926044101</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1735926044101</updated>
     </task>
     <task id="LOCAL-00023" summary="handel group chat logic">
       <option name="closed" value="true" />
@@ -510,7 +496,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737855855064</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="handel Courses Themes">
+      <option name="closed" value="true" />
+      <created>1737866802194</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1737866802194</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -525,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel courses UI" />
     <MESSAGE value="handel deep linking" />
     <MESSAGE value="change settings icon position" />
     <MESSAGE value="handel get all chat and get specific chat" />
@@ -550,7 +543,8 @@
     <MESSAGE value="handel Person Theme" />
     <MESSAGE value="handel Exercise Themes" />
     <MESSAGE value="handel vitamin Themes" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel vitamin Themes" />
+    <MESSAGE value="handel Courses Themes" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Courses Themes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -567,7 +561,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>731</line>
+          <line>730</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -619,11 +613,6 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
           <line>300</line>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>257</line>
-          <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart</url>

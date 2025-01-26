@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/chat_cubit.dart';
 
+import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/My Chats Model/My Chats Model.dart';
 import 'Chat Room/Chat Room.dart';
+import 'package:intl/intl.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -27,25 +29,20 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1C1C1E),
-        title: const Text(
-          'Chats',
-          style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.add,
-              color: Colors.red,
-              size: 30,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
             ),
-            onPressed: () {},
           ),
-        ],
+        ),
+        title: Text('Chats', style: Theme.of(context).textTheme.bodyLarge),
+
       ),
       body: BlocConsumer<ChatCubit, ChatState>(
         listener: (context, state) {
@@ -54,72 +51,104 @@ class _ChatViewState extends State<ChatView> {
         builder: (context, state) {
           return ChatCubit.get(context).myChatsModel != null
               ? ChatCubit.get(context).myChatsModel!.data.isNotEmpty
-                  ? ListView.builder(
-                      padding: EdgeInsets.all(8),
-                      itemCount:
-                          ChatCubit.get(context).myChatsModel!.data.length,
-                      itemBuilder: (context, index) {
-                        String SenderID = '';
-                        String NameID = '';
-                        for (var element in ChatCubit.get(context)
-                            .myChatsModel!
-                            .data[index]
-                            .participants) {
-                          if (element.userDetails.id != LoginCubit.id) {
-                            SenderID = element.userDetails.id;
-                          }
-                          if (element.userDetails.username != LoginCubit.name) {
-                            NameID = element.userDetails.username;
-                          }
-                        }
-                        return ChatTile(
-                          name: NameID,
-                          message: ChatCubit.get(context)
+                  ? Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(currentState['backgroundImage']),
+                            fit: BoxFit.cover),
+                      ),
+                      child: ListView.builder(
+                          padding: EdgeInsets.all(8),
+                          itemCount:
+                              ChatCubit.get(context).myChatsModel!.data.length,
+                          itemBuilder: (context, index) {
+                            String SenderID = '';
+                            String NameID = '';
+                            for (var element in ChatCubit.get(context)
+                                .myChatsModel!
+                                .data[index]
+                                .participants) {
+                              if (element.userDetails.id != LoginCubit.id) {
+                                SenderID = element.userDetails.id;
+                              }
+                              if (element.userDetails.username !=
+                                  LoginCubit.name) {
+                                NameID = element.userDetails.username;
+                              }
+                            }
+                            String time = '';
+                            var lastMessage = ChatCubit.get(context).myChatsModel?.data?[index].lastMessage;
+
+                            if (lastMessage != null && lastMessage.isNotEmpty && lastMessage[0].createdAt != null) {
+                              try {
+                                DateTime dateTime = DateTime.parse(lastMessage[0].createdAt);
+                                time = DateFormat('MM-dd / HH:mm').format(dateTime); // تنسيق التاريخ
+                              } catch (e) {
+                                time = ''; // لو فيه خطأ في الفورمات، نرجع قيمة فارغة
+                              }
+                            } else {
+                              time = ''; // لو lastMessage فاضية أو null
+                            }
+
+                            return ChatTile(
+                              name: NameID,
+                              message: ChatCubit.get(context)
+                                      .myChatsModel!
+                                      .data[index]
+                                      .lastMessage!
+                                      .isEmpty
+                                  ? ''
+                                  : ChatCubit.get(context)
+                                      .myChatsModel!
+                                      .data[index]
+                                      .lastMessage![0]
+                                      .text,
+                              time: time,
+                              unreadCount: ChatCubit.get(context)
+                                      .myChatsModel!
+                                      .data[index]
+                                      .lastMessage!
+                                      .isEmpty
+                                  ? ''
+                                  : ChatCubit.get(context)
+                                      .myChatsModel!
+                                      .data[index]
+                                      .lastMessage!
+                                      .length
+                                      .toString(),
+                              image: ChatCubit.get(context)
+                                      .myChatsModel!
+                                      .data[index]
+                                      .image ??
+                                  '',
+                              id: SenderID,
+                              roomId: ChatCubit.get(context)
                                   .myChatsModel!
                                   .data[index]
-                                  .lastMessage!
-                                  .isEmpty
-                              ? ''
-                              : ChatCubit.get(context)
+                                  .id,
+                              isGroub: ChatCubit.get(context)
                                   .myChatsModel!
                                   .data[index]
-                                  .lastMessage![0]
-                                  .text,
-                          time: 'time',
-                          unreadCount: ChatCubit.get(context)
+                                  .isGroup,
+                              participants: ChatCubit.get(context)
                                   .myChatsModel!
                                   .data[index]
-                                  .lastMessage!
-                                  .isEmpty
-                              ? ''
-                              : ChatCubit.get(context)
-                                  .myChatsModel!
-                                  .data[index]
-                                  .lastMessage!
-                                  .length
-                                  .toString(),
-                          image: ChatCubit.get(context)
-                                  .myChatsModel!
-                                  .data[index]
-                                  .image ??
-                              '',
-                          id: SenderID,
-                          roomId: ChatCubit.get(context)
-                              .myChatsModel!
-                              .data[index]
-                              .id,
-                          isGroub: ChatCubit.get(context)
-                              .myChatsModel!
-                              .data[index]
-                              .isGroup, participants:ChatCubit.get(context)
-                            .myChatsModel!.data[index].participants,
-                        );
-                      })
+                                  .participants,
+                            );
+                          }),
+                    )
                   : Center(
                       child: Text('No Chats'),
                     )
-              : Center(
-                  child: MyLoadingIndicator(height: height, color: Colors.red));
+              : Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(currentState['backgroundImage']),
+                  fit: BoxFit.cover),
+            ),
+                child: Center(
+                    child: MyLoadingIndicator(height: height, color: Colors.red)),
+              );
         },
       ),
     );
@@ -130,24 +159,24 @@ class ChatTile extends StatelessWidget {
   final String name;
   final String? image;
   final String message;
-  final String time;
+  String? time;
   final String unreadCount;
   final String id;
   final String roomId;
   final bool isGroub;
-  final List<Participants>participants;
+  final List<Participants> participants;
 
-
-  const ChatTile({
+  ChatTile({
     required this.name,
     required this.message,
-    required this.time,
+    this.time,
     required this.unreadCount,
     super.key,
     this.image,
     required this.id,
     required this.roomId,
-    required this.isGroub, required this.participants,
+    required this.isGroub,
+    required this.participants,
   });
 
   @override
@@ -169,7 +198,9 @@ class ChatTile extends StatelessWidget {
                   builder: (context) => ChatRoom(
                     name: name,
                     id: id,
-                    roomId: roomId, isGroup: isGroub, participants:participants,
+                    roomId: roomId,
+                    isGroup: isGroub,
+                    participants: participants,
                   ),
                 ));
           },
@@ -185,7 +216,7 @@ class ChatTile extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 SizedBox(
-                  width: width * .65,
+                  width: width * .45,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -215,7 +246,7 @@ class ChatTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      time,
+                      time ?? '',
                       style: const TextStyle(
                         fontSize: 12,
                         color: Colors.grey,

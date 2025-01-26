@@ -10,9 +10,9 @@ import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/ch
 
 import 'package:timeago/timeago.dart' as timeago;
 
+import '../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../Model/My Chats Model/My Chats Model.dart';
 import 'package:intl/intl.dart';
-
 
 class ChatRoom extends StatefulWidget {
   final String id;
@@ -21,11 +21,12 @@ class ChatRoom extends StatefulWidget {
   final bool isGroup;
   final List<Participants> participants;
 
-  ChatRoom({required this.name,
-    required this.id,
-    required this.roomId,
-    required this.isGroup,
-    required this.participants});
+  ChatRoom(
+      {required this.name,
+      required this.id,
+      required this.roomId,
+      required this.isGroup,
+      required this.participants});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -48,12 +49,10 @@ class _ChatRoomState extends State<ChatRoom>
     super.dispose();
   }
 
-  void _showEmojiPicker(BuildContext context, Offset offset, String messageID,
-      int index) {
+  void _showEmojiPicker(
+      BuildContext context, Offset offset, String messageID, int index) {
     final overlay = Overlay.of(context);
-    final screenSize = MediaQuery
-        .of(context)
-        .size;
+    final screenSize = MediaQuery.of(context).size;
     print(screenSize.width);
 
     double left = offset.dx;
@@ -127,7 +126,7 @@ class _ChatRoomState extends State<ChatRoom>
 
   @override
   void initState() {
-    ChatCubit.get(context).connect(LoginCubit.id, widget.roomId );
+    ChatCubit.get(context).connect(LoginCubit.id, widget.roomId);
 
     super.initState();
     ChatCubit.get(context).getSpecificChatMessages(
@@ -135,11 +134,9 @@ class _ChatRoomState extends State<ChatRoom>
 
     _scrollController.addListener(() {
       print(
-          '_scrollController.position.minScrollExtent is ${_scrollController
-              .position.minScrollExtent - 010}');
+          '_scrollController.position.minScrollExtent is ${_scrollController.position.minScrollExtent - 010}');
       print(
-          '_scrollController.position.pixels is ${_scrollController.position
-              .pixels}');
+          '_scrollController.position.pixels is ${_scrollController.position.pixels}');
 
       if (_scrollController.position.atEdge) {
         if (_scrollController.position.pixels ==
@@ -163,31 +160,30 @@ class _ChatRoomState extends State<ChatRoom>
   @override
   void deactivate() {
     print('chat room dispose');
-    ChatCubit
-        .get(context)
-        .specificChatMessages = null;
-    ChatCubit
-        .get(context)
-        .myChats = [];
+    ChatCubit.get(context).specificChatMessages = null;
+    ChatCubit.get(context).myChats = [];
 
     super.deactivate();
   }
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.black,
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+            ),
+          ),
+        ),
         backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
@@ -228,180 +224,183 @@ class _ChatRoomState extends State<ChatRoom>
           builder: (context, state) {
             return Column(
               children: [
-                ChatCubit
-                    .get(context)
-                    .specificChatMessages != null
-                    ? ChatCubit
-                    .get(context)
-                    .myChats
-                    .isNotEmpty
-                    ? Expanded(
-                    child: ListView.builder(
-                        controller: _scrollController,
-                        reverse: false,
-                        scrollDirection: Axis.vertical,
-                        physics: AlwaysScrollableScrollPhysics(
-                            parent: BouncingScrollPhysics()),
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(16),
-                        itemCount:
-                        ChatCubit
-                            .get(context)
-                            .myChats
-                            .length,
-                        itemBuilder: (context, index) {
-                          DateTime dateTime = DateTime.parse(
-                              ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .createdAt!);
-                          String formattedTime = DateFormat('hh:mm a').format(
-                              dateTime);
-
-                          return GestureDetector(
-                            onHorizontalDragEnd: (_) {
-                              print('drag');
-                              print(index);
-                              print(ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .media?[0]);
-                            },
-                            onLongPressStart: (details) {
-                              _showEmojiPicker(
-                                  context,
-                                  details.globalPosition,
-                                  ChatCubit
-                                      .get(context)
-                                      .myChats[index]
-                                      .id
-                                      .toString(),
-                                  index);
-                            },
-                            child: ChatBubble(
-                              message: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .text!,
-                              isSentByMe: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .sender!
-                                  .id ==
-                                  LoginCubit.id,
-                              time: formattedTime,
-                              isReplayed: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .repliedTo ==
-                                  null
-                                  ? true
-                                  : false,
-                              isReplayedName: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .repliedTo !=
-                                  null
-                                  ? ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .repliedTo!
-                                  .sender!
-                                  .username
-                                  : '',
-                              isReplayedText: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .repliedTo !=
-                                  null
-                                  ? ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .repliedTo!
-                                  .text
-                                  : 'null',
-                              reactions: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .reactions,
-                              media: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .media ??
-                                  null,
-                              index: index, MessageId: ChatCubit
-                                  .get(context)
-                                  .myChats[index]
-                                  .id!,
+                ChatCubit.get(context).specificChatMessages != null
+                    ? ChatCubit.get(context).myChats.isNotEmpty
+                        ? Expanded(
+                            child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      currentState['backgroundImage']),
+                                  fit: BoxFit.cover),
                             ),
-                          );
-                        }))
+                            child: ListView.builder(
+                                controller: _scrollController,
+                                reverse: false,
+                                scrollDirection: Axis.vertical,
+                                physics: AlwaysScrollableScrollPhysics(
+                                    parent: BouncingScrollPhysics()),
+                                shrinkWrap: true,
+                                padding: EdgeInsets.all(16),
+                                itemCount:
+                                    ChatCubit.get(context).myChats.length,
+                                itemBuilder: (context, index) {
+                                  DateTime dateTime = DateTime.parse(
+                                      ChatCubit.get(context)
+                                          .myChats[index]
+                                          .createdAt!);
+                                  String formattedTime =
+                                      DateFormat('hh:mm a').format(dateTime);
+
+                                  return GestureDetector(
+                                    onHorizontalDragEnd: (_) {
+                                      print('drag');
+                                      print(index);
+                                      print(ChatCubit.get(context)
+                                          .myChats[index]
+                                          .media?[0]);
+                                    },
+                                    onLongPressStart: (details) {
+                                      _animationController.reverse().then((_) {
+                                        _emojiOverlay?.remove();
+                                        _emojiOverlay = null;
+                                      });
+                                      _showEmojiPicker(
+                                          context,
+                                          details.globalPosition,
+                                          ChatCubit.get(context)
+                                              .myChats[index]
+                                              .id
+                                              .toString(),
+                                          index);
+                                    },
+                                    child: ChatBubble(
+                                      message: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .text!,
+                                      isSentByMe: ChatCubit.get(context)
+                                              .myChats[index]
+                                              .sender!
+                                              .id ==
+                                          LoginCubit.id,
+                                      time: formattedTime,
+                                      isReplayed: ChatCubit.get(context)
+                                                  .myChats[index]
+                                                  .repliedTo ==
+                                              null
+                                          ? true
+                                          : false,
+                                      isReplayedName: ChatCubit.get(context)
+                                                  .myChats[index]
+                                                  .repliedTo !=
+                                              null
+                                          ? ChatCubit.get(context)
+                                              .myChats[index]
+                                              .repliedTo!
+                                              .sender!
+                                              .username
+                                          : '',
+                                      isReplayedText: ChatCubit.get(context)
+                                                  .myChats[index]
+                                                  .repliedTo !=
+                                              null
+                                          ? ChatCubit.get(context)
+                                              .myChats[index]
+                                              .repliedTo!
+                                              .text
+                                          : 'null',
+                                      reactions: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .reactions,
+                                      media: ChatCubit.get(context)
+                                              .myChats[index]
+                                              .media ??
+                                          null,
+                                      index: index,
+                                      MessageId: ChatCubit.get(context)
+                                          .myChats[index]
+                                          .id!,
+                                    ),
+                                  );
+                                }),
+                          ))
+                        : Expanded(
+                            child: Center(
+                                child: Text(
+                              'No messages yet ...',
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            )),
+                          )
                     : Expanded(
-                  child: Center(
-                      child: Text(
-                        'No messages yet ...',
-                        style: TextStyle(color: Colors.red, fontSize: 20),
+                        child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image:
+                                  AssetImage(currentState['backgroundImage']),
+                              fit: BoxFit.cover),
+                        ),
+                        child: MyLoadingIndicator(
+                            height: height * .3,
+                            color: Theme.of(context).secondaryHeaderColor),
                       )),
-                )
-                    : Expanded(
-                    child: MyLoadingIndicator(
-                        height: height * .3, color: Colors.red)),
-                ChatCubit
-                    .get(context)
-                    .repliedTo != null
+                ChatCubit.get(context).repliedTo != null
                     ? Container(
-                  padding:
-                  EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Color(0xff480000),
-                    border:
-                    Border(top: BorderSide(color: Colors.grey[800]!)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12.50),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          border:
+                              Border(top: BorderSide(color: Colors.grey[800]!)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.50),
+                          child: Row(
                             children: [
-                              Text(
-                                ChatCubit
-                                    .get(context)
-                                    .repliedTo!
-                                    .sender!
-                                    .username!,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        ChatCubit.get(context)
+                                            .repliedTo!
+                                            .sender!
+                                            .username!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                            )),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                        ChatCubit.get(context).repliedTo!.text!,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                fontWeight: FontWeight.w300)),
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                ChatCubit
-                                    .get(context)
-                                    .repliedTo!
-                                    .text!,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.white54),
-                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    ChatCubit.get(context).cancelReplay();
+                                  },
+                                  icon: Icon(
+                                    Iconsax.close_circle4,
+                                    color: Colors.black,
+                                  ))
                             ],
                           ),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              ChatCubit.get(context).cancelReplay();
-                            },
-                            icon: Icon(
-                              Iconsax.close_circle4,
-                              color: Colors.white,
-                            ))
-                      ],
-                    ),
-                  ),
-                )
+                      )
                     : SizedBox(),
                 ChatInputField(
                   roomID: widget.roomId,
@@ -441,7 +440,8 @@ class ChatBubble extends StatefulWidget {
     this.reactions,
     this.media,
     required this.index,
-    this.repliedTo, required this.MessageId,
+    this.repliedTo,
+    required this.MessageId,
   });
 
   @override
@@ -453,14 +453,8 @@ class _ChatBubbleState extends State<ChatBubble> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
 
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) {
@@ -488,14 +482,12 @@ class _ChatBubbleState extends State<ChatBubble> {
                     id: LoginCubit.id,
                     username: LoginCubit.name,
                   ),
-                  Id: widget.MessageId ,
+                  Id: widget.MessageId,
                 );
 
                 print(repliedMessage);
                 ChatCubit.get(context).addReplay(repliedMessage);
-                print('${ChatCubit
-                    .get(context)
-                    .repliedTo}');
+                print('${ChatCubit.get(context).repliedTo}');
               } else if (offsetX >= 50 &&
                   offsetX <= 55 &&
                   widget.isSentByMe == false) {
@@ -537,8 +529,15 @@ class _ChatBubbleState extends State<ChatBubble> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 17.5, vertical: 12),
                           decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: widget.isSentByMe
+                                    ? [Colors.white38 , Theme.of(context).primaryColor]
+                                    : [
+                                        Theme.of(context).primaryColor,
+                                        Colors.white24
+                                      ]),
                             color: widget.isSentByMe
-                                ? Color(0xff850101)
+                                ? Theme.of(context).primaryColor
                                 : Colors.grey[800],
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(12),
@@ -553,85 +552,85 @@ class _ChatBubbleState extends State<ChatBubble> {
                           ),
                           child: !widget.isReplayed
                               ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                    color: Colors.white38,
-                                    borderRadius:
-                                    BorderRadius.circular(8)),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      widget.isReplayedName!,
-                                      style: TextStyle(
-                                          fontSize: width * .035,
-                                          fontWeight: FontWeight.w600),
+                                    Container(
+                                      width: double.infinity,
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white38,
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            widget.isReplayedName!,
+                                            style: TextStyle(
+                                                fontSize: width * .035,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          Text(
+                                            widget.isReplayedText!,
+                                            style: TextStyle(
+                                                fontSize: width * .035,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     Text(
-                                      widget.isReplayedText!,
+                                      widget.message,
                                       style: TextStyle(
+                                          color: Colors.white,
                                           fontSize: width * .035,
                                           fontWeight: FontWeight.w500),
-                                    )
+                                    ),
+                                    if (widget.media != null &&
+                                        widget.media!.isNotEmpty)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            widget.media!.first.url!,
+                                            fit: BoxFit.cover,
+                                            width: width * 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    Text(
+                                      widget.message,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: width * .035,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    if (widget.media != null &&
+                                        widget.media!.isNotEmpty)
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            widget.media!.first.url!,
+                                            fit: BoxFit.cover,
+                                            width: width * 0.5,
+                                          ),
+                                        ),
+                                      ),
                                   ],
                                 ),
-                              ),
-                              Text(
-                                widget.message,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: width * .035,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              if (widget.media != null &&
-                                  widget.media!.isNotEmpty)
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(bottom: 8.0),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    child: Image.network(
-                                      widget.media!.first.url!,
-                                      fit: BoxFit.cover,
-                                      width: width * 0.5,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          )
-                              : Column(
-                            children: [
-                              Text(
-                                widget.message,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: width * .035,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              if (widget.media != null &&
-                                  widget.media!.isNotEmpty)
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(bottom: 8.0),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(8),
-                                    child: Image.network(
-                                      widget.media!.first.url!,
-                                      fit: BoxFit.cover,
-                                      width: width * 0.5,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
                         ),
                       ),
                       if (widget.reactions != null &&
@@ -643,7 +642,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: widget.isSentByMe
-                                  ? Color(0xff850101)
+                                  ? Theme.of(context).primaryColor
                                   : Colors.grey[900],
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -651,8 +650,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                               mainAxisSize: MainAxisSize.min,
                               children: widget.reactions!
                                   .map(
-                                    (reaction) =>
-                                    Padding(
+                                    (reaction) => Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5.0, vertical: 1.5),
                                       child: Text(
@@ -661,7 +659,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                             fontSize: 12, color: Colors.white),
                                       ),
                                     ),
-                              )
+                                  )
                                   .toList(),
                             ),
                           ),
@@ -688,10 +686,11 @@ class ChatInputField extends StatefulWidget {
   final bool isGroup;
   List<Participants>? participants;
 
-  ChatInputField({required this.roomID,
-    required this.receiverId,
-    required this.isGroup,
-    this.participants});
+  ChatInputField(
+      {required this.roomID,
+      required this.receiverId,
+      required this.isGroup,
+      this.participants});
 
   @override
   State<ChatInputField> createState() => _ChatInputFieldState();
@@ -704,6 +703,13 @@ class _ChatInputFieldState extends State<ChatInputField> {
   void initState() {
     super.initState();
     message = TextEditingController();
+    message.addListener((){
+      if(message.text.isNotEmpty){
+        setState(() {
+
+        });
+      }
+    });
   }
 
   @override
@@ -731,78 +737,69 @@ class _ChatInputFieldState extends State<ChatInputField> {
           IconButton(
             icon: Icon(Icons.attach_file, color: Colors.grey),
             onPressed: () {
-              ChatCubit.get(context).handleSendMessage(chatID: widget.roomID, receiverId: widget.receiverId);
+              ChatCubit.get(context).handleSendMessage(
+                  chatID: widget.roomID, receiverId: widget.receiverId);
             },
           ),
-          message.text.isEmpty? IconButton(
-            icon: Icon(Iconsax.microphone_2, color: Colors.red),
-            onPressed: () {
-              if (message.text.isNotEmpty && ChatCubit
-                  .get(context)
-                  .repliedTo == null) {
-                ChatCubit.get(context).sendTextMessages(
-                    ChatID: widget.roomID,
-                    message: message.text,
-                    receiverId: widget.receiverId,
-                    controller: message,
-                    isGroub: widget.isGroup,
-                    participants: widget.isGroup ? widget.participants : null);
-              }
-              else if (message.text.isNotEmpty && ChatCubit
-                  .get(context)
-                  .repliedTo != null) {
-                print(ChatCubit
-                    .get(context)
-                    .repliedTo!.Id!);
-                ChatCubit.get(context).ReplayTextMessages(ChatID: widget.roomID,
-                  message: message.text,
-                  receiverId: widget.receiverId,
-                  controller: message,
-                  isGroub: widget.isGroup,
-                  ReplyMessage: ChatCubit
-                      .get(context)
-                      .repliedTo!.text!,
-                  ReplyMessageId: ChatCubit
-                      .get(context)
-                      .repliedTo!.Id!, MessageID: ChatCubit
-                      .get(context).repliedTo!.Id!,);
-              }
-            },
-          ):IconButton(
-            icon: Icon(Iconsax.send_1, color: Colors.red),
-            onPressed: () {
-              if (message.text.isNotEmpty && ChatCubit
-                  .get(context)
-                  .repliedTo == null) {
-                ChatCubit.get(context).sendTextMessages(
-                    ChatID: widget.roomID,
-                    message: message.text,
-                    receiverId: widget.receiverId,
-                    controller: message,
-                    isGroub: widget.isGroup,
-                    participants: widget.isGroup ? widget.participants : null);
-              }
-              else if (message.text.isNotEmpty && ChatCubit
-                  .get(context)
-                  .repliedTo != null) {
-                print(ChatCubit
-                    .get(context)
-                    .repliedTo!.Id!);
-                ChatCubit.get(context).ReplayTextMessages(ChatID: widget.roomID,
-                  message: message.text,
-                  receiverId: widget.receiverId,
-                  controller: message,
-                  isGroub: widget.isGroup,
-                  ReplyMessage: ChatCubit
-                      .get(context)
-                      .repliedTo!.text!,
-                  ReplyMessageId: ChatCubit
-                      .get(context)
-                      .repliedTo!.Id!, MessageID: ChatCubit
-                      .get(context).repliedTo!.Id!,);
-              }
-            },
-          ),
+          message.text.isEmpty
+              ? IconButton(
+                  icon: Icon(Iconsax.microphone_2, color: Theme.of(context).secondaryHeaderColor),
+                  onPressed: () {
+                    if (message.text.isNotEmpty &&
+                        ChatCubit.get(context).repliedTo == null) {
+                      ChatCubit.get(context).sendTextMessages(
+                          ChatID: widget.roomID,
+                          message: message.text,
+                          receiverId: widget.receiverId,
+                          controller: message,
+                          isGroub: widget.isGroup,
+                          participants:
+                              widget.isGroup ? widget.participants : null);
+                    } else if (message.text.isNotEmpty &&
+                        ChatCubit.get(context).repliedTo != null) {
+                      print(ChatCubit.get(context).repliedTo!.Id!);
+                      ChatCubit.get(context).ReplayTextMessages(
+                        ChatID: widget.roomID,
+                        message: message.text,
+                        receiverId: widget.receiverId,
+                        controller: message,
+                        isGroub: widget.isGroup,
+                        ReplyMessage: ChatCubit.get(context).repliedTo!.text!,
+                        ReplyMessageId: ChatCubit.get(context).repliedTo!.Id!,
+                        MessageID: ChatCubit.get(context).repliedTo!.Id!,
+                      );
+                    }
+                  },
+                )
+              : IconButton(
+                  icon: Icon(Iconsax.send_1, color: Theme.of(context).secondaryHeaderColor),
+                  onPressed: () {
+                    if (message.text.isNotEmpty &&
+                        ChatCubit.get(context).repliedTo == null) {
+                      ChatCubit.get(context).sendTextMessages(
+                          ChatID: widget.roomID,
+                          message: message.text,
+                          receiverId: widget.receiverId,
+                          controller: message,
+                          isGroub: widget.isGroup,
+                          participants:
+                              widget.isGroup ? widget.participants : null);
+                    } else if (message.text.isNotEmpty &&
+                        ChatCubit.get(context).repliedTo != null) {
+                      print(ChatCubit.get(context).repliedTo!.Id!);
+                      ChatCubit.get(context).ReplayTextMessages(
+                        ChatID: widget.roomID,
+                        message: message.text,
+                        receiverId: widget.receiverId,
+                        controller: message,
+                        isGroub: widget.isGroup,
+                        ReplyMessage: ChatCubit.get(context).repliedTo!.text!,
+                        ReplyMessageId: ChatCubit.get(context).repliedTo!.Id!,
+                        MessageID: ChatCubit.get(context).repliedTo!.Id!,
+                      );
+                    }
+                  },
+                ),
         ],
       ),
     );
