@@ -39,8 +39,8 @@ class Data {
   late final bool recoveryAndStretching;
   late final List<dynamic> deepAnatomy;
   late final Video video;
-  late final Null Description;
-  late final Null instructions;
+  String? Description;
+  String? instructions;
   late final String createdAt;
   late final String updatedAt;
   late final String id;
@@ -55,8 +55,8 @@ class Data {
     recoveryAndStretching = json['recoveryAndStretching'];
     deepAnatomy = List.castFrom<dynamic, dynamic>(json['deepAnatomy']);
     video = Video.fromJson(json['video']);
-    Description = null;
-    instructions = null;
+    Description = json['Description'];
+      instructions = json['instructions'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     id = json['_id'];

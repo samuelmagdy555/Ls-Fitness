@@ -11,6 +11,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Vitamine%20Alarms/View%20Model/vitamin_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Creatine%20Feature/View%20Model/creatine_cubit.dart';
 
+import '../../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Meal Alarms/View Model/alarm_cubit.dart';
 import '../Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View Model/sleep_cubit.dart';
@@ -59,10 +60,18 @@ class _AddAlaramState extends State<AddAlarm> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final currentState = context.watch<ThemesCubit>().state;
+
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+            ),
+          ),
+        ),
         automaticallyImplyLeading: true,
         title: const Text(
           'Add Alarm',
@@ -76,9 +85,15 @@ class _AddAlaramState extends State<AddAlarm> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']),
+              fit: BoxFit.cover),
+        ),
+        
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(

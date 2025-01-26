@@ -29,13 +29,13 @@ class ProgressModel {
 
 class PaginationResult {
   PaginationResult({
-     this.currentPage,
-     this.limit,
-     this.numberOfPages,
+    required this.currentPage,
+    required this.limit,
+    required this.numberOfPages,
   });
-  int? currentPage;
-  int? limit;
-  int? numberOfPages;
+  late final int currentPage;
+  late final int limit;
+  late final int numberOfPages;
 
   PaginationResult.fromJson(Map<String, dynamic> json){
     currentPage = json['currentPage'];

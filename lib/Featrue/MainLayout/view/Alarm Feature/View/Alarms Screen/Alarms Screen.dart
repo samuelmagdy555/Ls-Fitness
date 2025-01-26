@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Sleep%20Alarms/View/Sleep%20Alarms.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Alarm%20Feature/View/Alarms%20Screen/Tabs/Alarm%20Feture/View/Alarms/Supplement%20Meals/View/Supplement%20Meals.dart';
@@ -44,10 +46,19 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final currentState = context.watch<ThemesCubit>().state;
+
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+                fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+              ),
+            ),
+          ),
           title: const Text(
             'Alarms',
             style: TextStyle(color: Colors.white),
@@ -90,64 +101,72 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
               : SizedBox(),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: Column(
-          children: [
-            SizedBox(
-              child: GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.only(top: 15),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 2.1,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                itemCount: c.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTapDown: (TapDownDetails details) {
-                      setState(() {
-                        num = index;
-                        tabController!.animateTo(index);
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: num == index ? Colors.white : Colors.black,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']),
+                fit: BoxFit.cover),
+          ),
+
+          child: Column(
+            children: [
+              SizedBox(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.only(top: 15),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 2.1,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemCount: c.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTapDown: (TapDownDetails details) {
+                        setState(() {
+                          num = index;
+                          tabController!.animateTo(index);
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: num == index ? Colors.white : Colors.black,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Text(
+                          c[index],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: num == index ? Colors.black : Colors.white),
                         ),
                       ),
-                      alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text(
-                        c[index],
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: num == index ? Colors.black : Colors.white),
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(
-              height: height * 0.01,
-            ),
-            Expanded(
-                child: TabBarView(controller: tabController, children: [
-              MealsAlarms(),
-              SupplementsAlarms(),
-              SleepAlarms(),
-              CreatineTab(),
-              VitaminAlarms(),
-              WorkoutAlarms(),
-            ]))
-          ],
+              SizedBox(
+                height: height * 0.01,
+              ),
+              Expanded(
+                  child: TabBarView(controller: tabController, children: [
+                MealsAlarms(),
+                SupplementsAlarms(),
+                SleepAlarms(),
+                CreatineTab(),
+                VitaminAlarms(),
+                WorkoutAlarms(),
+              ]))
+            ],
+          ),
         ));
   }
 }

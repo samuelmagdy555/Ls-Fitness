@@ -116,6 +116,14 @@ class CreatineCubit extends Cubit<CreatineState> {
     setCreatine();
     emit(UpdateStatus());
   }
+  void updateCupStatus(int index, bool newStatus) {
+    print('old status ${waterByLiter[index].status}');
+
+    waterByCup[index].status = newStatus;
+    print('new status ${waterByLiter[index].status}');
+    setCreatine();
+    emit(UpdateStatus());
+  }
   GetData() async {
     preferences = await SharedPreferences.getInstance();
 

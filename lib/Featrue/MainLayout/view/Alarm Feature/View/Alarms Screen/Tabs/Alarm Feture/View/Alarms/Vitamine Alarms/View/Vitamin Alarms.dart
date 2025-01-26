@@ -22,7 +22,7 @@ class _VitaminAlarmsState extends State<VitaminAlarms> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         body: BlocConsumer<VitaminCubit, VitaminState>(
           listener: (context, state) {
             // TODO: implement listener

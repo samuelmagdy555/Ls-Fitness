@@ -23,7 +23,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
 
 
         body: BlocConsumer<WorkoutCubit, WorkoutState>(

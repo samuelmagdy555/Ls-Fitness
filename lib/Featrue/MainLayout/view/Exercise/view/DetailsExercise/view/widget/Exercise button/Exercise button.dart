@@ -15,7 +15,7 @@ class ExerciseButton extends StatelessWidget {
         onPressed!();
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: kSecondColor,
+        backgroundColor: Theme.of(context).focusColor,
         padding: EdgeInsets.symmetric(vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
@@ -23,11 +23,7 @@ class ExerciseButton extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
       ),
     );
   }

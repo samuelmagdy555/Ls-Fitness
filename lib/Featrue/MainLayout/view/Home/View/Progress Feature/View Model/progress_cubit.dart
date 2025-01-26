@@ -27,7 +27,10 @@ class ProgressCubit extends Cubit<ProgressState> {
         token: LoginCubit.loginModel?.token ?? LoginCubit.token,
       );
       progressModel = ProgressModel.fromJson(response.data);
+      generateSpots(progressModel!);
+
       emit(GetProgressSuccess());
+
     } catch (e) {
       print(e);
       emit(GetProgressError());
