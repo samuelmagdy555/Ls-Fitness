@@ -49,7 +49,10 @@ class ProgressCubit extends Cubit<ProgressState> {
       emit(AddProgressSuccess());
      await getExercisesProgress(id: id);
      spots.clear();
-    generateSpots(progressModel!);
+     if(progressModel!.data!.isNotEmpty){
+       generateSpots(progressModel!);
+
+     }
     } catch (e) {
       print(e);
       emit(AddProgressError());

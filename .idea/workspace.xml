@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/About Screen/About Screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Charts Screen/Charts Screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/History Screen/History Screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Records Screen/Records Screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Screenshot_20241226_164042.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Add Alarm Screen/Add Alarm Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Add Alarm Screen/Add Alarm Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Meal Alarms/View/Meal Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Meal Alarms/View/Meal Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View/Sleep Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Sleep Alarms/View/Sleep Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Supplement Meals/View/Supplement Meals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Supplement Meals/View/Supplement Meals.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View/Vitamin Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Vitamine Alarms/View/Vitamin Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View Model/creatine_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View/Creatine Tab.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Creatine Feature/View/Creatine Tab.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Exercise button/Exercise button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Exercise button/Exercise button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Progress Widget/Progress Widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Progress Widget/Progress Widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/Model/PrgoressModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/Model/PrgoressModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Records Screen/Records Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Records Screen/Records Screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,14 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00029" summary="handel add emoji socket logic">
-      <option name="closed" value="true" />
-      <created>1736397106096</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1736397106096</updated>
     </task>
     <task id="LOCAL-00030" summary="handel add emoji Logic">
       <option name="closed" value="true" />
@@ -522,7 +499,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737873876127</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="handel exercise UI">
+      <option name="closed" value="true" />
+      <created>1737889713569</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1737889713569</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -537,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel chats" />
     <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
     <MESSAGE value="handel exercise advertise" />
@@ -562,7 +546,8 @@
     <MESSAGE value="handel Chat Themes" />
     <MESSAGE value="handel Notification Themes" />
     <MESSAGE value="handel Meals Themes" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Meals Themes" />
+    <MESSAGE value="handel exercise UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel exercise UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -594,7 +579,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>469</line>
+          <line>470</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -624,12 +609,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
-          <line>535</line>
+          <line>614</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
-          <line>300</line>
+          <line>553</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -651,11 +636,6 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Alarms Screen.dart</url>
           <line>53</line>
           <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart</url>
-          <line>44</line>
-          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

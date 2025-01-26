@@ -1,6 +1,7 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/View%20Model/exercises_details_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/About%20Screen/About%20Screen.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/Charts%20Screen/Charts%20Screen.dart';
@@ -19,7 +20,9 @@ class ExercisePage extends StatefulWidget {
 
   // final String videoPath;
 
-  ExercisePage({required this.ID});
+  ExercisePage({
+    required this.ID,
+  });
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
@@ -29,8 +32,6 @@ class _ExercisePageState extends State<ExercisePage>
     with TickerProviderStateMixin {
   CustomSegmentedController<int>? _tabViewController;
   TabController? tabController;
-  String MaxVolume = '0';
-  String MaxVolumeDate = '';
 
   @override
   void initState() {
@@ -39,22 +40,7 @@ class _ExercisePageState extends State<ExercisePage>
 
     ExercisesDetailsCubit.get(context)
         .getExercisesDetails(
-            id: widget.ID, context: context, isAdvertise: false)
-        .then((_) {});
-    ProgressCubit.get(context).getExercisesProgress(id: widget.ID);
-    for (int i = 0;
-    i < ProgressCubit.get(context).progressModel!.data[0].volumes.length;
-    i++) {
-      if (ProgressCubit.get(context).progressModel!.data.isNotEmpty) {
-        int currentVolume = ProgressCubit.get(context).progressModel!.data[0].volumes[i].volume;
-
-        if (currentVolume > int.parse(MaxVolume)) {
-          MaxVolume = currentVolume.toString();
-          MaxVolumeDate = ProgressCubit.get(context).progressModel!.data[0].volumes[i].date;
-        }
-      }
-
-    }
+            id: widget.ID, context: context, isAdvertise: false);
 
     _tabViewController = CustomSegmentedController();
     tabController = TabController(length: 4, vsync: this);
@@ -85,12 +71,19 @@ class _ExercisePageState extends State<ExercisePage>
     double height = MediaQuery.sizeOf(context).height;
     final currentState = context.watch<ThemesCubit>().state;
 
+    return BlocConsumer<ProgressCubit, ProgressState>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
     return BlocConsumer<ExercisesDetailsCubit, ExercisesDetailsState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return ExercisesDetailsCubit.get(context).exerciseDetailsModel == null
+        return ExercisesDetailsCubit.get(context).exerciseDetailsModel ==
+                    null ||
+                ProgressCubit.get(context).progressModel == null
             ? Scaffold(
                 body: Container(
                   height: double.infinity,
@@ -101,8 +94,8 @@ class _ExercisePageState extends State<ExercisePage>
                         fit: BoxFit.cover),
                   ),
                   child: Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.red,
+                    child: MyLoadingIndicator(
+                      color: Theme.of(context).secondaryHeaderColor, height: 300,
                     ),
                   ),
                 ),
@@ -272,16 +265,14 @@ class _ExercisePageState extends State<ExercisePage>
                                       .first
                                       .volumes,
                                 ),
-                                ChartsScreen(
-                                  id: ExercisesDetailsCubit.get(context)
-                                      .exerciseDetailsModel!
-                                      .data
-                                      .id,
-                                ),
-                                RecordsScreen(
-                                  MaxVolume: MaxVolume,
-                                  MaxVolumeDate: MaxVolumeDate,
-                                ),
+                                SizedBox(),
+                                // ChartsScreen(
+                                //   id: ExercisesDetailsCubit.get(context)
+                                //       .exerciseDetailsModel!
+                                //       .data
+                                //       .id,
+                                // ),
+                                SizedBox(),
                               ]),
                         )
                       ],
@@ -291,6 +282,8 @@ class _ExercisePageState extends State<ExercisePage>
               );
       },
     );
+  },
+);
   }
 //
 // Widget _buildTabButton(String text, bool isSelected) {

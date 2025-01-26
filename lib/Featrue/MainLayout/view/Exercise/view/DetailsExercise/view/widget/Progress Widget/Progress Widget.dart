@@ -83,7 +83,7 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                                       ),
                                     ),
                                     dotData: FlDotData(show: false),
-                                    spots: ProgressCubit.get(context).spots,
+                                    spots: ProgressCubit.get(context).spots ?? [],
                                     isCurved: true,
                                     barWidth: 2,
                                   )

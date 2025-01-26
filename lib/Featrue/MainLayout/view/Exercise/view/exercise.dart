@@ -107,7 +107,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
-
       body: BlocConsumer<ExerciseCubit, ExerciseState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -115,28 +114,27 @@ class _WorkoutScreenState extends State<WorkoutScreen>
         builder: (context, state) {
           return ExerciseCubit.get(context).exercisesModel == null
               ? Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(currentState['backgroundImage']),
-                  fit: BoxFit.cover),
-            ),
-                child: Center(
-                    child: MyLoadingIndicator(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(currentState['backgroundImage']),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Center(
+                      child: MyLoadingIndicator(
                     height: height * .1,
                     color: Theme.of(context).primaryColor,
                   )),
-              )
+                )
               : Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(currentState['backgroundImage']),
-                  fit: BoxFit.cover),
-            ),
-                child: Column(
-
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(currentState['backgroundImage']),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Column(
                     children: [
                       SizedBox(
-                        height: height*.05,
+                        height: height * .05,
                       ),
                       Row(
                         children: [
@@ -149,31 +147,35 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                               Navigator.pop(context);
                             },
                           ),
-                          Text(
-                            '  Workout',
-                            style: Theme.of(context).textTheme.titleLarge)
+                          Text('  Workout',
+                              style: Theme.of(context).textTheme.titleLarge)
                         ],
                       ),
                       SizedBox(
                         child: GridView.builder(
                           shrinkWrap: true,
                           padding: EdgeInsets.only(top: 15),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: widget.isWormUp == true ? 1:2 ,
-                            childAspectRatio:widget.isWormUp == true ? 5  : 3.2,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: widget.isWormUp == true ? 1 : 2,
+                            childAspectRatio: widget.isWormUp == true ? 5 : 3.2,
                             mainAxisSpacing: 10,
                             crossAxisSpacing: 10,
                           ),
-                          itemCount: widget.isWormUp == true ? buttons2.length : buttons.length,
+                          itemCount: widget.isWormUp == true
+                              ? buttons2.length
+                              : buttons.length,
                           itemBuilder: (context, index) {
-                            if (widget.isWormUp == false){
+                            if (widget.isWormUp == false) {
                               var button = buttons[index];
                               return GestureDetector(
                                 onTapDown: (TapDownDetails details) async {
                                   setState(() {
-                                    if (ExerciseCubit.get(context).filter[index] ==
+                                    if (ExerciseCubit.get(context)
+                                            .filter[index] ==
                                         index) {
-                                      ExerciseCubit.get(context).filter[index] = 6;
+                                      ExerciseCubit.get(context).filter[index] =
+                                          6;
                                     } else {
                                       ExerciseCubit.get(context).filter[index] =
                                           index;
@@ -181,11 +183,13 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   });
 
                                   if (index == 0) {
-                                    if (ExerciseCubit.get(context).filter[index] ==
+                                    if (ExerciseCubit.get(context)
+                                            .filter[index] ==
                                         index) {
                                       await ExerciseCubit.get(context)
                                           .getDeepAnatomyOrTool(index);
-                                      final tapPosition = details.globalPosition;
+                                      final tapPosition =
+                                          details.globalPosition;
 
                                       showMenu(
                                         context: context,
@@ -210,7 +214,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                             },
                                             child: Text(
                                               choice,
-                                              style: Theme.of(context).textTheme.bodyMedium,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
                                             ),
                                           );
                                         }).toList(),
@@ -226,17 +232,19 @@ class _WorkoutScreenState extends State<WorkoutScreen>
 
                                           ExerciseCubit.get(context)
                                               .updateTitleByIndex(
-                                              index, itemIndex, buttons);
+                                                  index, itemIndex, buttons);
 
                                           ExerciseCubit.get(context)
                                               .generateFilterMap(
-                                              page: 1, controller: controller);
+                                                  page: 1,
+                                                  controller: controller);
                                           controller.navigateToPage(0);
                                         }
                                       });
                                     } else {
-                                      ExerciseCubit.get(context).generateFilterMap(
-                                          page: 1, controller: controller);
+                                      ExerciseCubit.get(context)
+                                          .generateFilterMap(
+                                              page: 1, controller: controller);
                                       ExerciseCubit.get(context).changePage(
                                           controller: controller, index: 0);
                                     }
@@ -244,7 +252,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                     if (widget.isWormUp == true) {
                                       await ExerciseCubit.get(context)
                                           .getBodyParts();
-                                      final tapPosition = details.globalPosition;
+                                      final tapPosition =
+                                          details.globalPosition;
 
                                       showMenu(
                                         context: context,
@@ -281,8 +290,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                           print('itemIndex is $itemIndex');
                                           ExerciseCubit.get(context)
                                               .workoutWithBodyPart(
-                                              BodyPartId: value,
-                                              index: itemIndex);
+                                                  BodyPartId: value,
+                                                  index: itemIndex);
                                           // ExerciseCubit.get(context)
                                           //     .filterDetails[index] = value;
                                           // //
@@ -299,12 +308,13 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                       });
                                     } else {
                                       if (ExerciseCubit.get(context)
-                                          .filter[index] ==
+                                              .filter[index] ==
                                           index) {
                                         await ExerciseCubit.get(context)
                                             .getDeepAnatomyForSpecificBodyPart(
-                                            id: widget.bodyPartID!);
-                                        final tapPosition = details.globalPosition;
+                                                id: widget.bodyPartID!);
+                                        final tapPosition =
+                                            details.globalPosition;
 
                                         showMenu(
                                           context: context,
@@ -334,10 +344,13 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                           }).toList(),
                                         ).then((selected) {
                                           if (selected != null) {
-                                            ExerciseCubit.get(context).changePage(
-                                                controller: controller, index: 0);
+                                            ExerciseCubit.get(context)
+                                                .changePage(
+                                                    controller: controller,
+                                                    index: 0);
                                             String value = selected['value'];
-                                            int itemIndex = selected['itemIndex'];
+                                            int itemIndex =
+                                                selected['itemIndex'];
 
                                             print('filterDetails');
                                             ExerciseCubit.get(context)
@@ -350,29 +363,32 @@ class _WorkoutScreenState extends State<WorkoutScreen>
 
                                             ExerciseCubit.get(context)
                                                 .updateTitleByIndex(
-                                                index, itemIndex, buttons);
+                                                    index, itemIndex, buttons);
                                             print('generateFilterMap');
 
                                             ExerciseCubit.get(context)
                                                 .generateFilterMap(
-                                                page: 1,
-                                                controller: controller);
+                                                    page: 1,
+                                                    controller: controller);
                                             controller.navigateToPage(0);
                                           }
                                         });
                                       } else {
                                         ExerciseCubit.get(context)
                                             .generateFilterMap(
-                                            page: 1, controller: controller);
+                                                page: 1,
+                                                controller: controller);
                                         ExerciseCubit.get(context).changePage(
                                             controller: controller, index: 0);
                                       }
                                     }
                                   } else {
                                     ExerciseCubit.get(context)
-                                        .updateTitleByIndex(index, index, buttons);
-                                    ExerciseCubit.get(context).generateFilterMap(
-                                        page: 1, controller: controller);
+                                        .updateTitleByIndex(
+                                            index, index, buttons);
+                                    ExerciseCubit.get(context)
+                                        .generateFilterMap(
+                                            page: 1, controller: controller);
                                     ExerciseCubit.get(context).changePage(
                                         controller: controller, index: 0);
                                   }
@@ -382,8 +398,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
                                       color: ExerciseCubit.get(context)
-                                          .filter[index] ==
-                                          index
+                                                  .filter[index] ==
+                                              index
                                           ? Theme.of(context).focusColor
                                           : Colors.white30,
                                       width: 2,
@@ -392,29 +408,31 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 8),
-                                  child: Text(
-                                    button['title'] as String,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyMedium
-                                  ),
+                                  child: Text(button['title'] as String,
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
                                 ),
                               );
-                            }
-                            else{
+                            } else {
                               var button = buttons2[index];
                               return GestureDetector(
                                 onTapDown: (TapDownDetails details) async {
                                   setState(() {
-                                    if (ExerciseCubit.get(context).filter[index] ==
+                                    if (ExerciseCubit.get(context)
+                                            .filter[index] ==
                                         index) {
-                                      ExerciseCubit.get(context).filter[index] = 6;
+                                      ExerciseCubit.get(context).filter[index] =
+                                          6;
                                     } else {
                                       ExerciseCubit.get(context).filter[index] =
                                           index;
                                     }
                                   });
                                   if (ExerciseCubit.get(context)
-                                      .filter[index] == index) {
+                                          .filter[index] ==
+                                      index) {
                                     await ExerciseCubit.get(context)
                                         .getBodyParts();
                                     final tapPosition = details.globalPosition;
@@ -442,7 +460,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                           },
                                           child: Text(
                                             choice,
-                                            style: Theme.of(context).textTheme.bodyMedium,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
                                           ),
                                         );
                                       }).toList(),
@@ -455,43 +475,37 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                         print('itemIndex is $itemIndex');
                                         ExerciseCubit.get(context)
                                             .workoutWithBodyPart(
-                                            BodyPartId: value,
-                                            index: itemIndex);
-
-
+                                                BodyPartId: value,
+                                                index: itemIndex);
                                       }
                                     });
-                                      }
-                                  else{
-
+                                  } else {
                                     ExerciseCubit.get(context)
                                         .getExercise(query: {"Warmup": "true"});
                                   }
-
                                 },
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: ExerciseCubit.get(context)
-                                          .filter[index] ==
-                                          index
-                                          ? Colors.white
-                                          : Colors.grey,
-                                      width: 2,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: ExerciseCubit.get(context)
+                                                    .filter[index] ==
+                                                index
+                                            ? Colors.white
+                                            : Colors.grey,
+                                        width: 2,
+                                      ),
                                     ),
-                                  ),
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                  child: Text(
-                                    button['title'] as String,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context).textTheme.bodyMedium
-                                  )),
+                                    alignment: Alignment.center,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                    child: Text(button['title'] as String,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium)),
                               );
                             }
-
                           },
                         ),
                       ),
@@ -501,7 +515,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                         builder: (context, state) {
                           return exerciseCubit.exercisesModel!.data!.isNotEmpty
                               ? NumberPaginator(
-
                                   showNextButton: true,
                                   showPrevButton: true,
                                   controller: controller,
@@ -511,27 +524,25 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                   onPageChange: (int index) {
                                     if (widget.isWormUp == true) {
                                       exerciseCubit.getExercise(
-
                                         query: {
                                           'Warmup': 'true',
-                                          'page': index +1
+                                          'page': index + 1
                                         },
                                       );
-                                    }
-                                    else{
+                                    } else {
                                       exerciseCubit.changePage(
                                           controller: controller, index: index);
                                       exerciseCubit.generateFilterMap(
-                                          page: index + 1, controller: controller);
-
+                                          page: index + 1,
+                                          controller: controller);
                                     }
                                   },
                                 )
                               : Center(
-                                  child: Text(
-                                    '',
-                                    style: Theme.of(context).textTheme.bodyMedium
-                                  ),
+                                  child: Text('',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium),
                                 );
                         },
                       ),
@@ -545,14 +556,15 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                 ? Center(
                                     child: MyLoadingIndicator(
                                     height: height * .1,
-                                    color: Theme.of(context).secondaryHeaderColor,
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
                                   ))
                                 : exercises.isEmpty
                                     ? Center(
-                                        child: Text(
-                                        'No Exercises',
-                                        style: Theme.of(context).textTheme.bodyLarge
-                                      ))
+                                        child: Text('No Exercises',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge))
                                     : ListView.builder(
                                         itemCount: exercises.length,
                                         itemBuilder: (context, index) {
@@ -575,17 +587,21 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                                 ProgressCubit.get(context)
                                                     .getExercisesProgress(
                                                         id: exercise.id);
+
+                                                String MaxVolume = '0';
+                                                String MaxVolumeDate = '';
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
                                                           ExercisePage(
-                                                        ID: exercise.id,
-                                                      ),
+                                                            ID: exercise.id,
+                                                          ),
                                                     ));
                                               },
                                               imagePath:
-                                                  exercise.video?.thumbnail ?? '',
+                                                  exercise.video?.thumbnail ??
+                                                      '',
                                             ),
                                           );
                                         },
@@ -595,7 +611,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                       ),
                     ],
                   ),
-              );
+                );
         },
       ),
     );
@@ -631,16 +647,12 @@ class ExerciseTile extends StatelessWidget {
                   width: 100,
                   height: 100,
                   color: Colors.grey,
-
                 );
               },
             ),
             SizedBox(width: 10),
             Expanded(
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.bodyMedium
-              ),
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
             ),
             Icon(Icons.play_arrow, color: Colors.white),
           ],

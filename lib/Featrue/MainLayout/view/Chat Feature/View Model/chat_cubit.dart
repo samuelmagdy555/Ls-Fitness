@@ -261,6 +261,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       print('=========================>Api Request Sent Successfully');
       sendMessageModel = SendMessageModel.fromJson(response.data);
+      print(sendMessageModel!.media[0]);
 
       print('=========================>model Stored Successfully');
 
@@ -306,7 +307,7 @@ class ChatCubit extends Cubit<ChatState> {
     // Simulate upload and return file URL
     await Future.delayed(Duration(seconds: 2)); // Simulate delay
     print(file.path.split('/').last);
-    return 'https://L.s_fitness/uploads/${file.path.split('/').last}';
+    return '${file.path.split('/').last}';
   }
 
   Future<List<File>> pickFiles() async {
