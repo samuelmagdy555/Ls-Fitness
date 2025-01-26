@@ -21,3 +21,7 @@ class GetDeepAnatomyForBodyPartsSuccess extends ExerciseState{}
 class GetDeepAnatomyForBodyPartsError extends ExerciseState{}
 class GetDeepAnatomyForBodyPartsLoading extends ExerciseState{}
 
+class WorkoutWithBodyPartLoading extends ExerciseState{}
+class WorkoutWithBodyPartSuccess extends ExerciseState{}
+class WorkoutWithBodyPartError extends ExerciseState{}
+

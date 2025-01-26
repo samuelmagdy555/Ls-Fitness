@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
 class ThemesClass{
   //lighte theme
@@ -51,9 +52,10 @@ class ThemesClass{
   //dark theme
   static final ThemeData manDarkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.white,
-    secondaryHeaderColor: Colors.white30
-      ,
+    primaryColor: kFirstColor,
+    secondaryHeaderColor: Colors.white30,
+    focusColor: Colors.white,
+
     scaffoldBackgroundColor: Colors.black,
     iconTheme:  IconThemeData(color: Colors.white , size: 30),
     navigationBarTheme:  NavigationBarThemeData(
@@ -61,7 +63,7 @@ class ThemesClass{
     ),
 
     textTheme: TextTheme(
-      titleLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),
+      titleLarge: TextStyle(color: Colors.white, fontSize: 25,fontWeight: FontWeight.bold),
       titleMedium: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
       titleSmall: TextStyle(color: Colors.white, fontSize: 10,fontWeight: FontWeight.bold),
       headlineLarge: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),

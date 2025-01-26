@@ -42,7 +42,10 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     6,
     6,
     6,
+
   ];
+
+  // بنخزن فيها اسم الزرار سواء كان cardio ولا tool
   List<String> filterDetails = [
     '',
     '',
@@ -60,16 +63,9 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   void updateTitleByIndex(
       int index, int buttonIndex, List<Map<String, dynamic>> buttons) {
-    print('buttons[index]["title"] is ${buttons[index]['title']}');
-
-    print('intered updateTitleByIndex');
-    print('filterDetails[index] is ${filterDetails[index]}');
 
     if (buttons[index]['title'] == 'Recovery and Stretching' ||
         buttons[index]['title'] == 'Cardio') {
-      print(
-          'in function (updateTitleByIndex) title is ${buttons[index]['title']}');
-      print('buttons[index]["title"] is ${buttons[index]['title']}');
 
       if (filterDetails[index] == '' || filterDetails[index] == 'false') {
         filterDetails[index] = 'true';
@@ -95,7 +91,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   List exerciseFilter = [];
 
-  Future<void> getExercise({int? page, Map<String, dynamic>? query}) async {
+  Future<void> getExercise({int? page, Map<String, dynamic>? query , }) async {
     emit(GetExerciseLoading());
     try {
       print('getExercise');
@@ -133,6 +129,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       emit(BodyPartsError());
     }
   }
+
 //hel
 
   Future<void> getBodyParts() async {
@@ -213,4 +210,20 @@ class ExerciseCubit extends Cubit<ExerciseState> {
     return items;
   }
 
+  Future<void> workoutWithBodyPart({required String BodyPartId , required int index }) async {
+    emit(WorkoutWithBodyPartLoading());
+    try {
+
+      final response = await DioHelper.get(
+          end_ponit: '${EndPoints.GetExercise}',
+          token: loginModel?.token ?? LoginCubit.token,
+          query: {'Warmup': true, 'bodyPart':  bodyPartsModel!.data[index].id});
+
+      exercisesModel = ExercisesModel.fromJson(response.data);
+      emit(WorkoutWithBodyPartSuccess());
+    } catch (e) {
+      print(e.toString());
+      emit(WorkoutWithBodyPartError());
+    }
+  }
 }
