@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/viewmodel/exercise_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Supplements Tap/Supplements Tap.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Supplements Tap/Supplements Tap.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Vitamins Tap/Vitamins Tap.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Vitamins Tap/Vitamins Tap.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Vitamin Details/Vitamin Details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Vitamin Details/Vitamin Details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Vitamin View.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Vitamin View.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,14 +113,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00020" summary="handel Socket.IO">
-      <option name="closed" value="true" />
-      <created>1735922652742</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1735922652742</updated>
     </task>
     <task id="LOCAL-00021" summary="handel Socket.IO">
       <option name="closed" value="true" />
@@ -506,7 +498,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737806175459</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="handel Exercise Themes">
+      <option name="closed" value="true" />
+      <created>1737854933495</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1737854933495</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -521,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel buy course function" />
     <MESSAGE value="handel advertise UI" />
     <MESSAGE value="handel courses UI" />
     <MESSAGE value="handel deep linking" />
@@ -546,7 +545,8 @@
     <MESSAGE value="handel payment logic" />
     <MESSAGE value="handel home Theme" />
     <MESSAGE value="handel Person Theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Person Theme" />
+    <MESSAGE value="handel Exercise Themes" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Exercise Themes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -593,7 +593,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Vitamins Features/Vitamin View/Taps/Supplements Tap/Supplements Tap.dart</url>
-          <line>112</line>
+          <line>73</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -608,8 +608,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
-          <line>538</line>
+          <line>535</line>
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/exercise.dart</url>
+          <line>300</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
