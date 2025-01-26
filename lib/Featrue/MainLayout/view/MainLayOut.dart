@@ -37,7 +37,7 @@ class _MainLayoutState extends State<MainLayout> {
     CoursePage(),
     ChatView(),
 
-    SettingsPage(),
+    NotificationsPage(),
     FoodListPage(),
     FoodCalculator(mealCategory: ''),
     NutritionView(),

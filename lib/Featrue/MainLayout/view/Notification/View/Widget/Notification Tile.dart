@@ -21,7 +21,7 @@ class NotificationTile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
-          color: isRead == true ? Colors.black12 : Colors.white10,
+          color: isRead == true ? Colors.black26 : Colors.white12,
           borderRadius: BorderRadius.circular(17.5)
         ),
         margin: EdgeInsets.only(bottom: 16),
@@ -47,28 +47,21 @@ class NotificationTile extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium
                       ),
                       Text(
                         time,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        ),
-                      ),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.grey[600],
+                        )                      ),
                     ],
                   ),
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
+                    )
                   ),
 
                 ],
