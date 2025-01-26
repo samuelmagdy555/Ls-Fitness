@@ -53,15 +53,13 @@ class ThemesClass{
   static final ThemeData manDarkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: kFirstColor,
-    secondaryHeaderColor: Colors.white30,
+    secondaryHeaderColor: kSecondColor,
     focusColor: Colors.white,
+
 
     scaffoldBackgroundColor: Colors.black,
     iconTheme:  IconThemeData(color: Colors.white , size: 30),
-    navigationBarTheme:  NavigationBarThemeData(
-
-    ),
-
+   cardColor: kFirstColor,
     textTheme: TextTheme(
       titleLarge: TextStyle(color: Colors.white, fontSize: 25,fontWeight: FontWeight.bold),
       titleMedium: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),

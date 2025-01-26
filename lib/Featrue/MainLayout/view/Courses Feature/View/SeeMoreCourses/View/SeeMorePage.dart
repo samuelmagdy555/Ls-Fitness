@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
+import '../../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../ViewModel/more_courses_cubit.dart';
 
 class SeeMoreCourses extends StatefulWidget {
@@ -17,64 +19,69 @@ class _SeeMoreCoursesState extends State<SeeMoreCourses> {
     super.initState();
     MoreCoursesCubit.get(context).SeeMoreCourses(ID: widget.categoryId);
   }
+  @override
+  void deactivate(){
+    super.deactivate();
+    MoreCoursesCubit.get(context).seeMoreCourses = null;
+  }
 
   @override
   Widget build(BuildContext context) {
     final cubit = MoreCoursesCubit.get(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+            ),
+          ),
+        ),
         elevation: 0,
         title: Text(
           widget.categoryName,
-          style: const TextStyle(color: Colors.black),
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black),
+
       ),
       body: BlocConsumer<MoreCoursesCubit, MoreCoursesState>(
         listener: (context, state) {
-          if (state is SeeMoreCoursesError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Error During Loading Data")),
-            );
-          }
         },
         builder: (context, _) {
           final courses = cubit.seeMoreCourses?.data ?? [];
 
-          if (courses.isEmpty) {
-            return const Center(
-              child: Text(
-                "No Available Courses Right Now",
-                style: TextStyle(color: Colors.black),
-              ),
-            );
-          }
+          return
+            cubit.seeMoreCourses != null ?  cubit.seeMoreCourses!.data.isNotEmpty ?Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(currentState['backgroundImage']),
+                  fit: BoxFit.cover),
+            ),
+            child: ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: courses.length,
+              itemBuilder: (context, index) {
+                final course = courses[index];
+                final imageSize = screenWidth * 0.2; // حجم الصورة يعتمد على عرض الشاشة
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(8.0),
-            itemCount: courses.length,
-            itemBuilder: (context, index) {
-              final course = courses[index];
-              final imageSize = screenWidth * 0.2; // حجم الصورة يعتمد على عرض الشاشة
-
-              return Card(
-                color: Colors.white,
-                margin: const EdgeInsets.symmetric(vertical: 8.0),
-                elevation: 2.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      if (course.image != null)
+                return Card(
+                  color: Colors.white38,
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  elevation: 2.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Image.network(
@@ -82,64 +89,88 @@ class _SeeMoreCoursesState extends State<SeeMoreCourses> {
                             height: screenHeight*.1,
                             width: screenWidth*0.3,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              height: screenHeight*.1,
+                              width: screenWidth*0.3,
+
+                            ),
                           ),
                         ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              course.title ?? "No Name",
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.04, // النص يصبح ديناميكي
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              course.description ?? "No Description",
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.035,
-                                color: Colors.grey,
-                              ),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Price: ${course.price}",
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.035,
-                                    color: Colors.purple,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                course.title,
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Colors.black
                                 ),
-                                Text(
-                                  "Discount: ${course.priceAfterDiscount}",
-                                  style: TextStyle(
-                                    fontSize: screenWidth * 0.035,
-                                    color: Colors.purple,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                course.description ?? "",
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  color: Theme.of(context).secondaryHeaderColor
                                 ),
-                              ],
-                            ),
-                          ],
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: screenWidth *.25,
+                                    child: Text(
+                                      "Price: ${course.price}",
+                                      style:Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                        color: Colors.green
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth *.25,
+                                    child: Text(
+                                      "Discount: ${course.priceAfterDiscount}",
+                                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                          color: Theme.of(context).primaryColor
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+
+                                    ),
+
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            ),
+          ) :const Center(
+              child: Text(
+                "No Available Courses Right Now",
+                style: TextStyle(color: Colors.black),
+              ),
+            )
+          : Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(currentState['backgroundImage']),
+                    fit: BoxFit.cover),
+              ),
+              child: Center(child: MyLoadingIndicator(height:  300, color:Theme.of(context).secondaryHeaderColor )),
+            );
         },
       ),
     );

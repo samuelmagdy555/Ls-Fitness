@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/Course%20Video%20Screen/Model/Specific%20Model.dart';
 
+import '../../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../../../Model/Courses Model/Courses Model.dart';
 import '../../../View Model/courses_cubit.dart';
@@ -22,6 +24,8 @@ class CourseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentState = context.watch<ThemesCubit>().state;
+
     return GestureDetector(
       onTap: () {
         if (!isEnrolled) {
@@ -50,15 +54,9 @@ class CourseWidget extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white38,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 6,
-            ),
-          ],
+
         ),
         child: SizedBox(
           width: screenWidth * 0.45,
@@ -89,13 +87,10 @@ class CourseWidget extends StatelessWidget {
                         course.title ?? '',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.04,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 10),
                     Row(
                       children: [
                         SizedBox(
@@ -103,11 +98,9 @@ class CourseWidget extends StatelessWidget {
                           child: Text(
                             'Price: ',
                             maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.035,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Colors.black
+                            )
                           ),
                         ),
                         SizedBox(
@@ -116,11 +109,11 @@ class CourseWidget extends StatelessWidget {
                             '${course.price ?? 0}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: screenWidth * 0.035,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: Colors.red,
                               decoration: TextDecoration.lineThrough,
-                            ),
+                              decorationColor:  Colors.black
+                            )
                           ),
                         ),
                       ],
@@ -133,11 +126,9 @@ class CourseWidget extends StatelessWidget {
                           child: Text(
                             'Price After Discount: ',
                             maxLines: 2,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.035,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: Colors.black
+                            )
                           ),
                         ),
                         SizedBox(
@@ -146,11 +137,9 @@ class CourseWidget extends StatelessWidget {
                             '${course.priceAfterDiscount ?? 0}',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.04,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: Colors.green
+                            )
                           ),
                         ),
                       ],
@@ -169,6 +158,7 @@ class CourseWidget extends StatelessWidget {
                           },
                           child: Text(
                             'Enroll Now',
+                            style: Theme.of(context).textTheme.bodyMedium
                           )),
                     )
             ],

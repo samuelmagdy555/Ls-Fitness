@@ -10,7 +10,8 @@ import 'package:lsfitness/Featrue/MainLayout/view/Chat%20Feature/View%20Model/ch
 
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../Model/My Chats Model/My Chats Model.dart';import 'package:intl/intl.dart';
+import '../../Model/My Chats Model/My Chats Model.dart';
+import 'package:intl/intl.dart';
 
 
 class ChatRoom extends StatefulWidget {
@@ -249,7 +250,6 @@ class _ChatRoomState extends State<ChatRoom>
                             .myChats
                             .length,
                         itemBuilder: (context, index) {
-                          DateTime now = DateTime.now();
                           DateTime dateTime = DateTime.parse(
                               ChatCubit
                                   .get(context)
