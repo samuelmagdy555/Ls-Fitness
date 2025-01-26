@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 
+import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import 'DetailsMeals/View/DeatilsMeals.dart';
 
 class FoodListPage extends StatelessWidget {
@@ -8,8 +10,10 @@ class FoodListPage extends StatelessWidget {
     {
       'name': 'Oatmeal with Fruit and Nuts',
       'image': 'assets/images/595aacf1e27bb4a00ab6c7bb6ab36dd22cace6d3.jpg',
-      'description': '1/2 cup oatmeal \n1 cup low-fat milk \n1 banana, sliced \n1/4 cup berries \n2 tablespoons almonds \nCalories: 350 calories.',
-      'method': 'Cook oatmeal with milk. Add sliced banana, berries, and top with almonds.',
+      'description':
+          '1/2 cup oatmeal \n1 cup low-fat milk \n1 banana, sliced \n1/4 cup berries \n2 tablespoons almonds \nCalories: 350 calories.',
+      'method':
+          'Cook oatmeal with milk. Add sliced banana, berries, and top with almonds.',
       'protein': '15g',
       'carbs': '55g',
       'creatine': '0g' // Creatine is not naturally found in these ingredients
@@ -17,17 +21,22 @@ class FoodListPage extends StatelessWidget {
     {
       'name': 'Brown Toast with Avocado and Hard-Boiled Eggs',
       'image': 'assets/images/9276c38e69a2e8c9f44ac3d61f89de0f9f407d08.jpg',
-      'description': '2 slices brown bread \n1/2 mashed avocado \n2 hard-boiled eggs \nCalories: 400 calories.',
-      'method': 'Toast the bread. Mash the avocado and spread on the toast. Top with sliced boiled eggs.',
+      'description':
+          '2 slices brown bread \n1/2 mashed avocado \n2 hard-boiled eggs \nCalories: 400 calories.',
+      'method':
+          'Toast the bread. Mash the avocado and spread on the toast. Top with sliced boiled eggs.',
       'protein': '20g',
       'carbs': '35g',
       'creatine': '0g'
     },
     {
       'name': 'Spinach, Banana and Protein Smoothie',
-      'image': 'assets/images/tbl_articles_article_24515_6639a570cb2-142c-4691-9c83-f5f7859e56a9.jpg',
-      'description': '1 cup fresh spinach \n1 banana \n1 scoop protein powder \n1 cup unsweetened almond milk \nCalories: 300 calories.',
-      'method': 'Blend spinach, banana, protein powder, and almond milk together until smooth.',
+      'image':
+          'assets/images/tbl_articles_article_24515_6639a570cb2-142c-4691-9c83-f5f7859e56a9.jpg',
+      'description':
+          '1 cup fresh spinach \n1 banana \n1 scoop protein powder \n1 cup unsweetened almond milk \nCalories: 300 calories.',
+      'method':
+          'Blend spinach, banana, protein powder, and almond milk together until smooth.',
       'protein': '25g',
       'carbs': '30g',
       'creatine': '0g'
@@ -35,23 +44,33 @@ class FoodListPage extends StatelessWidget {
     {
       'name': 'Peanut Butter on Whole Wheat Bread with Apple Slices',
       'image': 'assets/images/تفاح-مع-زبدة-الفول-السوداني.jpg',
-      'description': '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.',
-      'method': 'Spread peanut butter on the bread and serve with apple slices.',
+      'description':
+          '2 slices whole wheat bread \n2 tablespoons natural peanut butter \n1 medium apple, sliced \nCalories: 350 calories.',
+      'method':
+          'Spread peanut butter on the bread and serve with apple slices.',
       'protein': '15g',
       'carbs': '45g',
       'creatine': '0g'
     }
   ];
 
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+            ),
+          ),
+        ),
         title: Center(
           child: Text(
             'Meals List',
@@ -63,8 +82,13 @@ class FoodListPage extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(screenWidth * 0.02), // تغيير الحواف بناءً على العرض
+      body: Container(
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']),
+              fit: BoxFit.cover),
+        ),
         child: ListView.builder(
           itemCount: foods.length,
           itemBuilder: (context, index) {
@@ -80,51 +104,54 @@ class FoodListPage extends StatelessWidget {
                       description: food['description']!,
                       method: food['method']!,
                       protein: food['protein']!,
-                      carbs: food ['carbs']!,
+                      carbs: food['carbs']!,
                       creatine: food['creatine']!,
                     ),
                   ),
                 );
               },
               child: Card(
+                color: Colors.black26,
                 elevation: 4,
-                margin: EdgeInsets.symmetric(vertical: screenHeight * 0.015), // تغيير المسافة العمودية
+                margin: EdgeInsets.symmetric(vertical: screenHeight * 0.015),
+                // تغيير المسافة العمودية
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(screenWidth * 0.03), // تغيير نصف القطر بناءً على العرض
+                  borderRadius: BorderRadius.circular(
+                      screenWidth * 0.03), // تغيير نصف القطر بناءً على العرض
                 ),
                 child: Row(
                   children: [
                     // صورة الطعام
                     ClipRRect(
-                      borderRadius: BorderRadius.horizontal(left: Radius.circular(screenWidth * 0.03)),
+                      borderRadius: BorderRadius.horizontal(
+                          left: Radius.circular(screenWidth * 0.03)),
                       child: Image.asset(
                         food['image']!,
                         fit: BoxFit.cover,
-                        width: screenWidth * 0.3, // تغيير العرض بناءً على حجم الشاشة
-                        height: screenWidth * 0.3, // تغيير الارتفاع بناءً على حجم الشاشة
+                        width: screenWidth * 0.3,
+                        // تغيير العرض بناءً على حجم الشاشة
+                        height: screenWidth *
+                            0.3, // تغيير الارتفاع بناءً على حجم الشاشة
                       ),
                     ),
                     // اسم الطعام والوصف
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.03), // تغيير الحواف بناءً على العرض
+                        padding: EdgeInsets.all(screenWidth * 0.03),
+                        // تغيير الحواف بناءً على العرض
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              food['name']!,
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.045, // حجم الخط بناءً على العرض
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: screenHeight * 0.01), // تغيير المسافة العمودية
+                            Text(food['name']!,
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            SizedBox(height: screenHeight * 0.01),
+                            // تغيير المسافة العمودية
                             Text(
                               food['description']!,
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.035, // حجم الخط بناءً على العرض
-                                color: Colors.grey,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(fontSize: screenWidth * 0.0325 , color: Colors.grey),
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -140,7 +167,7 @@ class FoodListPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: Padding(
-        padding:  EdgeInsets.only(bottom: screenHeight* 0.03),
+        padding: EdgeInsets.only(bottom: screenHeight * 0.03),
         child: FloatingActionButton(
           onPressed: () {
             // Action for the camera button
@@ -155,6 +182,5 @@ class FoodListPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
-
   }
 }

@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Notification View.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Notification View.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/DetailsMeals/View/DeatilsMeals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/DetailsMeals/View/DeatilsMeals.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/meals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/meals.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,22 +110,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00025" summary="handel exercise advertise">
-      <option name="closed" value="true" />
-      <created>1736013147904</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1736013147904</updated>
-    </task>
-    <task id="LOCAL-00026" summary="handel Vitamins &amp; Supplement &#10;handel Vitamins &amp; Supplement advertise">
-      <option name="closed" value="true" />
-      <created>1736104401184</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1736104401184</updated>
     </task>
     <task id="LOCAL-00027" summary="handel Chat UI">
       <option name="closed" value="true" />
@@ -504,7 +487,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737872053357</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="handel Notification Themes">
+      <option name="closed" value="true" />
+      <created>1737872473123</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1737872473123</updated>
+    </task>
+    <task id="LOCAL-00075" summary="handel Notification Themes">
+      <option name="closed" value="true" />
+      <created>1737872698881</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1737872698881</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -519,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change settings icon position" />
     <MESSAGE value="handel get all chat and get specific chat" />
     <MESSAGE value="handel chats" />
     <MESSAGE value="handel Socket.IO" />
@@ -544,7 +542,8 @@
     <MESSAGE value="handel vitamin Themes" />
     <MESSAGE value="handel Courses Themes" />
     <MESSAGE value="handel Chat Themes" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Chat Themes" />
+    <MESSAGE value="handel Notification Themes" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Notification Themes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -618,6 +617,11 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart</url>
           <line>126</line>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Specific Course/View/Specific Course.dart</url>
+          <line>102</line>
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
