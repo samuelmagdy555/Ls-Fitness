@@ -325,44 +325,52 @@ class _SpecificCourseState extends State<SpecificCourse> {
                         );
                 },
               )
-            : Center(
-                child: Container(
-                  height: height * .2,
-                  width: width * .85,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'You are not enrolled in this course',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: width * .04,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: height * .02,
-                      ),
-                      ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll(
-                                  Colors.deepPurpleAccent)),
-                          onPressed: () {
-                            CoursesCubit.get(context).buyCourse(
-                                ID: widget.courseId, context: context);
-                          },
-                          //9KA80247WN3486405
-                          child: Text(
-                            'Enroll Now',
-                            style: TextStyle(color: Colors.white),
-                          ))
-                    ],
+            : Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']),
+                fit: BoxFit.cover),
+          ),
+
+              child: Center(
+                  child: Container(
+                    height: height * .2,
+                    width: width * .85,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'You are not enrolled in this course',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: width * .04,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: height * .02,
+                        ),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStatePropertyAll(
+                                    Colors.deepPurpleAccent)),
+                            onPressed: () {
+                              CoursesCubit.get(context).buyCourse(
+                                  ID: widget.courseId, context: context);
+                            },
+                            //9KA80247WN3486405
+                            child: Text(
+                              'Enroll Now',
+                              style: TextStyle(color: Colors.white),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
-              ),
+            ),
       ),
     );
   }

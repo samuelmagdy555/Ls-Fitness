@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Notification View.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Notification View.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,14 +111,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00024" summary="handel exercise advertise">
-      <option name="closed" value="true" />
-      <created>1735952887270</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1735952887270</updated>
     </task>
     <task id="LOCAL-00025" summary="handel exercise advertise">
       <option name="closed" value="true" />
@@ -503,7 +496,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737870585138</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="handel Chat Themes">
+      <option name="closed" value="true" />
+      <created>1737872053356</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1737872053357</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel deep linking" />
     <MESSAGE value="change settings icon position" />
     <MESSAGE value="handel get all chat and get specific chat" />
     <MESSAGE value="handel chats" />
@@ -543,7 +543,8 @@
     <MESSAGE value="handel Exercise Themes" />
     <MESSAGE value="handel vitamin Themes" />
     <MESSAGE value="handel Courses Themes" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Courses Themes" />
+    <MESSAGE value="handel Chat Themes" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Chat Themes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
