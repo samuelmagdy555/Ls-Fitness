@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/DetailsMeals/View/DeatilsMeals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/DetailsMeals/View/DeatilsMeals.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/meals.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Meals/view/meals.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,14 +110,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00027" summary="handel Chat UI">
-      <option name="closed" value="true" />
-      <created>1736385397635</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1736385397635</updated>
     </task>
     <task id="LOCAL-00028" summary="handel Chat emoji UI">
       <option name="closed" value="true" />
@@ -503,7 +495,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737872698881</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="handel Meals Themes">
+      <option name="closed" value="true" />
+      <created>1737873178340</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1737873178341</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -518,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel get all chat and get specific chat" />
     <MESSAGE value="handel chats" />
     <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
@@ -543,7 +542,8 @@
     <MESSAGE value="handel Courses Themes" />
     <MESSAGE value="handel Chat Themes" />
     <MESSAGE value="handel Notification Themes" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Notification Themes" />
+    <MESSAGE value="handel Meals Themes" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Meals Themes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -622,6 +622,11 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Specific Course/View/Specific Course.dart</url>
           <line>102</line>
           <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculator.dart</url>
+          <line>166</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
