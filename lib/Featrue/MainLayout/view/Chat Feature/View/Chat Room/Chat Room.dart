@@ -531,7 +531,10 @@ class _ChatBubbleState extends State<ChatBubble> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 colors: widget.isSentByMe
-                                    ? [Colors.white38 , Theme.of(context).primaryColor]
+                                    ? [
+                                        Colors.white38,
+                                        Theme.of(context).primaryColor
+                                      ]
                                     : [
                                         Theme.of(context).primaryColor,
                                         Colors.white24
@@ -698,18 +701,23 @@ class ChatInputField extends StatefulWidget {
 
 class _ChatInputFieldState extends State<ChatInputField> {
   late TextEditingController message;
+  bool isMessageNotEmpty = false;
 
   @override
   void initState() {
     super.initState();
     message = TextEditingController();
-    message.addListener((){
-      if(message.text.isNotEmpty){
-        setState(() {
-
-        });
-      }
+    message.addListener(() {
+      setState(() {
+        isMessageNotEmpty = message.text.isNotEmpty;
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    message.dispose();
+    super.dispose();
   }
 
   @override
@@ -725,7 +733,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
           Expanded(
             child: TextField(
               controller: message,
-              cursorColor: Colors.red,
+              cursorColor: Theme.of(context).secondaryHeaderColor,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: 'Type a message...',
@@ -741,38 +749,12 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   chatID: widget.roomID, receiverId: widget.receiverId);
             },
           ),
-          message.text.isEmpty
-              ? IconButton(
-                  icon: Icon(Iconsax.microphone_2, color: Theme.of(context).secondaryHeaderColor),
-                  onPressed: () {
-                    if (message.text.isNotEmpty &&
-                        ChatCubit.get(context).repliedTo == null) {
-                      ChatCubit.get(context).sendTextMessages(
-                          ChatID: widget.roomID,
-                          message: message.text,
-                          receiverId: widget.receiverId,
-                          controller: message,
-                          isGroub: widget.isGroup,
-                          participants:
-                              widget.isGroup ? widget.participants : null);
-                    } else if (message.text.isNotEmpty &&
-                        ChatCubit.get(context).repliedTo != null) {
-                      print(ChatCubit.get(context).repliedTo!.Id!);
-                      ChatCubit.get(context).ReplayTextMessages(
-                        ChatID: widget.roomID,
-                        message: message.text,
-                        receiverId: widget.receiverId,
-                        controller: message,
-                        isGroub: widget.isGroup,
-                        ReplyMessage: ChatCubit.get(context).repliedTo!.text!,
-                        ReplyMessageId: ChatCubit.get(context).repliedTo!.Id!,
-                        MessageID: ChatCubit.get(context).repliedTo!.Id!,
-                      );
-                    }
-                  },
-                )
+          !isMessageNotEmpty
+              ? Icon(Iconsax.microphone_2,
+    color: Theme.of(context).secondaryHeaderColor)
               : IconButton(
-                  icon: Icon(Iconsax.send_1, color: Theme.of(context).secondaryHeaderColor),
+                  icon: Icon(Iconsax.send_1,
+                      color: Theme.of(context).secondaryHeaderColor),
                   onPressed: () {
                     if (message.text.isNotEmpty &&
                         ChatCubit.get(context).repliedTo == null) {
