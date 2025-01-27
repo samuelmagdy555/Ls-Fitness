@@ -34,7 +34,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Theme.of(context).secondaryHeaderColor,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: Colors.white, width: .5),
                     ),
@@ -56,7 +56,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: width * .045,
-                                  color: Colors.white,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                               ),
                             ),
@@ -217,7 +217,7 @@ class _MealsAlarmsState extends State<MealsAlarms> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: width * .045,
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),)
                         ),

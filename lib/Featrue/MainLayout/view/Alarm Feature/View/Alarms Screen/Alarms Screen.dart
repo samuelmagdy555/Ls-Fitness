@@ -59,9 +59,9 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
               ),
             ),
           ),
-          title: const Text(
+          title:  Text(
             'Alarms',
-            style: TextStyle(color: Colors.white),
+            style:Theme.of(context).textTheme.bodyLarge
           ),
           actions: [
             num == 5
@@ -96,7 +96,6 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                   onPressed: () => Navigator.pop(context),
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.white,
                   ))
               : SizedBox(),
         ),
@@ -131,7 +130,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: num == index ? Colors.white : Colors.black,
+                          color: num == index ? Theme.of(context).secondaryHeaderColor : Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: Colors.grey,
@@ -146,7 +145,7 @@ class _MyAppState extends State<TimerScreen> with TickerProviderStateMixin {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 14,
-                              color: num == index ? Colors.black : Colors.white),
+                              color: num == index ? Theme.of(context).primaryColor : Theme.of(context).secondaryHeaderColor),
                         ),
                       ),
                     );

@@ -35,7 +35,7 @@ class _VitaminAlarmsState extends State<VitaminAlarms> {
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Theme.of(context).secondaryHeaderColor,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: Colors.white, width: .5),
                     ),
@@ -54,7 +54,7 @@ class _VitaminAlarmsState extends State<VitaminAlarms> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .045,
-                                color: Colors.white),
+                                color: Theme.of(context).primaryColor),
                           ),
                         ),
                         SizedBox(
@@ -125,7 +125,7 @@ class _VitaminAlarmsState extends State<VitaminAlarms> {
                                 await Alarm.set(alarmSettings: alarmSettings);
                               }
                             },
-                            switchActiveColor: Colors.indigo,
+                            switchActiveColor: Theme.of(context).primaryColor,
                           ),
                         ),
                         SizedBox(
@@ -207,7 +207,7 @@ class _VitaminAlarmsState extends State<VitaminAlarms> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: width * .045,
-                                    color: Colors.white),
+                                    color: Theme.of(context).primaryColor),
                               ),
                             )),
                       ],

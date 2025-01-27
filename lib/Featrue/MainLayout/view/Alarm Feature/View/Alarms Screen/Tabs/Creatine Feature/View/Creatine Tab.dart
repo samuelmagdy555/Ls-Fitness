@@ -106,7 +106,7 @@ class _CreatineTabState extends State<CreatineTab>
                   border: Border.all(color: Colors.white, width: .5),
                 ),
                 thumbDecoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).secondaryHeaderColor,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
@@ -140,7 +140,7 @@ class _CreatineTabState extends State<CreatineTab>
                             padding: EdgeInsets.all(10),
                             margin: EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: Theme.of(context).secondaryHeaderColor,
                               borderRadius: BorderRadius.circular(12),
                               border:
                                   Border.all(color: Colors.white, width: .5),
@@ -163,7 +163,7 @@ class _CreatineTabState extends State<CreatineTab>
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: width * .045,
-                                          color: Colors.white,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                     ),
@@ -248,7 +248,7 @@ class _CreatineTabState extends State<CreatineTab>
                                                 alarmSettings: alarmSettings);
                                           }
                                         },
-                                        switchActiveColor: kSecondColor,
+                                        switchActiveColor: Theme.of(context).primaryColor,
                                       ),
                                     ),
                                   ],
@@ -339,7 +339,7 @@ class _CreatineTabState extends State<CreatineTab>
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: width * .045,
-                                          color: Colors.white,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                     )),

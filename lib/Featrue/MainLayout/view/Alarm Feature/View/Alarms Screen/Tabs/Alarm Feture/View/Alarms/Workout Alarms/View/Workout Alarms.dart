@@ -37,9 +37,9 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Theme.of(context).secondaryHeaderColor,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white,width: .5),
+                      border: Border.all(color: Theme.of(context).secondaryHeaderColor,width: .5),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,7 +56,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .0475,
-                                color: Colors.white),
+                                color: Theme.of(context).primaryColor),
                           ),
                         ),
                         SizedBox(
@@ -137,7 +137,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                                     alarmSettings: alarmSettings);
                               }
                             },
-                            switchActiveColor: Colors.indigo,
+                            switchActiveColor: Theme.of(context).primaryColor,
                           ),
                         ),
                         SizedBox(
@@ -215,7 +215,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .0475,
-                                color: Colors.white),
+                                color: Theme.of(context).primaryColor),
                           ),),
                         )
                       ],
