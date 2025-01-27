@@ -117,13 +117,10 @@ class _ExercisePageState extends State<ExercisePage>
                             ?.data
                             .title ??
                         '',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   leading: IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
+                    icon: Icon(Icons.arrow_back),
                     onPressed: () {
                       Navigator.pop(context);
                     },

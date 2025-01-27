@@ -54,9 +54,12 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
         builder: (context, state) {
           DateTime dateTime = DateTime.parse(
               CoursesCubit.get(context).specificLesson!.data!.createdAt!);
-          String formattedDateTime = DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
+          String formattedDateTime =
+              DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
           return CoursesCubit.get(context).specificLesson != null
               ? Container(
+                  height: double.infinity,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(currentState['backgroundImage']),
@@ -87,8 +90,6 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
-
                               // Created Date
                               Text(
                                 'Created: ${formattedDateTime}',
@@ -102,57 +103,60 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
 
                               // Course Details
                               _buildDetailCard(
-                                'Course Title',
-                                CoursesCubit.get(context)
-                                    .specificLesson!
-                                    .data!
-                                    .course!
-                                    .title,
-                                width,context
-                              ),
+                                  'Course Title',
+                                  CoursesCubit.get(context)
+                                      .specificLesson!
+                                      .data!
+                                      .course!
+                                      .title,
+                                  width,
+                                  context),
                               SizedBox(height: 10),
                               _buildDetailCard(
-                                'Category',
-                                CoursesCubit.get(context)
-                                    .specificLesson!
-                                    .data!
-                                    .course!
-                                    .category['title'],
-                                width,context
-                              ),
+                                  'Category',
+                                  CoursesCubit.get(context)
+                                      .specificLesson!
+                                      .data!
+                                      .course!
+                                      .category['title'],
+                                  width,
+                                  context),
                               SizedBox(height: 10),
 
                               // Video Details
 
                               _buildImageCard(
-                                'Video Thumbnail',
-                                CoursesCubit.get(context)
-                                    .specificLesson!
-                                    .data!
-                                    .video!
-                                    .thumbnail,
-                                width,context
-                              ),
+                                  'Video Thumbnail',
+                                  CoursesCubit.get(context)
+                                          .specificLesson!
+                                          .data!
+                                          .video
+                                          ?.thumbnail ??
+                                      '',
+                                  width,
+                                  context),
                               SizedBox(height: 10),
 
                               // Additional Resources
                               _buildImageCard(
-                                'Lesson Image',
-                                CoursesCubit.get(context)
-                                    .specificLesson!
-                                    .data!
-                                    .image!,
-                                width,context
-                              ),
+                                  'Lesson Image',
+                                  CoursesCubit.get(context)
+                                          .specificLesson!
+                                          .data
+                                          ?.image ??
+                                      '',
+                                  width,
+                                  context),
                               SizedBox(height: 10),
                               _buildPdfCard(
-                                'Attachment',
-                                CoursesCubit.get(context)
-                                    .specificLesson!
-                                    .data!
-                                    .attachment!,
-                                width,context
-                              ),
+                                  'Attachment',
+                                  CoursesCubit.get(context)
+                                          .specificLesson!
+                                          .data!
+                                          .attachment ??
+                                      '',
+                                  width,
+                                  context),
                             ],
                           ),
                         ),
@@ -180,7 +184,8 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
   }
 
   // Helper method to create consistent detail cards
-  Widget _buildDetailCard(String title, String? content, double width , BuildContext context) {
+  Widget _buildDetailCard(
+      String title, String? content, double width, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(12),
@@ -197,16 +202,11 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
+          Text(title, style: Theme.of(context).textTheme.bodyMedium),
           SizedBox(height: 5),
           Text(
             content ?? 'N/A',
-            style: TextStyle(
-              fontSize: width * .035,
-            ),
+            style: Theme.of(context).textTheme.bodyMedium,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -214,7 +214,9 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
       ),
     );
   }
-  Widget _buildImageCard(String title, String? imageUrl, double width , BuildContext context) {
+
+  Widget _buildImageCard(
+      String title, String? imageUrl, double width, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(12),
@@ -232,44 +234,39 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor
-            )
-          ),
+          Text(title, style: Theme.of(context).textTheme.bodyMedium),
           SizedBox(height: 5),
           imageUrl != null
               ? Image.network(
-            imageUrl,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                      loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            },
-            errorBuilder: (context, error, stackTrace) {
-              return Text('Failed to load image' , style:  TextStyle(
-                  color: Theme.of(context).secondaryHeaderColor
-              ));
-            },
-          )
+                  imageUrl,
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Text('Failed to load image',
+                        style: Theme.of(context).textTheme.bodyMedium
+                    );
+                  },
+                )
               : Text('No image available'),
         ],
       ),
     );
   }
 
-
-  Widget _buildPdfCard(String title, String? pdfUrl, double width , BuildContext context) {
+  Widget _buildPdfCard(
+      String title, String? pdfUrl, double width, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(12),
@@ -287,32 +284,28 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style:  TextStyle(
-                color: Theme.of(context).primaryColor
-            )
-          ),
+          Text(title, style: TextStyle(color: Theme.of(context).primaryColor)),
           SizedBox(height: 5),
           pdfUrl != null
               ? ElevatedButton.icon(
-            onPressed: () async {
-              final Uri url = Uri.parse(pdfUrl);
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url, mode: LaunchMode.externalApplication);
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Could not launch PDF')),
-                );
-              }
-            },
-            icon: Icon(Icons.picture_as_pdf),
-            label: Text('Open PDF'),
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.deepPurple,
-            ),
-          )
+                  onPressed: () async {
+                    final Uri url = Uri.parse(pdfUrl);
+                    if (await canLaunchUrl(url)) {
+                      await launchUrl(url,
+                          mode: LaunchMode.externalApplication);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Could not launch PDF')),
+                      );
+                    }
+                  },
+                  icon: Icon(Icons.picture_as_pdf),
+                  label: Text('Open PDF'),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.deepPurple,
+                  ),
+                )
               : Text('No PDF available'),
         ],
       ),

@@ -55,15 +55,12 @@ class _SupplementDetailsState extends State<SupplementDetails> {
             VitaminScreenCubit.get(context)
                 .specificSupplement!
                 .data.title ,
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: width * .05,
-                fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium
+
           ),
           leading: IconButton(
             icon: Icon(
               Iconsax.arrow_left,
-              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -101,10 +98,7 @@ class _SupplementDetailsState extends State<SupplementDetails> {
                       children: [
                         Text(
                           VitaminScreenCubit.get(context).specificSupplement!.data.title,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.bodyLarge
                         ),
 
                       ],
@@ -115,17 +109,13 @@ class _SupplementDetailsState extends State<SupplementDetails> {
                     ),
                     Text(
                       'Description',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * .075,
-                          fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.bodyLarge
+
                     ),
                     Text(
                       VitaminScreenCubit.get(context).specificSupplement!.data.description,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: width * .04,
-                      ),
+                        style: Theme.of(context).textTheme.bodyMedium
+
                     ),
                     SizedBox(
                       height: height * .035,

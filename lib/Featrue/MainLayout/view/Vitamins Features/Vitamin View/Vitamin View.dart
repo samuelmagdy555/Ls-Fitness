@@ -58,9 +58,9 @@ class _VitaminViewState extends State<VitaminView> {
             style: Theme.of(context).textTheme.bodyLarge
           ),
           bottom: TabBar(
-            indicatorColor: Colors.white,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.grey,
+            indicatorColor: Theme.of(context).focusColor,
+            labelColor: Theme.of(context).focusColor,
+            unselectedLabelColor: Theme.of(context).disabledColor,
             labelStyle: Theme.of(context).textTheme.bodyMedium,
             tabs: [
               Tab(text: S.of(context).Vitamin , ),

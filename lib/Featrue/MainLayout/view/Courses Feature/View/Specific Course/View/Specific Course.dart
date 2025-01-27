@@ -93,7 +93,6 @@ class _SpecificCourseState extends State<SpecificCourse> {
           leading: IconButton(
             icon: Icon(
               Iconsax.arrow_left_2,
-              color: Theme.of(context).focusColor,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -149,7 +148,9 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                               .copyWith(color: Colors.black),
                                         ),
                                         Text(
-                                          '${CoursesCubit.get(context).specificCourseLessonModel!.data!.length.toString()} Lessons',
+                                          '${CoursesCubit.get(context).
+                                          specificCourseLessonModel!.
+                                          data!.length.toString()} Lessons',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium!
@@ -316,23 +317,44 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                 ],
                               ),
                             )
-                          : Center(
-                              child:
-                                  Text('No Lessons Available for this course'))
-                      : Center(
-                          child: MyLoadingIndicator(
-                              height: height * .3, color: Colors.deepPurple),
+                          : Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      currentState['backgroundImage']),
+                                  // مسار الصورة
+                                  fit: BoxFit
+                                      .cover, // لجعل الصورة تغطي الخلفية بالكامل
+                                ),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                      'No Lessons Available for this course')),
+                            )
+                      : Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage(currentState['backgroundImage']),
+                              // مسار الصورة
+                              fit: BoxFit
+                                  .cover, // لجعل الصورة تغطي الخلفية بالكامل
+                            ),
+                          ),
+                          child: Center(
+                            child: MyLoadingIndicator(
+                                height: height * .3, color: Colors.deepPurple),
+                          ),
                         );
                 },
               )
             : Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(currentState['backgroundImage']),
-                fit: BoxFit.cover),
-          ),
-
-              child: Center(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(currentState['backgroundImage']),
+                      fit: BoxFit.cover),
+                ),
+                child: Center(
                   child: Container(
                     height: height * .2,
                     width: width * .85,
@@ -370,7 +392,7 @@ class _SpecificCourseState extends State<SpecificCourse> {
                     ),
                   ),
                 ),
-            ),
+              ),
       ),
     );
   }

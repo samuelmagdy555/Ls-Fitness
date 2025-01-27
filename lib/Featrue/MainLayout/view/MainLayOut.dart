@@ -36,7 +36,6 @@ class _MainLayoutState extends State<MainLayout> {
     VitaminView(),
     CoursePage(),
     ChatView(),
-
     NotificationsPage(),
     FoodListPage(),
     FoodCalculator(mealCategory: ''),
@@ -46,15 +45,14 @@ class _MainLayoutState extends State<MainLayout> {
     ),
   ];
 
-  final String sseUrl =
-      '${EndPoints.baseUrL}notifications/event';
+  final String sseUrl = '${EndPoints.baseUrL}notifications/event';
 
   final Map<String, String> headers = {
     'Authorization':
         'Bearer ${LoginCubit.token ?? LoginCubit.loginModel?.token}',
     'Accept': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection' : 'keep-alive'
+    'Connection': 'keep-alive'
   };
 
   @override
@@ -64,12 +62,9 @@ class _MainLayoutState extends State<MainLayout> {
     print('before connect ${LoginCubit.id}');
     print('after connect ${LoginCubit.id}');
 
-
     print('sseUrl $sseUrl');
     print('headers $headers');
     NotificationCubit.get(context).connectToServer(sseUrl, headers);
-
-
   }
 
   @override
@@ -88,27 +83,24 @@ class _MainLayoutState extends State<MainLayout> {
                 0.14, // ارتفاع الـ Navigation Bar
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(currentState['backgroundImage'] , ),
+                image: AssetImage(
+                  currentState['backgroundImage'],
+                ),
 
                 fit: BoxFit.fitWidth, // ملء الخلفية
-
               ),
-
             ),
             child: ShaderMask(
               shaderCallback: (Rect bounds) {
                 return LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    kFirstColor.withOpacity(0.8)
-                  ],
+                  colors: [Colors.transparent, Theme.of(context).primaryColor],
                 ).createShader(bounds);
               },
               blendMode: BlendMode.dstOut,
               child: Container(
-                color: kFirstColor.withOpacity(0.8),
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
@@ -134,7 +126,6 @@ class _MainLayoutState extends State<MainLayout> {
                   _buildTabItem(
                     index: 1,
                     label: 'exercise',
-
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
@@ -259,14 +250,14 @@ class _MainLayoutState extends State<MainLayout> {
           SizedBox(
             height: 3.5,
           ),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: isSelected ? Colors.white : Colors.white30,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-            )
-          ),
+          Text(label,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: isSelected
+                        ? Theme.of(context).focusColor
+                        : Theme.of(context).focusColor.withOpacity(.5),
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  )),
         ],
       ),
     );

@@ -19,9 +19,11 @@ class NotificationTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
-          color: isRead == true ? Colors.black26 : Colors.white12,
+
+          color: isRead == true ? Theme.of(context).disabledColor : Colors.white12,
           borderRadius: BorderRadius.circular(17.5)
         ),
         margin: EdgeInsets.only(bottom: 16),

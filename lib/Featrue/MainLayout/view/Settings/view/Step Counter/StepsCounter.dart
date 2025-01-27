@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../../../Intro Feature/onboarding/View/Widget/colors.dart';
 import '../../View Model/counter_cubit.dart';
 import 'Widget/HexagonPainter.dart';
@@ -66,8 +67,20 @@ class _StepCounterPageState extends State<StepCounterPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final currentState = context.watch<ThemesCubit>().state;
+
     return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']),
+                // مسار الصورة
+                fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+              ),
+            ),
+          ),
+
           title: Text(
             'Step Counter',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
@@ -85,129 +98,140 @@ class _StepCounterPageState extends State<StepCounterPage> {
             // TODO: implement listener
           },
           builder: (context, state) {
-            return Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            CustomPaint(
-                              size: Size(200, 200),
-                              painter: HexagonPainter(Color(0xFF40D876)),
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "${_totalSteps - CounterCubit.get(context).counter} ",
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "Step",
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 40),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            Text('Target : ' , style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * .05,
-                              fontWeight: FontWeight.bold
-                            ),),
-                            Text('${CounterCubit.get(context).step}' , style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * .05,
-                              fontWeight: FontWeight.bold
-                            ),),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              CounterCubit.get(context).DeleteData();
-                              CounterCubit.get(context).SetCounter(value: _totalSteps);
+            return Container(
+              height: double.infinity,
+              width: double.infinity,
 
-                            },
-                            icon: Icon(Icons.restart_alt,
-                                color: Colors.grey, size: 50)),
-                      ],
-                    ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: CupertinoTextField(
-                            keyboardType: TextInputType.number,
-                            cursorColor: Color(0xFF40D876),
-                            padding: EdgeInsets.all(15),
-                            placeholder: "Add Target Steps",
-                            style: TextStyle(color: Colors.white),
-                            placeholderStyle: TextStyle(color: Colors.white),
-                            controller: controller,
-                            decoration: BoxDecoration(
-                              color: kThirdColor,
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: Colors.white30, width: .25),
-                            ),
-                            strutStyle: StrutStyle(height: 1.5),
-                            autocorrect: true,
-                          )),
-                    ),
-                    SizedBox(height: 40),
-                    InkWell(
-                      onTap: () {
-                        if (controller.text.isEmpty) {
-                          return;
-                        } else {
-                          CounterCubit.get(context)
-                              .SetData(value: int.parse(controller.text));
-                          controller.clear();
-                        }
-                      },
-                      child: Container(
-                        height: height * .055,
-                        width: width * .35,
-                        decoration: BoxDecoration(
-                          color: Color(0xFF40D876),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Set',
-                            style: TextStyle(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(currentState['backgroundImage']),
+                    fit: BoxFit.cover),
+              ),
+
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              CustomPaint(
+                                size: Size(200, 200),
+                                painter: HexagonPainter(Color(0xFF40D876)),
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "${_totalSteps - CounterCubit.get(context).counter} ",
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    "Step",
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 40),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Text('Target : ' , style: TextStyle(
                                 color: Colors.white,
                                 fontSize: width * .05,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.bold
+                              ),),
+                              Text('${CounterCubit.get(context).step}' , style: TextStyle(
+                                color: Colors.white,
+                                fontSize: width * .05,
+                                fontWeight: FontWeight.bold
+                              ),),
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                CounterCubit.get(context).DeleteData();
+                                CounterCubit.get(context).SetCounter(value: _totalSteps);
+
+                              },
+                              icon: Icon(Icons.restart_alt,
+                                  color: Colors.grey, size: 50)),
+                        ],
+                      ),
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: CupertinoTextField(
+                              keyboardType: TextInputType.number,
+                              cursorColor: Color(0xFF40D876),
+                              padding: EdgeInsets.all(15),
+                              placeholder: "Add Target Steps",
+                              style: TextStyle(color: Colors.white),
+                              placeholderStyle: TextStyle(color: Colors.white),
+                              controller: controller,
+                              decoration: BoxDecoration(
+                                color: kThirdColor,
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: Colors.white30, width: .25),
+                              ),
+                              strutStyle: StrutStyle(height: 1.5),
+                              autocorrect: true,
+                            )),
+                      ),
+                      SizedBox(height: 40),
+                      InkWell(
+                        onTap: () {
+                          if (controller.text.isEmpty) {
+                            return;
+                          } else {
+                            CounterCubit.get(context)
+                                .SetData(value: int.parse(controller.text));
+                            controller.clear();
+                          }
+                        },
+                        child: Container(
+                          height: height * .055,
+                          width: width * .35,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF40D876),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Set',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * .05,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

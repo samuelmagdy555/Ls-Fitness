@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/ChangePassword/view/ChangePassword.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/EditProfile/View/EditProfile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Step%20Counter/StepsCounter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lsfitness/Core/Themes/Themes.dart';
+import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
+
+import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
+import '../Change Theme/Change Theme.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -11,20 +19,39 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+
+  late bool isDarkMode;
+
+  @override
+  void initState() {
+    super.initState();
+    // التحقق من نوع الـ Theme الحالي وتحديد قيمة isDarkMode
+    isDarkMode = ThemesCubit.get(context).currentTheme == ThemesClass.manDarkTheme;
+  }
+
+  void _toggleTheme() {
+    setState(() {
+      isDarkMode = !isDarkMode;
+    });
+    ThemesCubit.get(context).changeTheme(
+      newTheme: isDarkMode ? ThemesClass.manDarkTheme : ThemesClass.manLightTheme,
+      newBackgroundImage: isDarkMode ? 'assets/images/77.jpg' : 'assets/images/7.jpg',
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
     final width = mediaQuery.width;
     final height = mediaQuery.height;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
 
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/7.jpg'), // تأكد من مسار الصورة
-            fit: BoxFit.cover,
-          ),
+              image: AssetImage(currentState['backgroundImage']),
+              fit: BoxFit.cover),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -41,14 +68,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(
                       Icons.arrow_back,
-                      color: Colors.black,
                     ),
                   )
                   ,
                   Text(
                     "    Settings",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22.5, fontWeight: FontWeight.w600),
+                    style: Theme.of(context).textTheme.bodyLarge
                   ),
                 ],
               ),
@@ -78,11 +104,25 @@ class _SettingsPageState extends State<SettingsPage> {
                 label: 'Steps Counter',
                 onTap: () => _navigateToPage(context, StepCounterPage()),
               ),
-              _buildSettingsItem(
-                context,
-                icon: Icons.color_lens,
-                label: 'Themes',
-                onTap: () => _navigateToPage(context, StepCounterPage()),
+
+              ListTile(
+                leading:  Icon(
+                  isDarkMode
+                      ? Iconsax.moon4
+                      : Iconsax.sun_1,
+                  size: width * 0.08,
+                ),
+                style:  ListTileStyle.drawer,
+                title: Text(
+                  'Theme',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                trailing: Switch(
+                  value: isDarkMode,
+                  onChanged: (value) {
+                    _toggleTheme();
+                  },
+                ),
               ),
               _buildSettingsItemWithButton(
                 context,
@@ -110,16 +150,13 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Colors.deepPurpleAccent, size: width * 0.08),
+        leading: Icon(icon, size: width * 0.08),
         title: Text(
           label,
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: width * 0.05,
-              fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyLarge
         ),
         trailing: Icon(Icons.arrow_forward_ios,
-            color: Colors.black, size: width * 0.05),
+            ),
         onTap: onTap,
         tileColor: Colors.grey.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -137,18 +174,15 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon, color: Colors.deepPurpleAccent, size: width * 0.08),
+        leading: Icon(icon,  size: width * 0.08),
         title: Text(
           label,
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: width * 0.05),
+          style: Theme.of(context).textTheme.bodyLarge
         ),
         subtitle: description != null
             ? Text(
                 description,
-                style: TextStyle(color: Colors.black, fontSize: width * 0.04),
+                style: Theme.of(context).textTheme.bodyLarge
               )
             : null,
         trailing: ElevatedButton(
@@ -161,7 +195,9 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           child: Text(
             buttonLabel!,
-            style: TextStyle(color: Colors.black, fontSize: width * 0.04),
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              fontSize: 15
+            )
           ),
         ),
         tileColor: Colors.grey.withOpacity(0.1),

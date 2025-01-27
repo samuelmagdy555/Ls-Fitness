@@ -75,7 +75,7 @@ class SupplementsTap extends StatelessWidget {
                                 width: width * .45,
                                 height: height * .08,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Theme.of(context).focusColor,
                                   borderRadius: BorderRadius.circular(125),
                                 ),
                                 child: Image(

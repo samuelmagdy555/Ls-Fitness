@@ -529,18 +529,9 @@ class _ChatBubbleState extends State<ChatBubble> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 17.5, vertical: 12),
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: widget.isSentByMe
-                                    ? [
-                                        Colors.white38,
-                                        Theme.of(context).primaryColor
-                                      ]
-                                    : [
-                                        Theme.of(context).primaryColor,
-                                        Colors.white24
-                                      ]),
+
                             color: widget.isSentByMe
-                                ? Theme.of(context).primaryColor
+                                ? Theme.of(context).secondaryHeaderColor
                                 : Colors.grey[800],
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(12),
@@ -572,12 +563,14 @@ class _ChatBubbleState extends State<ChatBubble> {
                                           Text(
                                             widget.isReplayedName!,
                                             style: TextStyle(
-                                                fontSize: width * .035,
-                                                fontWeight: FontWeight.w600),
+                                              color: Theme.of(context).scaffoldBackgroundColor,
+                                              fontSize: width * .035,
+                                              fontWeight: FontWeight.w600),
                                           ),
                                           Text(
                                             widget.isReplayedText!,
                                             style: TextStyle(
+                                              color: Theme.of(context).scaffoldBackgroundColor,
                                                 fontSize: width * .035,
                                                 fontWeight: FontWeight.w500),
                                           )
@@ -587,7 +580,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                     Text(
                                       widget.message,
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).scaffoldBackgroundColor,
                                           fontSize: width * .035,
                                           fontWeight: FontWeight.w500),
                                     ),
@@ -613,7 +606,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                                     Text(
                                       widget.message,
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Theme.of(context).scaffoldBackgroundColor,
                                           fontSize: width * .035,
                                           fontWeight: FontWeight.w500),
                                     ),

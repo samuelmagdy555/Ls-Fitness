@@ -141,7 +141,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                           IconButton(
                             icon: Icon(
                               Icons.arrow_back,
-                              color: Colors.white,
                             ),
                             onPressed: () {
                               Navigator.pop(context);
@@ -573,7 +572,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                                             margin: EdgeInsets.all(12),
                                             padding: EdgeInsets.all(12),
                                             decoration: BoxDecoration(
-                                              color: Colors.black,
+                                              color: Colors.black38,
                                               border: Border.all(
                                                 color: Colors.deepPurple,
                                                 width: .5,

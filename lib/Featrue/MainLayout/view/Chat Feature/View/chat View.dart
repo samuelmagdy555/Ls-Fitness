@@ -211,6 +211,7 @@ class ChatTile extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 28,
+                  backgroundColor: Theme.of(context).hintColor,
                   backgroundImage:
                       NetworkImage(image ?? ''), // Replace with your asset path
                 ),
@@ -224,19 +225,13 @@ class ChatTile extends StatelessWidget {
                       Text(
                         name,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         message,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white30,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),
@@ -247,28 +242,25 @@ class ChatTile extends StatelessWidget {
                   children: [
                     Text(
                       time ?? '',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
+                      style:  Theme.of(context).textTheme.bodySmall
                     ),
-                    if (unreadCount.isNotEmpty)
-                      Container(
-                        margin: const EdgeInsets.only(top: 4),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          unreadCount,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    // if (unreadCount.isNotEmpty)
+                    //   Container(
+                    //     margin: const EdgeInsets.only(top: 4),
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 8, vertical: 2),
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.red,
+                    //       borderRadius: BorderRadius.circular(12),
+                    //     ),
+                    //     child: Text(
+                    //       unreadCount,
+                    //       style: const TextStyle(
+                    //         fontSize: 12,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
                   ],
                 ),
               ],
@@ -277,7 +269,7 @@ class ChatTile extends StatelessWidget {
         ),
         Divider(
           thickness: .5,
-          color: Colors.grey,
+          color: Theme.of(context).dividerColor,
           endIndent: width * .025,
           indent: width * .025,
         )

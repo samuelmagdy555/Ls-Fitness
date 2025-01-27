@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
                             image:
                                 AssetImage("assets/images/home background.png"),
                             fit: BoxFit.cover,
-                            opacity: 0.7, // Reduced opacity from 0.8 to 0.7
+                             // Reduced opacity from 0.8 to 0.7
                           ),
                         ),
                         child: ShaderMask(
@@ -86,13 +86,13 @@ class _HomeViewState extends State<HomeView> {
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                               kFirstColor.withOpacity(0.8)
+                               Theme.of(context).primaryColor
                               ],
                             ).createShader(bounds);
                           },
                           blendMode: BlendMode.srcIn,
                           child: Container(
-                            color: kFirstColor.withOpacity(0.8),
+                            color: Theme.of(context).primaryColor.withOpacity(.8)
                           ),
                         ),
                       ),
@@ -214,13 +214,9 @@ class _HomeViewState extends State<HomeView> {
                                           images[index],
                                         ),
                                         fit: BoxFit.cover,
-                                        opacity: .5),
+                                        ),
                                     boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
+
                                     ],
                                   ),
                                   margin: EdgeInsets.symmetric(

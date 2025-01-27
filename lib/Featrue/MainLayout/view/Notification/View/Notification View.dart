@@ -83,10 +83,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       child: Center(
                           child: Text(
                           'No Notifications',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.bodyMedium,
                         )),
                     )
                     : Container(

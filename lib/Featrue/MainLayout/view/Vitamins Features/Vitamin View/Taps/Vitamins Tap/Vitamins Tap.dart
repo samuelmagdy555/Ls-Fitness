@@ -61,7 +61,7 @@ class VitaminsTap extends StatelessWidget {
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(125),
                           border: Border.all(
-                              color: Colors.white, width: width * 0.01),
+                              color: Theme.of(context).focusColor, width: width * 0.01),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
