@@ -81,8 +81,8 @@ class VitaminsTap extends StatelessWidget {
                                             .vitaminsModel!
                                             .data[index]
                                             .image),
-                                    width: width * .4,
-                                    height: height * .09,
+                                    width: width * .2,
+                                    height: height * .07,
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -114,12 +114,14 @@ class VitaminsTap extends StatelessWidget {
                                 radius: 35,
                                 backgroundColor: Colors.white,
                                 child: Center(
-                                  child: Icon(
-                                    Iconsax.alarm,
-                                    color: Colors.black,
+                                  child: Image.asset(
+                                    "assets/images/alarm.png",
+                                    fit: BoxFit.contain,
+                                    width: width*0.08,
                                   ),
                                 ),
                               ),
+
                             ),
                           ],
                         ),
