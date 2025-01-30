@@ -67,26 +67,26 @@ class Chats {
   List<Reactions>? reactions;
   String? createdAt;
   String? updatedAt;
-  bool? isRead;
+  bool? isSent; // إضافة المتغير
 
-  Chats(
-      {this.id,
-        this.chat,
-        this.sender,
-        this.text,
-        this.repliedTo,
-        this.media,
-        this.reactions,
-        this.createdAt,
-        this.updatedAt , this.isRead = true});
+  Chats({
+    this.id,
+    this.chat,
+    this.sender,
+    this.text,
+    this.repliedTo,
+    this.media,
+    this.reactions,
+    this.createdAt,
+    this.updatedAt,
+    this.isSent = true, // إعطاء قيمة افتراضية false
+  });
 
   Chats.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
     chat = json['chat'];
-    sender =
-    json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
+    sender = json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
     text = json['text'];
-
     repliedTo = json['repliedTo'] != null
         ? new RepliedTo.fromJson(json['repliedTo'])
         : null;
@@ -104,6 +104,7 @@ class Chats {
     }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    isSent = json['isSent'] ?? true; // قراءة القيمة من الـ JSON مع قيمة افتراضية false
   }
 
   Map<String, dynamic> toJson() {
@@ -114,8 +115,6 @@ class Chats {
       data['sender'] = this.sender!.toJson();
     }
     data['text'] = this.text;
-
-
     if (this.repliedTo != null) {
       data['repliedTo'] = this.repliedTo!.toJson();
     }
@@ -127,6 +126,7 @@ class Chats {
     }
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
+    data['isSent'] = this.isSent; // إضافة القيمة في الـ JSON
     return data;
   }
 }

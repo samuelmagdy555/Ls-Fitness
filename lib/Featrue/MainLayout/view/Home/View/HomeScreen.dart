@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView> {
                             image:
                                 AssetImage("assets/images/home background.png"),
                             fit: BoxFit.cover,
-                             // Reduced opacity from 0.8 to 0.7
+                            // Reduced opacity from 0.8 to 0.7
                           ),
                         ),
                         child: ShaderMask(
@@ -86,14 +86,15 @@ class _HomeViewState extends State<HomeView> {
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                               Theme.of(context).primaryColor
+                                Theme.of(context).primaryColor
                               ],
                             ).createShader(bounds);
                           },
                           blendMode: BlendMode.srcIn,
                           child: Container(
-                            color: Theme.of(context).primaryColor.withOpacity(.8)
-                          ),
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(.8)),
                         ),
                       ),
                       Positioned(
@@ -131,7 +132,6 @@ class _HomeViewState extends State<HomeView> {
                             child: Center(
                               child: Icon(
                                 Icons.play_arrow,
-
                               ),
                             ),
                           )),
@@ -155,7 +155,7 @@ class _HomeViewState extends State<HomeView> {
                           top: height * .015,
                           child: InkWell(
                             onTap: () async {
-                              await TrainerCubit.get(context).getTrainersData();
+                               TrainerCubit.get(context).getTrainersData();
 
                               Navigator.push(
                                   context,
@@ -174,7 +174,6 @@ class _HomeViewState extends State<HomeView> {
                         horizontal: width * 0.05, vertical: height * 0.01),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                       children: [
                         Text(
                           S.of(context).home_Today_Plan,
@@ -182,14 +181,16 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Text(
                           S.of(context).home_See_more,
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white
-                          ),)
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.white),
+                        )
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: height * .25,
                     width: width,
@@ -210,14 +211,12 @@ class _HomeViewState extends State<HomeView> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                        image: NetworkImage(
-                                          images[index],
-                                        ),
-                                        fit: BoxFit.cover,
-                                        ),
-                                    boxShadow: [
-
-                                    ],
+                                      image: NetworkImage(
+                                        images[index],
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    boxShadow: [],
                                   ),
                                   margin: EdgeInsets.symmetric(
                                       horizontal: width * 0.05,
@@ -229,14 +228,14 @@ class _HomeViewState extends State<HomeView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          plan[index],
-                                          style: Theme.of(context).textTheme.bodyMedium
-                                        ),
-                                        Text(
-                                          number[index],
-                                          style: Theme.of(context).textTheme.bodySmall
-                                        )
+                                        Text(plan[index],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium),
+                                        Text(number[index],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall)
                                       ],
                                     ),
                                   )),
@@ -244,11 +243,9 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 25, left: width * 0.05),
-                    child: Text(
-                      "${S.of(context).home_Discover} ",
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.titleLarge
-                    ),
+                    child: Text("${S.of(context).home_Discover} ",
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.titleLarge),
                   ),
                   BlocConsumer<HomeCubit, HomeState>(
                     listener: (context, state) {
@@ -324,18 +321,20 @@ class _HomeViewState extends State<HomeView> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                HomeCubit.get(context)
-                                                    .advertiseModel!
-                                                    .data[index]
-                                                    .title,
-                                                maxLines: 2,
-                                                overflow:  TextOverflow.ellipsis,
-                                                style: Theme.of(context).textTheme.bodyMedium
-                                              ),
-                                              Text(
-                                                timeAgo,
-                                                style: Theme.of(context).textTheme.bodySmall
-                                              )
+                                                  HomeCubit.get(context)
+                                                      .advertiseModel!
+                                                      .data[index]
+                                                      .title,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium),
+                                              Text(timeAgo,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall)
                                             ],
                                           ),
                                         )),
@@ -352,14 +351,10 @@ class _HomeViewState extends State<HomeView> {
                     padding: EdgeInsets.only(top: 25, left: width * 0.05),
                     child: Row(
                       children: [
-                        Text(
-                          "${S.of(context).home_Your} ",
-                          style: Theme.of(context).textTheme.titleMedium
-                        ),
-                        Text(
-                          S.of(context).home_Progress,
-                          style: Theme.of(context).textTheme.titleLarge
-                        ),
+                        Text("${S.of(context).home_Your} ",
+                            style: Theme.of(context).textTheme.titleMedium),
+                        Text(S.of(context).home_Progress,
+                            style: Theme.of(context).textTheme.titleLarge),
                       ],
                     ),
                   ),

@@ -215,7 +215,7 @@ class _WorkoutAlarmsState extends State<WorkoutAlarms> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: width * .0475,
-                                color: Theme.of(context).primaryColor),
+                                color: Theme.of(context).primaryColor ),
                           ),),
                         )
                       ],
