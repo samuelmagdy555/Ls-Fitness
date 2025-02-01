@@ -30,7 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
         .of(context)
         .size
         .height;
-    final currentState = context.watch<ThemesCubit>().state;
 
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {},
@@ -41,13 +40,13 @@ class _ProfilePageState extends State<ProfilePage> {
         return Scaffold(
           appBar: AppBar(
             flexibleSpace: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(currentState['backgroundImage']),
-                  // مسار الصورة
-                  fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
-                ),
-              ),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage(currentState['backgroundImage']),
+              //     // مسار الصورة
+              //     fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+              //   ),
+              // ),
             ),
             title: Text(
               'Profile',
@@ -75,11 +74,11 @@ class _ProfilePageState extends State<ProfilePage> {
             height: double.infinity,
             width: double.infinity,
 
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(currentState['backgroundImage']),
-                  fit: BoxFit.cover),
-            ),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //       image: AssetImage(currentState['backgroundImage']),
+            //       fit: BoxFit.cover),
+            // ),
 
             child: SingleChildScrollView(
               child: Padding(
@@ -103,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userData?.username ?? ProfileCubit.name,
+                                userData?.gender ?? ProfileCubit.name,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: screenWidth * 0.05,
@@ -139,19 +138,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          profileDetail(
-                              Icons.email, "Email", userData?.email ?? '',
-                              screenWidth),
+                          // profileDetail(
+                          //     Icons.email, "Email", userData?.email ?? '',
+                          //     screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.phone, "Phone", userData?.phone ?? '',
+                              Icons.phone, "Phone", userData?.locationOfTraining ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(Icons.plus_one, "age", userData?.age
                               .toString() ?? '', screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.plus_one, "Length", userData?.length ?? '',
+                              Icons.plus_one, "Length", userData?.height ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(

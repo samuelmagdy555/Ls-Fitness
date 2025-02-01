@@ -46,7 +46,7 @@ class _ExpandingWaveState extends State<ExpandingWave>
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.yellow,
+              color: Colors.white,
               shape: BoxShape.circle,
             ),
           ),
@@ -64,7 +64,7 @@ class WavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint wavePaint = Paint()
-      ..color = Colors.yellow.withOpacity(0.5)
+      ..color = Colors.purple.withOpacity(0.5)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3;
 

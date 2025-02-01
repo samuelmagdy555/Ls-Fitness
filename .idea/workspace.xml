@@ -15,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
     </list>
+    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="//handling trainner" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +27,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CMakeLists.txt" />
         <option value="Dart File" />
       </list>
     </option>
@@ -118,6 +118,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
+    </task>
+    <task id="LOCAL-00031" summary="handel add emoji Logic">
+      <option name="closed" value="true" />
+      <created>1736475911493</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1736475911493</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Replay to message UI">
+      <option name="closed" value="true" />
+      <created>1736569569828</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1736569569829</updated>
     </task>
     <task id="LOCAL-00033" summary="handel replay message logic">
       <option name="closed" value="true" />
@@ -495,23 +511,7 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
-    <task id="LOCAL-00080" summary="handel exercise UI">
-      <option name="closed" value="true" />
-      <created>1737947463034</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1737947463034</updated>
-    </task>
-    <task id="LOCAL-00081" summary="handel Change Themes UI">
-      <option name="closed" value="true" />
-      <created>1737948093241</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1737948093241</updated>
-    </task>
-    <option name="localTasksCounter" value="82" />
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -526,6 +526,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
     <MESSAGE value="handel exercise advertise" />
     <MESSAGE value="handel Vitamins &amp; Supplement &#10;handel Vitamins &amp; Supplement advertise" />
@@ -550,8 +551,7 @@
     <MESSAGE value="handel Notification Themes" />
     <MESSAGE value="handel Meals Themes" />
     <MESSAGE value="handel exercise UI" />
-    <MESSAGE value="handel Change Themes UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Change Themes UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel exercise UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -563,18 +563,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>152</line>
+          <line>57</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>779</line>
+          <line>738</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
+          <line>97</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart</url>
           <line>121</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
+          <line>470</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View/Progress Screen/Progress Screen.dart</url>
@@ -640,16 +650,6 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart</url>
           <line>66</line>
           <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>808</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart</url>
-          <line>47</line>
-          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,4 +1,6 @@
-import 'dart:async';
+
+
+ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +26,7 @@ import 'package:lsfitness/generated/l10n.dart';
 import 'package:lsfitness/try.dart';
 import 'package:lsfitness/try2.dart';
 import 'package:lsfitness/try3.dart';
+import 'package:lsfitness/try4.dart';
 import 'Core/Themes/Themes Cubit/themes_cubit.dart';
 import 'Featrue/Auth Feature/CoachRequest/View/Certificatie View.dart';
 import 'Featrue/Auth Feature/CoachRequest/View/CoachRequestName.dart';
@@ -196,7 +199,7 @@ class _MyAppState extends State<MyApp> {
         theme: state['theme'],
         home: CashHelper.getFromCash(key: 'token') == ''
             ?  SplashScreen()
-            : MainLayout(),
+            : QRScannerPage(),
       );
   },
 ),
