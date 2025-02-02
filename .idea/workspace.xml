@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Replay Message Model/Replay Message Model.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Spicific Chat Messages/Spicific Chat Messages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Spicific Chat Messages/Spicific Chat Messages.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
     </list>
-    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="//handling trainner" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,22 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.codeium.enabled": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/kerollos/StudioProjects/Ls-Fitness/ios/.symlinks/plugins/alarm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kerollos/StudioProjects/Ls-Fitness/ios/.symlinks/plugins/alarm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kerollos\StudioProjects\Ls-Fitness\ios\.symlinks\plugins\alarm" />

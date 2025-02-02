@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
                                     ProfileCubit.get(context)
                                             .profileModel
                                             ?.data
-                                            .gender ??
+                                            .username ??
                                         '',
                                     style:
                                         Theme.of(context).textTheme.titleLarge);
