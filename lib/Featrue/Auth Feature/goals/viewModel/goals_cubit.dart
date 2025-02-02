@@ -33,7 +33,7 @@ class GoalsCubit extends Cubit<GoalsState> {
   String? mainGoal ;
   String? allergicSubstances;
   String? injuries;
-  String? exercisePrefrence;
+  String? exercisePreference;
   String? Diets;
   String? TargetWeight;
   String? FitnessEquipment ;
