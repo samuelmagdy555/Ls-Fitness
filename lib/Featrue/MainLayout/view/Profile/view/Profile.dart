@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userData?.gender ?? ProfileCubit.name,
+                                userData?.username ?? ProfileCubit.name,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: screenWidth * 0.05,
@@ -143,14 +143,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           //     screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.phone, "Phone", userData?.locationOfTraining ?? '',
+                              Icons.phone, "Phone", userData?.phone ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(Icons.plus_one, "age", userData?.age
                               .toString() ?? '', screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.plus_one, "Length", userData?.height ?? '',
+                              Icons.plus_one, "Length", userData?.length ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
