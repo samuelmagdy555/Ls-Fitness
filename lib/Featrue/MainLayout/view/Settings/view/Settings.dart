@@ -5,12 +5,13 @@ import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/ChangePassword/view/ChangePassword.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/EditProfile/View/EditProfile.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/view/Profile.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/PrivacyAndPoliciey.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/TermsAndConditions.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/view/Step%20Counter/StepsCounter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/Themes/Themes.dart';
 import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 
-import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../Change Theme/Change Theme.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -137,6 +138,21 @@ class _SettingsPageState extends State<SettingsPage> {
                 label: 'Language',
                 buttonLabel: 'Change',
               ),
+              _buildSettingsItem(
+                context,
+                icon: Icons.terminal,
+                label: 'Terms And Conditions',
+                onTap: () => _navigateToPage(context, TermsAndConditions()),
+              ),
+              _buildSettingsItem(
+                context,
+                icon: Icons.privacy_tip,
+                label: 'Privacy And Policy',
+                onTap: () => _navigateToPage(context, PrivacyAndPolicey()),
+              ),
+
+
+
             ],
           ),
         ),

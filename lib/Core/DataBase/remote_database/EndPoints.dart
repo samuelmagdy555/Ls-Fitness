@@ -38,4 +38,5 @@ class EndPoints{
   static String trainerRequests = 'trainerRequests';
   static String trainerProfiles = 'trainerProfiles';
   static String subscribeToPlan = 'subscribeToPlan';
+  static String termsandprivacy ="Policies";
 }

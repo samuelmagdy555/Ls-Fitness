@@ -20,6 +20,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Courses%20Feature/View/SeeMore
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/FoodCalculatorFilter/ViewModel/food_calculator_filter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel/privacy_and_terms_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model%20View/vitamin_cubit.dart';
 import 'package:lsfitness/generated/l10n.dart';
@@ -184,6 +185,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => TrainerRequestCubit()),
         BlocProvider(create: (context) => TrainerCubit()),
         BlocProvider(create: (context) => ThemesCubit()),
+        BlocProvider(create: (context)=>PrivacyAndTermsCubit())
       ],
       child: BlocBuilder<ThemesCubit, Map<String, dynamic>>(
   builder: (context, state) {

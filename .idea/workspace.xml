@@ -19,6 +19,7 @@
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +32,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CMakeLists.txt" />
         <option value="Dart File" />
       </list>
     </option>
@@ -500,23 +500,7 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
-    <task id="LOCAL-00080" summary="handel exercise UI">
-      <option name="closed" value="true" />
-      <created>1737947463034</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1737947463034</updated>
-    </task>
-    <task id="LOCAL-00081" summary="handel Change Themes UI">
-      <option name="closed" value="true" />
-      <created>1737948093241</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1737948093241</updated>
-    </task>
-    <option name="localTasksCounter" value="82" />
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -531,6 +515,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
     <MESSAGE value="handel exercise advertise" />
     <MESSAGE value="handel Vitamins &amp; Supplement &#10;handel Vitamins &amp; Supplement advertise" />
@@ -555,31 +540,40 @@
     <MESSAGE value="handel Notification Themes" />
     <MESSAGE value="handel Meals Themes" />
     <MESSAGE value="handel exercise UI" />
-    <MESSAGE value="handel Change Themes UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel Change Themes UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel exercise UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>49</line>
+          <line>46</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>152</line>
+          <line>57</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>779</line>
+          <line>738</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
+          <line>97</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart</url>
           <line>121</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
+          <line>470</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View/Progress Screen/Progress Screen.dart</url>
