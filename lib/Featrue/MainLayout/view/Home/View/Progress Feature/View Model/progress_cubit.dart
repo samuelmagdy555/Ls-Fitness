@@ -81,9 +81,9 @@ void clearSpots(){
       // int lastVolume = volumes.last.volume + 10;
       // spots.add(FlSpot(volumes.length * 10.0, lastVolume.toDouble()));
 
-      for (int i = 0; i < progressModel.data!.first.volumes.length; i++) {
+      for (int i = 0; i < progressModel.data!.first.volumes!.length; i++) {
         print(i);
-        spots.add(FlSpot(i*10, progressModel.data!.first.volumes[i].volume.toDouble()));
+        spots.add(FlSpot(i*10, progressModel.data!.first.volumes![i].volume!.toDouble()));
       }
 
       print(spots);

@@ -9,11 +9,11 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return volumes.isNotEmpty ? ListView.builder(
       itemCount: volumes.length,
       itemBuilder: (context, index) {
         final entry = volumes[index];
-        DateTime date = DateTime.parse(entry.date);
+        DateTime date = DateTime.parse(entry!.date!);
         return Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +40,6 @@ class HistoryScreen extends StatelessWidget {
           ),
         );
       },
-    );
+    ) : SizedBox();
   }
 }

@@ -255,13 +255,16 @@ class _ExercisePageState extends State<ExercisePage>
                               controller: tabController,
                               children: [
                                 AboutScreen(),
-                                HistoryScreen(
+                                ProgressCubit.get(context)
+                                    .progressModel!
+                                    .data!
+                                    .isNotEmpty? HistoryScreen(
                                   volumes: ProgressCubit.get(context)
                                       .progressModel!
                                       .data!
                                       .first
-                                      .volumes,
-                                ),
+                                      .volumes ?? [],
+                                ) : SizedBox(),
                                 SizedBox(),
                                 // ChartsScreen(
                                 //   id: ExercisesDetailsCubit.get(context)

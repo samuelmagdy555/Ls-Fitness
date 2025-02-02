@@ -199,7 +199,7 @@ class _MyAppState extends State<MyApp> {
         theme: state['theme'],
         home: CashHelper.getFromCash(key: 'token') == ''
             ?  SplashScreen()
-            : QRScannerPage(),
+            : MainLayout(),
       );
   },
 ),

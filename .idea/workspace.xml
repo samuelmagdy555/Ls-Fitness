@@ -5,17 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Replay Message Model/Replay Message Model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Alarm Feature/View/Alarms Screen/Tabs/Alarm Feture/View/Alarms/Workout Alarms/View/Workout Alarms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Spicific Chat Messages/Spicific Chat Messages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Spicific Chat Messages/Spicific Chat Messages.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/trainer Feature/View/All Trainer VView.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/History Screen/History Screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/widget/History Screen/History Screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/Model/PrgoressModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/Model/PrgoressModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View Model/progress_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
     </list>
-    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="//handling trainner" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CMakeLists.txt" />
         <option value="Dart File" />
       </list>
     </option>
@@ -46,22 +51,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.codeium.enabled": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "C:/Users/kerollos/StudioProjects/Ls-Fitness/ios/.symlinks/plugins/alarm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kerollos/StudioProjects/Ls-Fitness/ios/.symlinks/plugins/alarm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kerollos\StudioProjects\Ls-Fitness\ios\.symlinks\plugins\alarm" />
@@ -118,22 +123,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734727421036</updated>
-    </task>
-    <task id="LOCAL-00031" summary="handel add emoji Logic">
-      <option name="closed" value="true" />
-      <created>1736475911493</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1736475911493</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Replay to message UI">
-      <option name="closed" value="true" />
-      <created>1736569569828</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1736569569829</updated>
     </task>
     <task id="LOCAL-00033" summary="handel replay message logic">
       <option name="closed" value="true" />
@@ -511,7 +500,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="handel exercise UI">
+      <option name="closed" value="true" />
+      <created>1737947463034</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1737947463034</updated>
+    </task>
+    <task id="LOCAL-00081" summary="handel Change Themes UI">
+      <option name="closed" value="true" />
+      <created>1737948093241</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1737948093241</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -526,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
     <MESSAGE value="handel exercise advertise" />
     <MESSAGE value="handel Vitamins &amp; Supplement &#10;handel Vitamins &amp; Supplement advertise" />
@@ -551,40 +555,31 @@
     <MESSAGE value="handel Notification Themes" />
     <MESSAGE value="handel Meals Themes" />
     <MESSAGE value="handel exercise UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel exercise UI" />
+    <MESSAGE value="handel Change Themes UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel Change Themes UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>46</line>
+          <line>49</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>57</line>
+          <line>152</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
-          <line>738</line>
+          <line>779</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>97</line>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart</url>
           <line>121</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>470</line>
-          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/Progress Feature/View/Progress Screen/Progress Screen.dart</url>
@@ -650,6 +645,16 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Courses Feature/View/Course Video Screen/View/Course Video Screen.dart</url>
           <line>66</line>
           <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View/Chat Room/Chat Room.dart</url>
+          <line>808</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart</url>
+          <line>47</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

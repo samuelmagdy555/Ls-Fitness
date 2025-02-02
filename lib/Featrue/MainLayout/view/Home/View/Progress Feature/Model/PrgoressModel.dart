@@ -1,157 +1,163 @@
 class ProgressModel {
   ProgressModel({
-    required this.results,
-    required this.totalCount,
-    required this.paginationResult,
-    required this.data,
+    this.results,
+    this.totalCount,
+    this.paginationResult,
+    this.data,
   });
-  late final int results;
-  late final int totalCount;
-  late final PaginationResult paginationResult;
-  late final List<Data> data;
 
-  ProgressModel.fromJson(Map<String, dynamic> json){
-    results = json['results'];
-    totalCount = json['totalCount'];
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+  late int? results;
+  late int? totalCount;
+  late PaginationResult? paginationResult;
+  late List<Data>? data;
+
+  ProgressModel.fromJson(Map<String, dynamic>? json) {
+    results = json?['results'];
+    totalCount = json?['totalCount'];
+    paginationResult = json?['paginationResult'] != null ? PaginationResult.fromJson(json!['paginationResult']) : null;
+    data = json?['data'] != null ? List.from(json!['data']).map((e) => Data.fromJson(e)).toList() : null;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['results'] = results;
-    _data['totalCount'] = totalCount;
-    _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
-    return _data;
+    final data = <String, dynamic>{};
+    data['results'] = results;
+    data['totalCount'] = totalCount;
+    data['paginationResult'] = paginationResult?.toJson();
+    data['data'] = this.data?.map((e) => e.toJson()).toList();
+    return data;
   }
 }
 
 class PaginationResult {
   PaginationResult({
-    required this.currentPage,
-    required this.limit,
-    required this.numberOfPages,
+    this.currentPage,
+    this.limit,
+    this.numberOfPages,
   });
-  late final int currentPage;
-  late final int limit;
-  late final int numberOfPages;
 
-  PaginationResult.fromJson(Map<String, dynamic> json){
-    currentPage = json['currentPage'];
-    limit = json['limit'];
-    numberOfPages = json['numberOfPages'];
+  late int? currentPage;
+  late int? limit;
+  late int? numberOfPages;
+
+  PaginationResult.fromJson(Map<String, dynamic>? json) {
+    currentPage = json?['currentPage'];
+    limit = json?['limit'];
+    numberOfPages = json?['numberOfPages'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['currentPage'] = currentPage;
-    _data['limit'] = limit;
-    _data['numberOfPages'] = numberOfPages;
-    return _data;
+    final data = <String, dynamic>{};
+    data['currentPage'] = currentPage;
+    data['limit'] = limit;
+    data['numberOfPages'] = numberOfPages;
+    return data;
   }
 }
 
 class Data {
   Data({
-    required this.id,
-    required this.userId,
-    required this.volumes,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.exercise,
+    this.id,
+    this.userId,
+    this.volumes,
+    this.createdAt,
+    this.updatedAt,
+    this.exercise,
   });
-  late final String id;
-  late final UserId userId;
-  late final List<Volumes> volumes;
-  late final String createdAt;
-  late final String updatedAt;
-  late final Exercise exercise;
 
-  Data.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    userId = UserId.fromJson(json['userId']);
-    volumes = List.from(json['volumes']).map((e)=>Volumes.fromJson(e)).toList();
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    exercise = Exercise.fromJson(json['exercise']);
+  late String? id;
+  late UserId? userId;
+  late List<Volumes>? volumes;
+  late String? createdAt;
+  late String? updatedAt;
+  late Exercise? exercise;
+
+  Data.fromJson(Map<String, dynamic>? json) {
+    id = json?['_id'];
+    userId = json?['userId'] != null ? UserId.fromJson(json!['userId']) : null;
+    volumes = json?['volumes'] != null ? List.from(json!['volumes']).map((e) => Volumes.fromJson(e)).toList() : null;
+    createdAt = json?['createdAt'];
+    updatedAt = json?['updatedAt'];
+    exercise = json?['exercise'] != null ? Exercise.fromJson(json!['exercise']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['userId'] = userId.toJson();
-    _data['volumes'] = volumes.map((e)=>e.toJson()).toList();
-    _data['createdAt'] = createdAt;
-    _data['updatedAt'] = updatedAt;
-    _data['exercise'] = exercise.toJson();
-    return _data;
+    final data = <String, dynamic>{};
+    data['_id'] = id;
+    data['userId'] = userId?.toJson();
+    data['volumes'] = volumes?.map((e) => e.toJson()).toList();
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['exercise'] = exercise?.toJson();
+    return data;
   }
 }
 
 class UserId {
   UserId({
-    required this.id,
-    required this.username,
+    this.id,
+    this.username,
   });
-  late final String id;
-  late final String username;
 
-  UserId.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    username = json['username'];
+  late String? id;
+  late String? username;
+
+  UserId.fromJson(Map<String, dynamic>? json) {
+    id = json?['_id'];
+    username = json?['username'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['username'] = username;
-    return _data;
+    final data = <String, dynamic>{};
+    data['_id'] = id;
+    data['username'] = username;
+    return data;
   }
 }
 
 class Volumes {
   Volumes({
-    required this.volume,
-    required this.date,
-    required this.id,
+    this.volume,
+    this.date,
+    this.id,
   });
-  late final int volume;
-  late final String date;
-  late final String id;
 
-  Volumes.fromJson(Map<String, dynamic> json){
-    volume = json['volume'];
-    date = json['date'];
-    id = json['_id'];
+  late int? volume;
+  late String? date;
+  late String? id;
+
+  Volumes.fromJson(Map<String, dynamic>? json) {
+    volume = json?['volume'];
+    date = json?['date'];
+    id = json?['_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['volume'] = volume;
-    _data['date'] = date;
-    _data['_id'] = id;
-    return _data;
+    final data = <String, dynamic>{};
+    data['volume'] = volume;
+    data['date'] = date;
+    data['_id'] = id;
+    return data;
   }
 }
 
 class Exercise {
   Exercise({
-    required this.id,
-    required this.title,
+    this.id,
+    this.title,
   });
-  late final String id;
-  late final String title;
 
-  Exercise.fromJson(Map<String, dynamic> json){
-    id = json['_id'];
-    title = json['title'];
+  late String? id;
+  late String? title;
+
+  Exercise.fromJson(Map<String, dynamic>? json) {
+    id = json?['_id'];
+    title = json?['title'];
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['title'] = title;
-    return _data;
+    final data = <String, dynamic>{};
+    data['_id'] = id;
+    data['title'] = title;
+    return data;
   }
 }
