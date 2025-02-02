@@ -25,8 +25,8 @@ class GoalsCubit extends Cubit<GoalsState> {
   int? selectedWeight;
   String? selectedWeightUnit = 'kg';
   String? selectedTargetWeightUnit ='Kg';
-  String? address;
-  String? nationality;
+  String? selectAddress;
+  String? selectNationality;
   String? walkDaily;
   String? workRoutine;
   String? fitnessLevel ;
@@ -42,8 +42,6 @@ class GoalsCubit extends Cubit<GoalsState> {
   String? LocationOfTraining;
   String? ExperienceIssues;
   String? TrainingBreak;
-
-
   int? selectedTargetweight;
 
   Future<void> MyGoals({
@@ -52,6 +50,24 @@ class GoalsCubit extends Cubit<GoalsState> {
     required int age,
     required String length,
     required String gender,
+    required String address,
+    required String nationality,
+    required String walkDaily,
+    required String workRoutine,
+    required String fitnessLevel ,
+    required String mainGoal ,
+    required String allergicSubstances,
+    required String injuries,
+    required String exercisePreference,
+    required String Diets,
+    required String TargetWeight,
+    required String FitnessEquipment,
+    required String TrainingTime ,
+    required String HearUs,
+    required String LocationOfTraining,
+    required String ExperienceIssues,
+    required String TrainingBreak,
+
   }) async {
     emit(MyGoalsLoading());
 
@@ -75,6 +91,7 @@ class GoalsCubit extends Cubit<GoalsState> {
           'height': '$selectedLength $selectedLengthUnit',
           'weight': '$selectedWeight $selectedWeightUnit',
           'targetWeight': '$selectedTargetweight $selectedTargetWeightUnit',
+          'address': selectAddress,
 
         },
       );
