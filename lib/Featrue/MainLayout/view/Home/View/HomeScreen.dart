@@ -46,7 +46,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final themeCubit = BlocProvider.of<ThemesCubit>(context);
     final currentState = context.watch<ThemesCubit>().state;
 
     double width = MediaQuery.of(context).size.width;

@@ -5,30 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/records/recode.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/Arnolledpress.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/BarbellJMBenchPress.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/BarbellShrug.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/CableCurl.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/CableUpperChestCrossovers.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/CableUpperChestCrossovers2.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/DumbbellBentOverRow.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/DumbbellLateralRaise.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/DumbbellReverseGripRow.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/LeverBicepCurl.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/OverheadTricepsExtension.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/Vitamins.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/videos/dumbbell_arnold_press.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/Model/Goals_Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/Model/Goals_Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -556,7 +536,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>44</line>
+          <line>46</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
