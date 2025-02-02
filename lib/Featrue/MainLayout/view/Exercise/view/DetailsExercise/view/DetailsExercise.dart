@@ -42,6 +42,8 @@ class _ExercisePageState extends State<ExercisePage>
         .getExercisesDetails(
             id: widget.ID, context: context, isAdvertise: false);
 
+    ProgressCubit.get(context).getExercisesProgress(id: widget.ID);
+
     _tabViewController = CustomSegmentedController();
     tabController = TabController(length: 4, vsync: this);
 
