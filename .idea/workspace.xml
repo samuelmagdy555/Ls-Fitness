@@ -5,10 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel2/terms_and_conditions_cubit.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel2/terms_and_conditions_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/EndPoints.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/viewModel/goals_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/viewModel/goals_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Profile/model/ProfileModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Profile/model/ProfileModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Profile/view/Profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Profile/view/Profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/PrivacyAndPoliciey.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/PrivacyAndPoliciey.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/TermsAndConditions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/View/TermsAndConditions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel/privacy_and_terms_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel/privacy_and_terms_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -489,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="handel exercise UI">
+      <created>1738502725944</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1738502725944</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -536,7 +551,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>46</line>
+          <line>47</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">

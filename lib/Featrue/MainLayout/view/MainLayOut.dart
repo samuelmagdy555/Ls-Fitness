@@ -56,16 +56,16 @@ class _MainLayoutState extends State<MainLayout> {
   };
 
   @override
-  void initState() {
-    super.initState();
-
-    print('before connect ${LoginCubit.id}');
-    print('after connect ${LoginCubit.id}');
-
-    print('sseUrl $sseUrl');
-    print('headers $headers');
-    NotificationCubit.get(context).connectToServer(sseUrl, headers);
-  }
+  // void initState() {
+  //   super.initState();
+  //
+  //   print('before connect ${LoginCubit.id}');
+  //   print('after connect ${LoginCubit.id}');
+  //
+  //   print('sseUrl $sseUrl');
+  //   print('headers $headers');
+  //   NotificationCubit.get(context).connectToServer(sseUrl, headers);
+  // }
 
   @override
   Widget build(BuildContext context) {

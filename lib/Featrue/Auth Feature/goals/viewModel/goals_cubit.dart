@@ -1,10 +1,13 @@
 
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/DioHelper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/model/LoginModel.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:meta/meta.dart';
+
+import '../Model/Goals_Model.dart';
 
 part 'goals_state.dart';
 
@@ -13,6 +16,8 @@ class GoalsCubit extends Cubit<GoalsState> {
 
   static GoalsCubit get(context) => BlocProvider.of(context);
   LoginModel? loginModel;
+  GoalsModel? goalsModel;
+
   String selectedGender = 'male';
   int selectedAge = 20;
   int? selectedLength;
@@ -20,6 +25,24 @@ class GoalsCubit extends Cubit<GoalsState> {
   int? selectedWeight;
   String? selectedWeightUnit = 'kg';
   String? selectedTargetWeightUnit ='Kg';
+  String? address;
+  String? nationality;
+  String? walkDaily;
+  String? workRoutine;
+  String? fitnessLevel ;
+  String? mainGoal ;
+  String? allergicSubstances;
+  String? injuries;
+  String? exercisePrefrence;
+  String? Diets;
+  String? TargetWeight;
+  String? FitnessEquipment ;
+  String? TrainingTime ;
+  String? HearUs;
+  String? LocationOfTraining;
+  String? ExperienceIssues;
+  String? TrainingBreak;
+
 
   int? selectedTargetweight;
 
@@ -49,13 +72,14 @@ class GoalsCubit extends Cubit<GoalsState> {
         data: {
           'gender': selectedGender,
           'age': selectedAge.toString(),
-          'length': '$selectedLength $selectedLengthUnit',
+          'height': '$selectedLength $selectedLengthUnit',
           'weight': '$selectedWeight $selectedWeightUnit',
           'targetWeight': '$selectedTargetweight $selectedTargetWeightUnit',
+
         },
       );
-
       emit(MyGoalsSuccess());
+       goalsModel = GoalsModel.fromJson(response.data);
     } catch (e) {
       emit(MyGoalsError());
       print(e.toString());

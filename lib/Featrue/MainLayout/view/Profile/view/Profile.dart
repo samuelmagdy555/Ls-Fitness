@@ -138,31 +138,31 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // profileDetail(
-                          //     Icons.email, "Email", userData?.email ?? '',
-                          //     screenWidth),
+                          profileDetail(
+                              Icons.email, "Email", userData?.email ?? '',
+                              screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
                               Icons.phone, "Phone", userData?.phone ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
-                          profileDetail(Icons.plus_one, "age", userData?.age
+                          profileDetail(Icons.plus_one, "age", userData?.goalsData.age
                               .toString() ?? '', screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.plus_one, "Length", userData?.length ?? '',
+                              Icons.plus_one, "Length", userData?.goalsData.height ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
-                              Icons.merge_type, "Gender", userData?.gender ?? '',
+                              Icons.merge_type, "Gender", userData?.goalsData.gender ?? '',
                               screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(Icons.monitor_weight_outlined, "weight",
-                              userData?.weight ?? '', screenWidth),
+                              userData?.goalsData.weight ?? '', screenWidth),
                           SizedBox(height: screenHeight * 0.02),
                           profileDetail(
                               Icons.monitor_weight_outlined, "Target weight",
-                              userData?.targetWeight ?? '', screenWidth),
+                              userData?.goalsData.targetWeight ?? '', screenWidth),
 
 
                           // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
@@ -171,6 +171,120 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     SizedBox(height: screenHeight * 0.07),
+                    Container(
+                      padding: EdgeInsets.all(screenWidth * 0.05),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          profileDetail(
+                              Icons.streetview, "Address", userData?.goalsData.address ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.flag, "Nationality", userData?.goalsData.nationality ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(Icons.directions_walk, "Walk Daily", userData?.goalsData.walkDaily
+                              .toString() ?? '', screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.loop, "Work Routine", userData?.goalsData.workRoutine ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.plus_one, "Fitness Level", userData?.goalsData.fitnessLevel ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(Icons.sports_football_rounded, "Main Goal",
+                              userData?.goalsData.mainGoal ?? '', screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.monitor_weight_outlined, "Allergic Substances ",
+                              userData?.goalsData.allergicSubstances ?? '', screenWidth),
+
+
+                          // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.07),
+                    Container(
+                      padding: EdgeInsets.all(screenWidth * 0.05),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          profileDetail(
+                              Icons.streetview, "injuries", userData?.goalsData.injuries.toString() ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.flag, "Exercise Preference", userData?.goalsData.exercisePreference ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(Icons.directions_walk, "Training Number Days", userData?.goalsData.trainingNumberDays
+                              .toString() ?? '', screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.loop, "Training Days", userData?.goalsData.trainingDays.toString() ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.plus_one, "Diets", userData?.goalsData.diets ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(Icons.sports_football_rounded, "Fitness Equipment",
+                              userData?.goalsData.fitnessEquipment ?? '', screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.monitor_weight_outlined, "Training Time",
+                              userData?.goalsData.trainingTime ?? '', screenWidth),
+
+
+                          // profileDetail(Icons.calendar_today, "Age", userData?.age.toString() ?? '', screenWidth),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.07),
+                    Container(
+                      padding: EdgeInsets.all(screenWidth * 0.05),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          profileDetail(
+                              Icons.streetview, "Hear Us", userData?.goalsData.hearUs ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.flag, "Location Of Training", userData?.goalsData.locationOfTraining ?? '',
+                              screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(Icons.directions_walk, "Experience Issues", userData?.goalsData.experienceIssues
+                              .toString() ?? '', screenWidth),
+                          SizedBox(height: screenHeight * 0.02),
+                          profileDetail(
+                              Icons.loop, "Training Break", userData?.goalsData.trainingBreak ?? '',
+                              screenWidth),
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: screenHeight * 0.07),
+
+
+
+
                     // Sign Out Button
                     ElevatedButton.icon(
                       onPressed: () {

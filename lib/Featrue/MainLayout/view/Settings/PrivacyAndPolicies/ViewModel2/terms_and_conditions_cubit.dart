@@ -7,30 +7,27 @@ import 'package:meta/meta.dart';
 import '../../../../../Auth Feature/login/view_mode/login_cubit.dart';
 import '../Model/privacyModel.dart';
 
-part 'privacy_and_terms_state.dart';
+part 'terms_and_conditions_state.dart';
 
-class PrivacyAndPoicy extends Cubit<PrivacyAndTermsState> {
-  PrivacyAndPoicy() : super(PrivacyAndTermsInitial());
+class TermsAndConditionsCubit extends Cubit<TermsAndConditionsState> {
+  TermsAndConditionsCubit() : super(TermsAndConditionsInitial());
+  static TermsAndConditionsCubit get(context) => BlocProvider.of(context);
 
+  PrivacyModel? privacyModel;
 
-  static PrivacyAndPoicy get(context) => BlocProvider.of(context);
-
-  PrivacyModel? privacyModel ;
-
-  Future<void> termsandprivacy() async{
-    emit(PrivacyAndTermsLoading());
+  Future<void> termsandConditions() async{
+    emit(TermsAndConditionsLoading());
     try{
       final response = await DioHelper.get(
-        end_ponit: EndPoints.termsandprivacy,
-
+          end_ponit: EndPoints.TermsAndConditions,
           token:LoginCubit.loginModel?.token ?? LoginCubit.token
       );
-
+      emit(TermsAndConditionsSuccess());
       privacyModel = PrivacyModel.fromJson(response.data);
-      emit(PrivacyAndTermsSuccess());
     }catch(e){
-      emit(PrivacyAndTermsError());
+      emit(TermsAndConditionsError());
       print(e.toString());
     }
   }
+
 }

@@ -15,7 +15,7 @@ class _PrivacyAndPoliceyState extends State<PrivacyAndPolicey> {
   void initState() {
     super.initState();
     // استدعاء الدالة لجلب البيانات عند فتح الصفحة
-    context.read<PrivacyAndTermsCubit>().termsandprivacy();
+    context.read<PrivacyAndPoicy>().termsandprivacy();
   }
 
   @override
@@ -26,13 +26,13 @@ class _PrivacyAndPoliceyState extends State<PrivacyAndPolicey> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "سياسة الخصوصية والشروط",
+          "Privacy And Policy",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
-      body: BlocConsumer<PrivacyAndTermsCubit, PrivacyAndTermsState>(
+      body: BlocConsumer<PrivacyAndPoicy, PrivacyAndTermsState>(
         listener: (context, state) {
           if (state is PrivacyAndTermsError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -41,7 +41,7 @@ class _PrivacyAndPoliceyState extends State<PrivacyAndPolicey> {
           }
         },
         builder: (context, state) {
-          var cubit = PrivacyAndTermsCubit.get(context);
+          var cubit = PrivacyAndPoicy.get(context);
 
           if (state is PrivacyAndTermsLoading) {
             return const Center(child: CircularProgressIndicator());
