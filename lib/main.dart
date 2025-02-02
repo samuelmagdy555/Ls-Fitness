@@ -1,6 +1,4 @@
-
-
- import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -185,26 +183,26 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => TrainerRequestCubit()),
         BlocProvider(create: (context) => TrainerCubit()),
         BlocProvider(create: (context) => ThemesCubit()),
-        BlocProvider(create: (context)=>PrivacyAndTermsCubit())
+        BlocProvider(create: (context) => PrivacyAndTermsCubit())
       ],
       child: BlocBuilder<ThemesCubit, Map<String, dynamic>>(
-  builder: (context, state) {
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        theme: state['theme'],
-        home: CashHelper.getFromCash(key: 'token') == ''
-            ?  SplashScreen()
-            : MainLayout(),
-      );
-  },
-),
+        builder: (context, state) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            theme: state['theme'],
+            home: CashHelper.getFromCash(key: 'token') == ''
+                ? SplashScreen()
+                : MainLayout(),
+          );
+        },
+      ),
     );
   }
 }
