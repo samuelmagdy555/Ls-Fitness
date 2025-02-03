@@ -103,7 +103,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     final exerciseCubit = ExerciseCubit.get(context);
-    final themeCubit = BlocProvider.of<ThemesCubit>(context);
     final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(

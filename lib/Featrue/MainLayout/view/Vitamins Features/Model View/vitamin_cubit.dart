@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model/Specific%20Vitmain/Specific%20Vitmain.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model/Speicific%20Supplement/Speicific%20Supplement.dart';
 import 'package:meta/meta.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 import '../../../../../Core/DataBase/remote_database/DioHelper.dart';
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
@@ -20,12 +21,16 @@ class VitaminScreenCubit extends Cubit<VitaminScreenState> {
   SpecificVitamin?  specificVitamin;
  static VitaminScreenCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getAllVitamins() async {
+  Future<void> getAllVitamins({required String page}) async {
     emit(GetVitaminLoading());
     try {
       final response = await DioHelper.get(
           end_ponit: EndPoints.vitamins,
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+          query: {
+            'page': page,
+          }
+      );
       vitaminsModel = VitaminsModel.fromJson(response.data);
       emit(GetVitaminSuccess());
     } catch (e) {
@@ -33,12 +38,32 @@ class VitaminScreenCubit extends Cubit<VitaminScreenState> {
       emit(GetVitaminError());
     }
   }
-  Future<void> getAllSupplements() async {
+
+
+  void changeVitaminsPage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    getAllVitamins(page: (index + 1).toString());
+    emit(ChangePageState());
+  }
+  void changeSupplementsPage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    getAllSupplements(page: (index + 1).toString());
+    emit(ChangePageState());
+  }
+  Future<void> getAllSupplements({required String page}) async {
     emit(GetSupplementsLoading());
     try {
       final response = await DioHelper.get(
           end_ponit: EndPoints.supplements,
-          token: LoginCubit.loginModel?.token ?? LoginCubit.token);
+          token: LoginCubit.loginModel?.token ?? LoginCubit.token,query: {
+        'page': page,
+      });
       supplementModel = SupplementModel.fromJson(response.data);
       emit(GetSupplementsSuccess());
     } catch (e) {
@@ -46,6 +71,7 @@ class VitaminScreenCubit extends Cubit<VitaminScreenState> {
       emit(GetSupplementsError());
     }
   }
+
   Future<void> getSpecificVitamin({required String id}) async {
     emit(GetSupplementsLoading());
     try {

@@ -1,28 +1,33 @@
 class VitaminsModel {
   VitaminsModel({
-    required this.results,
-    required this.totalCount,
-    required this.paginationResult,
+    this.results,
+    this.totalCount,
+    this.paginationResult,
     required this.data,
   });
-  late final int results;
-  late final int totalCount;
-  late final PaginationResult paginationResult;
+
+  int? results;
+  int? totalCount;
+  PaginationResult? paginationResult;
   late final List<Data> data;
 
-  VitaminsModel.fromJson(Map<String, dynamic> json){
+  VitaminsModel.fromJson(Map<String, dynamic> json) {
     results = json['results'];
     totalCount = json['totalCount'];
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    paginationResult = json['paginationResult'] != null
+        ? PaginationResult.fromJson(json['paginationResult'])
+        : PaginationResult(currentPage: 0, limit: 0, numberOfPages: 0); //
+        data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['results'] = results;
-    _data['totalCount'] = totalCount;
-    _data['paginationResult'] = paginationResult.toJson();
-    _data['data'] = data.map((e)=>e.toJson()).toList();
+    _data['results'] = results ??0;
+    _data['totalCount'] = totalCount ??0;
+    _data['paginationResult'] = paginationResult?.toJson() ??
+        PaginationResult(
+            currentPage: 0, limit: 0, numberOfPages: 0);
+    _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;
   }
 }
@@ -33,11 +38,12 @@ class PaginationResult {
     required this.limit,
     required this.numberOfPages,
   });
+
   late final int currentPage;
   late final int limit;
   late final int numberOfPages;
 
-  PaginationResult.fromJson(Map<String, dynamic> json){
+  PaginationResult.fromJson(Map<String, dynamic> json) {
     currentPage = json['currentPage'];
     limit = json['limit'];
     numberOfPages = json['numberOfPages'];
@@ -62,6 +68,7 @@ class Data {
     required this.createdAt,
     required this.updatedAt,
   });
+
   late final Video video;
   late final String id;
   late final String title;
@@ -70,7 +77,7 @@ class Data {
   late final String createdAt;
   late final String updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json){
+  Data.fromJson(Map<String, dynamic> json) {
     video = Video.fromJson(json['video']);
     id = json['_id'];
     title = json['title'];
@@ -99,11 +106,12 @@ class Video {
     required this.publicId,
     required this.thumbnail,
   });
+
   late final String url;
   late final int publicId;
   late final String thumbnail;
 
-  Video.fromJson(Map<String, dynamic> json){
+  Video.fromJson(Map<String, dynamic> json) {
     url = json['url'];
     publicId = json['public_id'];
     thumbnail = json['thumbnail'];

@@ -4,6 +4,7 @@ part of 'vitamin_cubit.dart';
 sealed class VitaminScreenState {}
 
 final class VitaminInitial extends VitaminScreenState {}
+final class ChangePageState extends VitaminScreenState {}
 
 
 final class GetVitaminLoading extends VitaminScreenState {}

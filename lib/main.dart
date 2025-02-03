@@ -176,8 +176,7 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => VitaminScreenCubit()
-            ..getAllVitamins()
-            ..getAllSupplements(),
+
         ),
         BlocProvider(create: (context) => MoreCoursesCubit()),
         BlocProvider(create: (context) => ChatCubit()),

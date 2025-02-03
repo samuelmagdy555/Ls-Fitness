@@ -25,8 +25,8 @@ class _VitaminViewState extends State<VitaminView> {
   @override
   void initState() {
     super.initState();
-    VitaminScreenCubit.get(context).getAllVitamins();
-    VitaminScreenCubit.get(context).getAllSupplements();
+    VitaminScreenCubit.get(context).getAllVitamins(page: '1');
+    VitaminScreenCubit.get(context).getAllSupplements(page: '1');
   }
 
   @override
