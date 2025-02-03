@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lsfitness/Core/Constant/Loading%20Indicator/Loading%20indecator.dart';
 
+import '../../../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 import '../../../View Model/courses_cubit.dart';
 import '../../Courses View.dart';
 
@@ -32,25 +33,31 @@ class _MyCoursesViewState extends State<MyCoursesView> {
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
+    final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(currentState['backgroundImage']), // مسار الصورة
+              fit: BoxFit.cover, // لجعل الصورة تغطي الخلفية بالكامل
+            ),
+          ),
+        ),
+
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:  Text(
           'My Courses',
-          style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.bodyMedium
         ),
         centerTitle: true,
       ),
@@ -60,10 +67,18 @@ class _MyCoursesViewState extends State<MyCoursesView> {
         },
         builder: (context, state) {
           return CoursesCubit.get(context).myCourses == null
-              ? Center(
-            child: MyLoadingIndicator(
-                height: height * .3, color: Colors.deepPurple),
-          )
+              ? Container(
+
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(currentState['backgroundImage']),
+                  fit: BoxFit.cover),
+            ),
+                child: Center(
+                            child: MyLoadingIndicator(
+                  height: height * .3, color: Colors.deepPurple),
+                          ),
+              )
               : CoursesCubit.get(context).myCourses!.data.isEmpty
               ? Center(
               child: Text(
@@ -73,21 +88,28 @@ class _MyCoursesViewState extends State<MyCoursesView> {
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
               ))
-              : ListView.builder(
-            itemCount:
-            CoursesCubit.get(context).myCourses!.data.length,
-            itemBuilder: (context, index) {
-              final course =
-              CoursesCubit.get(context).myCourses!.data[index];
-              return CourseCard(
-                image: 'https://img.freepik.com/free-photo/portrait-muscle-man-posing-grey-background_613910-7496.jpg?t=st=1737531896~exp=1737535496~hmac=056061919a4f8fe11b338b7d41c598c275e46f4feca908a0d89f168339dd0047&w=360',
-                title: course.title,
-                description: course.description,
-                price: course.price, // Assuming price field exists
-                discountedPrice: course.priceAfterDiscount, // Assuming discountedPrice field exists
+              : Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(currentState['backgroundImage']),
+                  fit: BoxFit.cover),
+            ),
+                child: ListView.builder(
+                            itemCount:
+                            CoursesCubit.get(context).myCourses!.data.length,
+                            itemBuilder: (context, index) {
+                final course =
+                CoursesCubit.get(context).myCourses!.data[index];
+                return CourseCard(
+                  image: 'https://img.freepik.com/free-photo/portrait-muscle-man-posing-grey-background_613910-7496.jpg?t=st=1737531896~exp=1737535496~hmac=056061919a4f8fe11b338b7d41c598c275e46f4feca908a0d89f168339dd0047&w=360',
+                  title: course.title,
+                  description: course.description,
+                  price: course.price, // Assuming price field exists
+                  discountedPrice: course.priceAfterDiscount, // Assuming discountedPrice field exists
+                );
+                            },
+                          ),
               );
-            },
-          );
         },
       ),
     );
