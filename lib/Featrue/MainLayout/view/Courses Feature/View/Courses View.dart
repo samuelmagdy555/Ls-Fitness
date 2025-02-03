@@ -59,7 +59,6 @@ class _CoursePageState extends State<CoursePage> {
     super.initState();
     CoursesCubit.get(context).getCoursesCategories();
   }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

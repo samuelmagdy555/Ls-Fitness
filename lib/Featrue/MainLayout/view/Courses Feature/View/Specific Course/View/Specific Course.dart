@@ -75,7 +75,6 @@ class _SpecificCourseState extends State<SpecificCourse> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           flexibleSpace: Container(
             decoration: BoxDecoration(
@@ -87,12 +86,11 @@ class _SpecificCourseState extends State<SpecificCourse> {
             ),
           ),
           elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
           title: Text('Course', style: Theme.of(context).textTheme.bodyLarge),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(
-              Iconsax.arrow_left_2,
+              Icons.arrow_back,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -127,7 +125,7 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
                                       color: Theme.of(context)
-                                          .secondaryHeaderColor,
+                                          .disabledColor,
                                     ),
                                     child: Column(
                                       crossAxisAlignment:
@@ -144,8 +142,7 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                               .title!,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyLarge!
-                                              .copyWith(color: Colors.black),
+                                              .bodyLarge,
                                         ),
                                         Text(
                                           '${CoursesCubit.get(context).
@@ -153,8 +150,7 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                           data!.length.toString()} Lessons',
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium!
-                                              .copyWith(color: Colors.black),
+                                              .bodyMedium,
                                         ),
                                         SizedBox(
                                           height: height * .01,
@@ -166,8 +162,7 @@ class _SpecificCourseState extends State<SpecificCourse> {
                                               .type!,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .bodyMedium!
-                                              .copyWith(color: Colors.black),
+                                              .bodyMedium,
                                         ),
                                       ],
                                     ),

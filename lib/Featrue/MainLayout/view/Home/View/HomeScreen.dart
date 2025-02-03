@@ -404,7 +404,7 @@ class _HomeViewState extends State<HomeView> {
                             })
                             : Center(
                           child: MyLoadingIndicator(
-                              height: height * .3, color: kSecondColor),
+                              height: height * .3, color: Theme.of(context).primaryColor),
                         ),
                       );
                     },

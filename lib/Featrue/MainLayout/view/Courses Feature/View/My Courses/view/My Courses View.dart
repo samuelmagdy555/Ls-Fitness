@@ -74,10 +74,17 @@ class _MyCoursesViewState extends State<MyCoursesView> {
                   image: AssetImage(currentState['backgroundImage']),
                   fit: BoxFit.cover),
             ),
-                child: Center(
-                            child: MyLoadingIndicator(
-                  height: height * .3, color: Colors.deepPurple),
-                          ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(currentState['backgroundImage']),
+                        fit: BoxFit.cover),
+                  ),
+                  child: Center(
+                              child: MyLoadingIndicator(
+                    height: height * .3, color: Theme.of(context).primaryColor),
+                            ),
+                ),
               )
               : CoursesCubit.get(context).myCourses!.data.isEmpty
               ? Center(

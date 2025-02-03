@@ -49,7 +49,7 @@ class _SupplementsTapState extends State<SupplementsTap> {
         return VitaminScreenCubit.get(context).supplementModel == null
             ? Center(
                 child: MyLoadingIndicator(
-                    height: height * .3, color: kSecondColor),
+                    height: height * .3, color: Theme.of(context).primaryColor),
               )
             : Container(
 
