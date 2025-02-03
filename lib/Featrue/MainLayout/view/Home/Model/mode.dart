@@ -1,14 +1,14 @@
 class AdvertiseModel {
   AdvertiseModel({
-    required this.results,
-    required this.totalCount,
-    required this.paginationResult,
+     this.results,
+     this.totalCount,
+     this.paginationResult,
     required this.data,
   });
 
-  late final int results;
-  late final int totalCount;
-  late final PaginationResult? paginationResult;
+   int? results;
+   int? totalCount;
+   PaginationResult? paginationResult;
   late final List<Data> data;
 
   AdvertiseModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +28,8 @@ class AdvertiseModel {
     _data['totalCount'] = totalCount;
     if (paginationResult != null) {
       _data['paginationResult'] = paginationResult!.toJson();
+    }else{
+      _data['paginationResult'] = PaginationResult(currentPage: 0, limit: 0, numberOfPages: 0);
     }
     _data['data'] = data.map((e) => e.toJson()).toList();
     return _data;

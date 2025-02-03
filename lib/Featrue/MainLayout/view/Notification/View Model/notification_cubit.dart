@@ -32,28 +32,38 @@ class NotificationCubit extends Cubit<NotificationState> {
   var initSettings = InitializationSettings(
       android: AndroidInitializationSettings('@mipmap/ic_launcher'),
       iOS: DarwinInitializationSettings());
-  Future<void> getAllNotifications() async {
-    emit(GetAllNotificationLoading());
+  Future<void> getAllNotifications({required String page}) async {
+    if (page == '1') {
+      emit(GetAllNotificationLoading());
+    }
+
     try {
       final response = await DioHelper.get(
         end_ponit: EndPoints.notifications,
         token: LoginCubit.loginModel?.token ?? LoginCubit.token,
+        query: {'page': page},
       );
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('notifications', response.data.toString());
 
-      allNotificationModel = AllNotificationModel.fromJson(response.data);
+      // If this is the first page, create new model
+      if (page == '1') {
+        allNotificationModel = AllNotificationModel.fromJson(response.data);
+      } else {
+        // If this is not the first page, append the new data to existing data
+        final newNotifications = AllNotificationModel.fromJson(response.data);
+        allNotificationModel!.data.addAll(newNotifications.data);
+        allNotificationModel!.paginationResult = newNotifications.paginationResult;
+      }
+
       emit(GetAllNotificationSuccess());
     } catch (e) {
       print(e.toString());
-
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.containsKey('notifications')) {
         String? localData = prefs.getString('notifications');
-
         Map<String, dynamic> jsonMap = jsonDecode(localData!);
-
         allNotificationModel = AllNotificationModel.fromJson(jsonMap);
         emit(GetAllNotificationSuccess());
       } else {
@@ -61,6 +71,8 @@ class NotificationCubit extends Cubit<NotificationState> {
       }
     }
   }
+
+
   Future<void> connectToServer(String url, Map<String, String> headers) async {
     emit(NotificationLoading());
     try {
@@ -84,7 +96,7 @@ class NotificationCubit extends Cubit<NotificationState> {
 
             showNotification('L.S Fitness', jsonMap['message']);
             emit(NotificationReceived(jsonMap['message']));
-            getAllNotifications();
+            getAllNotifications(page: '');
           }
         },
         onError: (error) {
@@ -126,7 +138,7 @@ class NotificationCubit extends Cubit<NotificationState> {
 
             showNotification('L.S Fitness', jsonMap['message']);
             emit(NotificationReceived(jsonMap['message']));
-            getAllNotifications();
+            getAllNotifications(page: '');
           }
         },
         onError: (error) {
@@ -190,7 +202,7 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       emit(MarkNotificationAsReadSuccess());
 
-      getAllNotifications();
+      getAllNotifications(page: allNotificationModel!.paginationResult?.currentPage.toString() ?? '1');
       emit(MarkNotificationAsReadSuccess());
     } catch (e) {
       isRead = false;
@@ -207,7 +219,6 @@ class NotificationCubit extends Cubit<NotificationState> {
       );
       emit(MarkNotificationAsReadSuccess());
 
-      getAllNotifications();
       emit(MarkNotificationAsReadSuccess());
     } catch (e) {
       emit(MarkNotificationAsReadError());

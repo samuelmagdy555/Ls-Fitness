@@ -1,19 +1,21 @@
 class AllNotificationModel {
   AllNotificationModel({
-    required this.results,
-    required this.totalCount,
-    required this.paginationResult,
+     this.results,
+     this.totalCount,
+     this.paginationResult,
     required this.data,
   });
-  late final int results;
-  late final int totalCount;
-  late final PaginationResult paginationResult;
+   int? results;
+   int? totalCount;
+   PaginationResult? paginationResult;
   late  List<Data> data;
 
   AllNotificationModel.fromJson(Map<String, dynamic> json){
-    results = json['results'];
-    totalCount = json['totalCount'];
-    paginationResult = PaginationResult.fromJson(json['paginationResult']);
+    results = json['results'] ?? 0;
+    totalCount = json['totalCount'] ?? 0;
+    paginationResult = json['paginationResult'] != null
+        ? PaginationResult.fromJson(json['paginationResult'])
+        : null;  // Handle null case properly
     data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
   }
 
@@ -21,7 +23,11 @@ class AllNotificationModel {
     final _data = <String, dynamic>{};
     _data['results'] = results;
     _data['totalCount'] = totalCount;
-    _data['paginationResult'] = paginationResult.toJson();
+    if (paginationResult != null) {
+      _data['paginationResult'] = paginationResult!.toJson();
+    }else{
+      _data['paginationResult'] = PaginationResult(currentPage: 0, limit: 0, numberOfPages: 0, nextPage: 0);
+    }
     _data['data'] = data.map((e)=>e.toJson()).toList();
     return _data;
   }
