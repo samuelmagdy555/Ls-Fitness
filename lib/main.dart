@@ -186,7 +186,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) =>
         ThemesCubit()
           ),
-        BlocProvider(create: (context) => PrivacyAndTermsCubit()),
+        // BlocProvider(create: (context) => PrivacyAndTermsCubit()),
         BlocProvider(create: (context) => ThemesCubit()),
         BlocProvider(create: (context) => PrivacyAndPoicy()),
         BlocProvider(create: (context)=> TermsAndConditionsCubit())

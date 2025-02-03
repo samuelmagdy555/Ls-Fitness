@@ -86,13 +86,13 @@ class _ThankYouPageState extends State<ThankYouPage>
                   print(GoalsCubit.get(context).selectedGender);
 
                   // Call MyGoals with the correct age type
-                  await GoalsCubit.get(context).MyGoals(
-                    weight: GoalsCubit.get(context).selectedWeight.toString(),
-                    Targetweight: GoalsCubit.get(context).selectedTargetweight.toString(),
-                    age: GoalsCubit.get(context).selectedAge, // Directly use selectedAge
-                    length: GoalsCubit.get(context).selectedLength.toString(),
-                    gender: GoalsCubit.get(context).selectedGender,
-                  );
+                  // await GoalsCubit.get(context).MyGoals(
+                  //   weight: GoalsCubit.get(context).selectedWeight.toString(),
+                  //   Targetweight: GoalsCubit.get(context).selectedTargetweight.toString(),
+                  //   age: GoalsCubit.get(context).selectedAge, // Directly use selectedAge
+                  //   length: GoalsCubit.get(context).selectedLength.toString(),
+                  //   gender: GoalsCubit.get(context).selectedGender,
+                  // );
 
                   // Navigate to the MainLayout after successfully setting goals
                   Navigator.push(

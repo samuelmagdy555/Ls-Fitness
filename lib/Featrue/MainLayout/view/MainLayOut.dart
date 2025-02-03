@@ -120,10 +120,12 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/home.png')) : const Image(
-                            image: AssetImage('assets/images/home.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/home.png'))
+                          : const Image(
+                              image: AssetImage('assets/images/home.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -132,10 +134,13 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/dumbbell.png')) : const Image(
-                            image: AssetImage('assets/images/dumbbell.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/dumbbell.png'))
+                          : const Image(
+                              image:
+                                  AssetImage('assets/images/dumbbell.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -144,10 +149,14 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/protein (1).png')) : const Image(
-                            image: AssetImage('assets/images/protein.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image:
+                                  AssetImage('assets/images/protein (1).png'))
+                          : const Image(
+                              image:
+                                  AssetImage('assets/images/protein.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -156,23 +165,29 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const  Image(
-                          image: AssetImage('assets/images/notebook.png')) : const  Image(
-                            image: AssetImage('assets/images/notebook.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/notebook.png'))
+                          : const Image(
+                              image:
+                                  AssetImage('assets/images/notebook.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
                     index: 4,
                     label: 'Chat',
-                    path: SizedBox(
-                        height: height * .03,
-                        width: width * .11,
-                        child: Icon(
-                          Iconsax.message5,
-                          size: width * .075,
-                          color: Colors.redAccent,
-                        )),
+                    path:SizedBox(
+                      height: height * .03,
+                      width: width * .11,
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                          image: AssetImage('assets/images/chat2.png'))
+                          : const Image(
+                        image:
+                        AssetImage('assets/images/chat.png'),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -188,10 +203,12 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/woman.png')) : const Image(
-                            image: AssetImage('assets/images/man.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/woman.png'))
+                          : const Image(
+                              image: AssetImage('assets/images/man.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -200,10 +217,12 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/food.png')) : const Image(
-                            image: AssetImage('assets/images/food.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/food.png'))
+                          : const Image(
+                              image: AssetImage('assets/images/food.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -212,10 +231,13 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child:  CashHelper.getBoolFromCash(key: 'isMan') ==true ?const Image(
-                          image: AssetImage('assets/images/calculator.png')) : const Image(
-                            image: AssetImage('assets/images/calculator.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/calculator.png'))
+                          : const Image(
+                              image: AssetImage(
+                                  'assets/images/calculator.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -224,10 +246,13 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/camera.png')) : const Image(
-                            image: AssetImage('assets/images/camera.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/camera.png'))
+                          : const Image(
+                              image:
+                                  AssetImage('assets/images/camera.png2.png'),
+                            ),
                     ),
                   ),
                   _buildTabItem(
@@ -236,10 +261,12 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
-                          image: AssetImage('assets/images/alarm.png')) : const Image(
-                            image: AssetImage('assets/images/alarm.png2.png'),
-                          ),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') == true
+                          ? const Image(
+                              image: AssetImage('assets/images/alarm.png'))
+                          : const Image(
+                              image: AssetImage('assets/images/alarm.png2.png'),
+                            ),
                     ),
                   ),
                 ],
@@ -273,7 +300,9 @@ class _MainLayoutState extends State<MainLayout> {
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: isSelected
                         ? Theme.of(context).secondaryHeaderColor
-                        : Theme.of(context).secondaryHeaderColor.withOpacity(.5),
+                        : Theme.of(context)
+                            .secondaryHeaderColor
+                            .withOpacity(.5),
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   )),

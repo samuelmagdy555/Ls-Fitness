@@ -25,10 +25,17 @@ class VitaminsTap extends StatelessWidget {
         final currentState = context.watch<ThemesCubit>().state;
 
         return VitaminScreenCubit.get(context).vitaminsModel == null
-            ? Center(
-                child: MyLoadingIndicator(
-                    height: height * .3, color: kSecondColor),
-              )
+            ? Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']),
+                fit: BoxFit.cover),
+          ),
+              child: Center(
+                  child: MyLoadingIndicator(
+                      height: height * .3, color: kSecondColor),
+                ),
+            )
             : Container(
           decoration: BoxDecoration(
             image: DecorationImage(
