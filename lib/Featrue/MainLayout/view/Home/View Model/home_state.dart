@@ -4,6 +4,7 @@ part of 'home_cubit.dart';
 sealed class HomeState {}
 
 final class HomeInitial extends HomeState {}
+final class ChangePageState extends HomeState {}
 final class GetAdvertiseLoading  extends HomeState {}
 final class GetAdvertiseSuccess  extends HomeState {}
 final class GetAdvertiseFailed  extends HomeState {}

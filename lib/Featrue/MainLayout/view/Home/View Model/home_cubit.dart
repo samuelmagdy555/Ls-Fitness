@@ -6,6 +6,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Exercise/view/DetailsExercise/
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Vitamin%20View/Supplement%20Details/Supplement%20Details.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Vitamin%20View/Vitamin%20Details/Vitamin%20Details.dart';
 import 'package:meta/meta.dart';
+import 'package:number_paginator/number_paginator.dart';
 
 import '../../../../../Core/DataBase/remote_database/DioHelper.dart';
 import '../../../../../Core/DataBase/remote_database/EndPoints.dart';
@@ -23,14 +24,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-  Future<void> getAdvertise() async {
+  Future<void> getAdvertise({required String page}) async {
     emit(GetAdvertiseLoading());
     try {
       final response = await DioHelper.get(
         end_ponit: EndPoints.advertise,
         token: LoginCubit.loginModel?.token ?? LoginCubit.token,
         query: {
-          'page': '2',
+          'page': page,
         },
       );
 
@@ -74,5 +75,14 @@ class HomeCubit extends Cubit<HomeState> {
             context, MaterialPageRoute(builder: (context) => VitaminDetails()));
       }
     } catch (e) {}
+  }
+
+  void changeVitaminsPage(
+      {required NumberPaginatorController controller, required int index}) {
+    if (controller.currentPage != index) {
+      controller.navigateToPage(index);
+    }
+    getAdvertise(page: (index + 1).toString());
+    emit(ChangePageState());
   }
 }
