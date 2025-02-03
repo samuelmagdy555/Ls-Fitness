@@ -19,6 +19,7 @@ import 'package:lsfitness/Featrue/MainLayout/view/Home/View/FoodCalculator/view/
 import 'package:lsfitness/Featrue/MainLayout/view/Home/View/Nutrition%20Feature/View%20Model/nutrition_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/MainLayOut.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel/privacy_and_terms_cubit.dart';
+import 'package:lsfitness/Featrue/MainLayout/view/Settings/PrivacyAndPolicies/ViewModel2/terms_and_conditions_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Settings/View%20Model/counter_cubit.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Vitamins%20Features/Model%20View/vitamin_cubit.dart';
 import 'package:lsfitness/generated/l10n.dart';
@@ -62,7 +63,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +77,7 @@ void main() async {
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()!
+          AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
   runApp(MyApp());
 }
@@ -130,8 +131,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => EditProfileCubit()),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(
-            create: (context) =>
-            CreatineCubit()
+            create: (context) => CreatineCubit()
               ..getAlarmState()
               ..getSleepTime()
               ..getWakeUpTime()
@@ -142,33 +142,27 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => FoodCalculatorCubit()),
         BlocProvider(create: (context) => FoodCalculatorDetailsCubit()),
         BlocProvider(
-            create: (context) =>
-            AlarmCubit()
+            create: (context) => AlarmCubit()
               ..initializeMeals()
               ..GetData()),
         BlocProvider(
-            create: (context) =>
-            SupplementsCubit()
+            create: (context) => SupplementsCubit()
               ..initializeSupplements()
               ..GetData()),
         BlocProvider(
-            create: (context) =>
-            WorkoutCubit()
+            create: (context) => WorkoutCubit()
               ..initializeWorkout()
               ..GetData()),
         BlocProvider(
-            create: (context) =>
-            SleepCubit()
+            create: (context) => SleepCubit()
               ..initializeSleep()
               ..GetData()),
         BlocProvider(
-            create: (context) =>
-            VitaminCubit()
+            create: (context) => VitaminCubit()
               ..initializeVitamin()
               ..GetData()),
         BlocProvider(
-            create: (context) =>
-            CounterCubit()
+            create: (context) => CounterCubit()
               ..GetData()
               ..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
@@ -181,8 +175,7 @@ class _MyAppState extends State<MyApp> {
           create: (context) => CoursesCubit(),
         ),
         BlocProvider(
-          create: (context) =>
-          VitaminScreenCubit()
+          create: (context) => VitaminScreenCubit()
             ..getAllVitamins()
             ..getAllSupplements(),
         ),
@@ -193,7 +186,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) =>
         ThemesCubit()
           ),
-        BlocProvider(create: (context) => PrivacyAndTermsCubit())
+        BlocProvider(create: (context) => PrivacyAndTermsCubit()),
+        BlocProvider(create: (context) => ThemesCubit()),
+        BlocProvider(create: (context) => PrivacyAndPoicy()),
+        BlocProvider(create: (context)=> TermsAndConditionsCubit())
       ],
       child: BlocBuilder<ThemesCubit, Map<String, dynamic>>(
         builder: (context, state) {

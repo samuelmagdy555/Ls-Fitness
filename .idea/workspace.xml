@@ -11,6 +11,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+    <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="handel exercise UI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
@@ -32,6 +33,7 @@
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/try.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/try.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/viewModel/goals_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/goals/viewModel/goals_cubit.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -512,6 +514,28 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
+    <task id="LOCAL-00080" summary="handel exercise UI">
+      <created>1738502725944</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1738502725944</updated>
+    </task>
+    <task id="LOCAL-00081" summary="handel exercise UI">
+      <created>1738530403286</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1738530403286</updated>
+    </task>
+    <task id="LOCAL-00082" summary="handel exercise UI">
+      <created>1738530472594</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1738530472595</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <task id="LOCAL-00080" summary="handel advvertise error">
       <option name="closed" value="true" />
       <created>1738496167168</created>
@@ -568,6 +592,7 @@
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
           <line>44</line>
+          <line>47</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -669,11 +694,6 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart</url>
           <line>47</line>
           <option name="timeStamp" value="44" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart</url>
-          <line>43</line>
-          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
