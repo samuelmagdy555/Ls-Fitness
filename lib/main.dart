@@ -62,7 +62,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'Featrue/MainLayout/view/trainer Feature/View Model/trainer_cubit.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +76,7 @@ void main() async {
   tz.initializeTimeZones();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()!
+      AndroidFlutterLocalNotificationsPlugin>()!
       .requestNotificationsPermission();
   runApp(MyApp());
 }
@@ -130,7 +130,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => EditProfileCubit()),
         BlocProvider(create: (context) => ExerciseCubit()),
         BlocProvider(
-            create: (context) => CreatineCubit()
+            create: (context) =>
+            CreatineCubit()
               ..getAlarmState()
               ..getSleepTime()
               ..getWakeUpTime()
@@ -141,27 +142,33 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => FoodCalculatorCubit()),
         BlocProvider(create: (context) => FoodCalculatorDetailsCubit()),
         BlocProvider(
-            create: (context) => AlarmCubit()
+            create: (context) =>
+            AlarmCubit()
               ..initializeMeals()
               ..GetData()),
         BlocProvider(
-            create: (context) => SupplementsCubit()
+            create: (context) =>
+            SupplementsCubit()
               ..initializeSupplements()
               ..GetData()),
         BlocProvider(
-            create: (context) => WorkoutCubit()
+            create: (context) =>
+            WorkoutCubit()
               ..initializeWorkout()
               ..GetData()),
         BlocProvider(
-            create: (context) => SleepCubit()
+            create: (context) =>
+            SleepCubit()
               ..initializeSleep()
               ..GetData()),
         BlocProvider(
-            create: (context) => VitaminCubit()
+            create: (context) =>
+            VitaminCubit()
               ..initializeVitamin()
               ..GetData()),
         BlocProvider(
-            create: (context) => CounterCubit()
+            create: (context) =>
+            CounterCubit()
               ..GetData()
               ..GetCounter()),
         BlocProvider(create: (context) => ExercisesDetailsCubit()),
@@ -174,7 +181,8 @@ class _MyAppState extends State<MyApp> {
           create: (context) => CoursesCubit(),
         ),
         BlocProvider(
-          create: (context) => VitaminScreenCubit()
+          create: (context) =>
+          VitaminScreenCubit()
             ..getAllVitamins()
             ..getAllSupplements(),
         ),
@@ -182,24 +190,34 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ChatCubit()),
         BlocProvider(create: (context) => TrainerRequestCubit()),
         BlocProvider(create: (context) => TrainerCubit()),
-        BlocProvider(create: (context) => ThemesCubit()),
+        BlocProvider(create: (context) =>
+        ThemesCubit()
+          ),
         BlocProvider(create: (context) => PrivacyAndTermsCubit())
       ],
       child: BlocBuilder<ThemesCubit, Map<String, dynamic>>(
         builder: (context, state) {
           return GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            theme: state['theme'],
-            home: CashHelper.getFromCash(key: 'token') == ''
-                ? SplashScreen()
-                : MainLayout(),
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+              theme: BlocProvider.of<ThemesCubit>(context).currentTheme,
+              themeMode: BlocProvider.of<ThemesCubit>(context).isDark
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              home: FutureBuilder<String?>(
+                future: CashHelper.getFromCash(key: 'token'),
+                builder: (context, snapshot) {
+                  return (snapshot.data?.isEmpty ?? true)
+                      ? SplashScreen()
+                      : MainLayout();
+                },
+              )
           );
         },
       ),

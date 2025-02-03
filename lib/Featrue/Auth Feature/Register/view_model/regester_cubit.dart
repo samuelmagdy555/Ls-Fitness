@@ -51,12 +51,12 @@ class RegisterCubit extends Cubit<RegisterState> {
        await CashHelper.insertBoolToCash(key:'isVerified', value: response.data['data']['isOAuthUser']);
        await CashHelper.insertToCash(key: 'name', value: response.data['data']['username'] );
 
-       LoginCubit.email = await CashHelper.getFromCash(key: 'email');
-       LoginCubit.id = await CashHelper.getFromCash(key: 'id');
-       LoginCubit.name = await CashHelper.getFromCash(key: 'name');
+       LoginCubit.email = await CashHelper.getFromCash(key: 'email')??'';
+       LoginCubit.id = await CashHelper.getFromCash(key: 'id')??'';
+       LoginCubit.name = await CashHelper.getFromCash(key: 'name')??'';
        LoginCubit.token = await CashHelper.getFromCash(key: 'token');
        LoginCubit.isVerified =
-       await CashHelper.getBoolFromCash(key: 'isVerfied');
+       await CashHelper.getBoolFromCash(key: 'isVerfied')??false;
 
        emit(RegisterSuccessState());
 

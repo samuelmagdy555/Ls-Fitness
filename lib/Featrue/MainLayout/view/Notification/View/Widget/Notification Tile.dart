@@ -23,7 +23,7 @@ class NotificationTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         decoration: BoxDecoration(
 
-          color: isRead == true ? Theme.of(context).disabledColor : Colors.white12,
+          color: isRead != true ? Theme.of(context).disabledColor : Colors.white12,
           borderRadius: BorderRadius.circular(17.5)
         ),
         margin: EdgeInsets.only(bottom: 16),

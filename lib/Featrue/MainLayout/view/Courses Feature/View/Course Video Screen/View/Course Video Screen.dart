@@ -40,148 +40,132 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
             Icons.arrow_back,
             color: Theme.of(context).focusColor,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Course Details'),
+        title: const Text('Course Details'),
         centerTitle: true,
       ),
-      body: BlocConsumer<CoursesCubit, CoursesState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+      body: BlocBuilder<CoursesCubit, CoursesState>(
         builder: (context, state) {
-          DateTime dateTime = DateTime.parse(
-              CoursesCubit.get(context).specificLesson!.data!.createdAt!);
-          String formattedDateTime =
-              DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
-          return CoursesCubit.get(context).specificLesson != null
-              ? Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(currentState['backgroundImage']),
-                      fit: BoxFit.cover,
+          final specificLesson = CoursesCubit.get(context).specificLesson;
+
+          // Show loading if data is null
+          if (specificLesson?.data == null) {
+            return Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(currentState['backgroundImage']),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: MyLoadingIndicator(
+                  height: height * .4,
+                  color: Colors.deepPurple,
+                ),
+              ),
+            );
+          }
+
+          // Once data is available, format the date
+          final DateTime dateTime = DateTime.parse(specificLesson!.data!.createdAt!);
+          final String formattedDateTime = DateFormat('yyyy-MM-dd hh:mm a').format(dateTime);
+
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(currentState['backgroundImage']),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Video Player
+                  if (specificLesson.data?.video?.publicId != null)
+                    SizedBox(
+                      height: height * .3,
+                      child: VideoWidget(
+                        id: specificLesson.data!.video!.publicId.toString(),
+                      ),
                     ),
-                  ),
-                  child: SingleChildScrollView(
+                  const SizedBox(height: 20),
+
+                  // Lesson Details
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Video Player
-                        SizedBox(
-                          height: height * .3,
-                          child: VideoWidget(
-                            id: CoursesCubit.get(context)
-                                .specificLesson!
-                                .data!
-                                .video!
-                                .publicId
-                                .toString(),
+                        Text(
+                          'Created: $formattedDateTime',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: width * .035,
+                            color: Colors.grey,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 15),
 
-                        // Lesson Details
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Created Date
-                              Text(
-                                'Created: ${formattedDateTime}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: width * .035,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              SizedBox(height: 15),
-
-                              // Course Details
-                              _buildDetailCard(
-                                  'Course Title',
-                                  CoursesCubit.get(context)
-                                      .specificLesson!
-                                      .data!
-                                      .course!
-                                      .title,
-                                  width,
-                                  context),
-                              SizedBox(height: 10),
-                              _buildDetailCard(
-                                  'Category',
-                                  CoursesCubit.get(context)
-                                      .specificLesson!
-                                      .data!
-                                      .course!
-                                      .category['title'],
-                                  width,
-                                  context),
-                              SizedBox(height: 10),
-
-                              // Video Details
-
-                              _buildImageCard(
-                                  'Video Thumbnail',
-                                  CoursesCubit.get(context)
-                                          .specificLesson!
-                                          .data!
-                                          .video
-                                          ?.thumbnail ??
-                                      '',
-                                  width,
-                                  context),
-                              SizedBox(height: 10),
-
-                              // Additional Resources
-                              _buildImageCard(
-                                  'Lesson Image',
-                                  CoursesCubit.get(context)
-                                          .specificLesson!
-                                          .data
-                                          ?.image ??
-                                      '',
-                                  width,
-                                  context),
-                              SizedBox(height: 10),
-                              _buildPdfCard(
-                                  'Attachment',
-                                  CoursesCubit.get(context)
-                                          .specificLesson!
-                                          .data!
-                                          .attachment ??
-                                      '',
-                                  width,
-                                  context),
-                            ],
-                          ),
+                        _buildDetailCard(
+                          'Course Title',
+                          specificLesson.data?.course?.title,
+                          width,
+                          context,
                         ),
+                        const SizedBox(height: 10),
+
+                        if (specificLesson.data?.course?.category != null)
+                          _buildDetailCard(
+                            'Category',
+                            specificLesson.data!.course!.category['title'],
+                            width,
+                            context,
+                          ),
+                        const SizedBox(height: 10),
+
+                        if (specificLesson.data?.video?.thumbnail != null)
+                          _buildImageCard(
+                            'Video Thumbnail',
+                            specificLesson.data!.video!.thumbnail,
+                            width,
+                            context,
+                          ),
+                        const SizedBox(height: 10),
+
+                        if (specificLesson.data?.image != null)
+                          _buildImageCard(
+                            'Lesson Image',
+                            specificLesson.data!.image,
+                            width,
+                            context,
+                          ),
+                        const SizedBox(height: 10),
+
+                        if (specificLesson.data?.attachment != null)
+                          _buildPdfCard(
+                            'Attachment',
+                            specificLesson.data!.attachment,
+                            width,
+                            context,
+                          ),
                       ],
                     ),
                   ),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(currentState['backgroundImage']),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Center(
-                    child: MyLoadingIndicator(
-                      height: height * .4,
-                      color: Colors.deepPurple,
-                    ),
-                  ),
-                );
+                ],
+              ),
+            ),
+          );
         },
       ),
     );
   }
+
+// Rest of the widget methods remain the same...
+}
 
   // Helper method to create consistent detail cards
   Widget _buildDetailCard(
@@ -311,4 +295,4 @@ class _CourseVideoScreenState extends State<CourseVideoScreen> {
       ),
     );
   }
-}
+

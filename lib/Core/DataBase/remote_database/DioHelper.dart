@@ -108,6 +108,25 @@ class DioHelper{
 
     );
   }
+  static Future<Response> postFile({
+    required String end_ponit,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? query,
+    FormData ? formData,
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-type': 'multipart/form-data',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio.post(
+      end_ponit,
+      data: formData ??data,
+      queryParameters: query,
+
+
+    );
+  }
   static Future<Response> put({
     required String end_ponit,
     Map<String, dynamic>? data,

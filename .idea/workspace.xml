@@ -5,10 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ad93f25-10a7-4935-8ed9-ec889105ab66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/view/Widgets/ThemeSettingsTile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/Model/Exercise Details Model/Exercise Details Model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Exercise/view/DetailsExercise/view/DetailsExercise.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Constant/Loading Indicator/Loading indecator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Constant/Loading Indicator/Loading indecator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/Local_database/cach_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/Local_database/cach_helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/DioHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/DataBase/remote_database/DioHelper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_state.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Core/Themes/Themes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/Register/view_model/regester_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/Register/view_model/regester_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Auth Feature/login/view_mode/login_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Auth Feature/login/view_mode/login_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/Intro Feature/onboarding/View/Widget/colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Home/View/HomeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Notification/View/Widget/Notification Tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/Change Theme/Change Theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/Change Theme/Change Theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/view/Settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Featrue/MainLayout/view/Settings/view/Settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/try.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/try.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -489,7 +512,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737931728290</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="handel advvertise error">
+      <option name="closed" value="true" />
+      <created>1738496167168</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1738496167168</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -504,7 +535,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handel Socket.IO" />
     <MESSAGE value="handel group chat logic" />
     <MESSAGE value="handel exercise advertise" />
     <MESSAGE value="handel Vitamins &amp; Supplement &#10;handel Vitamins &amp; Supplement advertise" />
@@ -529,19 +559,20 @@
     <MESSAGE value="handel Notification Themes" />
     <MESSAGE value="handel Meals Themes" />
     <MESSAGE value="handel exercise UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="handel exercise UI" />
+    <MESSAGE value="handel advvertise error" />
+    <option name="LAST_COMMIT_MESSAGE" value="handel advvertise error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/main.dart</url>
-          <line>46</line>
+          <line>44</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>57</line>
+          <line>58</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -551,17 +582,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>97</line>
+          <line>98</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/MainLayOut.dart</url>
-          <line>121</line>
+          <line>122</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/View Model/chat_cubit.dart</url>
-          <line>470</line>
+          <line>487</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="Dart">
@@ -638,6 +669,11 @@
           <url>file://$PROJECT_DIR$/lib/Featrue/MainLayout/view/Chat Feature/Model/Send Message Model/Send Message Model.dart</url>
           <line>47</line>
           <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/Core/Themes/Themes Cubit/themes_cubit.dart</url>
+          <line>43</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

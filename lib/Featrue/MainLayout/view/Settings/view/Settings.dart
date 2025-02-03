@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/ChangePassword/view/ChangePassword.dart';
 import 'package:lsfitness/Featrue/MainLayout/view/Profile/EditProfile/View/EditProfile.dart';
@@ -13,6 +14,7 @@ import 'package:lsfitness/Core/Themes/Themes.dart';
 import '../../../../../Core/Themes/Themes Cubit/themes_cubit.dart';
 
 import '../Change Theme/Change Theme.dart';
+import 'Widgets/ThemeSettingsTile.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -20,25 +22,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   late bool isDarkMode;
+  late bool isMan;
 
-  @override
-  void initState() {
-    super.initState();
-    // التحقق من نوع الـ Theme الحالي وتحديد قيمة isDarkMode
-    isDarkMode = ThemesCubit.get(context).currentTheme == ThemesClass.manDarkTheme;
-  }
 
-  void _toggleTheme() {
-    setState(() {
-      isDarkMode = !isDarkMode;
-    });
-    ThemesCubit.get(context).changeTheme(
-      newTheme: isDarkMode ? ThemesClass.manDarkTheme : ThemesClass.manLightTheme,
-      newBackgroundImage: isDarkMode ? 'assets/images/77.jpg' : 'assets/images/7.jpg',
-    );
-  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
@@ -47,7 +35,6 @@ class _SettingsPageState extends State<SettingsPage> {
     final currentState = context.watch<ThemesCubit>().state;
 
     return Scaffold(
-
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -61,7 +48,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           child: ListView(
             children: [
-
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -70,13 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     icon: Icon(
                       Icons.arrow_back,
                     ),
-                  )
-                  ,
-                  Text(
-                    "    Settings",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge
                   ),
+                  Text("    Settings",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge),
                 ],
               ),
               SizedBox(
@@ -105,26 +88,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 label: 'Steps Counter',
                 onTap: () => _navigateToPage(context, StepCounterPage()),
               ),
+              ThemeSettingsTile(),
 
-              ListTile(
-                leading:  Icon(
-                  isDarkMode
-                      ? Iconsax.moon4
-                      : Iconsax.sun_1,
-                  size: width * 0.08,
-                ),
-                style:  ListTileStyle.drawer,
-                title: Text(
-                  'Theme',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                trailing: Switch(
-                  value: isDarkMode,
-                  onChanged: (value) {
-                    _toggleTheme();
-                  },
-                ),
-              ),
+
               _buildSettingsItemWithButton(
                 context,
                 icon: Icons.edit,
@@ -150,9 +116,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 label: 'Privacy And Policy',
                 onTap: () => _navigateToPage(context, PrivacyAndPolicey()),
               ),
-
-
-
             ],
           ),
         ),
@@ -167,12 +130,10 @@ class _SettingsPageState extends State<SettingsPage> {
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
         leading: Icon(icon, size: width * 0.08),
-        title: Text(
-          label,
-          style: Theme.of(context).textTheme.bodyLarge
+        title: Text(label, style: Theme.of(context).textTheme.bodyLarge),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
         ),
-        trailing: Icon(Icons.arrow_forward_ios,
-            ),
         onTap: onTap,
         tileColor: Colors.grey.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -190,16 +151,10 @@ class _SettingsPageState extends State<SettingsPage> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: Icon(icon,  size: width * 0.08),
-        title: Text(
-          label,
-          style: Theme.of(context).textTheme.bodyLarge
-        ),
+        leading: Icon(icon, size: width * 0.08),
+        title: Text(label, style: Theme.of(context).textTheme.bodyLarge),
         subtitle: description != null
-            ? Text(
-                description,
-                style: Theme.of(context).textTheme.bodyLarge
-              )
+            ? Text(description, style: Theme.of(context).textTheme.bodyLarge)
             : null,
         trailing: ElevatedButton(
           onPressed: onTap,
@@ -209,12 +164,11 @@ class _SettingsPageState extends State<SettingsPage> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
-          child: Text(
-            buttonLabel!,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 15
-            )
-          ),
+          child: Text(buttonLabel!,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(fontSize: 15)),
         ),
         tileColor: Colors.grey.withOpacity(0.1),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

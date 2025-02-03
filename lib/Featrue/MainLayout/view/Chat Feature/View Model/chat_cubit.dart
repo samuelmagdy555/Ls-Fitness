@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -275,67 +276,83 @@ if (replayMessageModel != null){
     String? message,
     required String receiverId,
     required bool isGroup,
-    required List<File> files, // List of files (images, PDFs, Word documents)
+    required List<File> files,
     List<Participants>? participants,
   }) async {
     try {
-      // Create media data
-      List<Map<String, dynamic>> mediaData = [];
+      // Create FormData instance
+      FormData formData = FormData();
 
-      for (var file in files) {
-        String fileName = file.path.split('/').last;
-
-        String fileUrl =
-            await uploadFile(file); // Implement this function for uploading
-
-        mediaData.add({
-          'fileName': fileName,
-          'url': fileUrl,
-        });
+      // Add text message if exists
+      if (message != null && message.isNotEmpty) {
+        formData.fields.add(MapEntry('text', message));
       }
 
-      // Send message with text and media
-      final response = await DioHelper.post(
-        end_ponit: '${EndPoints.messages}/$chatID',
-        token: LoginCubit.loginModel?.token ?? LoginCubit.token,
-        data: {
-          'text': message ?? '',
-          'media': mediaData,
-        },
+      // Add files
+      for (int i = 0; i < files.length; i++) {
+        String fileName = files[i].path.split('/').last;
+        formData.files.add(
+          MapEntry(
+            'media',
+            await MultipartFile.fromFile(
+              files[i].path,
+              filename: fileName,
+            ),
+          ),
+        );
+      }
+
+      // Send request with FormData
+      final response = await DioHelper.dio.post(
+        '${EndPoints.messages}/$chatID',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${LoginCubit.loginModel?.token ?? LoginCubit.token}',
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
       );
 
       print('=========================>Api Request Sent Successfully');
       sendMessageModel = SendMessageModel.fromJson(response.data);
 
       Chats chat = Chats(
-          id: sendMessageModel!.id,
-          chat: sendMessageModel!.chat,
-          sender: Sender(id: LoginCubit.id, username: LoginCubit.name),
-          text: message ?? '',
-          media: sendMessageModel?.media!,
-          reactions: [],
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString());
+        id: sendMessageModel!.id,
+        chat: sendMessageModel!.chat,
+        sender: Sender(
+            id: LoginCubit.id,
+            username: LoginCubit.name
+        ),
+        text: message ?? '',
+        media: sendMessageModel?.media!,
+        reactions: [],
+        createdAt: DateTime.now().toString(),
+        updatedAt: DateTime.now().toString(),
+      );
 
       print('Chat is =========================> $chat');
       myChats.add(chat);
       print('=========================> Chat Added Successfully');
       emit(AddImageToChat());
+
       List<String> media = [];
       for (var element in sendMessageModel!.media!) {
         media.add(element.url!);
       }
+
       sendPrivateMessage(
           senderId: LoginCubit.id,
           receiverId: receiverId,
           text: '',
           media: media,
           ownMessageName: LoginCubit.name,
-          messageID: sendMessageModel!.id!);
+          messageID: sendMessageModel!.id!
+      );
 
       getHomeChats();
-
       emit(SendMessageSuccess());
+
     } catch (e) {
       print(e.toString());
       emit(SendMessageError());

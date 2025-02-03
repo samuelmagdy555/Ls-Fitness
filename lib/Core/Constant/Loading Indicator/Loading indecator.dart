@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../Themes/Themes Cubit/themes_cubit.dart';
 
 class MyLoadingIndicator extends StatelessWidget {
   final double height;
@@ -9,10 +12,13 @@ class MyLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentState = context
+        .watch<ThemesCubit>()
+        .state;
     return AnimatedLoadingJumpingDots(
       numberOfDots: 3,
       jumpingHeight: height * .0275,
-      color: color,
+      color: Theme.of(context).secondaryHeaderColor,
       speed: const Duration(milliseconds: 500),
     );
   }

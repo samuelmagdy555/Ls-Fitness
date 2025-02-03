@@ -74,14 +74,14 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
  static  Future<void> setUserData() async {
-    email = await CashHelper.getFromCash(key: 'email');
-    id = await CashHelper.getFromCash(key: 'id');
-    name = await CashHelper.getFromCash(key: 'name');
-    token = await CashHelper.getFromCash(key: 'token');
-    isVerified = await CashHelper.getBoolFromCash(key: 'isVerfied');
+    email = await CashHelper.getFromCash(key: 'email')??'';
+    id = await CashHelper.getFromCash(key: 'id')??'';
+    name = await CashHelper.getFromCash(key: 'name')??'';
+    token = await CashHelper.getFromCash(key: 'token')??'';
+    isVerified = await CashHelper.getBoolFromCash(key: 'isVerfied')??false;
     print(token);
-    isOAuth = await CashHelper.getBoolFromCash(key: 'isOAuthUser');
-    role = await CashHelper.getFromCash(key: 'role');
+    isOAuth = await CashHelper.getBoolFromCash(key: 'isOAuthUser')??false;
+    role = await CashHelper.getFromCash(key: 'role')??'';
 
   }
 

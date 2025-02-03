@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:lsfitness/Core/DataBase/Local_database/cach_helper.dart';
 import 'package:lsfitness/Core/DataBase/remote_database/EndPoints.dart';
 import 'package:lsfitness/Featrue/Auth%20Feature/login/view_mode/login_cubit.dart';
 import 'package:lsfitness/Featrue/Intro%20Feature/onboarding/View/Widget/colors.dart';
@@ -59,12 +60,12 @@ class _MainLayoutState extends State<MainLayout> {
   void initState() {
     super.initState();
 
-    print('before connect ${LoginCubit.id}');
-    print('after connect ${LoginCubit.id}');
-
-    print('sseUrl $sseUrl');
-    print('headers $headers');
-    NotificationCubit.get(context).connectToServer(sseUrl, headers);
+    // print('before connect ${LoginCubit.id}');
+    // print('after connect ${LoginCubit.id}');
+    //
+    // print('sseUrl $sseUrl');
+    // print('headers $headers');
+    // NotificationCubit.get(context).connectToServer(sseUrl, headers);
   }
 
   @override
@@ -95,7 +96,7 @@ class _MainLayoutState extends State<MainLayout> {
                 return LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Theme.of(context).primaryColor],
+                  colors: [Colors.transparent, Colors.transparent],
                 ).createShader(bounds);
               },
               blendMode: BlendMode.dstOut,
@@ -119,8 +120,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/home.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/home.png')) : const Image(
+                            image: AssetImage('assets/images/home.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -129,8 +132,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/dumbbell.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/dumbbell.png')) : const Image(
+                            image: AssetImage('assets/images/dumbbell.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -139,8 +144,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/protein (1).png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/protein (1).png')) : const Image(
+                            image: AssetImage('assets/images/protein.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -149,8 +156,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/notebook.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const  Image(
+                          image: AssetImage('assets/images/notebook.png')) : const  Image(
+                            image: AssetImage('assets/images/notebook.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -179,8 +188,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/woman.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/woman.png')) : const Image(
+                            image: AssetImage('assets/images/man.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -189,8 +200,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/food.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/food.png')) : const Image(
+                            image: AssetImage('assets/images/food.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -199,8 +212,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/calculator.png')),
+                      child:  CashHelper.getBoolFromCash(key: 'isMan') ==true ?const Image(
+                          image: AssetImage('assets/images/calculator.png')) : const Image(
+                            image: AssetImage('assets/images/calculator.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -209,8 +224,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/camera.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/camera.png')) : const Image(
+                            image: AssetImage('assets/images/camera.png2.png'),
+                          ),
                     ),
                   ),
                   _buildTabItem(
@@ -219,8 +236,10 @@ class _MainLayoutState extends State<MainLayout> {
                     path: SizedBox(
                       height: height * .03,
                       width: width * .11,
-                      child: const Image(
-                          image: AssetImage('assets/images/alarm.png')),
+                      child: CashHelper.getBoolFromCash(key: 'isMan') ==true ? const Image(
+                          image: AssetImage('assets/images/alarm.png')) : const Image(
+                            image: AssetImage('assets/images/alarm.png2.png'),
+                          ),
                     ),
                   ),
                 ],
@@ -253,8 +272,8 @@ class _MainLayoutState extends State<MainLayout> {
           Text(label,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: isSelected
-                        ? Theme.of(context).focusColor
-                        : Theme.of(context).focusColor.withOpacity(.5),
+                        ? Theme.of(context).secondaryHeaderColor
+                        : Theme.of(context).secondaryHeaderColor.withOpacity(.5),
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   )),

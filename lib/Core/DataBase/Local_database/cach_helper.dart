@@ -10,14 +10,14 @@ class CashHelper {
 
   static getUserInfo()async{
 
-    LoginCubit.email = await CashHelper.getFromCash(key: 'email');
-    LoginCubit.id = await CashHelper.getFromCash(key: 'id');
-    LoginCubit.name = await CashHelper.getFromCash(key: 'name');
+    LoginCubit.email = await CashHelper.getFromCash(key: 'email') ?? '';
+    LoginCubit.id = await CashHelper.getFromCash(key: 'id')??'';
+    LoginCubit.name = await CashHelper.getFromCash(key: 'name')??'';
     LoginCubit.token = await CashHelper.getFromCash(key: 'token');
-    LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied');
-    LoginCubit.phone = await CashHelper.getFromCash(key: 'phone');
-    LoginCubit.isOAuth = await CashHelper.getBoolFromCash(key:'isOAuthUser');
-    LoginCubit.role = await CashHelper.getFromCash(key: 'role');
+    LoginCubit.isVerified = await CashHelper.getBoolFromCash(key:'isVerfied') ?? false;
+    LoginCubit.phone = await CashHelper.getFromCash(key: 'phone')??'';
+    LoginCubit.isOAuth = await CashHelper.getBoolFromCash(key:'isOAuthUser') ?? false;
+    LoginCubit.role = await CashHelper.getFromCash(key: 'role')??'';
 
     print('token ${LoginCubit.token}');
      
@@ -41,11 +41,11 @@ class CashHelper {
     return await sharedPreferences.setBool(key, value);
   }
 
-  static Future<String> getFromCash({required String key}) async {
+  static Future<String>? getFromCash({required String key}) async {
     return sharedPreferences.getString(key) ?? '';
   }
 
-  static Future<bool> getBoolFromCash({required String key}) async {
+  static Future<bool>? getBoolFromCash({required String key}) async {
     return sharedPreferences.getBool(key) ?? false;
   }
 
