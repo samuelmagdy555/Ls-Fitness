@@ -17,20 +17,28 @@ class ThemesCubit extends Cubit<Map<String, dynamic>> {
     'isMan': true,
     'isDark': true,
   }) {
+    initTheme();
   }
 
   Future<void> initTheme() async {
+    print('init theme');
     final bool isMan = await CashHelper.getBoolFromCash(key: KEY_IS_MAN) ?? true;
     final bool isDark = await CashHelper.getBoolFromCash(key: KEY_IS_DARK) ?? true;
+    print(isMan);
+    print('isMannnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+     print(isDark);
+     print("isDarkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
     final String backgroundImage =
         await CashHelper.getFromCash(key: KEY_BACKGROUND) ?? 'assets/images/77.jpg';
-
+    print('backgroundImageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     ThemeData theme;
     if (isMan) {
       theme = isDark ? ThemesClass.manDarkTheme : ThemesClass.manLightTheme;
     } else {
       theme = isDark ? ThemesClass.WomanDarkTheme : ThemesClass.WomanLightTheme;
     }
+    print( theme.primaryColor);
 
     emit({
       'theme': theme,
